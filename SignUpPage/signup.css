@@ -80,7 +80,7 @@ form .input-class .fa-eye-slash{
 
 form .label{
     text-align: center;
-    font-size: 20px;
+    font-size: 30px;
     justify-content: center;
     
     margin-top: 25px;
@@ -117,8 +117,8 @@ form .category-selector .category{
 }
 
 .category > input:checked{
-    border: 1px solid #b92639;
-    background-color:  #b92639;
+    border: 1px solid #d26676;
+    background-color:  #d26676;
 }
 
 .category > label{
