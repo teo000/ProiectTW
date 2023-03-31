@@ -1,86 +1,257 @@
 *{
-    padding : 0;
-    margin : 0;
-    box-sizing : border-box;
-
+    margin:0px;
+    padding:0px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 100;
+    box-sizing: border-box;
 }
-.container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
 body{
-    height: 100vh;
+    display: flex;
+    flex-direction: column;
     background: linear-gradient(0deg,#ffafbd,#ffc3a0);
 }
 
-.container nav{
-    margin-top: 20px;
-    padding : 2% 6%;
-    height: 10vh;
-    width:70%;
-    border-radius:50px;
+#wrapper-div{
+    display:flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100px;
+    background: linear-gradient(0deg,#ffafbd,#ffc3a0);
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+}
+
+#navigation-div{
+    display: flex;
+    flex-direction: row;
+    width: 70%;
+    min-height: 50px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1vh;
+}
+
+#navigation-div nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 3vh;
+    width: 70%;
+
+    overflow:auto;
     background-color: #cf4d5c;
-    position:absolute;
+    line-height: 4vh;
+    border-radius: 50px;
+    position: fixed;
 }
 
-.container nav h1 img{
-    height: 50px;
-    width:  50px;
-    float:left !important;
+#navigation-div .logo img{
+    margin-left : 4vh;
+    margin-top:1vh;
+    border-radius: 50px;
+    height: 5vh;
+    width:  5vh;
 }
 
-.container nav a{
-    display: block;
-    align-content: space-between;
-    text-align: center;
-    padding: 5px 40px;
-    position: relative;
-    float: left;
-
-    color:#fff;
-    text-decoration: none;
-    font-size: 30px;
+#navigation-div .active{
+    font-size: 1.3vw;
     font-family: 'Lato', sans-serif;
     font-weight: 100;
+
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    margin-left: 3vw;
+    padding: 18px 20px;
+    text-decoration: none;
+    color: white;
 }
-/*.menu-links ul li::after{*/
-/*    content : ' ';*/
-/*    width: 0%;*/
-/*    height: 2px;*/
-/*    background: #ffc3a0;*/
-/*    display: block;*/
-/*    margin: auto;*/
 
-/*}*/
+#navigation-div .dropdown-categories{
+    display: none;
+    position: fixed;
+    background-color: #ffc3a0;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
 
- nav a:hover::after{
-    content : ' ';
-    width: 100%;
-    height: 2px;
-    background: #ffc3a0;
+#navigation-div .dropdown-categories a:hover{
+    font-weight: bold;
+}
+
+#navigation-div .dropdown-categories a{
+    float: none;
+    padding: 12px 16px;
+    text-decoration: none;
     display: block;
-    margin: auto;
-
-}
- .search input[type = text]{
-     float:right;
-    border-radius:30px;
-    width : 25%;
-    height:auto;
-
     text-align: left;
-    text-indent:10px;
-     font-size: 20px;
+    color: #cf4d5c;
+    font-weight: 500;
+    font-size: 1vw;
 }
 
- .search button{
-    background-color: #cf4d5c;
-    float: right;
-    padding:5px 10px;
-    margin-right: 16px;
-    font-size:12px;
+#navigation-div .dropdown .dropDownButton{
+    font-size: 1.3vw;
+    font-family:'Lato', sans-serif;
+    font-weight: 100;
+    outline:none;
+    color:white;
     border: none;
+    background-color: inherit;
+    padding: 18px 20px;
+    margin: 0;
+    text-align: center;
+    alignment-baseline: center;
+}
+#navigation-div .dropdown:hover .dropdown-categories{
+    display: flex;
+    flex-direction: column;
+}
+
+#navigation-div .active:hover{
+    font-weight: bold;
+}
+#navigation-div .dropdown .dropDownButton:hover{
     cursor: pointer;
+    font-weight: bold;
+}
+
+
+#navigation-div input[type=text]{
+    justify-self: flex-end;
+    align-self: baseline;
+    padding: 0.5vw;
+    height: 4vh;
+    border : none;
+
+    width: 20%;
+    margin-top:1.5vh;
+    margin-right: 1vw;
+    border-radius: 20px;
+    outline: none;
+}
+
+#content-div{
+    display: flex;
+    flex-direction: row;
+    width:100%;
+    min-height: 100vh;
+    background-color: #b92639;
+    margin-top: 1vh;
+}
+
+/*#clasament-div{
+    display: flex;
+    flex-direction: column;
+    flex-basis: 20%;
+    background-color: #cf4d5c;
+    align-items: center;
+    margin-top: 10vh;
+    margin-bottom: 30vh;
+    margin-left:2vw;
+    border-radius: 50px;
+    position: fixed;
+    overflow: hidden;
+}
+*/
+#clasament-div{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    overflow-y: scroll;
+    overflow-x: scroll;
+
+    width: 30rem;
+    height: 30rem;
+    background-color: #cf4d5c;
+
+    margin-top: 5rem;
+    margin-left: 2rem;
+    border-radius: 50px;
+    position: fixed;
+}
+#clasament-div nav{
+    display: flex;
+    flex-direction: column;
+    margin-top: 1vh;
+    justify-content: center;
+
+
+}
+
+#clasament-div  h1{
+    margin-top: 6vh;
+    display: flex;
+    font-size: 1.3vw;
+    font-family: 'Lato', sans-serif;
+    font-weight: 100;
+    color: white;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#clasament-div nav h2{
+    display: flex;
+    justify-content: center;
+    font-size: 1.3vw;
+    font-family: 'Lato', sans-serif;
+    font-weight: 100;
+    color: white;
+    padding: 1vh;
+}
+
+#clasament-div nav .author-names{
+    font-size:1vw;
+}
+#clasament-div nav .author-names:hover{
+    font-weight: bold;
+}
+#clasament-div nav .book-name:hover{
+    font-weight: bold;
+}
+#clasament-div nav ol{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3vw;
+    font-family: 'Lato', sans-serif;
+    font-weight: 100;
+    color: white;
+    padding: 1vh;
+
+}
+
+#clasament-div nav li a{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3vw;
+    font-family: 'Lato', sans-serif;
+    font-weight: 100;
+    color: white;
+    padding: 1vh;
+    text-align: center;
+    overflow-wrap:normal;
+    text-decoration: none;
+
+}
+#clasament-div nav h3{
+    display: flex;
+    font-size: 1vw;
+    font-family: 'Lato', sans-serif;
+    font-weight: 100;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    margin-left: 1vw;
+    margin-top: 5vh;
+    text-align: center;
 }

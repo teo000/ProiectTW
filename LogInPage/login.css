@@ -4,12 +4,12 @@
     box-sizing : border-box;
 }
 
-.container{
+.main-container{
     width: 100%;
     display: flex;
 }
 
-.container .div-form{
+.main-container .div-form{
     height: 100vh;
     width:60%;
     display: flex;
@@ -18,19 +18,19 @@
     flex-direction: column;
 }
 
-.container .div-form h1{
+.main-container .div-form h1{
     display: flex;
     align-items: center;
     font-size: 50px;
     margin-bottom: 50px;
 }
-.container .div-form h1 img{
+.main-container .div-form h1 img{
     height: 50px;
     width:  50px;
     align-self: center;
 }
 
-.container .div-form form{
+.main-container .div-form form{
     display:flex;
     flex-direction: column;
     width: 100%;
@@ -54,7 +54,7 @@ form .input-class input{
     padding:20px 70px;
     font-size: 18px;
 }
-.container .div-text{
+.main-container .div-text{
     height : 100vh;
     width: 40%;
     background: linear-gradient(170deg,#ffafbd,#ffc3a0);
@@ -63,13 +63,13 @@ form .input-class input{
     align-items: center;
     flex-direction: column;
 }
-.container .div-text h1{
+.main-container .div-text h1{
     font-size:40px;
     margin-bottom: 20px;
 }
 
 /* momentan nu am niciun p, dar daca vrem sa adaugam text sub welcome to boo, aici o sa vina*/
-.container .div-text p{
+.main-container .div-text p{
     margin: 0 auto;
     width: 60%;
     line-height: 2;

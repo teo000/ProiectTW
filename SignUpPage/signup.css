@@ -4,7 +4,7 @@
     box-sizing : border-box;
 }
 
-.container{
+.main-container{
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -23,14 +23,14 @@
     flex-direction: column;
 }
 
-.container .div-form h1{
+.main-container .div-form h1{
     display: flex;
     align-items: center;
     font-size: 50px;
     margin-bottom: 50px;
 }
 
-.container .div-form form{
+.main-container .div-form form{
     display:flex;
     flex-direction: column;
     width: 100%;
