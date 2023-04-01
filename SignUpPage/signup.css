@@ -4,7 +4,7 @@
     box-sizing : border-box;
 }
 
-.main-container{
+.container{
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -23,14 +23,14 @@
     flex-direction: column;
 }
 
-.main-container .div-form h1{
+.container .div-form h1{
     display: flex;
     align-items: center;
     font-size: 50px;
     margin-bottom: 50px;
 }
 
-.main-container .div-form form{
+.container .div-form form{
     display:flex;
     flex-direction: column;
     width: 100%;
@@ -82,13 +82,13 @@ form .label{
     text-align: center;
     font-size: 30px;
     justify-content: center;
-    
+
     margin-top: 25px;
     margin-bottom: 25px;
 }
 
 form .category-selector{
-    display:flex; 
+    display:flex;
     justify-content: center;
     align-items: center;
     flex-direction: row;
