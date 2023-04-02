@@ -191,9 +191,17 @@ z-index:1002;
     margin-right: 2vw;
 }
 
+.author a{
+    text-decoration: none;
+    color: rgb(46, 43, 43);
+}
+
+.author a:hover{
+    font-weight: bolder;
+}
 .description{
     font-family: 'Lato', sans-serif;
-    font-size: 15px;
+    font-size: 1vw;
     color: rgb(46, 43, 43);
     margin-top: 1vh;
     margin-left: 2vw;
