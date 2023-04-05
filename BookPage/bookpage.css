@@ -140,6 +140,8 @@ z-index:1002;
     outline: none;
 }
 
+
+
 #content-wrapper{
     display: flex;
     flex-direction: row; 
@@ -159,21 +161,21 @@ z-index:1002;
     margin-top: 10vh;
 }
 
-.book-cover{
+#book-cover{
     height: auto;
     max-width: 100%;
 } 
 
 #content-div{
     margin-top: 10vh;
-    height: 100vh;
+    height: 100%;
     width: 60%;
     background-color: white;
     border-radius: 50px;
     padding:20px;
 }
 
-.title{
+#title{
     font-family: 'Lato', sans-serif;
     font-weight: bold;
     font-size: 30px;
@@ -182,7 +184,7 @@ z-index:1002;
     margin-right: 2vw;
 }
 
-.author{
+#author{
     font-family: 'Lato', sans-serif;
     font-size: 25px;
     color: rgb(46, 43, 43);
@@ -191,7 +193,7 @@ z-index:1002;
     margin-right: 2vw;
 }
 
-.description{
+#description{
     font-family: 'Lato', sans-serif;
     font-size: 15px;
     color: rgb(46, 43, 43);
@@ -200,7 +202,7 @@ z-index:1002;
     margin-right: 2vw;
 }
 
-.star-rating{
+#adjustable-rating{
     display: flex;
     align-items: center;
     width: 250px;
@@ -210,11 +212,11 @@ z-index:1002;
     position: relative;
 }
 
-.star-rating input {
+#adjustable-rating input {
     display: none;
 }
 
-.star-rating > label{
+#adjustable-rating > label{
     width: 50px;
     height: 50px;
     font-family: Verdana;
@@ -223,17 +225,17 @@ z-index:1002;
     transition: 0.2s ease;
  }
 
-.star-rating label:hover{
+#adjustable-rating label:hover{
     color: orange;
     transition: 0.2s ease;
 }
 
-.star-rating label::before{
+#adjustable-rating label::before{
     content: '\2606';
     line-height: 26px;
 }
 
-.star-rating input:checked ~ label:before{
+#adjustable-rating input:checked ~ label:before{
     content: '\2605';
 }
 
@@ -267,19 +269,23 @@ z-index:1002;
     flex-direction: row;
 }
 
-.rating-box p{
-    font-size: 20;
-    margin-top: 23px;
+#book-description .rating-box p{
+    font-size: 20px;
+    margin-top: 20px;
     margin-left: 5px;
 }
 
 .preset-rating {
     position: relative;
-    margin-left: 2vw;
     vertical-align: middle;
     display: inline-block;
     color: #b1b1b1;
     overflow: hidden;
+}
+
+#book-description .preset-rating{
+    margin-left: 2vw;
+
 }
 
 .full-stars {
@@ -291,9 +297,14 @@ z-index:1002;
     color: #fde16d;
 }
 
-.empty-stars:before, .full-stars:before {
+#book-description .empty-stars:before, #book-description .full-stars:before {
     content:"\2605\2605\2605\2605\2605";
     font-size: 30pt;
+}
+
+.post-container .empty-stars:before, .post-container .full-stars:before {
+    content:"\2605\2605\2605\2605\2605";
+    font-size: 20pt;
 }
 
 .empty-stars:before {
@@ -329,7 +340,7 @@ z-index:1002;
     justify-content: space-between;
     margin-left: 2vw;
     margin-top: 1vh;
-    margin-bottom: 1vh;
+    margin-bottom: 2vh;
     font-size: 15px;
 }
 
@@ -343,7 +354,7 @@ z-index:1002;
     font-weight: bold;
 }
 
-.also-enjoyed{
+.sub-title{
     font-size: 20px;
     font-weight: bold;
     margin-left: 2vw;
@@ -356,7 +367,9 @@ z-index:1002;
     display: flex;
     flex-direction: row;
     margin-left: 2vw;
-    margin-bottom: 1vh;
+    margin-bottom: 2vh;
+    overflow-x: scroll;
+
 }
 
 .other-books .book{
@@ -379,4 +392,69 @@ z-index:1002;
 
 
 
+#feed-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.user-profile{
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+}
+.user-profile p {
+    margin-bottom:0;
+    font-weight:bold;
+    font-size:15px;
+    color:black;
+}
+.user-profile span{
+    font-size:10px ;
+}
+.post-container{
+
+    width:90%;
+    background-color:#ffb2b9; 
+    border-radius: 50px;
+    padding:20px;
+    color:#383838;
+    margin:20px 0;
+}
+
+.post-text{
+    color:#383838;
+    margin:15px 0;
+    font-size:12px;
+    font-weight: bolder;
+}
+
+.post-text .book-title{
+    color:#383838;
+    text-decoration: none;
+    font-style: italic;
+}
+
+.post-text .book-author, .genre{
+    color:#383838;
+}
+.post-text a:hover{
+    font-weight: bold;
+}
+
+.post-row{
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+}
+
+.activity-icons div i{
+    width: 18px;
+    margin-right: 2vw;
+    margin-left: 2vw;
+}
+
+.post-container .preset-rating{
+
+}
 
