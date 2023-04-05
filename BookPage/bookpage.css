@@ -195,7 +195,7 @@ z-index:1002;
 
 #description{
     font-family: 'Lato', sans-serif;
-    font-size: 1vw;
+    font-size: 15px;
     color: rgb(46, 43, 43);
     margin-top: 1vh;
     margin-left: 2vw;
@@ -452,9 +452,5 @@ z-index:1002;
     width: 18px;
     margin-right: 2vw;
     margin-left: 2vw;
-}
-
-.post-container .preset-rating{
-
 }
 
