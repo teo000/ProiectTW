@@ -4,16 +4,33 @@
     box-sizing : border-box;
 }
 
-.container {
-    resize:both;
+.main-container {
     display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100px;
+    background-color: orange;
+    /*resize:both;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
     justify-content: center;
+    flex-direction: column;*/
+
 }
-.container nav{
+.main-container .navigation{
+    width:70vw;
+    align-self: center;
+    background-color: violet;
+    text-align: center;
+}
+.main-container .navigation nav{
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     margin-top: 1vw;
-    width:70vw;
+
     overflow:auto;
     background-color: #cf4d5c;
     line-height: 4vh;
@@ -21,7 +38,7 @@
     position: fixed;
 }
 
-.container nav .active{
+.main-container .navigation nav .active{
     font-size: 1.3vw;
     font-family: 'Lato', sans-serif;
     font-weight: 100;
@@ -34,20 +51,20 @@
     text-decoration: none;
     color: white;
 }
-.container nav .logo img{
+.main-container .navigation nav .logo img{
     margin-left : 4vh;
     margin-top:1vh;
     border-radius: 50px;
     height: 5vh;
     width:  5vh;
 }
-nav .dropdown{
+.navigation nav .dropdown{
     overflow: hidden;
     display: flex;
     justify-content: space-between;
 }
 
-nav .dropdown .dropDownButton{
+.navigation nav .dropdown .dropDownButton{
     font-size: 1.3vw;
     font-family:'Lato', sans-serif;
     font-weight: 100;
@@ -60,7 +77,7 @@ nav .dropdown .dropDownButton{
     text-align: center;
     alignment-baseline: center;
 }
-nav .active:hover::after {
+.navigation nav .active:hover::after {
     content: ' ';
     width: 100%;
     height: 2px;
@@ -70,7 +87,7 @@ nav .active:hover::after {
 }
 /*ascuns by default*/
 
-nav .dropdown-categories{
+.navigation nav .dropdown-categories{
     display: none;
     position: fixed;
     background-color: #ffc3a0;
@@ -81,7 +98,7 @@ nav .dropdown-categories{
 
 /*in interiorul dropdownului*/
 
-nav .dropdown .dropdown-categories a{
+.navigation nav .dropdown .dropdown-categories a{
     float: none;
     padding: 12px 16px;
     text-decoration: none;
@@ -91,11 +108,11 @@ nav .dropdown .dropdown-categories a{
     font-weight: 500;
 }
 
-nav .dropdown .dropdown-categories a:hover{
+.navigation nav .dropdown .dropdown-categories a:hover{
     font-weight: bold;
 }
 
-nav .dropdown .dropDownButton:hover::after {
+.navigation nav .dropdown .dropDownButton:hover::after {
     content: ' ';
     width: 100%;
     height: 2px;
@@ -104,10 +121,10 @@ nav .dropdown .dropDownButton:hover::after {
     margin: auto;
 }
 
-nav .dropdown:hover .dropdown-categories{
+.navigation nav .dropdown:hover .dropdown-categories{
     display: block;
 }
-nav input[type = text]{
+.navigation nav input[type = text]{
     justify-self: flex-end;
     alignment: center;
     padding: 0.5vw;
@@ -121,20 +138,30 @@ nav input[type = text]{
     outline: none;
 }
 body{
+    display: flex;
     height: 100vh;
     background: linear-gradient(0deg,#ffafbd,#ffc3a0);
 }
 
 
-.container .clasament{
-    height:50vh;
-    width: 100vw;
+.main-container .content-div{
+    display:flex;
+    flex-direction: row;
+    width:100%;
+    min-height:400px;
+    background-color: red;
+    margin: auto;
+}
+
+.main-container .clasament{
+    height:100vh;
+    width: 10vw;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
-.container .clasament > *{
+.main-container .clasament > *{
     display: flex;
     flex-direction: column;
 }
