@@ -10,10 +10,13 @@
 </head>
 <body>
 
-    <!--de adaugat membrii + multe alte chestii-->
     <!--de adaugat si un previously read-->
     <!--de adaugat linkuri-->
     <!--optional: sa-ti marchezi progresul direct de aici-->
+    <!--sa poti sa dai minimize la chestile astea albe-->
+    <!--de aia sa poti sa lasi comentarii ca acuma doar le vezi-->
+    <!--sa poti sa iesi din grup-->
+    <!--si tb sa fac si gen varianta pt seful grupului de la pagaina asta-->
 
     <div id="wrapper-div">
         <div id="navigation-div">
@@ -84,6 +87,117 @@
 
                     </div>
                 </div>
+                <div class="members-wrapper">
+                    <h1>
+                        Members' progress:
+                    </h1>
+                    <hr>
+
+                    <table class="styled-table">
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Pages read</th>
+                                <th>Rating</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr >
+                                <td>Teodora</td>
+                                <td>235/538</td>
+                                <td>-</td>
+                            </tr>
+                            <tr class="active-row" >
+                                <td>Miruna</td>
+                                <td>DONE</td>
+                                <td>
+                                    <div class="preset-rating">
+                                        <div class="empty-stars"></div>
+                                        <div class="full-stars" style="width:100%"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="active-row" >
+                                <td>Casu</td>
+                                <td>DONE</td>
+                                <td>
+                                    <div class="preset-rating">
+                                        <div class="empty-stars"></div>
+                                        <div class="full-stars" style="width:80%"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr >
+                                <td>Rares</td>
+                                <td>102/538</td>
+                                <td>-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div id="feed-div">
+                    <h1>Discussion</h1>
+                    <hr>
+                    <div class="post-container">
+                        <!--aici putem pune poza userului-->
+
+                        <div class="user-profile">
+                            <p>Miruna</p>
+                            <span>April 1 2023, 14:48 </span>
+                        </div>
+        
+                        <div class="rating-box">
+                            <div class="preset-rating">
+                                <div class="empty-stars"></div>
+                                <div class="full-stars" style="width:100%"></div>
+                            </div>
+                        </div>
+
+                        <p class="post-text">I Rated <a href="#" class="book-title">Pride and Prejudice</a> by <a
+                                href="#" class="book-author">Jane Austen</a> 5 stars!
+                        </p>
+        
+                        <div class="post-row">
+                            <div class="activity-icons">
+                                <div>
+                                    <i class="fa-regular fa-heart">15</i>
+                                    <i class="fa-regular fa-comment">0</i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="post-container">
+                        <!--aici putem pune poza userului-->
+                    
+                        <div class="user-profile">
+                            <p>Teodora</p>
+                            <span>April 1 2023, 15:1 </span>
+                        </div>
+                        
+                        <div class="rating-box">
+                            <div class="preset-rating">
+                                <div class="empty-stars"></div>
+                                <div class="full-stars" style="width:80%"></div>
+                            </div>
+                        </div>
+
+                        <p class="post-text">I Rated <a href="#" class="book-title">Pride and Prejudice</a> by <a
+                                href="#" class="book-author">Jane Austen</a> 4 stars!
+                        </p>
+        
+                        <div class="post-row">
+                            <div class="activity-icons">
+                                <div>
+                                    <i class="fa-regular fa-heart">15</i>
+                                    <i class="fa-regular fa-comment">0</i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
 
             </div>
         </div>
