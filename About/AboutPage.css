@@ -92,7 +92,7 @@ body{
     color: #cf4d5c;
     font-weight: 500;
     font-size: 15px;
-    z-index:10001;
+    z-index:1000;
 }
 .hamburger-double-dropdown {
     display: none;
@@ -173,6 +173,7 @@ body{
     padding: 18px 20px;
     text-decoration: none;
     color: white;
+    z-index: 1000;
 }
 .dropdown {
     display: flex;
@@ -357,9 +358,20 @@ article p{
         margin-top:12vh;
     }
 }
-@media(max-width:500px){
-    .buttons .active{
+@media(max-width:550px){
+    .buttons {
         display: none;
+    }
+    .toggle-button{
+        display: flex;
+    }
+    .hoverable:hover .hamburger-double-dropdown{
+        display: flex;
+        flex-direction: column;
+        z-index:1005;
+        margin-top:-4vh;
+        position: absolute;
+        right:28vw;
     }
 }
 @media(max-height: 400px){
@@ -392,5 +404,13 @@ article p{
 
     input {
         display: none;
+    }
+    .hoverable:hover .hamburger-double-dropdown{
+        display: flex;
+        flex-direction: column;
+        z-index:1002;
+        margin-top:-4vh;
+        position: absolute;
+        right:45vw;
     }
 }
