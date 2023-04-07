@@ -203,12 +203,21 @@
                     <div class="post-row">
                         <div class="activity-icons">
                             <div>
-                                <i class="fa-regular fa-heart">15</i>
-                                <i class="fa-regular fa-comment">0</i>
+                                <i class="fa-regular fa-heart toggle-heart">15</i>
+                                <i class="fa-regular fa-comment toggle-comment">0</i>
                             </div>
                         </div>
                     </div>
+                    <article class="comment-section">
+
+                        <div class="add-comment">
+                            <input class="comment-input" type="text" placeholder="Write a comment...">
+                            <button class = "add-comment-button">Add Comment</button>
+                        </div>
+                    </article>
                 </div>
+
+
                 <div class="post-container">
                     <!--aici putem pune poza userului-->
                    
@@ -231,11 +240,26 @@
                     <div class="post-row">
                         <div class="activity-icons">
                             <div>
-                                <i class="fa-regular fa-heart">15</i>
-                                <i class="fa-regular fa-comment">0</i>
+                                <i class="fa-regular fa-heart toggle-heart">15</i>
+                                <i class="fa-regular fa-comment toggle-comment">1</i>
                             </div>
                         </div>
                     </div>
+
+                    <article class="comment-section">
+                        <div class="comment">
+                            <div class="user-profile">
+                                <p>Pau</p>
+                                <span>April 7 2023, 23:29 </span>
+                            </div>
+                            <p class="comment-text">Great read</p>
+                        </div>
+
+                        <div class="add-comment">
+                            <input class="comment-input" type="text" placeholder="Write a comment...">
+                            <button class = "add-comment-button">Add Comment</button>
+                        </div>
+                    </article>
                 </div>
             </div>
 
@@ -249,7 +273,7 @@
 
 
 <script src = "bookpage.js"></script>
-
+<script src="../Scripts/comments_and_likes.js"></script>
 
 </body>
 </html>

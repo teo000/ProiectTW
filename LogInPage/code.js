@@ -1,10 +1,4 @@
 
-//for some reason nu merge chestia asta
-//practic cand apas pe ochiul ala ar tb sa pot sa fac vizibil/nu textul
-//ayae
-
-//acuma merge sa fie vizibila parola da nu se schimba iconita cu ochiu
-//ayae
 const togglePassword = document.querySelector("#togglePassword");
 const password = document.querySelector("#password");
 
