@@ -356,9 +356,50 @@ article p{
         margin-top:12vh;
     }
 }
-@media(max-width:500px){
-    .buttons .active{
+@media(max-width: 900px){
+    #navigation-div .logo{
         display: none;
+    }
+    #navigation-div nav{
+        display: flex;
+        flex-direction: column-reverse;
+        width: 90%;
+        margin-top:1vh;
+        scrollbar-width: none;
+    }
+    #navigation-div nav #search-bar{
+        width: 50%;
+    }
+
+    #navigation-div nav #search-bar input{
+        width:100%;
+        margin-top:2vh;
+    }
+
+    #navigation-div .active:hover{
+        font-weight: normal;
+    }
+
+    #feed-div{
+        width: 90%;
+        margin-left:5vw;
+        margin-top:12vh;
+    }
+}
+@media(max-width:550px){
+    .buttons {
+        display: none;
+    }
+    .toggle-button{
+        display: flex;
+    }
+    .hoverable:hover .hamburger-double-dropdown{
+        display: flex;
+        flex-direction: column;
+        z-index:1005;
+        margin-top:-4vh;
+        position: absolute;
+        right:28vw;
     }
 }
 @media(max-height: 400px){
@@ -391,5 +432,13 @@ article p{
 
     input {
         display: none;
+    }
+    .hoverable:hover .hamburger-double-dropdown{
+        display: flex;
+        flex-direction: column;
+        z-index:1002;
+        margin-top:-4vh;
+        position: absolute;
+        right:40vw;
     }
 }
