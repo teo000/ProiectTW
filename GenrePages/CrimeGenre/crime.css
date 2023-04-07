@@ -179,6 +179,7 @@ body{
     display: flex;
     flex-direction: row;
     justify-self: baseline;
+    margin-left:3vw;
 }
 .dropdown-categories{
     display: none;
