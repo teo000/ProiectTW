@@ -9,15 +9,17 @@
 body {
     display: flex;
     flex-direction: column;
-    background: linear-gradient(0deg, #ffafbd, #ffc3a0);
+    background-image: linear-gradient(170deg,rgba(255, 175, 189, 0.5),rgba(255, 195, 160, 0.7)),url("../resources/images/wallpaper.jpg");
+    background-size: cover;
+    background-attachment: fixed;
 }
+
 
 #wrapper-div {
     display: flex;
     flex-direction: column;
     width: 100%;
     min-height: 100px;
-    background: linear-gradient(0deg, #ffafbd, #ffc3a0);
     margin: auto;
     align-items: center;
     justify-content: center;
@@ -278,7 +280,6 @@ body {
     flex-direction: row;
     width: 100%;
     min-height: 100vh;
-    background: linear-gradient(0deg, #ffafbd, #ffc3a0);
     margin-top: 1vh;
     align-content: center;
     z-index: 10;
@@ -309,6 +310,8 @@ body {
     background-color: white;
     border-radius: 50px;
     padding: 20px;
+    overflow-y: scroll;
+    scrollbar-width: none;
 }
 
 #title {
