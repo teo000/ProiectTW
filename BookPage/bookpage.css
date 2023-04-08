@@ -594,6 +594,7 @@ body {
     margin-right: 2vw;
     margin-left: 2vw;
 }
+
 .comment-section{
     display: none;
     flex-direction: column;

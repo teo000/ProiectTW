@@ -93,6 +93,9 @@
     </div>
 
     <div id = "content-wrapper">
+        <div id="buttons-container">
+            <button class="button">Delete Profile</button>
+        </div>
         <div id="content">
             <div id="top">
                 <img src="../resources/images/profile-picture.jpg" alt="profile picture">
@@ -124,8 +127,96 @@
 
                 </div>
             </div>
-            
+
+            <h2> Ratings and Reviews </h2> <hr>
+            <div id="feed-div">
+                <div class="post-container">
+                    <!--aici putem pune poza userului-->
+                    <div class="user-profile">
+                        <p>Teodora</p>
+                        <span>April 1 2023, 14:48 </span>
+                    </div>
+    
+                    <div class="rating-box">
+                        <div class="preset-rating">
+                            <div class="empty-stars"></div>
+                            <div class="full-stars" style="width:100%"></div>
+                        </div>
+                    </div>
+
+                    <p class="post-text">I Rated <a href="#" class="book-title">The Great Gatsby</a> by <a
+                            href="#" class="book-author">F. Scott Fitzgerald</a> 5 stars!
+                    </p>
+    
+                    <div class="post-row">
+                        <div class="activity-icons">
+                            <div>
+                                <i class="fa-regular fa-heart toggle-heart">15</i>
+                                <i class="fa-regular fa-comment toggle-comment">0</i>
+                            </div>
+                        </div>
+                    </div>
+                    <article class="comment-section">
+
+                        <div class="add-comment">
+                            <input class="comment-input" type="text" placeholder="Write a comment...">
+                            <button class = "add-comment-button">Add Comment</button>
+                        </div>
+                    </article>
+                </div>
+
+
+                <div class="post-container">
+                    <!--aici putem pune poza userului-->
+                   
+                    <div class="user-profile">
+                        <p>Teodora</p>
+                        <span>April 1 2023, 15:1 </span>
+                    </div>
+                    
+                    <div class="rating-box">
+                        <div class="preset-rating">
+                            <div class="empty-stars"></div>
+                            <div class="full-stars" style="width:80%"></div>
+                        </div>
+                    </div>
+
+                    <p class="post-text">I Rated <a href="#" class="book-title">Pride and Prejudice</a> by <a
+                            href="#" class="book-author">Jane Austen</a> 4 stars!
+                    </p>
+    
+                    <div class="post-row">
+                        <div class="activity-icons">
+                            <div>
+                                <i class="fa-regular fa-heart toggle-heart">15</i>
+                                <i class="fa-regular fa-comment toggle-comment">1</i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <article class="comment-section">
+                        <div class="comment">
+                            <div class="user-profile">
+                                <p>Pau</p>
+                                <span>April 7 2023, 23:29 </span>
+                            </div>
+                            <p class="comment-text">Great read</p>
+                        </div>
+
+                        <div class="add-comment">
+                            <input class="comment-input" type="text" placeholder="Write a comment...">
+                            <button class = "add-comment-button">Add Comment</button>
+                        </div>
+                    </article>
+                </div>
+            </div>
         </div>
+        
     </div>
+    <footer id = "main-footer">
+        <p>&copy Proiect realizat de Savin Miruna si Tudurache Teodora, 2023, Tehnologii Web</p>
+    </footer>
 </div>
-</body></html>
+<script src="../Scripts/comments_and_likes.js"></script>
+</body>
+</html>
