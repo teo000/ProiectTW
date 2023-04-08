@@ -7,6 +7,8 @@
 .container{
     width: 100%;
     display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .container .div-form{
@@ -130,4 +132,21 @@ form .span-register:hover a{
 button a {
     text-decoration: none;
     color:white;
+}
+
+@media(max-width:600px){
+     .container .div-text{
+        display: none;
+    }
+    .container .div-form{
+        display: flex;
+        align-items: center;
+        width:90vw;
+        align-self: center;
+    }
+    .container .input-class{
+        width: 90%;
+        align-self: center;
+        margin-left:10vw;
+    }
 }

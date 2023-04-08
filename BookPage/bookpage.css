@@ -290,6 +290,7 @@ body {
     flex-direction: column;
     align-items: center;
     margin-top: 10vh;
+    position:fixed;
 }
 
 #book-cover {
@@ -298,7 +299,11 @@ body {
 }
 
 #content-div {
+    display: flex;
+    flex-direction: column;
+
     margin-top: 10vh;
+    margin-left: 25vw;
     height: 100%;
     width: 60%;
     background-color: white;

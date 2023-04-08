@@ -3,10 +3,12 @@
     margin : 0;
     box-sizing : border-box;
 }
-
+body{
+    height: 100vh;
+}
 .container{
     width: 100vw;
-    height: 100vh;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,7 +16,7 @@
 }
 
 .div-form{
-    height: 90%;
+    height: fit-content;
     width: 60%;
     background: white;
     display: flex;
@@ -153,4 +155,49 @@ form .span-register a{
 }
 form .span-register:hover a{
     color: #b92639;
+}
+
+.final-stuff{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2vh;
+}
+
+@media(max-width:600px){
+
+    .container .div-form{
+        display: flex;
+        align-items: center;
+        width:90vw;
+        align-self: center;
+        justify-content: center;
+    }
+    .container  .div-form h1{
+       display: none;
+    }
+    .container .user, .container .password,.container .confirm-password{
+        width: 90%;
+        align-self: center;
+    }
+
+    .container .user{
+        margin-top: 10vh;
+    }
+    .container .div-form .label{
+        display: none;
+    }
+    .container .div-form .category-selector{
+        display: flex ;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .category-selector .category{
+        margin-left:10vw;
+    }
+
+    .container{
+        height: auto;
+    }
+
 }
