@@ -10,7 +10,7 @@ body {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    background-image: linear-gradient(170deg,rgba(255, 175, 189, 0.5),rgba(255, 195, 160, 0.7)),url("../resources/images/wallpaper.jpg");
+    background-image: linear-gradient(170deg,rgba(255, 175, 189, 0.5),rgba(255, 195, 160, 0.7)),url("../../resources/images/wallpaper.jpg");
     background-size: cover;
     background-attachment: fixed;
 }
@@ -286,17 +286,43 @@ body {
 }
 
 #content{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10vh;
+}
+
+#group-content{
     display: flex;
     flex-direction: column; 
-    align-content: center;
     height: fit-content;
     width: 90%;
-    margin-top: 10vh;
     background-color:#cf4d5c ;
     border-radius: 50px;
     padding:20px;
 }
 
+#remove button {
+    position: relative;
+    padding: 0.5em 1em;
+    border: 0;
+    border-radius: 0.5em;
+    background-color: darkred;
+    color: white;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    margin-bottom: 5vh;
+    font-size: 20px;
+}
+
+#remove button:hover{
+    background-color: red;
+}
+#remove button:active {
+    top: 2px;
+    left: 1px;
+    box-shadow: none;
+}
 
 .group-title{
     font-size: 30px;
@@ -371,7 +397,7 @@ body {
     margin-right: 2vw;
 }
 
-@media(max-width:600px){
+@media(max-width:800px){
     .book-summary{
         flex-direction: column;
         align-items: center;
@@ -661,6 +687,7 @@ body {
     width: fit-content;
     padding: 0.5vw;
 }
+
 @media (max-width: 900px) {
     #navigation-div .logo {
         display: none;
@@ -688,10 +715,8 @@ body {
     }
 
 
-    #content {
+    #group-content {
         width: 90%;
-        margin-left: 5vw;
-        margin-top: 12vh;
     }
 }
 

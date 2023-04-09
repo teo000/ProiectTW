@@ -9,16 +9,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 
     <!--linkul pentru fisierul css-->
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="adminlogin.css">
 
 </head>
 <body>
 <div class="container">
     <div class="div-form">
-        <h1>  <img src = "../resources/images/boo.png" alt="Ghost reading a book">
-            Hello!
-        </h1>
-
+        <div id="title">
+            <img src = "../../resources/images/boo.png" alt="Ghost reading a book"> 
+            <h1>  Login as admin</h1>
+        </div>
         <form action="" method="POST">
             <div class="input-class">
 
@@ -35,12 +35,13 @@
                 <i class="fa-sharp fa-solid fa-eye" id = "togglePassword"></i>
             </div>
             <button class="button"><a href = "../HomePage/homepage.html">Sign In</a> </button>
-            <span class="span-register">Don't have an account?<a href="../SignUpPage/signup.html"> Sign Up Now</a></span>
         </form>
-        <a class="link-admin" href="../SignUpPage/signup.html">Click here for admin page</a>
+
     </div>
+    
 </div>
-<script src = "code.js"></script>
+
+<script src = "adminlogin.js"></script>
 
 </body>
 </html>
