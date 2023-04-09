@@ -13,7 +13,7 @@ body{
 }
 
 .container{
-    background-image: linear-gradient(170deg,rgba(255, 175, 189, 0.25),rgba(255, 195, 160, 0.6)),url("../resources/images/wallpaper.jpg");
+    background-image: linear-gradient(170deg,rgba(255, 175, 189, 0.25),rgba(255, 195, 160, 0.6)),url("../../resources/images/wallpaper.jpg");
     background-size: cover;
     background-attachment: fixed;
     width: 100%;
@@ -35,19 +35,22 @@ body{
     flex-direction: column;
 }
 
-.container .div-form h1{
+#title{
     display: flex;
-    align-items: center;
+    flex-direction: row;
+    margin: 0 auto;
+}
+
+#title h1{
     font-size: 50px;
     margin-bottom: 50px;
-    margin-top: auto;
+    text-align: center;
 }
-.container .div-form h1 img{
+
+#title img{
+    margin-top: 5px;
     height: 50px;
     width:  50px;
-    align-self: center;
-    margin-top: auto;
-
 }
 
 .container .div-form form{
@@ -62,7 +65,7 @@ form .input-class{
     margin-bottom:30px;
     border-radius:50px;
     background-color: #ffafbd;
-    box-shadow: 10px 10px 10px #ffb8b1, -10px -10px 20px #ffb8b1;
+    box-shadow: 20px 20px 20px #ffb8b1, -10px -10px 20px #ffb8b1;
     position: relative;
 }
 form .input-class input{
@@ -124,8 +127,7 @@ form .button{
     font-size: 20px;
     width: 250px;
     margin:auto;
-    /*varianta pt culoare mai maro: a56808*/
-    background: #ffafbd;
+    background: #f18a99;
     padding :15px;
     border-radius: 50px;
     cursor: pointer;
@@ -165,7 +167,13 @@ button a {
     color: #b92639;
 }
 
-@media(max-width:600px){
+@media(max-width:850px){
+    .container .div-form{
+        width:90vw;
+    }
+}
+
+/* @media(max-width:600px){
      .container .div-text{
         display: none;
     }
@@ -175,9 +183,4 @@ button a {
         width:90vw;
         align-self: center;
     }
-    .container .input-class{
-        width: 90%;
-        align-self: center;
-        margin-left:10vw;
-    }
-}
+} */
