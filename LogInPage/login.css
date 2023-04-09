@@ -59,7 +59,7 @@ form .input-class{
     margin-bottom:30px;
     border-radius:50px;
     background-color: #ffafbd;
-    box-shadow: 20px 20px 20px #ffb8b1, -10px -10px 20px #ffb8b1;
+    box-shadow: 10px 10px 10px #ffb8b1, -10px -10px 20px #ffb8b1;
     position: relative;
 }
 form .input-class input{
@@ -121,7 +121,8 @@ form .button{
     font-size: 20px;
     width: 250px;
     margin:auto;
-    background: #f18a99;
+    /*varianta pt culoare mai maro: a56808*/
+    background: #ffafbd;
     padding :15px;
     border-radius: 50px;
     cursor: pointer;
