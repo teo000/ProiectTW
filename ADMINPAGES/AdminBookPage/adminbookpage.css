@@ -9,7 +9,7 @@
 body {
     display: flex;
     flex-direction: column;
-    background-image: linear-gradient(170deg,rgba(255, 175, 189, 0.5),rgba(255, 195, 160, 0.7)),url("../../resources/images/wallpaper.jpg");
+    background-image: linear-gradient(170deg,rgba(255, 175, 189, 0.5),rgba(255, 195, 160, 0.7)),url("../../client/resources/images/wallpaper.jpg");
     background-size: cover;
     background-attachment: fixed;
 }
@@ -304,7 +304,7 @@ body {
     flex-direction: column;
     margin-top: 10vh;
     margin-left: auto;
-    margin-right: 10vw;
+    margin-right: 13vw;
     height: 100%;
     width: 60%;
     background-color: white;
@@ -657,31 +657,6 @@ body {
 
 
 @media (max-width: 900px) {
-    #navigation-div .logo {
-        display: none;
-    }
-
-    #navigation-div nav {
-        display: flex;
-        flex-direction: column-reverse;
-        width: 90%;
-        margin-top: 1vh;
-        scrollbar-width: none;
-    }
-
-    #navigation-div nav #search-bar {
-        width: 50%;
-    }
-
-    #navigation-div nav #search-bar input {
-        width: 100%;
-        margin-top: 2vh;
-    }
-
-    #navigation-div .active:hover {
-        font-weight: normal;
-    }
-    
     #content-wrapper {
         flex-direction: column;
         align-items: center;
@@ -700,26 +675,7 @@ body {
 
 
 @media (max-width: 550px) {
-    .buttons .active {
-        display: none;
-    }
 
-    .dropDownButton {
-        display: none;
-    }
-
-    .toggle-button {
-        display: flex;
-    }
-
-    .hoverable:hover .hamburger-double-dropdown {
-        display: flex;
-        flex-direction: column;
-        z-index: 1005;
-        margin-top: -4vh;
-        position: absolute;
-        right: 28vw;
-    }
     #book-cover-div {
         width: 50%;
         position: relative;
@@ -727,43 +683,10 @@ body {
 
 }
 
-@media (max-height: 400px) {
-    #navigation-div #search-bar input {
-        display: none;
-    }
-}
 
 @media (max-width: 400px) {
-    #navigation-div {
-        margin-top: 3vh;
-    }
-
     #content-div {
         margin-top: -5vh;
     }
 
-    .toggle-button {
-        display: flex;
-    }
-
-    .buttons {
-        display: none;
-    }
-
-    .dropDownButton {
-        display: none;
-    }
-
-    input {
-        display: none;
-    }
-
-    .hoverable:hover .hamburger-double-dropdown {
-        display: flex;
-        flex-direction: column;
-        z-index: 1002;
-        margin-top: -4vh;
-        position: absolute;
-        right: 40vw;
-    }
 }
