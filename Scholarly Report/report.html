@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Reviewer</title>
+</head>
+<body prefix="schema: http://schema.org">
+    <header>
+        <h1>Book Reviewer</h1>
+    </header>
+    <div role="contentinfo">
+        <dl>
+            <dt>Authors</dt>
+            <dd>
+                Savin Miruna
+                &amp;
+                Tudurache Teodora-Otilia
+            </dd>
+            <dt>Repository</dt>
+            <dd>
+                <a href="https://github.com/teo000/ProiectTW">Private Github Repository</a>
+            </dd>
+        </dl>
+    </div>
+    <section id="introduction" role="doc-introduction">
+        <h2>1. Introduction</h2>
+            <section id="purpose">
+                <h3>1.1 Purpose</h3>
+                <p>
+                    This document should highlight the software requirements for the 
+                    <code>Web Technologies</code> course project entitled <code>Book Reviewer</code>.
+                </p>
+                <p>
+                    The website is a platform for book lovers, enabling users to connect, review, rate, and search for books 
+                    based on various criteria.
+                </p>
+            </section>
+            <section id="scope">
+                <h3>1.2 Product Scope</h3>
+                <p>
+                    This product is intended to be used by the general public in order to track their 
+                    reading progress and exchange opinions about books with either strangers or people from a 
+                    reading group. The website allows users to search for books based on different criteria 
+                    (genre, author, related books). In addition, the website generates various statistics such 
+                    as the most popular books or authors and provides regular updates which are available through 
+                    an RSS feed.
+                </p>
+            </section>
+    </section>
+    <section id="description">
+        <h2>2. Overall Description</h2>
+            <section id="functions">
+                <h3>2.1 Product Functions</h3>
+                    <p>
+                        The web application is expected to perform the following functionalities: 
+                    </p>
+                    <ul>
+                        <li>Login and registration forms. The registration form allows users to select their book preferences.</li>
+                        
+                        <li>Provide access to a book database providing various information and allows users to search for books 
+                            based on certain criteria.</li>
+                        <li>Provides a page for each book where users can see a description as well as other people's ratings and reviews.</li>
+
+                        <li>Allows users to provide ratings and reviews for books.</li>
+                        <li>Users will be able to like and comment on other people's book reviews.</li>
+
+                        <li>Users will be able to create and join reading groups in which members will read a certain book and give their updates
+                            on their progress.
+                        </li>
+
+                        <li>Each user will have a personalized news feed where he will get updates on popular books or the reviews of people 
+                            in the same groups as him.
+                        </li>
+                        <li>Users will be able to add books to one of three categories: "Read", "Currently Reading" and "Want to Read".  </li>
+                        <li>The admins will have access to statistics and will be able to delete user accounts and groups. </li>
+                        <li>The website generates and continuosly updates rankings for the top books overall and for each genre</li>
+                    </ul>
+            </section>
+            <section id="user-characteristics">
+                <h3>2.2 User Classes and Characteristics</h3>
+                <p>
+                    There are two main categories of users: 
+                </p>
+                <ol>                         
+                    <li> Standard users will have access to the following:
+                    <ul>
+                        <li>Login panel</li>
+                        <li>Register panel</li>
+                        <li>My Groups page</li>
+                        <li>My Books page</li>
+                        <li>Home feed</li>
+                        <li>Genre pages (books organized by categories)</li>
+                    </ul>
+                    </li>
+                    <li> Admins have access to all of the above plus the following: 
+                    <ul>
+                        <li>Can remove users and groups</li>
+                    </ul>
+                    </li>
+                </ol>
+            </section>
+            <section id="operating-environment">
+                    <h3>2.3 Operating Environment</h3>
+                    <p>The following technologies have been used. It is important to mention that no 
+                        frameworks have been used, according to the <code>Web Technologies</code> requirements.
+                    </p>
+                    <p>Front-end technologies: HTML, CSS, JavaScript</p>
+            </section>
+            <section id="Usage-manual">
+                    <h3>2.4 Usage Manual</h3>
+                    <ol>
+                        
+                        <li>Login/Register
+                        <p>
+                            When registering, users can set their preferences regarding book genres.
+                            Upon logging in, they will have access to all the website's functionalities.
+                        </p>
+                        </li>
+                        <li>Home Page
+                        <p>
+                            The home page provides the users with a news feed and a ranking of the most
+                            liked books on the website.
+                        </p>
+                        </li>
+                        <li>My Books
+                        <p>
+                            The users can see the books that they have previously added to their reading list;
+                        </p>
+                        </li>
+                        <li>Book Page
+                        <p>
+                            Users can see information on a certain book such as overall rating, description, genres and reviews,
+                            as well as add the book to one of their shelves.
+                        </p>
+                        </li>
+                        <li>Categories
+                        <p>
+                            Each genre page provides a list of all the books in that genre and a ranking of those books.
+                        </p>
+                        </li>
+                        <li>My Groups
+                        <p>
+                            The users can see the groups that they belong in as well as join and create others.
+                        </p>
+                        </li>
+                        <li>Group Page
+                        <p>
+                            Users can see information about a group such as what book the members are currently reading and their progress.
+                        </p>
+                        </li>
+                        <li>About
+                        <p>
+                            Users can see information about the website and its creators.
+                        </p>
+                        </li>
+                        <li>Help
+                        <p>
+                            Users can see answers to frequently asked questions.
+                        </p>
+                        </li>
+                    </ol>
+            </section>
+    </section>
+    <section id="Communication-interfaces">
+        <h2>3. Communication Interfaces</h2>
+        <ol>
+            <li>Registration
+                <p>This page allow the users to create an account. It contains:</p>
+                <ul>
+                    <li>Username field</li>
+                    <li>Password field</li>
+                    <li>Confirm password field</li>
+                    <li>Genre preferences</li>
+                    <li>Button to register</li>
+                </ul>
+                <img src="resources/signup.PNG" alt="signup photo"  height="500" />
+                </li>
+    
+                <li>Login
+                    <p>This page allows the user to log in. It contains:</p>
+                    <ul>
+                        <li>Username field</li>
+                        <li>Password field</li>
+                        <li>Button to log in</li>
+                    </ul>
+                    <img src="resources/login.PNG" alt="login photo" height="500"/>
+                </li>
+    
+                <li>Home page
+                    <p>Provides users with: 
+                        <ul>
+                            <li>News feed</li>
+                            <li>Ranking for all books</li>
+                        </ul>
+                    </p>
+                    <img src="resources/home.PNG" alt="home" height="500"/>
+                </li>
+    
+                <li>My Books
+                    <p>Provides users with: 
+                        <ul>
+                            <li>A list of the books in their shelves</li>
+                            <li>Filters to select certain books</li>
+                        </ul>
+                    </p>
+                    <img src="resources/my-books.PNG" alt="my-books" height="500"/>
+                </li>
+                <li>Book Page
+                    <p>Provides information about a book (cover, author, description, genre list) and the following:
+                        <ul>
+                            <li>Buttons to add a book to a certain shelf</li>
+                            <li>A list of similar books</li>
+                            <li>A review section</li>
+                        </ul>
+                    </p>
+                    <img src="resources/bookpage.PNG" alt="book" height="500"/>
+                </li>
+                <li> My Groups 
+                    <p>Provides a list of groups and buttons to create a new group or join an existing one.
+                    </p>
+                    <img src="resources/my-groups.PNG" alt="mygroups" height="500"/>
+                </li>
+                <li> Groups
+                    <p>Contains:
+                        <ul>
+                            <li>A description of the book being read</li>
+                            <li>A list of group members and their progress</li>
+                            <li>A review section</li>
+                        </ul>
+                    </p>
+                    <img src="resources/group.PNG" alt="group" height="500"/>
+                    <img src="resources/group2.PNG" alt="group2" height="500"/>
+                </li>
+        </ol>
+    </section>
+</body>
+</html>

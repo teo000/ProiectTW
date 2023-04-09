@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Technical Report</title>
+</head>
+<body prefix="schema: http://schema.org">
+<header>
+  <h1>Crisis Containment Service</h1>
+</header>
+<div role="contentinfo">
+  <dl>
+    <dt>Authors</dt>
+    <dd>
+      Lungu Andrei-Sebastian
+      &amp;
+      Iftimoaia Razvan-Stefan
+    </dd>
+    <dt>Repository</dt>
+    <dd>
+      <a href="https://github.com/MrAndreiL/Crisis-Containment-Service">Private Github Repository</a>
+    </dd>
+  </dl>
+</div>
+<section id="introduction" role="doc-introduction">
+  <h2>1. Introduction</h2>
+  <section id="purpose">
+    <h3>1.1 Purpose</h3>
+    <p>
+      This document should highlight the software requirements for the
+      <code>Web Technologies</code> course project entitled <code>Crisis Containemnt Service</code>.
+    </p>
+    <p>
+      This product is intended to be used by both the general public and authorities in order to
+      receive real-time information regarding earthquakes, floodings and fires and also provide escape routes
+      and social media feedback.
+    </p>
+  </section>
+  <section id="scope">
+    <h3>1.2 Product Scope</h3>
+    <p>
+      <code>Crisis-Containment-Service</code> is a real-time crisis management software product
+      that aims to provide its users with data regarding calamities (earthquakes, floods, fires) based
+      on their location but not limited to. This product should enrich quality of life by letting its users
+      know exactly what is going on in the world and how to avoid calamities. Authorities can also improve
+      their work using statistics provided by the software product.
+    </p>
+  </section>
+</section>
+<section id="description">
+  <h2>2. Overall Description</h2>
+  <section id="functions">
+    <h3>2.1 Product Functions</h3>
+    <p>
+      The web application is expected to perform the following functionalities:
+    </p>
+    <ul>
+      <li>Provide access to a real-time map on the Overview panel that displays which calamities are active.</li>
+      <li>Provide feedback based on the user's location.</li>
+      <li>Give access to <code>Log cards</code> that provide additional information such as the number of
+        affected people, the type of the calamity and a map snipped detailing the location.</li>
+      <li>A section page that previews a Twitter bot that alerts the population through social media.</li>
+      <li>Additionally, messages will be sent to the population in affected areas, providing them with information
+        regarding escape routes.</li>
+      <li>The authorities will have access to statistics and metrics.</li>
+      <li>Login and registration forms. Registration will only be available to authorities that have an
+        e-mail address aproved by the administrator.
+      </li>
+    </ul>
+    <p>
+      The following diagram should highlight the main functionality.
+    </p>
+    <img src="assets/mvclogin.png" alt="register photo"/>
+    <img src="assets/services.png" alt="register photo"/>
+  </section>
+  <section id="user-characteristics">
+    <h3>2.2 User Classes and Characteristics</h3>
+    <p>
+      There are three main categories of users:
+    </p>
+    <ol>
+      <li>Guest users has the following haracteristics:
+        <ul>
+          <li>Access to overview panel</li>
+          <li>Can interact with the map</li>
+          <li>Can interact with event log cards</li>
+          <li>Can view tweets</li>
+        </ul>
+      </li>
+      <li>Authorities have access to all of the above plus the following:
+        <ul>
+          <li>The Dashboard panel</li>
+          <li>Login panel</li>
+          <li>Register panel</li>
+        </ul>
+      </li>
+      <li>Admins have access to all of the above plus the following:
+        <ul>
+          <li>Can validate e-mail addresses for the authorities</li>
+        </ul>
+      </li>
+    </ol>
+  </section>
+  <section id="operating-environment">
+    <h3>2.3 Operating Environment</h3>
+    <p>The following technologies have been used. It is important to mention that no
+      frameworks have been used, according to the <code>Web Technologies</code> requirements.
+    </p>
+    <p>Front-end technologies: HTML, CSS, JavaScript</p>
+    <p>Back-end technologies: PHP, JavaScript</p>
+    <p>Database Management System: MySQL</p>
+    <p>Server-side development stack: XAMPP</p>
+    <p>APIs: </p>
+    <ul>
+      <li>USGS Earthquake Catalog</li>
+      <li>NOAA National Weather Service</li>
+      <li>Environment Agency Real Time Flood-Monitoring</li>
+      <li>Common Alerting Protocol</li>
+      <li>Twitter bot API</li>
+    </ul>
+  </section>
+  <section id="Usage-manual">
+    <h3>2.4 Usage Manual</h3>
+    <ol>
+      <li>Overview
+        <p>
+          Upon accessing the platform, you will be welcomed by the Overview panel, containing
+          the interactive map, a log section and another that displays the tweets. The interactive
+          map provides the user with the possibility of clicking on pop-ups cards that connects
+          with the logs. The logs update in real-time, allowing the user to scroll through them and
+          click on them, prompting a modal card containing additional information.
+        </p>
+      </li>
+      <li>Login/Register
+        <p>
+          Registration is available only to employees of guvernmental agencines for crisis management.
+          Upon logging in, you can have access to the Dashboard.
+        </p>
+      </li>
+      <li>Dashboard
+        <p>
+          The dashboard panel provides the users with statistics and metrics regarding calamities.
+        </p>
+      </li>
+    </ol>
+  </section>
+  <section id="dependencies">
+    <h3>2.5 Dependencies</h3>
+    <ul>
+      <li>XAMPP development stack</li>
+      <li>USGS Earthquake Catalog</li>
+      <li>NOAA National Weather Service</li>
+      <li>Environment Agency Real Time Flood-Monitoring</li>
+      <li>Common Alerting Protocol</li>
+      <li>Twitter bot API</li>
+    </ul>
+  </section>
+</section>
+<section id="Communication-interfaces">
+  <h2>3. Communication Interfaces</h2>
+  <ol>
+    <li>Registration and Login
+      <p>It is necessary for the authorities to have private access to the dashboard. It contains the following:</p>
+      <ul>
+        <li>Username field</li>
+        <li>Password field</li>
+        <li>Confirm password field</li>
+        <li>E-mail field</li>
+        <li>Button to register</li>
+      </ul>
+      <img src="/assets/images/register.PNG" alt="register photo"/>
+    </li>
+    <li>Dashboard for statistics
+      <p>Statistics such as the following may be encountered on the page.Can help authorities establish
+        certain metrics and take certain decisions.
+      </p>
+      <img src="/assets/images/stats.PNG" alt="stats"/>
+    </li>
+    <li>Log cards and modals.
+      <p>These cards provide on-click information about real-time events. They constantly update and
+        relevant info such as the number of people affected and a broad approximation of where the
+        event took place</p>
+      <img src="/assets/images/cards.PNG" alt="cards"/>
+    </li>
+  </ol>
+</section>
+<section id="features">
+  <h2>4. System Features</h2>
+  <section id="registration">
+    <h3>4.1 Registration</h3>
+    <p>
+      The registration feature provides it's users to registrate to the platform using an valid
+      e-Mail. Valid e-mail are e-mail which are accepted and inserted in the database by the administrator.
+    </p>
+  </section>
+  <section id="login">
+    <h3>4.2 Authentication</h3>
+    <p>
+      This is a basic authentication form that checks the validity of the username and the password and redirects
+      the user to the Overview panel. It also unlocks the possibility of viewing the dashboard panel
+    </p>
+  </section>
+  <section id="overview">
+    <h3>4.3 Overview Visualisation</h3>
+    <section id="interactive-map">
+      <h4>4.3.1 Interactive map</h4>
+      <p> The interactive map provides the following functionalities: </p>
+      <ul>
+        <li>Zoom-in and Zoom-out</li>
+        <li>Visualize cards that pop-up in real time</li>
+      </ul>
+    </section>
+    <section id="logs">
+      <h4>4.3.2 Real-time log cards</h4>
+      <p>Log cards are used to display further information regarding the calamity that took place. There are 3 types of calamities: </p>
+      <ol>
+        <li>Earthquakes</li>
+        <li>Floods</li>
+        <li>Fires</li>
+      </ol>
+      <p>The log cards provide the following functionalities: </p>
+      <ul>
+        <li>Extends cards on-click into modal for more information</li>
+        <li>Scrolling through a bunch of cards. This list updates dinamically.</li>
+        <li>The modal displays a small map to the exact location of the calamity.</li>
+      </ul>
+    </section>
+  </section>
+  <section id="dashboard">
+    <h3>4.4 Dashboard visualisation</h3>
+    <p>
+      The dashboard provides information through metrics and statistics to the user. In this case the user
+      is an employee of a guvernmental agency.
+    </p>
+  </section>
+</section>
+<section id="security">
+  <h2>5. Security Requirements</h2>
+  <p>The following security requirements are taken into account: </p>
+  <ol>
+    <li>Securing the web environment by eliminating bugs </li>
+    <li>Validating user input</li>
+    <li>Avoid third party scrips</li>
+    <li>Use encryption algorithms</li>
+    <li>Authorise requests through authentication</li>
+    <li>Prevent SQL injection</li>
+  </ol>
+</section>
+</body>
+</html>
