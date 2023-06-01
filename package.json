@@ -1,0 +1,27 @@
+{
+  "name": "proiecttw",
+  "version": "1.0.0",
+  "description": "Savin Miruna, Tudurache Teodora-Otilia",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/teo000/ProiectTW.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/teo000/ProiectTW/issues"
+  },
+  "homepage": "https://github.com/teo000/ProiectTW#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  },
+  "dependencies": {
+    "pg": "^8.11.0"
+  }
+}
