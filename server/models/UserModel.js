@@ -12,8 +12,7 @@ const getUser = (username) => {
 const addUser = async (userData) => {
     try {
         const newUser = new User(null, userData.username, userData.email, userData.password);
-        const addedUser = await queries.createUser(newUser);
-        return addedUser;
+        return await queries.createUser(newUser);
     } catch (error) {
         throw error;
     }

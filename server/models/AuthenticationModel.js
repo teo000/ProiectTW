@@ -12,4 +12,10 @@ class AuthenticationModel {
     }
 }
 
-module.exports = AuthenticationModel;
+const checkPasswordValidity = (user,inputPassword)=>{
+    return bcrypt.compareSync(inputPassword, user.passwordhash );
+}
+module.exports ={
+    AuthenticationModel,
+    checkPasswordValidity
+}

@@ -9,3 +9,4 @@ create table Users(
 
 --populate table
 
+select * from users;
