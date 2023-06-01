@@ -30,8 +30,21 @@ const getUserByUsername = (usernameParameter) => {
     });
 };
 
+const createUser = (user) => {
+    return new Promise((resolve, reject) => {
+        const { username, email,passwordHash,salt } = user;
+        pool.query('INSERT INTO users (username, email,passwordHash,salt ) VALUES ($1, $2, $3,$4) RETURNING *',
+            [username,email, passwordHash,salt], (error, results) => {
+                if (error) {
+                    reject(error);
+                }
+                resolve(results.rows[0]);
+            });
+    });
+};
 
 module.exports = {
     getUsers,
-    getUserByUsername
+    getUserByUsername,
+    createUser
 };
