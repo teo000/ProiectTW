@@ -1,11 +1,13 @@
 const userModel = require('../models/userModel');
+const userRepository = require('../repositories/UserRepository');
 const {checkPasswordValidity} = require("../models/AuthenticationModel");
 const {User} = require("../models/UserModel");
+
 
 //@route GET /users/getAll
 const getAllUsers = async (req, res) => {
     try {
-        const users = await userModel.getAllUsers();
+        const users = await userRepository.getAllUsers();
         res.writeHead(200, {'Content-Type': 'application/json'});
         res.end(JSON.stringify(users));
     } catch (error) {
@@ -18,7 +20,7 @@ const getAllUsers = async (req, res) => {
 //@route GET /users/{username}
 const getUser = async (req, res, username) => {
     try {
-        const user = await userModel.getUser(username);
+        const user = await userRepository.getUser(username);
         if (!user) {
             res.writeHead(404, {'Content-Type': 'application/json'});
             res.end(JSON.stringify({error: 'User not found!'}));
@@ -50,7 +52,7 @@ const createUser = async (req, res) => {
                 }
 
                 // Check if the user already exists
-                const existingUser = await userModel.getUser(userData.username);
+                const existingUser = await userRepository.getUser(userData.username);
                 if (existingUser) {
                     res.writeHead(409, {'Content-Type': 'application/json'});
                     res.end(JSON.stringify({error: 'Username already exists'}));
@@ -59,7 +61,7 @@ const createUser = async (req, res) => {
 
 
                 // Add the user to the database
-                const addedUser = await userModel.addUser(userData);
+                const addedUser = await userRepository.addUser(userData);
                 res.writeHead(201, {'Content-Type': 'application/json'});
                 res.end(JSON.stringify({message: 'User added successfully', user: addedUser}));
             } catch (error) {
@@ -95,14 +97,15 @@ const login = async (req, res) => {
                 }
 
                 // Check if the username is valid
-                const existingUser = await userModel.getUser(userData.username);
+                const existingUser = await userRepository.getUser(userData.username);
+                const userObject = new User(existingUser.ID, existingUser.username, existingUser.email, existingUser.passwordhash, existingUser.salt);
                 if (!existingUser) {
                     res.writeHead(401, {'Content-Type': 'application/json'});
                     res.end(JSON.stringify({error: 'Username incorrect!'}));
                     return;
                 }
                 //check if the password is valid
-                const isValid = await checkPasswordValidity(existingUser, userData.password);
+                const isValid = await checkPasswordValidity(userObject, userData.password);
                 if(isValid)
                 {
                     res.writeHead(201, {'Content-Type': 'application/json'});

@@ -13,7 +13,7 @@ class AuthenticationModel {
 }
 
 const checkPasswordValidity = (user,inputPassword)=>{
-    return bcrypt.compareSync(inputPassword, user.passwordhash );
+    return bcrypt.compareSync(inputPassword, user.passwordHash);
 }
 module.exports ={
     AuthenticationModel,
