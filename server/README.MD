@@ -11,4 +11,4 @@ PENTRU BAZA DE DATE
 - te conectezi din webstorm sau vscode la baza ta de date
 - creezi tabelul de books asa cum scrie in script
 - dai import la csv in tabel si vezi sa fie un match bun pe coloane(sa mapeze bine coloanele din tabel la alea din csv)
-- rulezi scriptul si it should work
+- rulezi restul scriptului si it should work
