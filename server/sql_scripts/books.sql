@@ -83,3 +83,4 @@ delete from books where books.title in(
     from books b
              left join book_genre on b.id = book_genre.book_id where book_genre.genre_id is null);
 select * from genres;
+
