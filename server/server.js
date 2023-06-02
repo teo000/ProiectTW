@@ -1,6 +1,6 @@
 const http = require("http");
 const {getAllUsers, getUser, createUser, login} = require('./controllers/userController');
-const {getAllBooks, getBookByID, getBookByTitle} = require("./controllers/BookController");
+const {getAllBooks, getBookByID, getBookByTitle, addBook} = require("./controllers/BookController");
 const usernameRegex = /^\/users\/([A-Za-z0-9_-]+)$/;
 const bookIdRegex = /^\/books\/[0-9]+$/;
 const bookTitleRegex = /^\/books\/[a-zA-Z0-9\s]+$/;
@@ -11,6 +11,8 @@ const server = http.createServer((req, res) => {
         handleGetRequests(req, res);
     else if (req.method === 'POST')
         handlePostRequests(req, res);
+    //else if (req.method === 'PUT')
+     //   handlePutRequests(req,res);
     else {
         res.writeHead(404, {'Content-Type': 'application/json'});
         res.end(JSON.stringify({error: 'Endpoint not found'}));
@@ -45,10 +47,16 @@ const handleGetRequests = (req, res) => {
 const handlePostRequests = (req, res) => {
     if (req.url === '/users/user')
         createUser(req, res);
+    else if (req.url === '/books')
+        addBook(req,res);
     else {
         res.writeHead(404, {'Content-Type': 'application/json'});
         res.end(JSON.stringify({error: 'Endpoint not found'}));
     }
 
 }
+
+/*const handlePutRequests = (req,res) =>{
+    if(req.url === '/books')
+}*/
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));

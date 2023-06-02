@@ -34,8 +34,26 @@ const getBookByTitle = (title) =>{
     });
 }
 
+
+//
+
+const addBook = async (bookData) => {
+    return new Promise((resolve, reject) => {
+        const { title, author,rating,description,edition,publisher,year, numberOfRatings,coverImg } = bookData;
+        databaseConnection.pool.query('INSERT INTO books (title, author,rating,description,edition, publisher, year,numberOfRatings,coverImg) VALUES ($1, $2, $3,$4,$5,$6,$7,$8,$9) RETURNING *',
+            [ title, author,rating,description,edition,publisher,year, numberOfRatings,coverImg], (error, results) => {
+                if (error) {
+                    reject(error);
+                }
+                console.log(results)
+                resolve(results.rows[0]);
+            });
+    });
+}
+
 module.exports ={
     getAllBooks,
     getBookByID,
-    getBookByTitle
+    getBookByTitle,
+    addBook
 }
