@@ -6,3 +6,9 @@ OK deci cum functioneaza:
 - in controllers: controllerele o sa apeleze functiile din repositories si in functie de rezultat o sa genereze un raspuns pe care il trimit serverului pt ca fi trimis la client
 - ex de functionare: GET /users/getAll -> in server.js apelez functia getAllusers din controller; in controller se apeleaza mai departe o fct getAllusers din repository-> next,repository face
 un query la baza de date  si returneaza o lista de useri. (returneaza acesti useri ca objects, nu ca obiecte de tipul User din UserModel dar e irelevant);
+
+PENTRU BAZA DE DATE
+- te conectezi din webstorm sau vscode la baza ta de date
+- creezi tabelul de books asa cum scrie in script
+- dai import la csv in tabel si vezi sa fie un match bun pe coloane(sa mapeze bine coloanele din tabel la alea din csv)
+- rulezi scriptul si it should work
