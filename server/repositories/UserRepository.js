@@ -1,25 +1,40 @@
 const {User} = require('../models/UserModel');
-const queries = require('../database/queries.js');
+const databaseConnection = require('../database/databaseConnection.js');
 const {AuthenticationModel} = require('../models/AuthenticationModel');
 
 const getAllUsers = () => {
-    return queries.getUsers();
+    return new Promise((resolve, reject) => {
+        databaseConnection.pool.query('SELECT * FROM users', (error, results) => {
+            if (error) {
+                reject(error);
+            }
+            resolve(results.rows);
+        });
+    });
 };
 
 const getUser = (username) => {
-    return queries.getUserByUsername(username).then((users) =>{
-        return users.length ? users[0] : null;
+    return new Promise((resolve, reject) => {
+        databaseConnection.pool.query('SELECT * FROM users where username = $1', [username],(error, results) => {
+            if (error) {
+                reject(error);
+            }
+            resolve(results.rows[0]);
+        });
     });
 }
 
 const addUser = async (userData) => {
-    try {
-        const newAuthModel = new AuthenticationModel(userData.password);
-        const newUser = new User(null, userData.username, userData.email, newAuthModel.password, newAuthModel.salt);
-        return await queries.createUser(newUser);
-    } catch (error) {
-        throw error;
-    }
+    return new Promise((resolve, reject) => {
+        const { username, email,passwordHash,salt } = userData;
+        databaseConnection.pool.query('INSERT INTO users (username, email,passwordHash,salt ) VALUES ($1, $2, $3,$4) RETURNING *',
+            [username,email, passwordHash,salt], (error, results) => {
+                if (error) {
+                    reject(error);
+                }
+                resolve(results.rows[0]);
+            });
+    });
 }
 
 module.exports = {
