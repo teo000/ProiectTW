@@ -16,12 +16,12 @@
 <div class="container">
     <div class="div-form">
         <h1>Sign up here!</h1>
-        <form action="../HomePage/homepage.html">
+        <form action="http://localhost:6969/users/user" method = "POST">
 
             <div class="input-class user">
                 <i class="fa-solid fa-user"></i>
                 <label class="user-input-label">
-                    <input type="text" placeholder="Username">
+                    <input type="text" name="username" id ="username" placeholder="Username">
                 </label>
             </div>
 
@@ -29,7 +29,7 @@
             <div class="input-class password">
                 <i class="fa-sharp fa-solid fa-key"></i>
                 <label class="password-input-label">
-                    <input type="password" id = "password" placeholder="Password">
+                    <input type="password" name = "password" id = "password" placeholder="Password">
                 </label>
                 <i class="fa-sharp fa-solid fa-eye" id = "togglePassword"></i>
             </div>
@@ -74,14 +74,13 @@
                     <input type="checkbox" id="genre6" name="genre6" value="YA">
                     <label for="genre6">Young Adult</label><br>
                 </div>
-            </div>
+            </div> 
             
-
             <div class = "final-stuff">
 
             <button class="button"> Sign Up</button>
             <span class="span-register">Already have an account?<a href="../LogInPage/login.html"> Sign In</a></span>
-
+        
             </div>
         </form>
     </div>

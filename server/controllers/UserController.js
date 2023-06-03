@@ -1,9 +1,17 @@
-const userModel = require('../models/userModel');
+const userModel = require('../models/UserModel');
 const userRepository = require('../repositories/UserRepository');
-const {checkPasswordValidity} = require("../models/AuthenticationModel");
+const {checkPasswordValidity, AuthenticationModel} = require("../models/AuthenticationModel");
 const {User} = require("../models/UserModel");
+var concat = require('concat-stream')
 
-
+function getStringJson(text){
+    var json = {}, text = text.split("&");
+    for (let i in text){
+        let box = text[i].split("=");
+        json[box[0]] = box[1];
+    }
+    return JSON.stringify(json);
+}
 //@route GET /users/getAll
 const getAllUsers = async (req, res) => {
     try {
@@ -38,12 +46,13 @@ const createUser = async (req, res) => {
         let body = '';
         req.on('data', chunk => {
             body += chunk.toString();
+            console.log(body);
         });
-
         req.on('end', async () => {
             try {
-                const userData = JSON.parse(body);
-
+                const jsonString = getStringJson(body);
+                const userData = JSON.parse(jsonString);
+                console.log(userData);
                 // Validate the required fields (username, password)
                 if (!userData.username || !userData.password) {
                     res.writeHead(400, {'Content-Type': 'application/json'});
@@ -58,10 +67,18 @@ const createUser = async (req, res) => {
                     res.end(JSON.stringify({error: 'Username already exists'}));
                     return;
                 }
-
-
+                
+                authData = new AuthenticationModel(userData.password);
+                console.log(authData);
+                const userToAdd = {
+                    username: userData.username,
+                    passwordHash: authData.password,
+                    salt: authData.salt,
+                    email: null 
+                };
+                console.log(userToAdd);
                 // Add the user to the database
-                const addedUser = await userRepository.addUser(userData);
+                const addedUser = await userRepository.addUser(userToAdd);
                 res.writeHead(201, {'Content-Type': 'application/json'});
                 res.end(JSON.stringify({message: 'User added successfully', user: addedUser}));
             } catch (error) {
