@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale1.0">
-    <title>Romance</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
-    <link rel="stylesheet" href="romance.css">
-    <link rel="stylesheet" href="../../../public/css/navigation.css">
-
+    <link rel="stylesheet" href="../public/css/admingenrepage.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
+
+    <title>Boo</title>
 </head>
 <body>
+    <!--schimbat linkuri-->
 <div id="wrapper-div">
     <div id="navigation-div">
         <nav>
@@ -26,30 +26,29 @@
                 </a>
                 <div id="dropdown-menu">
                     <div class="menu-buttons">
-                        <a class="active" href="../../../views/homepage.html">Home</a>
-                        <a class="active" href="../../../views/mybooks.html">My Books</a>
+                        <a class="active" href="adminhomepage.html">Home</a>
+                        <a class="active" href="adminuserspage.html">Users</a>
                         <div class="hoverable">
 
                             <a class="active" href="#">Categories</a>
                             <div class="hamburger-double-dropdown">
-                                <a href="../RomanceGenre/romance.html">Romance</a>
+                                <a href="../AdminGenrePage/admingenrepage.html">Romance</a>
                                 <a href="#">Biography</a>
-                                <a href="..ime.html">Crime</a>
+                                <a href="#">Crime</a>
                                 <a href="#">Fiction</a>
                                 <a href="#">Historical Fiction</a>
                                 <a href="#">Self Help</a>
                                 <a href="#">Young Adult</a>
                             </div>
                         </div>
-                        <a class="active" href="../../../views/mygroupspage.html">My Groups</a>
+                        <a class="active" href="allgroupspage.html">Groups</a>
                         <div class="hoverable">
 
                             <a class="active" href="#">More</a>
                             <div class="hamburger-double-dropdown">
-                                <a href="../../Userpage/userpage.html">Profile</a>
-                                <a href="../../../views/AboutPage.html">About</a>
-                                <a href="../../../views/Help.html">Help</a>
-                                <a href="../../LogInPage">Log Out</a>
+                                <a href="../About/AboutPage.html">About</a>
+                                <a href="../HelpPage/Help.html">Help</a>
+                                <a href="../LogInPage/login.html">Log Out</a>
                             </div>
                         </div>
                     </div>
@@ -58,30 +57,29 @@
             </div>
 
             <div class="buttons">
-                <a class="logo" href="../../../views/homepage.html"><img src="../../../public/images/boo.png"
-                                                                         alt="Ghost reading a book"></a>
-                <a class="active" href="../../../views/homepage.html">Home</a>
-                <a class="active" href="../../../views/mybooks.html">My Books</a>
+                <a class="logo" href="adminhomepage.html"><img src="../public/images/boo.png"
+                                                               alt="Ghost reading a book"></a>
+                <a class="active" href="adminhomepage.html">Home</a>
+                <a class="active" href="adminuserspage.html">Users</a>
                 <div class="dropdown">
                     <button class="dropDownButton">Categories</button>
                     <div class="dropdown-categories">
-                        <a href="../RomanceGenre/romance.html">Romance</a>
+                        <a href="../AdminGenrePage/admingenrepage.html">Romance</a>
                         <a href="#">Biography</a>
-                        <a href="../CrimeGenre/crime.html">Crime</a>
+                        <a href="#">Crime</a>
                         <a href="#">Fiction</a>
                         <a href="#">Historical Fiction</a>
                         <a href="#">Self Help</a>
                         <a href="#">Young Adult</a>
                     </div>
                 </div>
-                <a class="active" href="../../../views/mygroupspage.html">My Groups</a>
+                <a class="active" href="allgroupspage.html">Groups</a>
                 <div class="dropdown">
                     <button class="dropDownButton">More</button>
                     <div class="dropdown-categories">
-                        <a href="../../UserPage/userpage.html">Profile</a>
-                        <a href="../../../views/AboutPage.html">About</a>
-                        <a href="../../../views/Help.html">Help</a>
-                        <a href="../../../views/login.html">Log Out</a>
+                        <a href="../About/AboutPage.html">About</a>
+                        <a href="../HelpPage/Help.html">Help</a>
+                        <a href="../LogInPage/login.html">Log Out</a>
                     </div>
                 </div>
 
@@ -91,6 +89,7 @@
             </div>
         </nav>
     </div>
+
 
     <div id="content-div">
         <div id="clasament-div">
@@ -102,9 +101,9 @@
                             Carte 1
                         </a></li>
                     <li>
-                        <a href="#" class="book-name">
-                            Carte 2   </a><a href="#" class="author-names"> by Author 1</a>
-                      </li>
+                        <a href="#" class="book-name">Carte 2 </a>
+                        <a href="#" class="author-names"> by Author 1</a>
+                        </li>
                     <li>
                         <a href="#" class="book-name">
                             Carte3
@@ -139,12 +138,12 @@
                 <!--aici putem pune poza cartii-->
                 <!-- aici putem pune sus si nr de stelute colorate-->
                 <div class="book-photo">
-                    <img src="../../../public/images/book-cover.jpg" alt = "book cover">
+                    <img src="../public/images/book-cover.jpg" alt="book-cover">
                 </div>
 
                 <div class="post-text">
                     <div class="book-author-and-title">
-                        <p class="book-title"><a href="../../../views/bookpage.html" class="book-title-link">Pride and
+                        <p class="book-title"><a href="adminbookpage.html" class="book-title-link">Pride and
                             Prejudice</a></p>
                         <p class="book-author"><a href="#" class="book-author-link">by Jane Austen</a></p>
                     </div>
@@ -180,6 +179,6 @@
     </footer>
 </div>
 
-<script src = "romance.js"></script>
+<script src = "../public/scripts/admingenrepage.js"></script>
 </body>
 </html>
