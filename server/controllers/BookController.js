@@ -73,6 +73,19 @@ const getBookByTitle = async (req, res) =>{
 
 //@desc : create a new book
 //@route POST /books
+//ex de json:
+/*{
+    "title": "The Hunger Games 3",
+    "author": "Suzanne Collins",
+    "rating" : 4.75,
+    "description" :"Just as good as the first one",
+    "edition" : "First",
+    "publisher" : "ceva editura",
+    "year" : 2014,
+    "numberOfRatings" : "244325",
+    "coverImg" :"https://ceva link",
+    "genres": ["Young Adult", "Fiction"]
+}*/
 const addBook = async(req,res) =>{
     try {
         let body = '';
