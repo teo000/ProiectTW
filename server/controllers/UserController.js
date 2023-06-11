@@ -2,8 +2,9 @@ const userModel = require('../models/UserModel');
 const userRepository = require('../repositories/UserRepository');
 const {checkPasswordValidity, AuthenticationModel} = require("../models/AuthenticationModel");
 const {User} = require("../models/UserModel");
+const AuthenticationController = require('../authentication/AuthenticationController')
 var concat = require('concat-stream')
-
+const jwt = require('jsonwebtoken');
 function getStringJson(text){
     var json = {}, text = text.split("&");
     for (let i in text){
@@ -94,59 +95,8 @@ const createUser = async (req, res) => {
     }
 };
 
-//@route : GET /user/login
-const login = async (req, res) => {
-    try {
-        let body = '';
-        req.on('data', chunk => {
-            body += chunk.toString();
-        });
-
-        req.on('end', async () => {
-            try {
-                const userData = JSON.parse(body);
-
-                // Validate the required fields (username, password)
-                if (!userData.username || !userData.password) {
-                    res.writeHead(400, {'Content-Type': 'application/json'});
-                    res.end(JSON.stringify({error: 'Username and password are required'}));
-                    return;
-                }
-
-                // Check if the username is valid
-                const existingUser = await userRepository.getUser(userData.username);
-                const userObject = new User(existingUser.ID, existingUser.username, existingUser.email, existingUser.passwordhash, existingUser.salt);
-                if (!existingUser) {
-                    res.writeHead(401, {'Content-Type': 'application/json'});
-                    res.end(JSON.stringify({error: 'Username incorrect!'}));
-                    return;
-                }
-                //check if the password is valid
-                const isValid = await checkPasswordValidity(userObject, userData.password);
-                if(isValid)
-                {
-                    res.writeHead(201, {'Content-Type': 'application/json'});
-                    res.end(JSON.stringify({message: 'You are logged in!'}));
-                    return;
-                }
-                res.writeHead(401, {'Content-Type': 'application/json'});
-                res.end(JSON.stringify({error: 'Incorrect Password!'}));
-
-            } catch (error) {
-                console.log(error);
-                res.writeHead(500, {'Content-Type': 'application/json'});
-                res.end(JSON.stringify({error: 'Internal Server Error'}));
-            }
-        });
-    } catch (error) {
-        console.log(error);
-        res.writeHead(500, {'Content-Type': 'application/json'});
-        res.end(JSON.stringify({error: 'Internal Server Error'}));
-    }
-}
 module.exports = {
     getAllUsers,
     getUser,
     createUser,
-    login
 };

@@ -1,6 +1,7 @@
 const {getAllBooks, getBookByID, getBookByTitle, addBook} = require("../controllers/BookController");
 const bookIdRegex = /^\/books\/[0-9]+$/;
 const bookTitleRegex = /^\/books\/[a-zA-Z0-9\s]+$/;
+const {authenticateToken} = require('../authentication/AuthenticationController')
 
 const routeRequest = async (req, res) => {
     if (req.method === 'GET')
@@ -15,12 +16,12 @@ const routeRequest = async (req, res) => {
 
 const handleGetRequests = (req, res) => {
     if (req.url === '/books/getAll') {
-        getAllBooks(req, res);
+        authenticateToken(req,res, getAllBooks)
     } else if (req.url.match(bookIdRegex)) {
         const id = req.url.split('/')[2];
-        getBookByID(req, res, id);
+        authenticateToken(req, res, getBookByID,id)
     } else if (req.url === '/books/getBook') {
-        getBookByTitle(req, res);
+        authenticateToken(req, res, getBookByTitle);
     } else {
         res.writeHead(404, {'Content-Type': 'application/json'});
         res.end(JSON.stringify({error: 'Endpoint not found'}));

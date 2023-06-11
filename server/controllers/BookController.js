@@ -2,7 +2,7 @@ const bookRepository = require('../repositories/BookRepository')
 const {Book} = require('../models/BookModel')
 const genreRepository = require('../repositories/GenreRepository');
 const bookGenresRepository = require('../repositories/BookGenresRepository');
-
+const {authenticateToken} = require('../authentication/AuthenticationController')
 //@route GET books/getAll
 const getAllBooks  = async (req, res) => {
     try {
@@ -20,6 +20,7 @@ const getAllBooks  = async (req, res) => {
 
 const getBookByID = async (req, res, id) =>{
     try {
+
         const book = await bookRepository.getBookByID(id);
         if (!book) {
             res.writeHead(404, {'Content-Type': 'application/json'});
@@ -41,7 +42,6 @@ const getBookByTitle = async (req, res) =>{
         req.on('data', chunk => {
             body += chunk.toString();
         });
-
         req.on('end', async () => {
             try {
                 const data = JSON.parse(body);

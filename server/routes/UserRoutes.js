@@ -1,4 +1,4 @@
-const {getAllUsers, getUser, createUser, login} = require('../controllers/userController');
+const {getAllUsers, getUser, createUser} = require('../controllers/userController');
 const usernameRegex = /^\/users\/([A-Za-z0-9_-]+)$/;
 
 const routeRequest = async (req, res) => {
@@ -15,9 +15,7 @@ const routeRequest = async (req, res) => {
 const handleGetRequests = (req, res) => {
     if (req.url === '/users/getAll')
         getAllUsers(req, res);
-    else if (req.url === '/users/login') {
-        login(req, res);
-    } else if (req.url.match(usernameRegex)) {
+    else if (req.url.match(usernameRegex)) {
         const username = req.url.split('/')[2];
         getUser(req, res, username);
     } else {

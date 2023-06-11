@@ -24,6 +24,7 @@
   "dependencies": {
     "bcrypt": "^5.1.0",
     "concat-stream": "^2.0.0",
+    "jsonwebtoken": "^9.0.0",
     "pg": "^8.11.0"
   }
 }
