@@ -2,7 +2,6 @@
 const http = require("http");
 const PORT = process.env.PORT || 6970;
 const AuthenticationController = require('./AuthenticationController')
-const {authenticateToken} = require("./AuthenticationController");
 
 const authServer = http.createServer((req,res)=>{
     if(req.url.startsWith('/login')){

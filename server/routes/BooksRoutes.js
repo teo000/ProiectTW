@@ -1,7 +1,7 @@
 const {getAllBooks, getBookByID, getBookByTitle, addBook} = require("../controllers/BookController");
 const bookIdRegex = /^\/books\/[0-9]+$/;
 const bookTitleRegex = /^\/books\/[a-zA-Z0-9\s]+$/;
-const {authenticateToken} = require('../authentication/AuthenticationController')
+const {authenticateToken} = require('../helpers/TokenAuthenticator')
 
 const routeRequest = async (req, res) => {
     if (req.method === 'GET')
