@@ -16,6 +16,15 @@ const authenticationMicroservice = {
 
 
 const mainServer = http.createServer((req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8081');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+    if (req.method === 'OPTIONS') {
+        res.writeHead(200);
+        res.end();
+        return;
+    }
     const {url} = req;
     if (url.startsWith('/users')) {
         userRouter.routeRequest(req, res);
@@ -37,9 +46,11 @@ const handleAuthentication = async (req, res) => {
         path,
         method,
         headers:{
-            Cookie: req.headers.cookie
         }
     };
+    if(req.headers.cookie)
+        microServiceOptions.headers.Cookie = req.headers.cookie;
+
 
     let request = http.request(microServiceOptions, response => {
         response.on('data', chunk => {
