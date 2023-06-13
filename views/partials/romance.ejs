@@ -104,7 +104,7 @@
                     <li>
                         <a href="#" class="book-name">
                             Carte 2   </a><a href="#" class="author-names"> by Author 1</a>
-                      </li>
+                    </li>
                     <li>
                         <a href="#" class="book-name">
                             Carte3
@@ -134,46 +134,34 @@
         </div>
 
         <div id="feed-div">
-
-
-            <div class="book-container">
-                <!--aici putem pune poza cartii-->
-                <!-- aici putem pune sus si nr de stelute colorate-->
-                <div class="book-photo">
-                    <img src="../../../public/images/book-cover.jpg" alt = "book cover">
-                </div>
-
-                <div class="post-text">
-                    <div class="book-author-and-title">
-                        <p class="book-title"><a href="../../../views/bookpage.html" class="book-title-link">Pride and
-                            Prejudice</a></p>
-                        <p class="book-author"><a href="#" class="book-author-link">by Jane Austen</a></p>
+            <% books.forEach(function(book) { %>
+                <div class="book-container">
+                    <div class="book-photo">
+                        <img src="<%= book.coverImg %>" alt="book cover">
                     </div>
-                    <div class = "star-rating">
-                        <div class="preset-rating">
-                            <div class="empty-stars"></div>
-                            <div class="full-stars" style="width:70%"></div>
+
+                    <div class="post-text">
+                        <div class="book-author-and-title">
+                            <p class="book-title"><a href="../../../views/bookpage.html" class="book-title-link"><%= book.title %></a></p>
+                            <p class="book-author"><a href="#" class="book-author-link">by <%= book.author %></a></p>
                         </div>
-                        <p>
-                            4.78
-                        </p>
-                    </div>
+                        <div class="star-rating">
+                            <div class="preset-rating">
+                                <div class="empty-stars"></div>
+                                <div class="full-stars" style="width: <%= book.rating * 20 %>%"></div>
+                            </div>
+                            <p>
+                                <%= book.rating %>
+                            </p>
+                        </div>
 
-                    <div>
-                        <p class="book-description">Since its immediate success in 1813, Pride and Prejudice has
-                            remained one of the most popular
-                            novels in the English language. Jane Austen called this brilliant work "her own darling
-                            child" and its vivacious heroine, Elizabeth Bennet, "as delightful a creature as ever
-                            appeared in print." The romantic clash between the opinionated Elizabeth and her proud beau,
-                            Mr. Darcy, is a splendid performance of civilized sparring. And Jane Austen's radiant wit
-                            sparkles as her characters dance a delicate quadrille of flirtation and intrigue, making
-                            this book the most superb comedy of manners of Regency England.
-                        </p>
-                        <button onclick= "readMore(this)" class="more-button">Read More</button>
+                        <div>
+                            <p class="book-description"><%= book.description %></p>
+                            <button onclick="readMore(this)" class="more-button">Read More</button>
+                        </div>
                     </div>
-
                 </div>
-            </div>
+            <% }); %>
         </div>
     </div>
     <footer id = "main-footer">

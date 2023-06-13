@@ -1,7 +1,7 @@
 //aici vin requesturile pt incarcare de pagini html
 const http = require("http");
 const fs = require('fs');
-const cssRouter =  require("./routes/CssRouter")
+const cssRouter = require("./routes/CssRouter")
 const PORT = process.env.PORT || 8081;
 
 const PageController = require("./controller/PageController")
@@ -36,22 +36,26 @@ const customReadFile = (file_path, res) => {
 
 const server = http.createServer((req, res) => {
     const url = req.url;
-    if(url.indexOf(".")===-1){
+    if (url.indexOf(".") === -1) {
         //its an html request{
-        res.writeHead(200, {"Content-Type" : "text/html"} );
-        customReadFile(getFileUrl(url),res);
-    } else if (url.indexOf(".js")!==-1){
-        res.writeHead(200, {"Content-Type" : "text/javascript"} );
-        customReadFile(`..${url}`,res);
-    }else if (url.indexOf(".css")!==-1){
-        res.writeHead(200, {"Content-Type" : "text/css"} );
-        customReadFile(`..${url}`,res);
-    } else if (url.indexOf(".png")!==-1 ){
-        res.writeHead(200, {"Content-Type" : "image/png"} );
-        customReadFile(`..${url}`,res);
-    } else if (url.indexOf(".jpg")!==-1 ){
-        res.writeHead(200, {"Content-Type" : "image/jpg"} );
-        customReadFile(`..${url}`,res);
+        res.writeHead(200, {"Content-Type": "text/html"});
+        customReadFile(getFileUrl(url), res);
+    } else if (url.indexOf(".js") !== -1) {
+        res.writeHead(200, {"Content-Type": "text/javascript"});
+        customReadFile(`..${url}`, res);
+    } else if (url.indexOf(".css") !== -1) {
+        res.writeHead(200, {"Content-Type": "text/css"});
+        customReadFile(`..${url}`, res);
+    } else if (url.indexOf(".png") !== -1) {
+        res.writeHead(200, {"Content-Type": "image/png"});
+        customReadFile(`..${url}`, res);
+    } else if (url.indexOf(".jpg") !== -1) {
+        res.writeHead(200, {"Content-Type": "image/jpg"});
+        customReadFile(`..${url}`, res);
+    } else if (url.indexOf(".ejs") !== -1) {
+        //make request to server to get data
+        res.writeHead(200, {"Content-Type": "image/jpg"});
+        customReadFile(`../partials/${url}`, res);
     } else sendErrorResponse(res);
 
 });
