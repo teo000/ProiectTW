@@ -6,12 +6,13 @@
     <title>Romance</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
-    <link rel="stylesheet" href="romance.css">
-    <link rel="stylesheet" href="../../../public/css/navigation.css">
+    <link rel="stylesheet" href="genres.css">
+    <link rel="stylesheet" href="navigation.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
+
 </head>
 <body>
 <div id="wrapper-div">
@@ -26,8 +27,8 @@
                 </a>
                 <div id="dropdown-menu">
                     <div class="menu-buttons">
-                        <a class="active" href="../../../views/homepage.html">Home</a>
-                        <a class="active" href="../../../views/mybooks.html">My Books</a>
+                        <a class="active" href="homepage.html">Home</a>
+                        <a class="active" href="mybooks.html">My Books</a>
                         <div class="hoverable">
 
                             <a class="active" href="#">Categories</a>
@@ -58,10 +59,10 @@
             </div>
 
             <div class="buttons">
-                <a class="logo" href="../../../views/homepage.html"><img src="../../../public/images/boo.png"
+                <a class="logo" href="homepage.html"><img src="boo.png"
                                                                          alt="Ghost reading a book"></a>
-                <a class="active" href="../../../views/homepage.html">Home</a>
-                <a class="active" href="../../../views/mybooks.html">My Books</a>
+                <a class="active" href="homepage.html">Home</a>
+                <a class="active" href="mybooks.html">My Books</a>
                 <div class="dropdown">
                     <button class="dropDownButton">Categories</button>
                     <div class="dropdown-categories">
@@ -97,34 +98,11 @@
             <h1>Most Liked Romance Books:</h1>
             <nav class="linkuri-clasament">
                 <ol>
-                    <li>
-                        <a href="#" class="book-name">
-                            Carte 1
-                        </a></li>
-                    <li>
-                        <a href="#" class="book-name">
-                            Carte 2   </a><a href="#" class="author-names"> by Author 1</a>
-                    </li>
-                    <li>
-                        <a href="#" class="book-name">
-                            Carte3
-                        </a></li>
-                    <li>
-                        <a href="#" class="book-name">
-                            Carte 4
-                        </a></li>
-                    <li>
-                        <a href="#" class="book-name">
-                            Carte5
-                        </a></li>
-                    <li>
-                        <a href="#" class="book-name">
-                            Carte6
-                        </a></li>
-                    <li>
-                        <a href="#" class="book-name">
-                            Carte7
-                        </a></li>
+                    <%topBooks.forEach(function(topBook) { %>
+                        <li>
+                            <a href="#" class="book-name">
+                                <%=topBook.title%>   </a><a href="#" class="author-names"> by <%=topBook.author%>></a>
+                        </li><%})%>
                 </ol>
 
                 <!-- <h3>
@@ -137,7 +115,7 @@
             <% books.forEach(function(book) { %>
                 <div class="book-container">
                     <div class="book-photo">
-                        <img src="<%= book.coverImg %>" alt="book cover">
+                        <img src="<%= book.coverimg %>" alt="book cover">
                     </div>
 
                     <div class="post-text">
@@ -169,6 +147,6 @@
     </footer>
 </div>
 
-<script src = "romance.js"></script>
+<script src ="genres.js"></script>
 </body>
 </html>

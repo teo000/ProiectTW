@@ -1,4 +1,4 @@
-const {getAllBooks, getBookByID, getBookByTitle, addBook} = require("../controllers/BookController");
+const {getAllBooks, getBookByID, getBookByTitle, addBook, getGenre} = require("../controllers/BookController");
 const bookIdRegex = /^\/books\/[0-9]+$/;
 const bookTitleRegex = /^\/books\/[a-zA-Z0-9\s]+$/;
 const {authenticateToken} = require('../helpers/TokenAuthenticator')
@@ -16,13 +16,16 @@ const routeRequest = async (req, res) => {
 
 const handleGetRequests = (req, res) => {
     if (req.url === '/books/getAll') {
-        authenticateToken(req,res, getAllBooks)
-    } else if (req.url.match(bookIdRegex)) {
+        authenticateToken(req, res, getAllBooks)
+    } else if (req.url.startsWith('/books/genres/')){
+        const genre = req.url.split('/')[3].toLowerCase();
+        getGenre(req,res,genre);
+    }else if (req.url.match(bookIdRegex)) {
         const id = req.url.split('/')[2];
-        authenticateToken(req, res, getBookByID,id)
+        authenticateToken(req, res, getBookByID, id)
     } else if (req.url === '/books/getBook') {
         authenticateToken(req, res, getBookByTitle);
-    } else {
+    }  else {
         res.writeHead(404, {'Content-Type': 'application/json'});
         res.end(JSON.stringify({error: 'Endpoint not found'}));
     }
@@ -30,7 +33,7 @@ const handleGetRequests = (req, res) => {
 
 const handlePostRequests = (req, res) => {
     if (req.url === '/books')
-        addBook(req,res);
+        addBook(req, res);
     else {
         res.writeHead(404, {'Content-Type': 'application/json'});
         res.end(JSON.stringify({error: 'Endpoint not found'}));

@@ -18,7 +18,10 @@ const getBookByID = (id) =>{
             if (error) {
                 reject(error);
             }
-            resolve(results.rows[0]);
+            if(results.rowCount > 0){
+                resolve(results.rows[0]);
+            }
+
         });
     });
 }
@@ -34,7 +37,16 @@ const getBookByTitle = (title) =>{
     });
 }
 
-
+const getBooksByGenre = async(genre) =>{
+    return new Promise((resolve, reject) => {
+        databaseConnection.pool.query('select * from books b join book_genre bg on b.id = bg.book_id join genres g on bg.genre_id = g.id where LOWER(g.name)= $1 limit 10',[genre], (error, results) => {
+            if (error) {
+                reject(error);
+            }
+            resolve(results.rows);
+        });
+    });
+}
 //
 
 const addBook = async (bookData) => {
@@ -55,5 +67,6 @@ module.exports ={
     getAllBooks,
     getBookByID,
     getBookByTitle,
-    addBook
+    addBook,
+    getBooksByGenre
 }

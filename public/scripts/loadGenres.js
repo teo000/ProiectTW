@@ -1,38 +1,34 @@
 const categoryLinks = document.querySelectorAll(".category-link");
-categoryLinks.forEach((link) => {
-    link.addEventListener("click", async (event) =>  {
+categoryLinks.forEach((c)=> {
+    console.log(c);
+})
+/*categoryLinks.forEach((link) =>{
+    link.addEventListener("click",async(event)=>{
         event.preventDefault();
-        const category = link.textContent.trim();
-        const ejsResponse = await fetch(`http://localhost:8081/genres`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ category }),
-        });
-        const ejsTemplate = await ejsResponse.text();
-
-        const dataResponse = await fetch(`http://localhost:6969/books/genre=${category}`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ category }),
-        });
-        const bookData = await dataResponse.json();
-
-        const renderedTemplate = ejs.render(ejsTemplate,bookData)
-        const newDocument = document.implementation.createHTMLDocument();
-        newDocument.open();
-        newDocument.write(renderedTemplate);
-        newDocument.close();
-
-        document.documentElement.replaceWith(newDocument.documentElement);
-
-        window.location.href = "../../../views/book.html";
-    });
+        const url = link.getAttribute("href");
+        await navigateToPage(url);
+    })
 });
 
-function renderTemplate (bookData) {
-    let template ="";
-}
+async function navigateToPage(url){
+    const category = url.trim().toLowerCase();
+    const ejsResponse = await fetch(`http://localhost:8081/books/genres/${category}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        }
+    });
+    if(ejsResponse.ok){
+        document.documentElement.innerHTML = await ejsResponse.text();
+        const newUrl = `/books/genres/${category}`;
+        const newPageTitle = `${category}`;
+        history.pushState(null, newPageTitle, newUrl);
+        document.title = newPageTitle;
+    }
+    else{
+        console.log("error!")
+        document.documentElement.innerHTML = "<h1>Error</h1>";
+    }
+    //  window.location.href = "../../../views/book.html";
+    return false;
+}*/

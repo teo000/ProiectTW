@@ -20,7 +20,6 @@ const getAllBooks  = async (req, res) => {
 
 const getBookByID = async (req, res, id) =>{
     try {
-
         const book = await bookRepository.getBookByID(id);
         if (!book) {
             res.writeHead(404, {'Content-Type': 'application/json'});
@@ -145,9 +144,25 @@ const addBook = async(req,res) =>{
         res.end(JSON.stringify({error: 'Internal Server Error'}));
     }
 }
+
+const getGenre = async(req,res,genre)=>{
+    try {
+        const book = await bookRepository.getBooksByGenre(genre);
+        if (!book) {
+            res.writeHead(404, {'Content-Type': 'application/json'});
+            res.end(JSON.stringify({error: 'Books not found!'}));
+        } else {
+            res.writeHead(200, {'Content-Type': 'application/json'});
+            res.end(JSON.stringify(book));
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
 module.exports = {
     getAllBooks,
     getBookByID,
     getBookByTitle,
-    addBook
+    addBook,
+    getGenre
 }
