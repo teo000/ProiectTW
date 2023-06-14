@@ -147,21 +147,7 @@ const customReadBooksEjs = async (req, res, file_path, title) => {
     }
 }
 
-const options = {
-    key: fs.readFileSync('../key.pem'),
-    cert: fs.readFileSync('../cert.pem'),
-};
-const server = createServer(options,(req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-    res.setHeader('Access-Control-Allow-Credentials', 'true');
-
-    if (req.method === 'OPTIONS') {
-        res.writeHead(200);
-        res.end();
-        return;
-    }
+const server = http.createServer((req, res) => {
 
     const url = req.url;
     if (url.startsWith('/books/genres/') && url.indexOf(".") === -1) {
@@ -175,7 +161,7 @@ const server = createServer(options,(req, res) => {
         //its an html request{
         //check if it is login
         if (url.indexOf("login") === -1) {
-            res.writeHead(200, {"Content-Type": "text/html"});
+          //  res.writeHead(200, {"Content-Type": "text/html"});
              authenticateToken(req, res, customReadFile,getFileUrl(url));
            // customReadFile(req, res, getFileUrl(url));
             return;

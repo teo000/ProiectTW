@@ -14,15 +14,10 @@ const authenticationMicroservice = {
     hostname: 'localhost',
     port: 6970
 };
-const options = {
-    key: fs.readFileSync('../key.pem'),
-    cert: fs.readFileSync('../cert.pem'),
-};
 
-const mainServer = createServer(
-    options,
+const mainServer = http.createServer(
     (req, res) => {
-        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8081');
         res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
         res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
         res.setHeader('Access-Control-Allow-Credentials', 'true');

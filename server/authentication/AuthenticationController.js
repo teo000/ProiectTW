@@ -40,7 +40,8 @@ const login = async (req, res) => {
                     //create json webtoken
                     const accessToken = generateAccessToken(userObject);
                     const refreshToken = jwt.sign({userObject}, `${process.env.REFRESH_TOKEN_SECRET}`);
-                    setCookie(res, accessToken, refreshToken);
+                    //(res, accessToken, refreshToken);
+                    setSecureCookie(res, accessToken, refreshToken);
                     refreshTokens.push(refreshToken);
                     res.writeHead(201, {'Content-Type': 'application/json'});
                     res.end(JSON.stringify({accessToken: accessToken, refreshToken: refreshToken}));
@@ -144,6 +145,15 @@ function setCookie(res, accessToken, refreshToken) {
 
 }
 
+
+function setSecureCookie(res, accessToken, refreshToken) {
+    res.setHeader('Set-Cookie', [
+        `access_token=${accessToken}; Secure; HttpOnly; SameSite=Strict`,
+        `refresh_token=${refreshToken}; Secure; HttpOnly; SameSite=Strict`
+    ]);
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.end('Authentication successful');
+}
 const logout = async (req, res) => {
     try {
         const {url, headers} = req;
@@ -175,6 +185,7 @@ const logout = async (req, res) => {
         res.end(JSON.stringify({error: 'Internal Server Error'}));
     }
 }
+
 module.exports = {
     login,
     token,
