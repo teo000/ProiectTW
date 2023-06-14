@@ -43,8 +43,8 @@ const login = async (req, res) => {
                     //(res, accessToken, refreshToken);
                     setSecureCookie(res, accessToken, refreshToken);
                     refreshTokens.push(refreshToken);
-                    res.writeHead(201, {'Content-Type': 'application/json'});
-                    res.end(JSON.stringify({accessToken: accessToken, refreshToken: refreshToken}));
+                  //  res.writeHead(201, {'Content-Type': 'application/json'});
+                   // res.end(JSON.stringify({accessToken: accessToken, refreshToken: refreshToken}));
                     return;
                 }
                 res.writeHead(401, {'Content-Type': 'application/json'});

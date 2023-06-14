@@ -16,3 +16,23 @@ const getGenre = async (req, res, name) =>{
         console.log(error);
     }
 }
+
+//@route /genres/{bookId}
+const getGenreForBook = async (req,res,title) =>{
+    try {
+        const genres = await genreRepository.getGenresForBook(title);
+        if (!genres) {
+            res.writeHead(404, {'Content-Type': 'application/json'});
+            res.end(JSON.stringify({error: 'Genres for book not found!'}));
+        } else {
+            res.writeHead(200, {'Content-Type': 'application/json'});
+            res.end(JSON.stringify(genres));
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+module.exports = {
+    getGenreForBook
+}

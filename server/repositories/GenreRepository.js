@@ -25,7 +25,22 @@ const getGenre =async (name) =>{
 }
 
 
+const getGenresForBook = async(title) =>{
+    const newTitle = `%${title}%`;
+    return new Promise((resolve, reject) => {
+        databaseConnection.pool.query('select distinct g.name from books b  join book_genre bg on b.id = bg.book_id join genres g on bg.genre_id = g.id where lower(b.title) like $1', [newTitle],(error, results) => {
+            if (error) {
+                reject(error);
+            }
+            if(results.rowCount > 0)
+                resolve(results.rows);
+
+        });
+    });
+}
+
 module.exports = {
     getGenre,
-    getAllGenres
+    getAllGenres,
+    getGenresForBook
 }

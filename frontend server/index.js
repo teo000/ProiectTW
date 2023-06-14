@@ -116,10 +116,10 @@ const customReadBooksEjs = async (req, res, file_path, title) => {
             sendErrorResponse(res);
             return;
         }
-        //make request to server to get genre data, also should make request to get clasament
+        //make request to server to get genre data
         const decodedTitle = decodeURIComponent(title);
         const bookPromise = new Promise((resolve, reject) => {
-            http.get(`http://localhost:6969/books/getBook/${decodedTitle}`, (response) => {
+            http.get(`http://localhost:6969/books/getBook/${title}`, (response) => {
                 let data = "";
                 response.on("data", (chunk) => {
                     data += chunk;
@@ -133,11 +133,25 @@ const customReadBooksEjs = async (req, res, file_path, title) => {
                 reject(error);
             });
         });
-
+        const genresPromise = new Promise((resolve, reject) => {
+            http.get(`http://localhost:6969/genres/${title}`, (response) => {
+                let data = "";
+                response.on("data", (chunk) => {
+                    data += chunk;
+                });
+                response.on('end', () => {
+                    const booksData = JSON.parse(data);
+                    resolve(booksData);
+                });
+            }).on("error", (error) => {
+                console.log(error);
+                reject(error);
+            });
+        });
         try {
-            const [booksData] = await Promise.all([bookPromise]);
+            const [booksData,genreData] = await Promise.all([bookPromise,genresPromise]);
             // Render the EJS template with the data
-            const renderedEJS = ejs.render(template, {book: booksData});
+            const renderedEJS = ejs.render(template, {book: booksData, genres:genreData});
             res.writeHead(200, {"Content-Type": "text/html"});
             res.end(renderedEJS);
         } catch (error) {

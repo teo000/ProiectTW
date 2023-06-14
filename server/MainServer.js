@@ -3,6 +3,7 @@ const PORT = process.env.PORT || 6969;
 const fs = require('fs')
 const userRouter = require('./routes/UserRoutes');
 const bookRouter = require('./routes/BooksRoutes');
+const genreRouter = require('./routes/GenreRoutes');
 const {createServer} = require("https");
 const microServiceRoutes = [
     {path: '/login', method: 'POST'},
@@ -32,7 +33,10 @@ const mainServer = http.createServer(
             userRouter.routeRequest(req, res);
         } else if (url.startsWith('/books')) {
             bookRouter.routeRequest(req, res);
-        } else if (url.startsWith('/login') || url.startsWith('/logout') || url.startsWith('/token')) {
+        } else if (url.startsWith('/genres')) {
+            genreRouter.routeRequest(req, res);
+        }
+        else if (url.startsWith('/login') || url.startsWith('/logout') || url.startsWith('/token')) {
             handleAuthentication(req, res);
         } else {
             res.writeHead(404, {'Content-Type': 'application/json'});

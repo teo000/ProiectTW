@@ -34,7 +34,7 @@ async function navigateToPage(url){
 }*/
 
 function navigateToGenre(genre) {
-    const encodedGenre = encodeURIComponent(genre);
+    const encodedGenre = encodeURIComponent(genre.toLowerCase());
     window.location.href = `http://localhost:8081/books/genres/${encodedGenre}`;
 }
 
