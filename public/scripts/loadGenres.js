@@ -32,3 +32,14 @@ async function navigateToPage(url){
     //  window.location.href = "../../../views/book.html";
     return false;
 }*/
+
+function navigateToGenre(genre) {
+    const encodedGenre = encodeURIComponent(genre);
+    window.location.href = `http://localhost:8081/books/genres/${encodedGenre}`;
+}
+
+function navigateToBook (title){
+    const encodedTitle = encodeURIComponent(title);
+    window.location.href = `http://localhost:8081/books/getBook/${encodedTitle}`;
+    console.log("sms")
+}

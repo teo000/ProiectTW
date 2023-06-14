@@ -33,13 +33,13 @@
 
                             <a class="active" href="#">Categories</a>
                             <div class="hamburger-double-dropdown">
-                                <a href="../RomanceGenre/romance.html">Romance</a>
-                                <a href="#">Biography</a>
-                                <a href="..ime.html">Crime</a>
-                                <a href="#">Fiction</a>
-                                <a href="#">Historical Fiction</a>
-                                <a href="#">Self Help</a>
-                                <a href="#">Young Adult</a>
+                                <a href="javascript:void(0);" onclick="navigateToGenre('romance')">Romance</a>
+                                <a href="javascript:void(0);" onclick="navigateToGenre('biography')">Biography</a>
+                                <a href="javascript:void(0);" onclick="navigateToGenre('crime')">Crime</a>
+                                <a  href="javascript:void(0);"onclick="navigateToGenre('fiction')">Fiction</a>
+                                <a  href="javascript:void(0);" onclick="navigateToGenre('historical fiction')">Historical Fiction</a>
+                                <a href="javascript:void(0);" onclick="navigateToGenre('self help')">Self Help</a>
+                                <a href="javascript:void(0);" onclick="navigateToGenre('young adult')">Young Adult</a>
                             </div>
                         </div>
                         <a class="active" href="../../../views/mygroupspage.html">My Groups</a>
@@ -47,10 +47,10 @@
 
                             <a class="active" href="#">More</a>
                             <div class="hamburger-double-dropdown">
-                                <a href="../../Userpage/userpage.html">Profile</a>
-                                <a href="../../../views/AboutPage.html">About</a>
-                                <a href="../../../views/Help.html">Help</a>
-                                <a href="../../LogInPage">Log Out</a>
+                                <a href="userpage">Profile</a>
+                                <a href="AboutPage">About</a>
+                                <a href="Help">Help</a>
+                                <a href="LogInPage">Log Out</a>
                             </div>
                         </div>
                     </div>
@@ -66,23 +66,23 @@
                 <div class="dropdown">
                     <button class="dropDownButton">Categories</button>
                     <div class="dropdown-categories">
-                        <a href="../RomanceGenre/romance.html">Romance</a>
-                        <a href="#">Biography</a>
-                        <a href="../CrimeGenre/crime.html">Crime</a>
-                        <a href="#">Fiction</a>
-                        <a href="#">Historical Fiction</a>
-                        <a href="#">Self Help</a>
-                        <a href="#">Young Adult</a>
+                        <a href="javascript:void(0);" onclick="navigateToGenre('romance')">Romance</a>
+                        <a href="javascript:void(0);" onclick="navigateToGenre('biography')">Biography</a>
+                        <a href="javascript:void(0);" onclick="navigateToGenre('crime')">Crime</a>
+                        <a  href="javascript:void(0);"onclick="navigateToGenre('fiction')">Fiction</a>
+                        <a  href="javascript:void(0);" onclick="navigateToGenre('historical fiction')">Historical Fiction</a>
+                        <a href="javascript:void(0);" onclick="navigateToGenre('self help')">Self Help</a>
+                        <a href="javascript:void(0);" onclick="navigateToGenre('young adult')">Young Adult</a>
                     </div>
                 </div>
-                <a class="active" href="../../../views/mygroupspage.html">My Groups</a>
+                <a class="active" href="mygroupspage">My Groups</a>
                 <div class="dropdown">
                     <button class="dropDownButton">More</button>
                     <div class="dropdown-categories">
-                        <a href="../../UserPage/userpage.html">Profile</a>
-                        <a href="../../../views/AboutPage.html">About</a>
-                        <a href="../../../views/Help.html">Help</a>
-                        <a href="../../../views/login.html">Log Out</a>
+                        <a href="userpage">Profile</a>
+                        <a href="AboutPage">About</a>
+                        <a href="Help">Help</a>
+                        <a href="login">Log Out</a>
                     </div>
                 </div>
 
@@ -95,20 +95,22 @@
 
     <div id="content-div">
         <div id="clasament-div">
-            <h1>Most Liked Romance Books:</h1>
+
+            <h1>Most Liked  <%= genre %> Books:</h1>
             <nav class="linkuri-clasament">
                 <ol>
-                    <%topBooks.forEach(function(topBook) { %>
+                    <% topBooks.forEach(function(topBook) { %>
                         <li>
-                            <a href="#" class="book-name">
-                                <%=topBook.title%>   </a><a href="#" class="author-names"> by <%=topBook.author%>></a>
-                        </li><%})%>
+                            <a href="javascript:void(0);" onclick="navigateToBook('<%= topBook.title %>')" class="book-name">
+                                <%= topBook.title %>
+                            </a>
+                        </li>
+                    <% }) %>
                 </ol>
-
                 <!-- <h3>
                      Give your books ratings to help us create these rankings!
                  </h3>-->
-            </nav>
+            </nav>c
         </div>
 
         <div id="feed-div">
@@ -148,5 +150,6 @@
 </div>
 
 <script src ="genres.js"></script>
+<script src ="loadGenres.js"></script>
 </body>
 </html>

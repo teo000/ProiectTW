@@ -1,7 +1,7 @@
-const {getAllBooks, getBookByID, getBookByTitle, addBook, getGenre} = require("../controllers/BookController");
+const {getAllBooks, getBookByID, getBookByTitle, addBook, getGenre,  getTopBooksInGenre} = require("../controllers/BookController");
 const bookIdRegex = /^\/books\/[0-9]+$/;
 const bookTitleRegex = /^\/books\/[a-zA-Z0-9\s]+$/;
-const {authenticateToken} = require('../helpers/TokenAuthenticator')
+const {authenticateToken} = require('../../helpers/TokenAuthenticator')
 
 const routeRequest = async (req, res) => {
     if (req.method === 'GET')
@@ -17,15 +17,20 @@ const routeRequest = async (req, res) => {
 const handleGetRequests = (req, res) => {
     if (req.url === '/books/getAll') {
         authenticateToken(req, res, getAllBooks)
-    } else if (req.url.startsWith('/books/genres/')){
+    } else if (req.url.startsWith('/books/genres/top')) {
+        const genre = req.url.split('/')[4].toLowerCase();
+        const decodedGenre = decodeURIComponent(genre);
+        getTopBooksInGenre(req, res, decodedGenre);
+    } else if (req.url.startsWith('/books/genres/')) {
         const genre = req.url.split('/')[3].toLowerCase();
-        getGenre(req,res,genre);
-    }else if (req.url.match(bookIdRegex)) {
+        const decodedGenre = decodeURIComponent(genre);
+        getGenre(req, res, decodedGenre);
+    } else if (req.url.match(bookIdRegex)) {
         const id = req.url.split('/')[2];
         authenticateToken(req, res, getBookByID, id)
-    } else if (req.url === '/books/getBook') {
-        authenticateToken(req, res, getBookByTitle);
-    }  else {
+    } else if (req.url.startsWith( '/books/getBook') ){
+       getBookByTitle(req,res);
+    } else {
         res.writeHead(404, {'Content-Type': 'application/json'});
         res.end(JSON.stringify({error: 'Endpoint not found'}));
     }

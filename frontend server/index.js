@@ -3,9 +3,11 @@ const http = require("http");
 const fs = require('fs');
 const ejs = require('ejs')
 const cssRouter = require("./routes/CssRouter")
-const PORT = process.env.PORT || 8081;
+const PORT = 8081;
 
 const PageController = require("./controller/PageController")
+const {authenticateToken} = require("../helpers/TokenAuthenticator");
+const {createServer} = require("https");
 
 const getFileUrl = (url) => {
     const ending = url.substring(url.lastIndexOf("/") + 1);
@@ -31,7 +33,7 @@ const sendErrorResponse = res => {
     res.end();
 };
 
-const customReadFile = (file_path, res) => {
+const customReadFile = async (req, res, file_path) => {
     if (fs.existsSync(file_path)) {
         fs.readFile(file_path, (error, data) => {
             if (error) {
@@ -48,7 +50,7 @@ const customReadFile = (file_path, res) => {
 };
 
 
-const customReadEjsFile = (file_path, genre, res) => {
+const customReadGenresEjs = async (req, res, file_path, genre) => {
     if (fs.existsSync(file_path)) {
         const template = fs.readFileSync(file_path, "utf8");
         if (!template) {
@@ -56,50 +58,147 @@ const customReadEjsFile = (file_path, genre, res) => {
             return;
         }
         //make request to server to get genre data, also should make request to get clasament
-        http.get(`http://localhost:6969/books/genres/${genre}`, (response) => {
-            let data = "";
-            response.on("data", (chunk) => {
-                data += chunk;
+        const decodedGenre = decodeURIComponent(genre);
+        const booksPromise = new Promise((resolve, reject) => {
+            http.get(`http://localhost:6969/books/genres/${genre}`, (response) => {
+                let data = "";
+                response.on("data", (chunk) => {
+                    data += chunk;
+                });
+                response.on('end', () => {
+                    const booksData = JSON.parse(data);
+                    resolve(booksData);
+                });
+            }).on("error", (error) => {
+                console.log(error);
+                reject(error);
             });
-            response.on('end', () => {
-                const booksData = JSON.parse(data);
-                const renderedEJS = ejs.render(template, {books: booksData});
-                res.writeHead(200, {"Content-Type": "text/html"});
-                res.end(renderedEJS);
+        });
+        const topBooksPromise = new Promise((resolve, reject) => {
+            http.get(`http://localhost:6969/books/genres/top/${decodedGenre}`, (response) => {
+                let data = "";
+                response.on("data", (chunk) => {
+                    data += chunk;
+                });
+                response.on('end', () => {
+                    const topBooksData = JSON.parse(data);
+                    resolve(topBooksData);
+                });
+            }).on("error", (error) => {
+                console.log(error);
+                reject(error);
             });
-        }).on("error", (error) => {
+        });
+        try {
+            const [booksData, topBooksData] = await Promise.all([booksPromise, topBooksPromise]);
+
+
+            // Render the EJS template with the data
+            const upperCasedDecodedGenre = decodedGenre.charAt(0).toUpperCase() + decodedGenre.slice(1);
+            const renderedEJS = ejs.render(template, {
+                books: booksData,
+                topBooks: topBooksData,
+                genre: upperCasedDecodedGenre
+            });
+            res.writeHead(200, {"Content-Type": "text/html"});
+            res.end(renderedEJS);
+        } catch (error) {
             console.log(error);
             sendErrorResponse(res);
-        });
-    } else {
-        sendErrorResponse(res);
+        }
     }
 }
-const server = http.createServer((req, res) => {
+
+const customReadBooksEjs = async (req, res, file_path, title) => {
+    if (fs.existsSync(file_path)) {
+        const template = fs.readFileSync(file_path, "utf8");
+        if (!template) {
+            sendErrorResponse(res);
+            return;
+        }
+        //make request to server to get genre data, also should make request to get clasament
+        const decodedTitle = decodeURIComponent(title);
+        const bookPromise = new Promise((resolve, reject) => {
+            http.get(`http://localhost:6969/books/getBook/${decodedTitle}`, (response) => {
+                let data = "";
+                response.on("data", (chunk) => {
+                    data += chunk;
+                });
+                response.on('end', () => {
+                    const booksData = JSON.parse(data);
+                    resolve(booksData);
+                });
+            }).on("error", (error) => {
+                console.log(error);
+                reject(error);
+            });
+        });
+
+        try {
+            const [booksData] = await Promise.all([bookPromise]);
+            // Render the EJS template with the data
+            const renderedEJS = ejs.render(template, {book: booksData});
+            res.writeHead(200, {"Content-Type": "text/html"});
+            res.end(renderedEJS);
+        } catch (error) {
+            console.log(error);
+            sendErrorResponse(res);
+        }
+    }
+}
+
+const options = {
+    key: fs.readFileSync('../key.pem'),
+    cert: fs.readFileSync('../cert.pem'),
+};
+const server = createServer(options,(req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+
+    if (req.method === 'OPTIONS') {
+        res.writeHead(200);
+        res.end();
+        return;
+    }
+
     const url = req.url;
     if (url.startsWith('/books/genres/') && url.indexOf(".") === -1) {
         const genre = url.split('/')[3].toLowerCase();
-        customReadEjsFile(`../views/ejs/genres.ejs`, genre, res);
+        customReadGenresEjs(req, res, `../views/ejs/genres.ejs`, genre);
+        //   authenticateToken(req, res, customReadEjsFile,`../views/ejs/genres.ejs`,genre);
+    } else if (url.startsWith('/books/getBook/') && url.indexOf(".") === -1) {
+        const title = url.split('/')[3].toLowerCase();
+        customReadBooksEjs(req, res, `../views/ejs/bookpage.ejs`, title);
     } else if (url.indexOf(".") === -1) {
         //its an html request{
+        //check if it is login
+        if (url.indexOf("login") === -1) {
+            res.writeHead(200, {"Content-Type": "text/html"});
+             authenticateToken(req, res, customReadFile,getFileUrl(url));
+           // customReadFile(req, res, getFileUrl(url));
+            return;
+        }
         res.writeHead(200, {"Content-Type": "text/html"});
-        customReadFile(getFileUrl(url), res);
+        customReadFile(req, res, getFileUrl(url));
+
     } else if (url.indexOf(".js") !== -1) {
         res.writeHead(200, {"Content-Type": "text/javascript"});
-        customReadFile(getScriptsUrl(url), res);
+        customReadFile(req, res, getScriptsUrl(url));
     } else if (url.indexOf(".css") !== -1) {
         res.writeHead(200, {"Content-Type": "text/css"});
-        customReadFile(getCssUrl(url), res);
+        customReadFile(req, res, getCssUrl(url));
     } else if (url.indexOf(".png") !== -1) {
         res.writeHead(200, {"Content-Type": "image/png"});
-        customReadFile(getImagesUrl(url), res);
+        customReadFile(req, res, getImagesUrl(url));
     } else if (url.indexOf(".jpg") !== -1) {
         res.writeHead(200, {"Content-Type": "image/jpeg"});
-        customReadFile(getImagesUrl(url), res);
+        customReadFile(req, res, getImagesUrl(url));
     } else if (url.indexOf(".ejs") !== -1) {
         //make request to server to get data
         res.writeHead(200, {"Content-Type": "text/html"});
-        customReadEjsFile(`../views/ejs/${url}`, res);
+        customReadGenresEjs(req, res, `../views/ejs/${url}`);
     } else sendErrorResponse(res);
 
 });

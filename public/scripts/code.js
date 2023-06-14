@@ -18,7 +18,7 @@ loginForm.addEventListener('submit', (event) => {
     const username = document.querySelector('#username').value;
     const password = document.querySelector('#password_field').value;
 
-    fetch('http://localhost:6969/login', {
+    fetch('https://localhost:6969/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

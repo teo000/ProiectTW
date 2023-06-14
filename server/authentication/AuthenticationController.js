@@ -106,34 +106,42 @@ const token = async (req, res) => {
 
 
 function generateAccessToken(user) {
-    return jwt.sign({user}, `${process.env.ACCESS_TOKEN_SECRET}`, {expiresIn: '20s'});
+    return jwt.sign({user}, `${process.env.ACCESS_TOKEN_SECRET}`, {expiresIn: '1h'});
 }
 
 function setCookie(res, accessToken, refreshToken) {
     res.setHeader('Set-Cookie', [
-        cookie.serialize('access_token', accessToken, {
+        cookie.serialize('access_token', `${accessToken}`, {
             httpOnly: true,
-            secure: false,
-            sameSite: 'Strict',
+            secure: true,
+            sameSite: 'None',
             maxAge: 3600,
             path: '/',
         }),
-        cookie.serialize('refresh_token', refreshToken, {
+        cookie.serialize('refresh_token', `${refreshToken}`, {
             httpOnly: true,
-            secure: false,
-            sameSite: 'Strict',
+            secure: true,
+            sameSite: 'None',
             maxAge: 86400 * 30,
             path: '/', // Adjust the path as per your requirements
         }),
-        cookie.serialize('exclude_cookie', 'true', {
+       /* cookie.serialize('exclude_cookie', 'true', {
             path: '/login', // Specific path to exclude
             // Other cookie options
         }),
         cookie.serialize('exclude_cookie', 'true', {
             path: '/signup', // Specific path to exclude
             // Other cookie options
-        }),
+        }),*/
+        cookie.serialize('a', "b", {
+            httpOnly: true,
+            secure: false,
+            sameSite: 'Strict',
+            maxAge: 86400 * 30,
+            path: '/', // Adjust the path as per your requirements
+        })
     ]);
+
 }
 
 const logout = async (req, res) => {

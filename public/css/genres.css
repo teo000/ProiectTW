@@ -53,6 +53,7 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-content: flex-start;
     overflow-wrap: break-word;
     overflow-y: scroll;
     overflow-x: scroll;
@@ -63,7 +64,7 @@ body{
     background-color: #cf4d5c;
 
     margin-top: 15vh;
-    margin-left: 3vw;
+    margin-left: 3.5vw;
     padding:10px;
     border-radius: 50px;
     position: fixed;
@@ -76,7 +77,10 @@ body{
     flex-direction: column;
     margin-top: 1vh;
     justify-content: center;
+    align-content: flex-start;
     flex-wrap: wrap;
+    scrollbar-width: none;
+
 }
 
 #clasament-div h1 {
