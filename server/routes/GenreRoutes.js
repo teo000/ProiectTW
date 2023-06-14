@@ -16,8 +16,8 @@ const handleGetRequests = (req, res) => {
     if (req.url.startsWith('/genres/')) {
         const title = req.url.split('/')[2];
         const decodedTitle = decodeURI(title);
-        getGenreForBook(req,res,decodedTitle)
-        //authenticateToken(req, res, getGenreForBook, decodedTitle);
+       // getGenreForBook(req,res,decodedTitle)
+        authenticateToken(req, res, getGenreForBook, decodedTitle);
     }else {
         res.writeHead(404, {'Content-Type': 'application/json'});
         res.end(JSON.stringify({error: 'Endpoint not found'}));

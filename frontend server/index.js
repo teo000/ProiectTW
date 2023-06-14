@@ -57,10 +57,21 @@ const customReadGenresEjs = async (req, res, file_path, genre) => {
             sendErrorResponse(res);
             return;
         }
-        //make request to server to get genre data, also should make request to get clasament
+
+        const cookies = req.headers.cookie || '';
         const decodedGenre = decodeURIComponent(genre);
         const booksPromise = new Promise((resolve, reject) => {
-            http.get(`http://localhost:6969/books/genres/${genre}`, (response) => {
+            const options = {
+                hostname: 'localhost',
+                port: 6969,
+                path: `/books/genres/${genre}`,
+                headers: {
+                    'Cookie': cookies // Pass the extracted cookies in the request headers
+                }
+            };
+        //make request to server to get genre data, also should make request to get clasament
+
+            http.get(options, (response) => {
                 let data = "";
                 response.on("data", (chunk) => {
                     data += chunk;
@@ -75,7 +86,16 @@ const customReadGenresEjs = async (req, res, file_path, genre) => {
             });
         });
         const topBooksPromise = new Promise((resolve, reject) => {
-            http.get(`http://localhost:6969/books/genres/top/${decodedGenre}`, (response) => {
+            const options = {
+                hostname: 'localhost',
+                port: 6969,
+                path: `/books/genres/top/${genre}`,
+                headers: {
+                    'Cookie': cookies // Pass the extracted cookies in the request headers
+                }
+            };
+
+            http.get(options, (response) => {
                 let data = "";
                 response.on("data", (chunk) => {
                     data += chunk;
@@ -116,10 +136,22 @@ const customReadBooksEjs = async (req, res, file_path, title) => {
             sendErrorResponse(res);
             return;
         }
-        //make request to server to get genre data
         const decodedTitle = decodeURIComponent(title);
+
+        // Extract cookies from the client's request
+        const cookies = req.headers.cookie || '';
+
         const bookPromise = new Promise((resolve, reject) => {
-            http.get(`http://localhost:6969/books/getBook/${title}`, (response) => {
+            const options = {
+                hostname: 'localhost',
+                port: 6969,
+                path: `/books/getBook/${title}`,
+                headers: {
+                    'Cookie': cookies // Pass the extracted cookies in the request headers
+                }
+            };
+
+            http.get(options, (response) => {
                 let data = "";
                 response.on("data", (chunk) => {
                     data += chunk;
@@ -133,25 +165,38 @@ const customReadBooksEjs = async (req, res, file_path, title) => {
                 reject(error);
             });
         });
+
         const genresPromise = new Promise((resolve, reject) => {
-            http.get(`http://localhost:6969/genres/${title}`, (response) => {
+            const options = {
+                hostname: 'localhost',
+                port: 6969,
+                path: `/genres/${title}`,
+                headers: {
+                    'Cookie': cookies // Pass the extracted cookies in the request headers
+                }
+            };
+
+            http.get(options, (response) => {
                 let data = "";
                 response.on("data", (chunk) => {
                     data += chunk;
                 });
                 response.on('end', () => {
-                    const booksData = JSON.parse(data);
-                    resolve(booksData);
+                    const genreData = JSON.parse(data);
+                    resolve(genreData);
                 });
             }).on("error", (error) => {
                 console.log(error);
                 reject(error);
             });
         });
+
         try {
-            const [booksData,genreData] = await Promise.all([bookPromise,genresPromise]);
+            const [booksData, genreData] = await Promise.all([bookPromise, genresPromise]);
+
             // Render the EJS template with the data
-            const renderedEJS = ejs.render(template, {book: booksData, genres:genreData});
+            const renderedEJS = ejs.render(template, { book: booksData, genres: genreData });
+
             res.writeHead(200, {"Content-Type": "text/html"});
             res.end(renderedEJS);
         } catch (error) {
