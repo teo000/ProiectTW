@@ -41,5 +41,13 @@ function navigateToGenre(genre) {
 function navigateToBook (title){
     const encodedTitle = encodeURIComponent(title);
     window.location.href = `http://localhost:8081/books/getBook/${encodedTitle}`;
-    console.log("sms")
+}
+function navigateToPage(pageName) {
+    const encodedPage = encodeURIComponent(pageName.toLowerCase());
+    window.location.href = `http://localhost:8081/${encodedPage}`;
+}
+
+
+function logout(){
+    //ceva request pt logout
 }
