@@ -104,11 +104,11 @@
                 <label for="read">Read</label><br>
             </div>
             <div class="option">
-                <input type="checkbox" id="currently-reading" name="bookshelf" value="currently-reading">
+                <input type="checkbox" id="currently-reading" name="bookshelf" value="currently reading">
                 <label for="currently-reading">Currently reading</label><br>
             </div>
             <div class="option">
-                <input type="checkbox" id="want-to-read" name="bookshelf" value="want-to-read">
+                <input type="checkbox" id="want-to-read" name="bookshelf" value="want to read">
                 <label for="want-to-read">Want to read</label>
             </div>
         </div>
@@ -124,33 +124,7 @@
                     <th>Shelf</th>
                 </tr>
                 </thead>
-                <tbody>
-                <% if (books.length > 0) { %>
-                    <% books.forEach(function(book) { %>
-                        <tr>
-                            <td><img src="<%= book.coverimg %>" alt="Book cover"></td>
-                            <td><%= book.title %></td>
-                            <td><%= book.author %></td>
-                            <td><%= book.avgrating %></td>
-                            <td>
-                                <div class="preset-rating">
-                                    <% if (book.rating !== null) { %>
-                                        <div class="empty-stars"></div>
-                                        <div class="full-stars" style="width: <%= book.rating * 20 %>%"></div>
-                                    <% } else { %>
-                                        <span>-</span>
-                                    <% } %>
-                                </div>
-                            </td>
-                            <td><%= book.shelf %></td>
-                        </tr>
-                    <% }); %>
-                <% } else { %>
-                    <tr>
-                        <td colspan="6">No books in your shelves yet!</td>
-                    </tr>
-                <% } %>
-                </tbody>
+                <%- include('./shelves.ejs', { books: booksData }) %>
             </table>
         </div>
     </div>
@@ -159,5 +133,6 @@
     </footer>
 </div>
 <script src ="navigationLinks.js"></script>
+<script src ="mybooks.js"></script>
 </body>
 </html>

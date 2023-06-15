@@ -104,61 +104,27 @@
                 <label for="read">Read</label><br>
             </div>
             <div class="option">
-                <input type="checkbox" id="currently-reading" name="bookshelf" value="currently-reading">
+                <input type="checkbox" id="currently-reading" name="bookshelf" value="currently reading">
                 <label for="currently-reading">Currently reading</label><br>
             </div>
             <div class="option">
-                <input type="checkbox" id="want-to-read" name="bookshelf" value="want-to-read">
+                <input type="checkbox" id="want-to-read" name="bookshelf" value="want to read">
                 <label for="want-to-read">Want to read</label>
             </div>
         </div>
         <div id="books">
             <table class="styled-table">
                 <thead>
-                    <tr>
-                        <th>Book cover</th>
-                        <th>Title</th>
-                        <th>Author</th>
-                        <th>Avg. rating</th>
-                        <th>Rating</th>
-                        <th>Shelf</th>
-                    </tr>
+                <tr>
+                    <th>Book cover</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Avg. rating</th>
+                    <th>Rating</th>
+                    <th>Shelf</th>
+                </tr>
                 </thead>
-                <tbody>
-                    <tr >
-                        <td><img src="../public/images/book-cover.jpg" alt="Book cover"></td>
-                        <td>Pride and Prejudice</td>
-                        <td>Jane Austen</td>
-                        <td>4.28</td>
-                        <td>
-                            <div class="preset-rating">
-                                <div class="empty-stars"></div>
-                                <div class="full-stars" style="width:80%"></div>
-                            </div>
-                        </td>
-                        <td>Read</td>
-
-                    </tr>
-                    <tr>
-                        <td><img src="../public/images/great-gatsby.jpg" alt="Book cover"></td>
-                        <td>The Great Gatsby</td>
-                        <td>F. Scott Fitzgerald</td>
-                        <td>3.93</td>
-                        <td>-</td>
-                        <td>Want to read</td>
-                    </tr>
-                    <tr >
-                        <td><img src="../public/images/wuthering-heights.jpg" alt="Book cover"></td>
-                        <td>Wuthering Heights</td>
-                        <td>Emily Brontë</td>
-                        <td>3.88</td>
-                        <td>-</td>
-                        <td>Currently reading</td>
-
-                    </tr>
-
-                    
-                </tbody>
+                <%- include('mybooks.ejs', { books: booksData }) %>
             </table>
         </div>
     </div>
@@ -167,5 +133,6 @@
     </footer>
 </div>
 <script src ="navigationLinks.js"></script>
+<script src ="mybooks.js"></script>
 </body>
 </html>

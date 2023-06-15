@@ -1,0 +1,27 @@
+<tbody>
+<% if (books.length > 0) { %>
+    <% books.forEach(function(book) { %>
+        <tr>
+            <td><img src="<%= book.coverimg %>" alt="Book cover"></td>
+            <td><%= book.title %></td>
+            <td><%= book.author %></td>
+            <td><%= book.avgrating %></td>
+            <td>
+                <div class="preset-rating">
+                    <% if (book.rating !== null) { %>
+                        <div class="empty-stars"></div>
+                        <div class="full-stars" style="width: <%= book.rating * 20 %>%"></div>
+                    <% } else { %>
+                        <span>-</span>
+                    <% } %>
+                </div>
+            </td>
+            <td><%= book.shelf %></td>
+        </tr>
+    <% }); %>
+<% } else { %>
+    <tr>
+        <td colspan="6">No books in your shelves yet!</td>
+    </tr>
+<% } %>
+</tbody>

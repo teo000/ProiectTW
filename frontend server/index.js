@@ -71,7 +71,7 @@ const customReadGenresEjs = async (req, res, file_path, genre) => {
                     'Cookie': cookies // Pass the extracted cookies in the request headers
                 }
             };
-        //make request to server to get genre data, also should make request to get clasament
+            //make request to server to get genre data, also should make request to get clasament
 
             http.get(options, (response) => {
                 let data = "";
@@ -197,7 +197,7 @@ const customReadBooksEjs = async (req, res, file_path, title) => {
             const [booksData, genreData] = await Promise.all([bookPromise, genresPromise]);
 
             // Render the EJS template with the data
-            const renderedEJS = ejs.render(template, { book: booksData, genres: genreData });
+            const renderedEJS = ejs.render(template, {book: booksData, genres: genreData});
 
             res.writeHead(200, {"Content-Type": "text/html"});
             res.end(renderedEJS);
@@ -218,13 +218,13 @@ const customReadUserEjs = async (req, res, file_path) => {
 
         // Extract cookies from the client's request
         const cookies = req.headers.cookie ? parse(req.headers.cookie, '; ') : {};
-        if(!cookies.access_token){
+        if (!cookies.access_token) {
             res.writeHead(401, {"Content-Type": "text/html"});
             res.end('<h1>Unauthorized</h1>');
             return;
         }
         const user = extractUser(cookies.access_token);
-        if(!user){
+        if (!user) {
             res.writeHead(401, {"Content-Type": "text/html"});
             res.end('<h1>Unauthorized</h1>');
             return;
@@ -233,7 +233,7 @@ const customReadUserEjs = async (req, res, file_path) => {
 
         try {
             // Render the EJS template with the data
-            const renderedEJS = ejs.render(template, { user: userObj});
+            const renderedEJS = ejs.render(template, {user: userObj});
 
             res.writeHead(200, {"Content-Type": "text/html"});
             res.end(renderedEJS);
@@ -241,14 +241,35 @@ const customReadUserEjs = async (req, res, file_path) => {
             console.log(error);
             sendErrorResponse(res);
         }
-    }
-    else{
+    } else {
         sendErrorResponse(res);
     }
 }
 
-
 const customReadUserBooksEjs = async (req, res, file_path) => {
+    if (fs.existsSync(file_path)) {
+        const mainTemplate = fs.readFileSync(file_path, "utf8");
+        if (!mainTemplate) {
+            sendErrorResponse(res);
+            return;
+        }
+        //render inner template
+        try {
+            const renderedInnerTemplate = await customReadUserShelvesEjs(req, res, `../views/ejs/shelves.ejs`);
+
+            const renderedMainTemplate = ejs.render(mainTemplate, {booksData: renderedInnerTemplate});
+            res.writeHead(200, {"Content-Type": "text/html"});
+            res.end(renderedMainTemplate);
+        } catch (error) {
+            console.log(error);
+            sendErrorResponse(res);
+        }
+    } else {
+        sendErrorResponse(res);
+    }
+}
+
+const customReadUserShelvesEjs = async (req, res, file_path) => {
     if (fs.existsSync(file_path)) {
         const template = fs.readFileSync(file_path, "utf8");
         if (!template) {
@@ -258,14 +279,14 @@ const customReadUserBooksEjs = async (req, res, file_path) => {
 
         // Extract cookies from the client's request
         const cookies = req.headers.cookie ? parse(req.headers.cookie, '; ') : {};
-        if(!cookies.access_token){
+        if (!cookies.access_token) {
             res.writeHead(401, {"Content-Type": "text/html"});
             res.end('<h1>Unauthorized</h1>');
             return;
         }
         const user = extractUser(cookies.access_token);
 
-        if(!user){
+        if (!user) {
             res.writeHead(401, {"Content-Type": "text/html"});
             res.end('<h1>Unauthorized</h1>');
             return;
@@ -308,17 +329,13 @@ const customReadUserBooksEjs = async (req, res, file_path) => {
         try {
             // Render the EJS template with the data
             const [booksData] = await Promise.all([booksPromise]);
-            const renderedEJS = ejs.render(template, { books: booksData});
-
-            res.writeHead(200, {"Content-Type": "text/html"});
-            res.end(renderedEJS);
+            return ejs.render(template, {books: booksData});
         } catch (error) {
             console.log(error);
-            sendErrorResponse(res);
+            return sendErrorResponse(res);
         }
-    }
-    else{
-        sendErrorResponse(res);
+    } else {
+        return sendErrorResponse(res);
     }
 }
 
@@ -335,18 +352,17 @@ const server = http.createServer((req, res) => {
     } else if (url.startsWith('/books/getBook/') && url.indexOf(".") === -1) {
         const title = url.split('/')[3].toLowerCase();
         customReadBooksEjs(req, res, `../views/ejs/bookpage.ejs`, title);
-    } else if(url.startsWith('/profile') && url.indexOf(".") === -1) {
+    } else if (url.startsWith('/profile') && url.indexOf(".") === -1) {
         customReadUserEjs(req, res, `../views/ejs/profile.ejs`);
-    } else if (url.startsWith('/books/mybooks/')&& url.indexOf(".") === -1){
+    } else if (url.startsWith('/books/mybooks')) {
         customReadUserBooksEjs(req, res, `../views/ejs/mybooks.ejs`);
-    }
-    else if (url.indexOf(".") === -1) {
+    } else if (url.indexOf(".") === -1) {
         //its an html request{
         //check if it is login
         if (url.indexOf("login") === -1 && url.indexOf("signup") === -1) {
-          //  res.writeHead(200, {"Content-Type": "text/html"});
-             authenticateToken(req, res, customReadFile,getFileUrl(url));
-           // customReadFile(req, res, getFileUrl(url));
+            //  res.writeHead(200, {"Content-Type": "text/html"});
+            authenticateToken(req, res, customReadFile, getFileUrl(url));
+            // customReadFile(req, res, getFileUrl(url));
             return;
         }
 
