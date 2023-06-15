@@ -20,6 +20,11 @@ function authenticateToken(req, res, next, ...args) {
     })
 }
 
+function extractUser(token){
+    return jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+}
+
 module.exports = {
-    authenticateToken
+    authenticateToken,
+    extractUser
 }

@@ -6,8 +6,9 @@ const cssRouter = require("./routes/CssRouter")
 const PORT = 8081;
 
 const PageController = require("./controller/PageController")
-const {authenticateToken} = require("../helpers/TokenAuthenticator");
+const {authenticateToken, extractUser} = require("../helpers/TokenAuthenticator");
 const {createServer} = require("https");
+const {parse} = require("querystring");
 
 const getFileUrl = (url) => {
     const ending = url.substring(url.lastIndexOf("/") + 1);
@@ -207,6 +208,36 @@ const customReadBooksEjs = async (req, res, file_path, title) => {
     }
 }
 
+
+
+const customReadUserEjs = async (req, res, file_path) => {
+    if (fs.existsSync(file_path)) {
+        const template = fs.readFileSync(file_path, "utf8");
+        if (!template) {
+            sendErrorResponse(res);
+            return;
+        }
+
+        // Extract cookies from the client's request
+        const cookies = req.headers.cookie ? parse(req.headers.cookie, '; ') : {};
+        const user = extractUser(cookies.access_token);
+        const userObj = user.user;
+
+        try {
+            // Render the EJS template with the data
+            const renderedEJS = ejs.render(template, { user: userObj});
+
+            res.writeHead(200, {"Content-Type": "text/html"});
+            res.end(renderedEJS);
+        } catch (error) {
+            console.log(error);
+            sendErrorResponse(res);
+        }
+    }
+    else{
+        sendErrorResponse(res);
+    }
+}
 const server = http.createServer((req, res) => {
 
     const url = req.url;
@@ -219,6 +250,8 @@ const server = http.createServer((req, res) => {
     } else if (url.startsWith('/books/getBook/') && url.indexOf(".") === -1) {
         const title = url.split('/')[3].toLowerCase();
         customReadBooksEjs(req, res, `../views/ejs/bookpage.ejs`, title);
+    } else if(url.startsWith('/profile') && url.indexOf(".") === -1) {
+        customReadUserEjs(req, res, `../views/ejs/profile.ejs`);
     } else if (url.indexOf(".") === -1) {
         //its an html request{
         //check if it is login

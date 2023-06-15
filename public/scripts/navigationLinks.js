@@ -47,6 +47,10 @@ function navigateToPage(pageName) {
     window.location.href = `http://localhost:8081/${encodedPage}`;
 }
 
+function navigateToUserProfile (){
+    window.location.href = `http://localhost:8081/profile`;
+}
+
 
 function logout(){
     //ceva request pt logout
