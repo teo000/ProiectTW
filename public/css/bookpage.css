@@ -9,7 +9,7 @@
 body {
     display: flex;
     flex-direction: column;
-    background-image: linear-gradient(170deg,rgba(255, 175, 189, 0.5),rgba(255, 195, 160, 0.7)),url("../images/wallpaper.jpg");
+    background-image: linear-gradient(170deg,rgba(255, 175, 189, 0.5),rgba(255, 195, 160, 0.7)),url("../resources/images/wallpaper.jpg");
     background-size: cover;
     background-attachment: fixed;
 }
@@ -277,7 +277,7 @@ body {
 
 #content-wrapper {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     width: 100%;
     min-height: 100vh;
     margin-top: 1vh;
@@ -303,9 +303,9 @@ body {
     display: flex;
     flex-direction: column;
     margin-top: 10vh;
-    margin-left: auto;
+    margin-left: 25vw;
     margin-right: 13vw;
-    height: 100%;
+    height: auto;
     width: 60%;
     background-color: white;
     border-radius: 50px;
@@ -464,7 +464,7 @@ body {
     }
 }
 
-.genres {
+.genres , .bookId{
     display: inline-flex;
     justify-content: space-between;
     margin-left: 2vw;
@@ -486,7 +486,7 @@ body {
 .sub-title {
     font-size: 20px;
     font-weight: bold;
-    margin-left: 2vw;
+    margin-left: 25vw;
     margin-top: 1vh;
     margin-bottom: 1vh;
 }
@@ -495,10 +495,9 @@ body {
 .other-books {
     display: flex;
     flex-direction: row;
-    margin-left: 2vw;
-    margin-bottom: 2vh;
+    margin-left: auto;
     overflow-x: scroll;
-
+    justify-content: center;
 }
 
 .other-books .book {
@@ -531,6 +530,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+
 }
 
 .user-profile {
@@ -550,7 +550,7 @@ body {
     font-size: 10px;
 }
 
-.post-container {
+.post-container, .write_review_container {
     width: 90%;
     background-color: #ffb2b9;
     border-radius: 50px;
@@ -606,6 +606,9 @@ body {
     color: #a3a3a3;
     margin: 20px 0;
 }
+.write_review_container{
+    display: none;
+}
 
 .comment{
     display: none;
@@ -635,10 +638,9 @@ body {
     padding: 0.5vw;
     width: 80%;
     border-style: solid;
-
 }
 
-.add-comment-button{
+.add-button{
     display: none;
     border-radius: 20px;
     width: fit-content;
@@ -670,6 +672,7 @@ body {
     #content-div {
         width: 80%;
         margin-right: auto;
+        margin-left: auto;
     }
 }
 

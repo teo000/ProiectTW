@@ -158,14 +158,17 @@
                             <a  href="javascript:void(0);" onclick="navigateToGenre('<%= genre.name %>')"><%= genre.name %>  </a>
                                 <% }); %>
                         </div>
+
                     </div>
+                   <div class = "bookId">
+                       <p class = "bookId">BookId : <%= book.id%></p>
+
+
                 </div>
-            </div>
-
+                </div>
             <hr>
-
             <!--not templatized yet-->
-            <p class="sub-title"> Readers also enjoyed...</p>
+           <!-- <p class="sub-title"> Readers also enjoyed...</p>
             <div class="other-books">
                 <div class="book">
                     <div class="small-cover">
@@ -185,7 +188,7 @@
 
                 </div>
             </div>
-            <hr>
+            <hr>-->
 
             <p class="sub-title"> Ratings and Reviews </p>
             <div id="feed-div">
@@ -264,14 +267,19 @@
 
                         <div class="add-comment">
                             <input class="comment-input" type="text" placeholder="Write a comment...">
-                            <button class = "add-comment-button">Add Comment</button>
+                            <button class = "add-button">Add Comment</button>
                         </div>
                     </article>
                 </div>
+                <div class = "write_review_container">
+                    <div class="add-review">
+                        <input class="comment-input" type="text" placeholder="Write a review...">
+                        <button class = "add-button">Add Review</button>
+                    </div>
+                </div>
             </div>
-
-
         </div>
+
     </div>
     <footer id = "main-footer">
         <p>&copy; Proiect realizat de Savin Miruna si Tudurache Teodora, 2023, Tehnologii Web</p>

@@ -15,7 +15,7 @@ const routeRequest = async (req, res) => {
 const handleGetRequests = (req, res) => {
     if (req.url.startsWith('/genres/')) {
         const title = req.url.split('/')[2];
-        const decodedTitle = decodeURI(title);
+        const decodedTitle = decodeURIComponent(title);
        // getGenreForBook(req,res,decodedTitle)
         authenticateToken(req, res, getGenreForBook, decodedTitle);
     }else {

@@ -1,4 +1,5 @@
 const {getAllBooks, getBookByID, getBookByTitle, addBook, getGenre,  getTopBooksInGenre} = require("../controllers/BookController");
+const {addReview} =require("../controllers/ReviewController");
 const bookIdRegex = /^\/books\/[0-9]+$/;
 const bookTitleRegex = /^\/books\/[a-zA-Z0-9\s]+$/;
 const {authenticateToken} = require('../../helpers/TokenAuthenticator')
@@ -39,6 +40,9 @@ const handleGetRequests = (req, res) => {
 const handlePostRequests = (req, res) => {
     if (req.url === '/books')
         addBook(req, res);
+    else if(req.url.startsWith('/books/review')){
+        addReview(req,res);
+    }
     else {
         res.writeHead(404, {'Content-Type': 'application/json'});
         res.end(JSON.stringify({error: 'Endpoint not found'}));
