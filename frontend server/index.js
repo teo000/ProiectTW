@@ -8,6 +8,7 @@ const PORT = 8081;
 const PageController = require("./controller/PageController")
 const {authenticateToken} = require("../helpers/TokenAuthenticator");
 const {createServer} = require("https");
+const {parse} = require("cookie");
 
 const getFileUrl = (url) => {
     const ending = url.substring(url.lastIndexOf("/") + 1);
@@ -207,6 +208,61 @@ const customReadBooksEjs = async (req, res, file_path, title) => {
     }
 }
 
+
+const customReadGroupsEjs = async (req, res, file_path) => {
+    if (fs.existsSync(file_path)) {
+        const template = fs.readFileSync(file_path, "utf8");
+        if (!template) {
+            sendErrorResponse(res);
+            return;
+        }
+
+        const cookies = req.headers.cookie || '';
+
+        const groupPromise = new Promise((resolve, reject) => {
+            console.log("group promise");
+
+            const options = {
+                method : 'GET',
+                hostname: 'localhost',
+                port: 6969,
+                path: `/groups/mygroups`,
+                headers: {
+                    'Cookie': cookies // Pass the extracted cookies in the request headers
+                }
+            };
+
+            http.get(options, (response) => {
+                let data = "";
+                response.on("data", (chunk) => {
+                    data += chunk;
+                });
+                response.on('end', () => {
+                    const groupsData = JSON.parse(data);
+                    resolve(groupsData);
+                });
+            }).on("error", (error) => {
+                console.log(error);
+                reject(error);
+            });
+        });
+
+        try {
+            const [groupsData] = await Promise.all([groupPromise]);
+            console.log(groupsData);
+            // Render the EJS template with the data
+            const renderedEJS = ejs.render(template, { groups: groupsData});
+
+            res.writeHead(200, {"Content-Type": "text/html"});
+            res.end(renderedEJS);
+        } catch (error) {
+            console.log(error);
+            sendErrorResponse(res);
+        }
+    }
+}
+
+
 const server = http.createServer((req, res) => {
 
     const url = req.url;
@@ -219,6 +275,8 @@ const server = http.createServer((req, res) => {
     } else if (url.startsWith('/books/getBook/') && url.indexOf(".") === -1) {
         const title = url.split('/')[3].toLowerCase();
         customReadBooksEjs(req, res, `../views/ejs/bookpage.ejs`, title);
+    } else if (url.startsWith('/groups/mygroups') && url.indexOf(".") === -1){
+        customReadGroupsEjs(req, res, '../views/ejs/mygroups.ejs');
     } else if (url.indexOf(".") === -1) {
         //its an html request{
         //check if it is login
