@@ -208,8 +208,6 @@ const customReadBooksEjs = async (req, res, file_path, title) => {
     }
 }
 
-
-
 const customReadUserEjs = async (req, res, file_path) => {
     if (fs.existsSync(file_path)) {
         const template = fs.readFileSync(file_path, "utf8");
@@ -220,7 +218,17 @@ const customReadUserEjs = async (req, res, file_path) => {
 
         // Extract cookies from the client's request
         const cookies = req.headers.cookie ? parse(req.headers.cookie, '; ') : {};
+        if(!cookies.access_token){
+            res.writeHead(401, {"Content-Type": "text/html"});
+            res.end('<h1>Unauthorized</h1>');
+            return;
+        }
         const user = extractUser(cookies.access_token);
+        if(!user){
+            res.writeHead(401, {"Content-Type": "text/html"});
+            res.end('<h1>Unauthorized</h1>');
+            return;
+        }
         const userObj = user.user;
 
         try {
@@ -238,6 +246,83 @@ const customReadUserEjs = async (req, res, file_path) => {
         sendErrorResponse(res);
     }
 }
+
+
+const customReadUserBooksEjs = async (req, res, file_path) => {
+    if (fs.existsSync(file_path)) {
+        const template = fs.readFileSync(file_path, "utf8");
+        if (!template) {
+            sendErrorResponse(res);
+            return;
+        }
+
+        // Extract cookies from the client's request
+        const cookies = req.headers.cookie ? parse(req.headers.cookie, '; ') : {};
+        if(!cookies.access_token){
+            res.writeHead(401, {"Content-Type": "text/html"});
+            res.end('<h1>Unauthorized</h1>');
+            return;
+        }
+        const user = extractUser(cookies.access_token);
+
+        if(!user){
+            res.writeHead(401, {"Content-Type": "text/html"});
+            res.end('<h1>Unauthorized</h1>');
+            return;
+        }
+        const userObj = user.user;
+
+
+        const shelfname = req.url.split('/')[3];
+
+        const cookiesString = JSON.stringify(cookies);
+        const booksPromise = new Promise((resolve, reject) => {
+            const options = {
+                hostname: 'localhost',
+                port: 6969,
+                path: `/books/mybooks/${userObj.ID}/${shelfname}`,
+                headers: {
+                    'Cookie': cookiesString // Pass the extracted cookies in the request headers
+                }
+            };
+
+            http.get(options, (response) => {
+                let data = "";
+                response.on("data", (chunk) => {
+                    data += chunk;
+                });
+                response.on('end', () => {
+                    try {
+                        data = JSON.parse(data);
+                    } catch (error) {
+                        data = [];
+                    }
+                    resolve(data);
+                });
+            }).on("error", (error) => {
+                console.log(error);
+                reject(error);
+            });
+        });
+
+        try {
+            // Render the EJS template with the data
+            const [booksData] = await Promise.all([booksPromise]);
+            const renderedEJS = ejs.render(template, { books: booksData});
+
+            res.writeHead(200, {"Content-Type": "text/html"});
+            res.end(renderedEJS);
+        } catch (error) {
+            console.log(error);
+            sendErrorResponse(res);
+        }
+    }
+    else{
+        sendErrorResponse(res);
+    }
+}
+
+
 const server = http.createServer((req, res) => {
 
     const url = req.url;
@@ -252,7 +337,10 @@ const server = http.createServer((req, res) => {
         customReadBooksEjs(req, res, `../views/ejs/bookpage.ejs`, title);
     } else if(url.startsWith('/profile') && url.indexOf(".") === -1) {
         customReadUserEjs(req, res, `../views/ejs/profile.ejs`);
-    } else if (url.indexOf(".") === -1) {
+    } else if (url.startsWith('/books/mybooks/')&& url.indexOf(".") === -1){
+        customReadUserBooksEjs(req, res, `../views/ejs/mybooks.ejs`);
+    }
+    else if (url.indexOf(".") === -1) {
         //its an html request{
         //check if it is login
         if (url.indexOf("login") === -1 && url.indexOf("signup") === -1) {

@@ -13,6 +13,17 @@ const getAllUsers = () => {
     });
 };
 
+const getUserById = (id) =>{
+    return new Promise((resolve, reject) => {
+        databaseConnection.pool.query('SELECT * FROM users where id = $1', [id],(error, results) => {
+            if (error) {
+                reject(error);
+            }
+            resolve(results.rows[0]);
+        });
+    });
+}
+
 const getUser = (username) => {
     return new Promise((resolve, reject) => {
         databaseConnection.pool.query('SELECT * FROM users where username = $1', [username],(error, results) => {
@@ -41,6 +52,7 @@ const addUser = async (userData) => {
 
 module.exports = {
     getAllUsers,
+    getUserById,
     getUser,
     addUser
 }

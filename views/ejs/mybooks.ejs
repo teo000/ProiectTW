@@ -6,15 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
-    <link rel="stylesheet" href="profile.css">
+    <link rel="stylesheet" href="../public/css/mybooks.css">
+    <link rel="stylesheet" href="../public/css/navigation.css">
+
     <title>Boo!</title>
 </head>
 
 
 <body>
 
-<!--tb sa pun in meniu asta peste tot lol-->
-<!--sa poti sa scoti comentarii ca admin-->
+<!--de adaugat chestii: linkuri, mai multe categorii, de facut filtering cu js-->
 
 <div id="wrapper-div">
     <div id="navigation-div">
@@ -95,124 +96,68 @@
     </div>
 
     <div id = "content-wrapper">
-        <div id="buttons-container">
-            <button class="button">Delete Profile</button>
-        </div>
-        <div id="content">
-            <div id="top">
-                <img src="ghost.png" alt="profile picture">
-                <div class="user-information">
-                    <div class="information-block">
-                        <p class="category">
-                            Username:
-                        </p>
-                        <p class = "information">
-                           <%=user.username%>
-                        </p>
-                    </div>
-                   <!-- <div class="information-block">
-                        <p class="category">
-                            Preffered genres:
-                        </p>
-                        <p class = "information">
-                            Classics, Crime, Fiction
-                        </p>
-                    </div>-->
-
-                </div>
+        <div class="selection">
+            <h1>Bookshelves</h1>
+            <hr>
+            <div class="option">
+                <input type="checkbox" id="read" name="bookshelf" value="read">
+                <label for="read">Read</label><br>
             </div>
-
-            <h2> Ratings and Reviews </h2> <hr>
-            <div id="feed-div">
-                <div class="post-container">
-                    <!--aici putem pune poza userului-->
-                    <div class="user-profile">
-                        <p>Teodora</p>
-                        <span>April 1 2023, 14:48 </span>
-                    </div>
-
-                    <div class="rating-box">
-                        <div class="preset-rating">
-                            <div class="empty-stars"></div>
-                            <div class="full-stars" style="width:100%"></div>
-                        </div>
-                    </div>
-
-                    <p class="post-text">I Rated <a href="#" class="book-title">The Great Gatsby</a> by <a
-                                href="#" class="book-author">F. Scott Fitzgerald</a> 5 stars!
-                    </p>
-
-                    <div class="post-row">
-                        <div class="activity-icons">
-                            <div>
-                                <i class="fa-regular fa-heart toggle-heart">15</i>
-                                <i class="fa-regular fa-comment toggle-comment">0</i>
-                            </div>
-                        </div>
-                    </div>
-                    <article class="comment-section">
-
-                        <div class="add-comment">
-                            <input class="comment-input" type="text" placeholder="Write a comment...">
-                            <button class = "add-comment-button">Add Comment</button>
-                        </div>
-                    </article>
-                </div>
-
-
-                <div class="post-container">
-                    <!--aici putem pune poza userului-->
-
-                    <div class="user-profile">
-                        <p>Teodora</p>
-                        <span>April 1 2023, 15:1 </span>
-                    </div>
-
-                    <div class="rating-box">
-                        <div class="preset-rating">
-                            <div class="empty-stars"></div>
-                            <div class="full-stars" style="width:80%"></div>
-                        </div>
-                    </div>
-
-                    <p class="post-text">I Rated <a href="#" class="book-title">Pride and Prejudice</a> by <a
-                                href="#" class="book-author">Jane Austen</a> 4 stars!
-                    </p>
-
-                    <div class="post-row">
-                        <div class="activity-icons">
-                            <div>
-                                <i class="fa-regular fa-heart toggle-heart">15</i>
-                                <i class="fa-regular fa-comment toggle-comment">1</i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <article class="comment-section">
-                        <div class="comment">
-                            <div class="user-profile">
-                                <p>Pau</p>
-                                <span>April 7 2023, 23:29 </span>
-                            </div>
-                            <p class="comment-text">Great read</p>
-                        </div>
-
-                        <div class="add-comment">
-                            <input class="comment-input" type="text" placeholder="Write a comment...">
-                            <button class = "add-comment-button">Add Comment</button>
-                        </div>
-                    </article>
-                </div>
+            <div class="option">
+                <input type="checkbox" id="currently-reading" name="bookshelf" value="currently-reading">
+                <label for="currently-reading">Currently reading</label><br>
+            </div>
+            <div class="option">
+                <input type="checkbox" id="want-to-read" name="bookshelf" value="want-to-read">
+                <label for="want-to-read">Want to read</label>
             </div>
         </div>
-
+        <div id="books">
+            <table class="styled-table">
+                <thead>
+                <tr>
+                    <th>Book cover</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Avg. rating</th>
+                    <th>Rating</th>
+                    <th>Shelf</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% if (books.length > 0) { %>
+                    <% books.forEach(function(book) { %>
+                        <tr>
+                            <td><img src="<%= book.coverimg %>" alt="Book cover"></td>
+                            <td><%= book.title %></td>
+                            <td><%= book.author %></td>
+                            <td><%= book.avgrating %></td>
+                            <td>
+                                <div class="preset-rating">
+                                    <% if (book.rating !== null) { %>
+                                        <div class="empty-stars"></div>
+                                        <div class="full-stars" style="width: <%= book.rating * 20 %>%"></div>
+                                    <% } else { %>
+                                        <span>-</span>
+                                    <% } %>
+                                </div>
+                            </td>
+                            <td><%= book.shelf %></td>
+                        </tr>
+                    <% }); %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="6">No books in your shelves yet!</td>
+                    </tr>
+                <% } %>
+                </tbody>
+            </table>
+        </div>
     </div>
     <footer id = "main-footer">
         <p>&copy; Proiect realizat de Savin Miruna si Tudurache Teodora, 2023, Tehnologii Web</p>
     </footer>
 </div>
-<script src="comments_and_likes.js"></script>
 <script src ="navigationLinks.js"></script>
 </body>
-
 </html>
