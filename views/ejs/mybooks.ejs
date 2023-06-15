@@ -100,15 +100,15 @@
             <h1>Bookshelves</h1>
             <hr>
             <div class="option">
-                <input type="checkbox" id="read" name="bookshelf" value="read">
+                <input type="checkbox" id="read" name="bookshelf" value="read" <% if (url.endsWith('/read')) { %>checked<% } %>>
                 <label for="read">Read</label><br>
             </div>
             <div class="option">
-                <input type="checkbox" id="currently-reading" name="bookshelf" value="currently-reading">
+                <input type="checkbox" id="currently-reading" name="bookshelf" value="currently-reading"  <% if (url.endsWith('/currently-reading')) { %>checked<% } %>>
                 <label for="currently-reading">Currently reading</label><br>
             </div>
             <div class="option">
-                <input type="checkbox" id="want-to-read" name="bookshelf" value="want-to-read">
+                <input type="checkbox" id="want-to-read" name="bookshelf" value="want-to-read"  <% if (url.endsWith('/want-to-read')) { %>checked<% } %>>
                 <label for="want-to-read">Want to read</label>
             </div>
         </div>
@@ -147,7 +147,7 @@
                     <% }); %>
                 <% } else { %>
                     <tr>
-                        <td colspan="6">No books in your shelves yet!</td>
+                        <td colspan="6">No books in here yet!</td>
                     </tr>
                 <% } %>
                 </tbody>
@@ -159,5 +159,6 @@
     </footer>
 </div>
 <script src ="navigationLinks.js"></script>
+<script src ="mybooks.js"></script>
 </body>
 </html>

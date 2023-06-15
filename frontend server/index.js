@@ -263,7 +263,15 @@ const customReadUserBooksEjs = async (req, res, file_path) => {
             res.end('<h1>Unauthorized</h1>');
             return;
         }
-        const user = extractUser(cookies.access_token);
+        let user = null;
+        try{
+             user = extractUser(cookies.access_token);
+        }
+        catch (error){
+            res.writeHead(403, {"Content-Type": "text/html"});
+            res.end('<h1>Forbidden</h1>');
+            return;
+        }
 
         if(!user){
             res.writeHead(401, {"Content-Type": "text/html"});
@@ -308,7 +316,7 @@ const customReadUserBooksEjs = async (req, res, file_path) => {
         try {
             // Render the EJS template with the data
             const [booksData] = await Promise.all([booksPromise]);
-            const renderedEJS = ejs.render(template, { books: booksData});
+            const renderedEJS = ejs.render(template, { books: booksData, url : req.url});
 
             res.writeHead(200, {"Content-Type": "text/html"});
             res.end(renderedEJS);
