@@ -635,12 +635,14 @@ body {
 }
 .comment-input[type = text]{
     border-radius: 20px;
-    padding: 0.5vw;
+    padding: 1vh 3vw;
     width: 80%;
     border-style: solid;
+    margin-left: 0.5vw;
+    resize: vertical;
 }
 
-.add-button{
+.add-button, .add-review-button{
     display: none;
     border-radius: 20px;
     width: fit-content;

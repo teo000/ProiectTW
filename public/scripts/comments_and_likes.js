@@ -33,7 +33,7 @@ toggleComment.forEach((item)=> {
         const commentSection = parentElement.querySelector('.comment-section');
         const comments = commentSection.querySelectorAll(".comment");
         const addComment = commentSection.querySelector(".add-comment");
-        const addCommentButton = commentSection.querySelector(".add-comment-button");
+        const addCommentButton = commentSection.querySelector(".add-button");
 
         if(item.classList.contains("fa-solid")){
             commentSection.style.display = "flex";

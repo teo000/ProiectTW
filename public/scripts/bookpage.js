@@ -7,16 +7,18 @@ btns[2] = currentlyButton;
 btns[3] = wantButton;
 const rating = document.querySelector("#adjustable-rating");
 const writeReviewSection = document.querySelector('.write_review_container');
-
+const addButton = document.querySelector('.add-review-button');
 
 rating.style.display = 'none';
 
 readButton.addEventListener("click", function(){
-    rating.style.display === 'none' ? rating.style.display='flex' : rating.style.display='none';
-    writeReviewSection.style.display = 'none' ? writeReviewSection.style.display = 'flex' : writeReviewSection.style.display = 'none';
+    const isVisible = rating.style.display === 'flex';
+
+    rating.style.display = isVisible ? 'none' : 'flex';
+    writeReviewSection.style.display = isVisible ? 'none' : 'flex';
+    addButton.style.display = isVisible ? 'none' : 'flex';
 
     // rating.style.display='flex';
-    
 });
 
 
@@ -29,8 +31,12 @@ function removeClasses(target) {
     btns.forEach((btn) => {
       if(btn != target) { btn.classList.remove("active"); }
     });
-    if(readButton != target)
+    if(readButton != target){
         rating.style.display = 'none';
+        writeReviewSection.style.display = 'none';
+        addButton.style.display = 'none';
+    }
+
   }
 
 readButton.addEventListener('click', clicked);

@@ -4,21 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
-    <link  href="/bookpage.css" rel="stylesheet">
-    <link rel="stylesheet" href="navigation.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" href="profile.css">
     <title>Boo!</title>
 </head>
 
 
 <body>
 
-<!--de adaugat loc unde sa dai review-->
-<!--OBLIGATORIU: specificarea progresului cand dai click pe currently reading-->
-<!--de pus an la carti ??-->
-<!--vreau chestiile din stanga oleaca mai mari si daca se poate sa stea nemiscate cand dai scroll da aia nush cum fac-->
+<!--tb sa pun in meniu asta peste tot lol-->
+<!--sa poti sa scoti comentarii ca admin-->
 
 <div id="wrapper-div">
     <div id="navigation-div">
@@ -99,103 +95,39 @@
     </div>
 
     <div id = "content-wrapper">
-        <div id="book-cover-div">
-            <div id = "book-cover">
-                <img  src="<%= book.coverimg %>" alt="Book cover">
-            </div>
-
-            <button type="button" id="read-button"> Read </button>
-            <button type="button" id="currently-button"> Currently reading </button>
-            <button type="button" id="want-button"> Want to read </button>
-
-            <div id="adjustable-rating">
-                <input type="radio"  name="stars" id="star-a" value="5">
-                <label for="star-a"></label>
-
-                <input type="radio" name="stars" id="star-b" value="4">
-                <label for="star-b"></label>
-
-                <input type="radio" name="stars" id="star-c" value="3">
-                <label for="star-c"></label>
-
-                <input type="radio" name="stars" id="star-d" value="2">
-                <label for="star-d"></label>
-
-                <input type="radio" name="stars" id="star-e" value="1">
-                <label for="star-e"></label>
-            </div>
-
-
+        <div id="buttons-container">
+            <button class="button">Delete Profile</button>
         </div>
-
-        <div id="content-div">
-            <div id = "book-description">
-                <p id="title">
-                    <%= book.title %>
-                </p>
-
-                <p id="author">
-                    <%= book.author %>
-                </p>
-
-                <div class="rating-box">
-                    <div class="preset-rating">
-                        <div class="empty-stars"></div>
-                        <div class="full-stars" style="width:85.6%"></div>
+        <div id="content">
+            <div id="top">
+                <img src="ghost.png" alt="profile picture">
+                <div class="user-information">
+                    <div class="information-block">
+                        <p class="category">
+                            Username:
+                        </p>
+                        <p class = "information">
+                           <%=user.username%>
+                        </p>
                     </div>
-                    <p>
-                        <%= book.rating %>
-                    </p>
-                </div>
-                <p id="description">
-                    <%= book.description %>
-                </p>
-                    <div class="genres">
-                        <p class="genre"> Genres: </p>
-
-                        <div class="genre-tags">
-                            <% genres.forEach(function(genre) { %>
-                            <a  href="javascript:void(0);" onclick="navigateToGenre('<%= genre.name %>')"><%= genre.name %>  </a>
-                                <% }); %>
-                        </div>
-
-                    </div>
-                   <div class = "bookId">
-                       <p class = "bookId">BookId : <%= book.id%></p>
-
-
-                </div>
-                </div>
-            <hr>
-            <!--not templatized yet-->
-           <!-- <p class="sub-title"> Readers also enjoyed...</p>
-            <div class="other-books">
-                <div class="book">
-                    <div class="small-cover">
-                        <img src="../public/images/great-gatsby.jpg" alt="Book cover">
-                    </div>
-                    <p class="small-title">The Great Gatsby</p>
-                    <p class="small-author">F. Scott Fitzgerald</p>
-
-                </div>
-
-                <div class="book">
-                    <div class="small-cover">
-                        <img src="../public/images/wuthering-heights.jpg" alt="Book cover">
-                    </div>
-                    <p class="small-title">Wuthering Heights</p>
-                    <p class="small-author">Emily Brontë</p>
+                   <!-- <div class="information-block">
+                        <p class="category">
+                            Preffered genres:
+                        </p>
+                        <p class = "information">
+                            Classics, Crime, Fiction
+                        </p>
+                    </div>-->
 
                 </div>
             </div>
-            <hr>-->
 
-            <p class="sub-title"> Ratings and Reviews </p>
+            <h2> Ratings and Reviews </h2> <hr>
             <div id="feed-div">
                 <div class="post-container">
                     <!--aici putem pune poza userului-->
                     <div class="user-profile">
-                        <p>Miruna</p>
+                        <p>Teodora</p>
                         <span>April 1 2023, 14:48 </span>
                     </div>
 
@@ -206,8 +138,8 @@
                         </div>
                     </div>
 
-                    <p class="post-text">I Rated <a href="#" class="book-title">Pride and Prejudice</a> by <a
-                                href="#" class="book-author">Jane Austen</a> 5 stars!
+                    <p class="post-text">I Rated <a href="#" class="book-title">The Great Gatsby</a> by <a
+                                href="#" class="book-author">F. Scott Fitzgerald</a> 5 stars!
                     </p>
 
                     <div class="post-row">
@@ -267,15 +199,9 @@
 
                         <div class="add-comment">
                             <input class="comment-input" type="text" placeholder="Write a comment...">
-                            <button class = "add-button">Add Comment</button>
+                            <button class = "add-comment-button">Add Comment</button>
                         </div>
                     </article>
-                </div>
-                <div class = "write_review_container">
-
-                    <textarea class="comment-input" type="text" placeholder="Write a review..."></textarea>
-                    <button class = "add-review-button">Add Review</button>
-
                 </div>
             </div>
         </div>
@@ -285,10 +211,8 @@
         <p>&copy; Proiect realizat de Savin Miruna si Tudurache Teodora, 2023, Tehnologii Web</p>
     </footer>
 </div>
-
-
-<script src = "bookpage.js"></script>
 <script src="comments_and_likes.js"></script>
 <script src ="navigationLinks.js"></script>
 </body>
+
 </html>

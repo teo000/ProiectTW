@@ -34,7 +34,7 @@ const login = async (req, res) => {
                     res.end(JSON.stringify({error: 'Username incorrect!'}));
                     return;
                 }
-                const userObject = new User(existingUser.ID, existingUser.username, existingUser.email, existingUser.passwordhash, existingUser.salt);
+                const userObject = new User(existingUser.id, existingUser.username, existingUser.email, existingUser.passwordhash, existingUser.salt);
 
                 //check if the password is valid
                 const isValid = await checkPasswordValidity(userObject, userData.password);

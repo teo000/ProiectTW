@@ -18,7 +18,10 @@ const handleGetRequests = (req, res) => {
     else if (req.url.match(usernameRegex)) {
         const username = req.url.split('/')[2];
         getUser(req, res, username);
-    } else {
+    } else if(req.url.startsWith('/users/profile')){
+
+    }
+    else {
         res.writeHead(404, {'Content-Type': 'application/json'});
         res.end(JSON.stringify({error: 'Endpoint not found'}));
     }
