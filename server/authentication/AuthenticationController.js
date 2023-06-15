@@ -1,7 +1,7 @@
 //login & authenticate token functions
 const userRepository = require("../repositories/UserRepository");
 const {User} = require("../models/UserModel");
-const {checkPasswordValidity} = require("../models/AuthenticationModel");
+const {checkPasswordValidity, AuthenticationModel} = require("../models/AuthenticationModel");
 const jwt = require("jsonwebtoken");
 const cookie = require('cookie');
 
@@ -13,9 +13,11 @@ const login = async (req, res) => {
         req.on('data', chunk => {
             body += chunk.toString();
         });
+        console.log('logam om');
 
         req.on('end', async () => {
             try {
+
                 const userData = JSON.parse(body);
 
                 // Validate the required fields (username, password)
@@ -37,6 +39,7 @@ const login = async (req, res) => {
                 //check if the password is valid
                 const isValid = await checkPasswordValidity(userObject, userData.password);
                 if (isValid) {
+
                     //create json webtoken
                     const accessToken = generateAccessToken(userObject);
                     const refreshToken = jwt.sign({userObject}, `${process.env.REFRESH_TOKEN_SECRET}`);
@@ -49,6 +52,59 @@ const login = async (req, res) => {
                 }
                 res.writeHead(401, {'Content-Type': 'application/json'});
                 res.end(JSON.stringify({error: 'Incorrect Password!'}));
+
+            } catch (error) {
+                console.log(error);
+                res.writeHead(500, {'Content-Type': 'application/json'});
+                res.end(JSON.stringify({error: 'Internal Server Error'}));
+            }
+        });
+    } catch (error) {
+        console.log(error);
+        res.writeHead(500, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify({error: 'Internal Server Error'}));
+    }
+}
+
+const signup = async (req, res) => {
+    try {
+        let body = '';
+        req.on('data', chunk => {
+            body += chunk.toString();
+        });
+        console.log('cream om');
+
+        req.on('end', async () => {
+            try {
+
+                const userData = JSON.parse(body);
+                console.log(userData);
+                // Validate the required fields (username, password)
+                if (!userData.username || !userData.password) {
+                    res.writeHead(400, {'Content-Type': 'application/json'});
+                    res.end(JSON.stringify({error: 'Username and password are required'}));
+                    return;
+                }
+
+                if(userData.password !== userData.confirmPassword){
+                    res.writeHead(400, {'Content-Type': 'application/json'});
+                    res.end(JSON.stringify({error: 'Passwords do not match'}));
+                    return;
+                }
+
+                // Check if the username is valid
+                const existingUser = await userRepository.getUser(userData.username);
+                if (existingUser) {
+                    res.writeHead(401, {'Content-Type': 'application/json'});
+                    res.end(JSON.stringify({error: 'User already exists'}));
+                    return;
+                }
+
+                const hashedPassword = new AuthenticationModel(userData.password);
+                const createUserData = {username: userData.username, passwordHash: hashedPassword.password, salt: hashedPassword.salt};
+                await userRepository.addUser(createUserData);
+                res.writeHead(201, {'Content-Type': 'application/json'});
+                res.end(JSON.stringify({success: 'Account created successfully'}));
 
             } catch (error) {
                 console.log(error);
@@ -189,5 +245,6 @@ const logout = async (req, res) => {
 module.exports = {
     login,
     token,
-    logout
+    logout,
+    signup
 }

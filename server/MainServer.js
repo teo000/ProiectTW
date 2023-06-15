@@ -8,7 +8,8 @@ const {createServer} = require("https");
 const microServiceRoutes = [
     {path: '/login', method: 'POST'},
     {path: '/logout', method: 'POST'},
-    {path: '/token', method: 'POST'}
+    {path: '/token', method: 'POST'},
+    {path: '/signup', method: 'POST'}
 ];
 
 const authenticationMicroservice = {
@@ -29,6 +30,10 @@ const mainServer = http.createServer(
             return;
         }
         const {url} = req;
+
+        console.log(`back request: ${url}`);
+
+
         if (url.startsWith('/users')) {
             userRouter.routeRequest(req, res);
         } else if (url.startsWith('/books')) {
@@ -36,7 +41,7 @@ const mainServer = http.createServer(
         } else if (url.startsWith('/genres')) {
             genreRouter.routeRequest(req, res);
         }
-        else if (url.startsWith('/login') || url.startsWith('/logout') || url.startsWith('/token')) {
+        else if (url.startsWith('/login') || url.startsWith('/logout') || url.startsWith('/token') || url.startsWith('/signup')) {
             handleAuthentication(req, res);
         } else {
             res.writeHead(404, {'Content-Type': 'application/json'});

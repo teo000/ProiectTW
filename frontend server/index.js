@@ -11,6 +11,7 @@ const {createServer} = require("https");
 
 const getFileUrl = (url) => {
     const ending = url.substring(url.lastIndexOf("/") + 1);
+    console.log(`../views/${ending}.html`);
     return `../views/${ending}.html`
 };
 const getScriptsUrl = (url) => {
@@ -209,6 +210,8 @@ const customReadBooksEjs = async (req, res, file_path, title) => {
 const server = http.createServer((req, res) => {
 
     const url = req.url;
+    console.log(`front request: ${url}`);
+
     if (url.startsWith('/books/genres/') && url.indexOf(".") === -1) {
         const genre = url.split('/')[3].toLowerCase();
         customReadGenresEjs(req, res, `../views/ejs/genres.ejs`, genre);
@@ -219,12 +222,13 @@ const server = http.createServer((req, res) => {
     } else if (url.indexOf(".") === -1) {
         //its an html request{
         //check if it is login
-        if (url.indexOf("login") === -1) {
+        if (url.indexOf("login") === -1 && url.indexOf("signup") === -1) {
           //  res.writeHead(200, {"Content-Type": "text/html"});
              authenticateToken(req, res, customReadFile,getFileUrl(url));
            // customReadFile(req, res, getFileUrl(url));
             return;
         }
+
         res.writeHead(200, {"Content-Type": "text/html"});
         customReadFile(req, res, getFileUrl(url));
 

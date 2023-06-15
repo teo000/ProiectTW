@@ -3,16 +3,14 @@
     margin : 0;
     box-sizing : border-box;
 }
-body{
-    height: 100vh;
-}
+
 .container{
     background-image: linear-gradient(170deg,rgba(255, 175, 189, 0.25),rgba(255, 195, 160, 0.6)),url("../images/wallpaper.jpg");
     background-size: cover;
     background-attachment: fixed;
 
     width: 100vw;
-    height: 100%;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;

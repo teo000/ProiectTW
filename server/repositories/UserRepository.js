@@ -25,8 +25,10 @@ const getUser = (username) => {
 }
 
 const addUser = async (userData) => {
+    console.log(userData);
     return new Promise((resolve, reject) => {
         const { username, email,passwordHash,salt } = userData;
+        console.log(username, email,passwordHash,salt);
         databaseConnection.pool.query('INSERT INTO users (username, email,passwordHash,salt ) VALUES ($1, $2, $3,$4) RETURNING *',
             [username,email, passwordHash,salt], (error, results) => {
                 if (error) {

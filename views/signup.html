@@ -16,24 +16,24 @@
 <div class="container">
     <div class="div-form">
         <h1>Sign up here!</h1>
-        <form action="http://localhost:6969/login" method = "POST">
+        <form id="signupForm">
 
             <div class="input-class user">
                 <i class="fa-solid fa-user"></i>
                 <label class="user-input-label">
-                    <input type="text" name="username" id ="username" placeholder="Username">
+                    <input type="text" id ="username" placeholder="Username">
                 </label>
             </div>
 
-            
+
             <div class="input-class password">
                 <i class="fa-sharp fa-solid fa-key"></i>
                 <label class="password-input-label">
-                    <input type="password" name = "password" id = "password" placeholder="Password">
+                    <input type="password" id = "password" placeholder="Password">
                 </label>
                 <i class="fa-sharp fa-solid fa-eye" id = "togglePassword"></i>
             </div>
-            
+
             <div class="input-class confirm-password">
                 <i class="fa-sharp fa-solid fa-key"></i>
                 <label class="password-input-label">
@@ -46,46 +46,49 @@
 
             <div class = "category-selector">
                 <div class = "category">
-                    <input type="checkbox" id="genre1" name="genre1" value="Adventure">
+                    <input type="checkbox" id="genre1" value="Adventure">
                     <label for="genre1">Adventure</label><br>
                 </div>
 
                 <div class = "category">
-                    <input type="checkbox" id="genre2" name="genre2" value="Classics">
+                    <input type="checkbox" id="genre2" value="Classics">
                     <label for="genre2">Classics</label><br>
                 </div>
 
                 <div class = "category">
-                    <input type="checkbox" id="genre3" name="genre3" value="Mystery">
+                    <input type="checkbox" id="genre3" value="Mystery">
                     <label for="genre3">Mystery</label><br>
                 </div>
 
                 <div class = "category">
-                    <input type="checkbox" id="genre4" name="genre4" value="Non-fiction">
+                    <input type="checkbox" id="genre4" value="Non-fiction">
                     <label for="genre4">Non-fiction</label><br>
                 </div>
 
                 <div class = "category">
-                    <input type="checkbox" id="genre5" name="genre5" value="Romance">
+                    <input type="checkbox" id="genre5" value="Romance">
                     <label for="genre5">Romance</label><br>
                 </div>
 
                 <div class = "category">
-                    <input type="checkbox" id="genre6" name="genre6" value="YA">
+                    <input type="checkbox" id="genre6"value="YA">
                     <label for="genre6">Young Adult</label><br>
                 </div>
-            </div> 
-            
+            </div>
+
             <div class = "final-stuff">
 
-            <button class="button"> Sign Up</button>
+            <button class="button" type = "submit"> Sign Up</button>
             <span class="span-register">Already have an account?<a href="login"> Sign In</a></span>
-        
+
             </div>
         </form>
+
+
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src = "../public/scripts/signup.js"></script>
 
 </body>

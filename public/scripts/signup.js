@@ -2,6 +2,8 @@
 
 const togglePassword = document.querySelector("#togglePassword");
 const password = document.querySelector("#password");
+const signupForm = document.querySelector('#signupForm');
+
 
 togglePassword.addEventListener("click", function () {
     // toggle the type attribute
@@ -24,4 +26,38 @@ toggleConfirmPassword.addEventListener("click", function () {
     // toggle the icon
     this.classList.toggle("fa-eye");
     this.classList.toggle("fa-eye-slash");
+});
+
+
+signupForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const username = document.querySelector('#username').value;
+    const password = document.querySelector('#password').value;
+    const confirmPassword = document.querySelector('#confirmPassword').value;
+
+
+    fetch('http://localhost:6969/signup', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, password , confirmPassword}),
+        credentials: 'include'
+    }).then((response) => {
+        if (response.ok) {
+            const cookieHeader = response.headers.get('Set-Cookie');
+            if (cookieHeader) {
+                const cookies = cookieHeader.split(';');
+                cookies.forEach(cookie => {
+                    document.cookie = cookie.trim();
+                });
+            }
+            window.location.href = 'http://localhost:8081/login';
+        } else {
+            response.json().then(data => {
+                const errorMessage = data.error;
+                Swal.fire('Error', errorMessage, 'error');
+            });
+        }
+    }).catch(error => console.log(error));
 });
