@@ -241,14 +241,14 @@ body {
         width:15vw;
         flex-wrap:wrap;
     }
+    .group-link{
+        visibility: hidden;
+    }
 }
 
 @media(max-width: 800px){
     #groups-actions{
         display: none;
-    }
-    .group-link{
-        visibility: hidden;
     }
     #my-groups{
         width: 80%;
