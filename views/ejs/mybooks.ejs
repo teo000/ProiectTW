@@ -104,11 +104,11 @@
                 <label for="read">Read</label><br>
             </div>
             <div class="option">
-                <input type="checkbox" id="currently-reading" name="bookshelf" value="currently-reading"  <% if (url.endsWith('/currently-reading')) { %>checked<% } %>>
+                <input type="checkbox" id="currently-reading" name="bookshelf" value="currently reading"  <% if (url.endsWith('/currently%20reading')) { %>checked<% } %>>
                 <label for="currently-reading">Currently reading</label><br>
             </div>
             <div class="option">
-                <input type="checkbox" id="want-to-read" name="bookshelf" value="want-to-read"  <% if (url.endsWith('/want-to-read')) { %>checked<% } %>>
+                <input type="checkbox" id="want-to-read" name="bookshelf" value="want to read"  <% if (url.endsWith('/want%20to%20read')) { %>checked<% } %>>
                 <label for="want-to-read">Want to read</label>
             </div>
         </div>
@@ -129,8 +129,8 @@
                     <% books.forEach(function(book) { %>
                         <tr>
                             <td><img src="<%= book.coverimg %>" alt="Book cover"></td>
-                            <td><%= book.title %></td>
-                            <td><%= book.author %></td>
+                            <td><a  href="javascript:void(0);" onclick="navigateToBook('<%= book.title %>')" class = "link"><%= book.title %></a></td>
+                            <td><a href ="javascript:void(0);" class="link"><%= book.author %></a> </td>
                             <td><%= book.avgrating %></td>
                             <td>
                                 <div class="preset-rating">

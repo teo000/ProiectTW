@@ -184,8 +184,8 @@ const customReadBooksEjs = async (req, res, file_path, title) => {
                     data += chunk;
                 });
                 response.on('end', () => {
-                    const genreData = JSON.parse(data);
-                    resolve(genreData);
+                        const genreData = JSON.parse(data);
+                        resolve(genreData);
                 });
             }).on("error", (error) => {
                 console.log(error);
@@ -449,7 +449,7 @@ const server = http.createServer((req, res) => {
         //   authenticateToken(req, res, customReadEjsFile,`../views/ejs/genres.ejs`,genre);
     } else if (url.startsWith('/books/getBook/') && url.indexOf(".") === -1) {
         const title = url.split('/')[3].toLowerCase();
-        customReadBooksEjs(req, res, `../views/ejs/bookpage.ejs`, title);
+        authenticateToken(req,res,customReadBooksEjs,`../views/ejs/bookpage.ejs`, title);
     } else if (url.startsWith('/profile') && url.indexOf(".") === -1) {
         customReadUserEjs(req, res, `../views/ejs/profile.ejs`);
     } else if (url.startsWith('/groups/mygroups') && url.indexOf(".") === -1) {

@@ -1,6 +1,6 @@
 const {getAllBooks, getBookByID, getBookByTitle, addBook, getGenre,  getTopBooksInGenre} = require("../controllers/BookController");
 const {addReview} =require("../controllers/ReviewController");
-const {addBookToShelf, getUserBooks} =require("../controllers/ShelvesController");
+const {addBookToShelf, getUserBooks, removeBookFromShelf} =require("../controllers/ShelvesController");
 const bookIdRegex = /^\/books\/[0-9]+$/;
 const bookTitleRegex = /^\/books\/[a-zA-Z0-9\s]+$/;
 const {authenticateToken} = require('../../helpers/TokenAuthenticator')
@@ -34,7 +34,6 @@ const handleGetRequests = (req, res) => {
     } else if (req.url.startsWith( '/books/getBook') ){
        getBookByTitle(req,res);
     } else if (req.url.startsWith('/books/mybooks/')){
-
         getUserBooks(req,res);
     }
     else {
@@ -57,12 +56,19 @@ const handlePostRequests = (req, res) => {
         res.end(JSON.stringify({error: 'Endpoint not found'}));
     }
 }
-
+//books/shelf?bookid=...
 const handlePutRequests = (req, res) => {
+
 
 }
 const handleDeleteRequests = (req, res) => {
-
+    if (req.url.startsWith('/books/shelf')) {
+        removeBookFromShelf(req,res);
+    }
+    else {
+        res.writeHead(404, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify({error: 'Endpoint not found'}));
+    }
 }
 
 module.exports = {

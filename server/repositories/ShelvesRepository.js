@@ -45,7 +45,7 @@ const updateBook = (data) => {
 
 const deleteBookFromShelf = (data) => {
     return new Promise((resolve, reject) => {
-        const {bookid, userid, rating, shelf} = data;
+        const {bookid, userid} = data;
         databaseConnection.pool.query('select * from user_books where bookid = $1 and userid = $2',
             [bookid, userid],
             (error, results) => {
@@ -71,7 +71,7 @@ const getUserBooks = (id, shelf) => {
         });
 
     return new Promise((resolve, reject) => {
-        databaseConnection.pool.query('select users.username, b.coverimg,b.title,b.author, b.rating as avgrating,ub.rating, ub.shelf from users join user_books ub on users.id = ub.userid join books b on ub.bookid = b.id where users.id = $1 and ub.shelf = $2',
+        databaseConnection.pool.query('select users.username, b.coverimg,b.title,b.author, b.rating as avgrating,ub.rating, ub.shelf from users join user_books ub on users.id = ub.userid join books b on ub.bookid = b.id where users.id = $1 and lower(ub.shelf) = $2',
             [id,shelf],
             (error, results) => {
                 if (error) {
@@ -86,5 +86,6 @@ module.exports = {
     addBookToShelf,
     getBookFromUserShelf,
     updateBook,
-    getUserBooks
+    getUserBooks,
+    deleteBookFromShelf
 }
