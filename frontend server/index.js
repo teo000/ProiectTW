@@ -331,7 +331,7 @@ const customReadUserBooksEjs = async (req, res, file_path) => {
 }
 
 
-const customReadGroupsEjs = async (req, res, file_path) => {
+const customReadMyGroupsEjs = async (req, res, file_path) => {
     if (fs.existsSync(file_path)) {
         const template = fs.readFileSync(file_path, "utf8");
         if (!template) {
@@ -385,7 +385,58 @@ const customReadGroupsEjs = async (req, res, file_path) => {
 }
 
 
+const customReadGroupEjs = async (req, res, file_path, group) => {
+    if (fs.existsSync(file_path)) {
+        const template = fs.readFileSync(file_path, "utf8");
+        if (!template) {
+            sendErrorResponse(res);
+            return;
+        }
 
+        const cookies = req.headers.cookie || '';
+
+        const groupPromise = new Promise((resolve, reject) => {
+            console.log("group promise");
+
+            const options = {
+                method : 'GET',
+                hostname: 'localhost',
+                port: 6969,
+                path: `/groups/group/${group}`,
+                headers: {
+                    'Cookie': cookies // Pass the extracted cookies in the request headers
+                }
+            };
+
+            http.get(options, (response) => {
+                let data = "";
+                response.on("data", (chunk) => {
+                    data += chunk;
+                });
+                response.on('end', () => {
+                    const groupsData = JSON.parse(data);
+                    resolve(groupsData);
+                });
+            }).on("error", (error) => {
+                console.log(error);
+                reject(error);
+            });
+        });
+
+        try {
+            const [groupData] = await Promise.all([groupPromise]);
+            console.log(groupData);
+            // Render the EJS template with the data
+            const renderedEJS = ejs.render(template, { group: groupData});
+
+            res.writeHead(200, {"Content-Type": "text/html"});
+            res.end(renderedEJS);
+        } catch (error) {
+            console.log(error);
+            sendErrorResponse(res);
+        }
+    }
+}
 
 const server = http.createServer((req, res) => {
 
@@ -399,10 +450,13 @@ const server = http.createServer((req, res) => {
     } else if (url.startsWith('/books/getBook/') && url.indexOf(".") === -1) {
         const title = url.split('/')[3].toLowerCase();
         customReadBooksEjs(req, res, `../views/ejs/bookpage.ejs`, title);
-    } else if(url.startsWith('/profile') && url.indexOf(".") === -1) {
+    } else if (url.startsWith('/profile') && url.indexOf(".") === -1) {
         customReadUserEjs(req, res, `../views/ejs/profile.ejs`);
-    } else if (url.startsWith('/groups/mygroups') && url.indexOf(".") === -1){
-        customReadGroupsEjs(req, res, '../views/ejs/mygroups.ejs');
+    } else if (url.startsWith('/groups/mygroups') && url.indexOf(".") === -1) {
+        customReadMyGroupsEjs(req, res, '../views/ejs/mygroups.ejs');
+    } else if(url.startsWith('/groups/group/') && url.indexOf(".") === -1 ){
+        const group = url.split('/')[3].toLowerCase();
+        customReadGroupEjs(req, res, `../views/ejs/grouppage.ejs`, group);
     } else if (url.startsWith('/books/mybooks/')&& url.indexOf(".") === -1){
         customReadUserBooksEjs(req, res, `../views/ejs/mybooks.ejs`);
     }

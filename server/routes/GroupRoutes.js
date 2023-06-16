@@ -1,4 +1,5 @@
-const {getMyGroups} = require("../controllers/GroupController");
+const {getMyGroups, getGroup} = require("../controllers/GroupController");
+const {getTopBooksInGenre} = require("../controllers/BookController");
 
 const routeRequest = async (req, res) => {
     const {url, method} = req;
@@ -16,10 +17,16 @@ const routeRequest = async (req, res) => {
 const handleGetRequests = (req, res) => {
     const {url} = req;
     console.log(`handleGetRequests: ${url}`);
-    if (req.url.startsWith('/groups/mygroups')) {
+    if (req.url === '/groups/mygroups') {
         console.log("aici");
         getMyGroups(req, res);
-    }else {
+    }else if(req.url.startsWith('/groups/group/')){
+        const group = req.url.split('/')[3].toLowerCase();
+        const decodedGroup = decodeURIComponent(group);
+        getGroup(req, res, decodedGroup);
+        console.log(`handleGetRequests(): ${res.name}`);
+    }
+    else {
         res.writeHead(404, {'Content-Type': 'application/json'});
         res.end(JSON.stringify({error: 'Endpoint not found'}));
     }

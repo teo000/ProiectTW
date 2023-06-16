@@ -281,7 +281,7 @@ body {
     width: 100%;
     min-height: 100vh;
     margin-top: 1vh;
-    align-content: center;
+    /*align-content: center;*/
     z-index: 10;
 }
 
@@ -291,6 +291,7 @@ body {
     flex-direction: column;
     align-items: center;
     margin-top: 10vh;
+    margin-left: 3vh;
     position:fixed;
 }
 
@@ -300,13 +301,13 @@ body {
 }
 
 #content-div {
-    display: flex;
+    display: inline-block;
     flex-direction: column;
     margin-top: 10vh;
-    margin-left: 25vw;
-    margin-right: 13vw;
+    margin-left: 31%;
+    margin-right: 10%;
     height: auto;
-    width: 60%;
+    /*width: 60%;*/
     background-color: white;
     border-radius: 50px;
     padding: 20px;
@@ -659,8 +660,7 @@ body {
 }
 
 
-
-@media (max-width: 900px) {
+@media (max-width: 1200px) {
     #content-wrapper {
         flex-direction: column;
         align-items: center;

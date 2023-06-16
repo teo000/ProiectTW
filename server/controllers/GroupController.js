@@ -19,6 +19,21 @@ const getMyGroups = async (req, res) =>{
     }
 }
 
+const getGroup = async (req, res, name) =>{
+    console.log("group controller: getGroup");
+    try {
+        const groups = await groupRepository.getGroupByName(name);
+        res.writeHead(200, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify(groups));
+        console.log(groups);
+    } catch (error) {
+        console.log(error);
+        res.writeHead(500, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify({error: 'Internal Server Error'}));
+    }
+}
+
 module.exports = {
-    getMyGroups
+    getMyGroups,
+    getGroup
 }

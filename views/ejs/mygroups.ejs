@@ -39,7 +39,7 @@
                                 <a href="javascript:void(0);" onclick="navigateToGenre('young adult')">Young Adult</a>
                             </div>
                         </div>
-                        <a class="active" href="javascript:void(0);" onclick="navigateToPage('mygroups')">My Groups</a>
+                        <a class="active" href="javascript:void(0);" onclick="navigateToGroup('mygroups')">My Groups</a>
                         <div class="hoverable">
 
                             <a class="active" href="#">More</a>
@@ -72,7 +72,7 @@
                         <a href="javascript:void(0);" onclick="navigateToGenre('young adult')">Young Adult</a>
                     </div>
                 </div>
-                <a class="active" href="javascript:void(0);" onclick="navigateToPage('mygroups')">My Groups</a>
+                <a class="active" href="javascript:void(0);" onclick="navigateToGroup('mygroups')">My Groups</a>
                 <div class="dropdown">
                     <button class="dropDownButton">More</button>
                     <div class="dropdown-categories">
@@ -96,14 +96,14 @@
             <hr>
             <% groups.forEach(function(group) { %>
                 <div class="group-summary">
-                    <a href="grouppage.html"> <%=group.name%> </a>
+                    <a href="javascript:void(0);" onclick="navigateToGroup('<%=group.name%>')"> <%=group.name%> </a>
                     <hr>
                     <div class="book-summary">
                         <div class = "book-cover">
-                            <a href = "bookpage.html"> <img src="<%= group.coverimg %>" alt="book cover"></a>
+                            <a href = "javascript:void(0);" onclick="navigateToBook('<%=group.title%>')"> <img src="<%= group.coverimg %>" alt="book cover"></a>
                         </div>
                         <div class = "book-information">
-                            <a href="bookpage.html" class="title">
+                            <a href = "javascript:void(0);" onclick="navigateToBook('<%=group.title%>')" class="title">
                                     <%= group.title %>
                             </a>
                             <a href="#" class="author">
