@@ -2,7 +2,7 @@ const userRepository = require("../repositories/UserRepository");
 const bookRepository = require("../repositories/BookRepository");
 const reviewRepository = require("../repositories/ReviewRepository");
 const shelvesRepository = require("../repositories/ShelvesRepository");
-const {extractUser} = require("../../helpers/TokenAuthenticator");
+const {extractUser, getUserFromCookie} = require("../../helpers/TokenAuthenticator");
 const {parse} = require("querystring");
 
 const addBookToShelf = async (req, res) => {
@@ -17,8 +17,9 @@ const addBookToShelf = async (req, res) => {
                 const data = JSON.parse(body);
 
                 // Validate the userId and the bookId
-                const cookies = req.headers.cookie ? parse(req.headers.cookie, '; ') : {};
-                const user = extractUser(cookies.access_token).user;
+                const user = getUserFromCookie(req,res);
+                if(user === undefined)
+                    return;
                 const userInRepo = await userRepository.getUserById(user.ID);
                 if (!userInRepo) {
                     res.writeHead(404, {'Content-Type': 'application/json'});
@@ -102,28 +103,10 @@ const removeBookFromShelf = async (req, res) => {
     try {
         const bookIdString = req.url.split('?')[1];
         const bookId = bookIdString.split('=')[1];
-        const cookies = req.headers.cookie ? parse(req.headers.cookie, '; ') : {};
-        if (!cookies.access_token) {
-            res.writeHead(401, {"Content-Type": "text/html"});
-            res.end('<h1>Unauthorized</h1>');
-            return;
-        }
-        let user = null;
-        try {
-            user = extractUser(cookies.access_token);
-        } catch (error) {
-            res.writeHead(403, {"Content-Type": "text/html"});
-            res.end('<h1>Forbidden</h1>');
-            return;
-        }
 
-        if (!user) {
-            res.writeHead(401, {"Content-Type": "text/html"});
-            res.end('<h1>Unauthorized</h1>');
+        const userObj = getUserFromCookie(req,res);
+        if(userObj === undefined)
             return;
-        }
-        const userObj = user.user;
-
         const userFromDB = await userRepository.getUserById(userObj.ID);
         if (!userFromDB) {
             res.writeHead(404, {'Content-Type': 'application/json'});

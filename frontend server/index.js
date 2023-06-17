@@ -138,8 +138,6 @@ const customReadBooksEjs = async (req, res, file_path, title) => {
             sendErrorResponse(res);
             return;
         }
-        const decodedTitle = decodeURIComponent(title);
-
         // Extract cookies from the client's request
         const cookies = req.headers.cookie || '';
 

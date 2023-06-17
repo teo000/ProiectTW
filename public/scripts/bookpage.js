@@ -14,31 +14,41 @@ const bookid = bookIdText.replace('BookId :', '').trim();
 
 rating.style.display = 'none';
 
-readButton.addEventListener("click", function(){
-    const isVisible = rating.style.display === 'flex';
-
-    rating.style.display = isVisible ? 'none' : 'flex';
-    writeReviewSection.style.display = isVisible ? 'none' : 'flex';
-    addButton.style.display = isVisible ? 'none' : 'flex';
-
-    // rating.style.display='flex';
-});
 function clicked() {
-    this.classList.toggle('active');
-    removeClasses(this);
-}
+    const isReadButtonActive = readButton.classList.contains('active');
 
-function removeClasses(target) {
-    btns.forEach((btn) => {
-      if(btn !== target) { btn.classList.remove("active"); }
-    });
-    if(readButton !== target){
+    if (isReadButtonActive) {
+        rating.style.display = 'flex';
+        writeReviewSection.style.display = 'flex';
+        addButton.style.display = 'flex';
+    } else {
         rating.style.display = 'none';
         writeReviewSection.style.display = 'none';
         addButton.style.display = 'none';
     }
 
-  }
+    removeClasses(this);
+}
+
+function removeClasses(target) {
+    if (target !== readButton) {
+        rating.style.display = 'none';
+        writeReviewSection.style.display = 'none';
+        addButton.style.display = 'none';
+    } else {
+        rating.style.display = 'flex';
+        writeReviewSection.style.display = 'flex';
+        addButton.style.display = 'flex';
+    }
+
+    btns.forEach((btn) => {
+        if (btn !== target) {
+            btn.classList.remove('active');
+        }
+        if(btn === target)
+            btn.classList.add('active')
+    });
+}
 
 readButton.addEventListener('click', clicked);
 currentlyButton.addEventListener('click', clicked);
@@ -173,3 +183,25 @@ function deleteFromShelf(shelf){
             console.log(error);
         })
 }
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    if (readButton.classList.contains('active')) {
+        rating.style.display = 'flex';
+        writeReviewSection.style.display = 'flex';
+        addButton.style.display = 'flex';
+    }
+
+    var ratingElement = document.getElementById('user-rating');
+    var userRating = parseFloat(ratingElement.textContent);
+    const inputs = Array.from(document.querySelectorAll('#adjustable-rating input'));
+    const reversedInputs = inputs.reverse();
+    reversedInputs.forEach((input,index) =>{
+        const starInput = reversedInputs[index];
+        if(starInput.value <= userRating){
+            const label = document.querySelector(`label[for="${starInput.id}"]`);
+            label.classList.add('checked');
+        }
+        console.log(starInput.value)
+    })
+});

@@ -104,25 +104,25 @@
                 <img  src="<%= book.coverimg %>" alt="Book cover">
             </div>
 
-            <button type="button" id="read-button"> Read </button>
-            <button type="button" id="currently-button"> Currently reading </button>
-            <button type="button" id="want-button"> Want to read </button>
+            <button type="button" id="read-button"  <% if (book.shelf==='Read') { %>class="active"<% } %>> Read </button>
+            <button type="button" id="currently-button"  <% if (book.shelf==='Currently Reading') { %>class="active"<% } %>> Currently reading </button>
+            <button type="button" id="want-button"  <% if (book.shelf==='Want to Read') { %>class="active"<% } %>> Want to read </button>
 
             <div id="adjustable-rating">
-                <input type="radio"  name="stars" id="star-a" value="5">
-                <label for="star-a"></label>
+                <input type="radio"  name="stars" id="star-5" value="5">
+                <label for="star-5"></label>
 
-                <input type="radio" name="stars" id="star-b" value="4">
-                <label for="star-b"></label>
+                <input type="radio" name="stars" id="star-4" value="4" >
+                <label for="star-4"></label>
 
-                <input type="radio" name="stars" id="star-c" value="3">
-                <label for="star-c"></label>
+                <input type="radio" name="stars" id="star-3" value="3" >
+                <label for="star-3"></label>
 
-                <input type="radio" name="stars" id="star-d" value="2">
-                <label for="star-d"></label>
+                <input type="radio" name="stars" id="star-2" value="2" >
+                <label for="star-2"></label>
 
-                <input type="radio" name="stars" id="star-e" value="1">
-                <label for="star-e"></label>
+                <input type="radio" name="stars" id="star-1" value="1">
+                <label for="star-1"></label>
             </div>
 
 
@@ -144,8 +144,9 @@
                         <div class="full-stars" style="width:85.6%"></div>
                     </div>
                     <p>
-                        <%= book.rating %>
+                        <%= book.avgrating %>
                     </p>
+                    <p id = "user-rating" style = "display:none"><%= book.rating%></p>
                 </div>
                 <p id="description">
                     <%= book.description %>
@@ -287,7 +288,7 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src = "bookpage.js"></script>
+<script defer src = "bookpage.js"></script>
 <script src="comments_and_likes.js"></script>
 <script src ="navigationLinks.js"></script>
 </body>

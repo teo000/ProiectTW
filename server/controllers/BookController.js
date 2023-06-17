@@ -4,6 +4,7 @@ const genreRepository = require('../repositories/GenreRepository');
 const bookGenresRepository = require('../repositories/BookGenresRepository');
 const {authenticateToken} = require('../authentication/AuthenticationController')
 const {parse} = require("url");
+const {getUserFromCookie} = require("../../helpers/TokenAuthenticator");
 //@route GET books/getAll
 const getAllBooks = async (req, res) => {
     try {
@@ -44,7 +45,9 @@ const getBookByTitle = async (req, res) => {
         // Extract the title from the pathname
         const encodedTitle = pathname.split('/').pop();
         const title = decodeURIComponent(encodedTitle).toLowerCase();
-        const book = await bookRepository.getBookByTitle(title);
+        const user = getUserFromCookie(req,res);
+        const book = await bookRepository.getBookByTitle(title, user.ID);
+
         if (!book) {
             res.writeHead(404, {'Content-Type': 'application/json'});
             res.end(JSON.stringify({error: 'Book not found!'}));

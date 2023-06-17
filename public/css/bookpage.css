@@ -183,6 +183,7 @@ body {
     padding: 18px 20px;
     text-decoration: none;
     color: white;
+
 }
 
 .dropdown {
@@ -378,7 +379,10 @@ body {
 #adjustable-rating input:checked ~ label:before {
     content: '\2605';
 }
-
+#adjustable-rating .checked:before {
+    content: '\2605';
+    color: #b92639;
+}
 #book-cover-div button {
     position: relative;
     padding: 0.5em 1em;
@@ -394,16 +398,18 @@ body {
 #book-cover-div button:hover{
     background-color: #be2f3f;
 }
-#book-cover-div button:active {
+#book-cover-div button:active{
     top: 2px;
     left: 1px;
     box-shadow: none;
+    background-color: #9e2d3a;
 }
 
 #book-cover-div .active {
     top: 2px;
     left: 1px;
     box-shadow: none;
+    background-color: #9e2d3a;
 }
 
 .rating-box {

@@ -1,5 +1,6 @@
 const cookie = require("cookie");
 const jwt = require("jsonwebtoken");
+const {parse} = require("querystring");
 
 function authenticateToken(req, res, next, ...args) {
     const {url, headers} = req;
@@ -24,7 +25,33 @@ function extractUser(token){
     return jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
 }
 
+
+function getUserFromCookie (req,res) {
+    const cookies = req.headers.cookie ? parse(req.headers.cookie, '; ') : {};
+    if (!cookies.access_token) {
+        res.writeHead(401, {"Content-Type": "text/html"});
+        res.end('<h1>Unauthorized</h1>');
+        return undefined;
+    }
+    let user = null;
+    try {
+        user = extractUser(cookies.access_token);
+    } catch (error) {
+        res.writeHead(403, {"Content-Type": "text/html"});
+        res.end('<h1>Forbidden</h1>');
+        return undefined;
+    }
+
+    if (!user) {
+        res.writeHead(401, {"Content-Type": "text/html"});
+        res.end('<h1>Unauthorized</h1>');
+        return undefined;
+    }
+    return user.user;
+}
+
 module.exports = {
     authenticateToken,
-    extractUser
+    extractUser,
+    getUserFromCookie
 }

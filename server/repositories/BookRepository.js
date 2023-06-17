@@ -26,9 +26,9 @@ const getBookByID = (id) =>{
     });
 }
 //@route: GET /books/getBook; json body : {"title": "title"}
-const getBookByTitle = (title) =>{
+const getBookByTitle = (title, userid) =>{
     return new Promise((resolve, reject) => {
-        databaseConnection.pool.query('SELECT * FROM books where LOWER(title) = $1', [title],(error, results) => {
+        databaseConnection.pool.query('SELECT b.id, b.title, b.author, b.rating as avgrating, b.description, b.edition, b.publisher, b.year, b.coverimg ,ub.rating, ub.shelf FROM books b join user_books ub on ub.bookid = b.id where LOWER(title) = $1 and ub.userid = $2', [title,userid],(error, results) => {
             if (error) {
                 reject(error);
             }
