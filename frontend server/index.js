@@ -71,7 +71,7 @@ const customReadGenresEjs = async (req, res, file_path, genre) => {
                     'Cookie': cookies // Pass the extracted cookies in the request headers
                 }
             };
-        //make request to server to get genre data, also should make request to get clasament
+            //make request to server to get genre data, also should make request to get clasament
 
             http.get(options, (response) => {
                 let data = "";
@@ -131,6 +131,66 @@ const customReadGenresEjs = async (req, res, file_path, genre) => {
     }
 }
 
+const customReadHomepageEjs = async (req, res, file_path) => {
+    if (fs.existsSync(file_path)) {
+        const template = fs.readFileSync(file_path, "utf8");
+        if (!template) {
+            sendErrorResponse(res);
+            return;
+        }
+        const cookies = req.headers.cookie || '';
+
+        const reviewsPromise = new Promise((resolve, reject) => {
+            const options = {
+                hostname: 'localhost',
+                port: 6969,
+                path: `/books/reviews/all`,
+                headers: {
+                    'Cookie': cookies
+                }
+            };
+
+            http.get(options, (response) => {
+                let reviewsData = "";
+                response.on("data", (chunk) => {
+                    reviewsData += chunk;
+                });
+                response.on('end', () => {
+                    try {
+                        reviewsData = JSON.parse(reviewsData);
+                    } catch (error) {
+                        reviewsData = [];
+                    }
+                    resolve(reviewsData);
+                });
+            }).on("error", (error) => {
+                console.log(error);
+                reject(error);
+            });
+        });
+        try {
+            const [reviewsData] = await Promise.all([reviewsPromise]);
+
+            const modifiedReviewDate = reviewsData.map(review => {
+                const date = new Date(review.date);
+                const formattedDate = date.toISOString().slice(0, 10);
+                return {...review, date: formattedDate}
+            })
+            // Render the EJS template with the data
+            const renderedEJS = ejs.render(template, {reviews: modifiedReviewDate});
+
+            res.writeHead(200, {"Content-Type": "text/html"});
+            res.end(renderedEJS);
+        } catch (error) {
+            console.log(error);
+            sendErrorResponse(res);
+        }
+    }
+    else {
+        sendErrorResponse(res);
+    }
+}
+
 const customReadBooksEjs = async (req, res, file_path, title) => {
     if (fs.existsSync(file_path)) {
         const template = fs.readFileSync(file_path, "utf8");
@@ -182,8 +242,8 @@ const customReadBooksEjs = async (req, res, file_path, title) => {
                     data += chunk;
                 });
                 response.on('end', () => {
-                        const genreData = JSON.parse(data);
-                        resolve(genreData);
+                    const genreData = JSON.parse(data);
+                    resolve(genreData);
                 });
             }).on("error", (error) => {
                 console.log(error);
@@ -191,11 +251,44 @@ const customReadBooksEjs = async (req, res, file_path, title) => {
             });
         });
 
-        try {
-            const [booksData, genreData] = await Promise.all([bookPromise, genresPromise]);
+        const reviewsPromise = new Promise((resolve, reject) => {
+            const options = {
+                hostname: 'localhost',
+                port: 6969,
+                path: `/books/reviews/${title}`,
+                headers: {
+                    'Cookie': cookies
+                }
+            };
 
+            http.get(options, (response) => {
+                let reviewsData = "";
+                response.on("data", (chunk) => {
+                    reviewsData += chunk;
+                });
+                response.on('end', () => {
+                    try {
+                        reviewsData = JSON.parse(reviewsData);
+                    } catch (error) {
+                        reviewsData = [];
+                    }
+                    resolve(reviewsData);
+                });
+            }).on("error", (error) => {
+                console.log(error);
+                reject(error);
+            });
+        });
+        try {
+            const [booksData, genreData, reviewsData] = await Promise.all([bookPromise, genresPromise, reviewsPromise]);
+
+            const modifiedReviewDate = reviewsData.map(review => {
+                const date = new Date(review.date);
+                const formattedDate = date.toISOString().slice(0, 10);
+                return {...review, date: formattedDate}
+            })
             // Render the EJS template with the data
-            const renderedEJS = ejs.render(template, { book: booksData, genres: genreData });
+            const renderedEJS = ejs.render(template, {book: booksData, genres: genreData, reviews: modifiedReviewDate});
 
             res.writeHead(200, {"Content-Type": "text/html"});
             res.end(renderedEJS);
@@ -203,6 +296,9 @@ const customReadBooksEjs = async (req, res, file_path, title) => {
             console.log(error);
             sendErrorResponse(res);
         }
+    }
+    else {
+        sendErrorResponse(res);
     }
 }
 
@@ -216,13 +312,13 @@ const customReadUserEjs = async (req, res, file_path) => {
 
         // Extract cookies from the client's request
         const cookies = req.headers.cookie ? parse(req.headers.cookie, '; ') : {};
-        if(!cookies.access_token){
+        if (!cookies.access_token) {
             res.writeHead(401, {"Content-Type": "text/html"});
             res.end('<h1>Unauthorized</h1>');
             return;
         }
         const user = extractUser(cookies.access_token);
-        if(!user){
+        if (!user) {
             res.writeHead(401, {"Content-Type": "text/html"});
             res.end('<h1>Unauthorized</h1>');
             return;
@@ -231,7 +327,7 @@ const customReadUserEjs = async (req, res, file_path) => {
 
         try {
             // Render the EJS template with the data
-            const renderedEJS = ejs.render(template, { user: userObj});
+            const renderedEJS = ejs.render(template, {user: userObj});
 
             res.writeHead(200, {"Content-Type": "text/html"});
             res.end(renderedEJS);
@@ -239,8 +335,7 @@ const customReadUserEjs = async (req, res, file_path) => {
             console.log(error);
             sendErrorResponse(res);
         }
-    }
-    else{
+    } else {
         sendErrorResponse(res);
     }
 }
@@ -256,22 +351,21 @@ const customReadUserBooksEjs = async (req, res, file_path) => {
 
         // Extract cookies from the client's request
         const cookies = req.headers.cookie ? parse(req.headers.cookie, '; ') : {};
-        if(!cookies.access_token){
+        if (!cookies.access_token) {
             res.writeHead(401, {"Content-Type": "text/html"});
             res.end('<h1>Unauthorized</h1>');
             return;
         }
         let user = null;
-        try{
-             user = extractUser(cookies.access_token);
-        }
-        catch (error){
+        try {
+            user = extractUser(cookies.access_token);
+        } catch (error) {
             res.writeHead(403, {"Content-Type": "text/html"});
             res.end('<h1>Forbidden</h1>');
             return;
         }
 
-        if(!user){
+        if (!user) {
             res.writeHead(401, {"Content-Type": "text/html"});
             res.end('<h1>Unauthorized</h1>');
             return;
@@ -314,7 +408,7 @@ const customReadUserBooksEjs = async (req, res, file_path) => {
         try {
             // Render the EJS template with the data
             const [booksData] = await Promise.all([booksPromise]);
-            const renderedEJS = ejs.render(template, { books: booksData, url : req.url});
+            const renderedEJS = ejs.render(template, {books: booksData, url: req.url});
 
             res.writeHead(200, {"Content-Type": "text/html"});
             res.end(renderedEJS);
@@ -322,8 +416,7 @@ const customReadUserBooksEjs = async (req, res, file_path) => {
             console.log(error);
             sendErrorResponse(res);
         }
-    }
-    else{
+    } else {
         sendErrorResponse(res);
     }
 }
@@ -343,7 +436,7 @@ const customReadMyGroupsEjs = async (req, res, file_path) => {
             console.log("group promise");
 
             const options = {
-                method : 'GET',
+                method: 'GET',
                 hostname: 'localhost',
                 port: 6969,
                 path: `/groups/mygroups`,
@@ -371,7 +464,7 @@ const customReadMyGroupsEjs = async (req, res, file_path) => {
             const [groupsData] = await Promise.all([groupPromise]);
             console.log(groupsData);
             // Render the EJS template with the data
-            const renderedEJS = ejs.render(template, { groups: groupsData});
+            const renderedEJS = ejs.render(template, {groups: groupsData});
 
             res.writeHead(200, {"Content-Type": "text/html"});
             res.end(renderedEJS);
@@ -397,7 +490,7 @@ const customReadGroupEjs = async (req, res, file_path, group) => {
             console.log("group promise");
 
             const options = {
-                method : 'GET',
+                method: 'GET',
                 hostname: 'localhost',
                 port: 6969,
                 path: `/groups/group/${group}`,
@@ -425,7 +518,7 @@ const customReadGroupEjs = async (req, res, file_path, group) => {
             const [groupData] = await Promise.all([groupPromise]);
             console.log(groupData);
             // Render the EJS template with the data
-            const renderedEJS = ejs.render(template, { group: groupData});
+            const renderedEJS = ejs.render(template, {group: groupData});
 
             res.writeHead(200, {"Content-Type": "text/html"});
             res.end(renderedEJS);
@@ -447,24 +540,25 @@ const server = http.createServer((req, res) => {
         //   authenticateToken(req, res, customReadEjsFile,`../views/ejs/genres.ejs`,genre);
     } else if (url.startsWith('/books/getBook/') && url.indexOf(".") === -1) {
         const title = url.split('/')[3].toLowerCase();
-        authenticateToken(req,res,customReadBooksEjs,`../views/ejs/bookpage.ejs`, title);
+        authenticateToken(req, res, customReadBooksEjs, `../views/ejs/bookpage.ejs`, title);
     } else if (url.startsWith('/profile') && url.indexOf(".") === -1) {
         customReadUserEjs(req, res, `../views/ejs/profile.ejs`);
     } else if (url.startsWith('/groups/mygroups') && url.indexOf(".") === -1) {
         customReadMyGroupsEjs(req, res, '../views/ejs/mygroups.ejs');
-    } else if(url.startsWith('/groups/group/') && url.indexOf(".") === -1 ){
+    } else if (url.startsWith('/groups/group/') && url.indexOf(".") === -1) {
         const group = url.split('/')[3].toLowerCase();
         customReadGroupEjs(req, res, `../views/ejs/grouppage.ejs`, group);
-    } else if (url.startsWith('/books/mybooks/')&& url.indexOf(".") === -1){
+    } else if (url.startsWith('/books/mybooks/') && url.indexOf(".") === -1) {
         customReadUserBooksEjs(req, res, `../views/ejs/mybooks.ejs`);
-    }
-    else if (url.indexOf(".") === -1) {
+    } else if (url==='/homepage') {
+        customReadHomepageEjs(req, res, `../views/ejs/homepage.ejs`);
+    } else if (url.indexOf(".") === -1) {
         //its an html request{
         //check if it is login
         if (url.indexOf("login") === -1 && url.indexOf("signup") === -1) {
-          //  res.writeHead(200, {"Content-Type": "text/html"});
-             authenticateToken(req, res, customReadFile,getFileUrl(url));
-           // customReadFile(req, res, getFileUrl(url));
+            //  res.writeHead(200, {"Content-Type": "text/html"});
+            authenticateToken(req, res, customReadFile, getFileUrl(url));
+            // customReadFile(req, res, getFileUrl(url));
             return;
         }
 

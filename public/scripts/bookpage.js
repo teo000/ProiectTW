@@ -93,7 +93,37 @@ function sendRating(rating){
         })
         .catch(error =>{
             console.log(error);
+        });
+
+    //also send request to create a generic review
+    const reviewRequestBody = {
+        bookid,
+        date: new Date().toISOString().split('T')[0],
+        stars:rating
+    }
+    fetch('http://localhost:6969/books/review/generic',{
+        method: 'POST',
+        body : JSON.stringify(reviewRequestBody),
+        headers:{
+            'Content-Type' :"application/json",
+        },
+        credentials: 'include'
+
+    })
+        .then(response =>{
+            if(response.ok){
+
+            }
+            else{
+                response.json().then(data => {
+                    const errorMessage = data.error;
+                    Swal.fire('Error', errorMessage, 'error');
+                });
+            }
         })
+        .catch(error =>{
+            console.log(error);
+        });
 }
 
 function addToShelf(shelfName){
@@ -205,3 +235,39 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log(starInput.value)
     })
 });
+
+
+const textarea = document.querySelector('#review-text');
+
+addButton.addEventListener('click', ()=>{
+    const reviewContent = textarea.value;
+    const reviewRequestBody = {
+        bookid,
+        date: new Date().toISOString().split('T')[0],
+        content : reviewContent
+    };
+    fetch('http://localhost:6969/books/review',{
+        method: 'POST',
+        body : JSON.stringify(reviewRequestBody),
+        headers:{
+            'Content-Type' :"application/json",
+        },
+        credentials: 'include'
+    })
+        .then(response =>{
+            if(response.ok){
+                console.log('ok');
+                Swal.fire('Book review successfully added', '', 'success');
+            }
+            else{
+                response.json().then(data => {
+                    const errorMessage = data.error;
+                    Swal.fire('Error', errorMessage, 'error');
+                });
+            }
+        })
+        .catch(error =>{
+            console.log(error);
+        })
+    reviewContent.value='';
+})

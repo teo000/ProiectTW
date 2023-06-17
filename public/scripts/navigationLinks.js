@@ -63,3 +63,7 @@ function navigateToMyBooks(){
 function logout(){
     //ceva request pt logout
 }
+
+function navigateToHomepage(){
+    window.location.href = `http://localhost:8081/books/reviews/all`;
+}

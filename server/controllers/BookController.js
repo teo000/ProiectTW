@@ -46,7 +46,7 @@ const getBookByTitle = async (req, res) => {
         const encodedTitle = pathname.split('/').pop();
         const title = decodeURIComponent(encodedTitle).toLowerCase();
         const user = getUserFromCookie(req,res);
-        const book = await bookRepository.getBookByTitle(title, user.ID);
+        const book = await bookRepository.getBookByTitleAndUser(title, user.ID);
 
         if (!book) {
             res.writeHead(404, {'Content-Type': 'application/json'});
