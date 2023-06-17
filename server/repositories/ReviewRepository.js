@@ -77,11 +77,24 @@ const getAllReviews = () =>{
     });
 }
 
+const getReviewsMadeByUser = (id) =>{
+    return new Promise((resolve, reject) => {
+        databaseConnection.pool.query('select b.title, b.author, u.username, r.date, r.content, r.stars, r.isgeneric from reviews r join books b on r.bookid = b.id join users u on r.userid = u.id where u.id =$1',
+            [id],
+            (error, results) => {
+                if (error) {
+                    reject(error);
+                }
+                resolve(results.rows);
+            });
+    });
+}
 module.exports = {
     addReview,
     deleteUserBookReview,
     getBookReviews,
     getUserBookReviews,
     deleteReview,
-    getAllReviews
+    getAllReviews,
+    getReviewsMadeByUser
 }

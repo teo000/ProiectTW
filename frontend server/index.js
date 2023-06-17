@@ -325,9 +325,44 @@ const customReadUserEjs = async (req, res, file_path) => {
         }
         const userObj = user.user;
 
+        const reviewsPromise = new Promise((resolve, reject) => {
+            const options = {
+                hostname: 'localhost',
+                port: 6969,
+                path: `/books/reviews/userid=${userObj.ID}`,
+                headers: {
+                    'Cookie': cookies
+                }
+            };
+
+            http.get(options, (response) => {
+                let reviewsData = "";
+                response.on("data", (chunk) => {
+                    reviewsData += chunk;
+                });
+                response.on('end', () => {
+                    try {
+                        reviewsData = JSON.parse(reviewsData);
+                    } catch (error) {
+                        reviewsData = [];
+                    }
+                    resolve(reviewsData);
+                });
+            }).on("error", (error) => {
+                console.log(error);
+                reject(error);
+            });
+        });
         try {
+            const [reviewsData] = await Promise.all([reviewsPromise]);
+
+            const modifiedReviewDate = reviewsData.map(review => {
+                const date = new Date(review.date);
+                const formattedDate = date.toISOString().slice(0, 10);
+                return {...review, date: formattedDate}
+            })
             // Render the EJS template with the data
-            const renderedEJS = ejs.render(template, {user: userObj});
+            const renderedEJS = ejs.render(template, {reviews: modifiedReviewDate, user:userObj});
 
             res.writeHead(200, {"Content-Type": "text/html"});
             res.end(renderedEJS);
@@ -335,7 +370,8 @@ const customReadUserEjs = async (req, res, file_path) => {
             console.log(error);
             sendErrorResponse(res);
         }
-    } else {
+    }
+    else {
         sendErrorResponse(res);
     }
 }
