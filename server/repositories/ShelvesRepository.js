@@ -46,7 +46,7 @@ const updateBook = (data) => {
 const deleteBookFromShelf = (data) => {
     return new Promise((resolve, reject) => {
         const {bookid, userid} = data;
-        databaseConnection.pool.query('select * from user_books where bookid = $1 and userid = $2',
+        databaseConnection.pool.query('delete from user_books where bookid = $1 and userid = $2',
             [bookid, userid],
             (error, results) => {
                 if (error) {

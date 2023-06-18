@@ -281,7 +281,7 @@ body {
     flex-direction: column;
     width: 100%;
     min-height: 100vh;
-    margin-top: 1vh;
+    margin-top: -2vh;
     /*align-content: center;*/
     z-index: 10;
 }
@@ -349,7 +349,7 @@ body {
     width: 250px;
     flex-direction: row-reverse;
     justify-content: space-between;
-    margin: 10px auto;
+    margin: 0 auto 0 auto;
     position: relative;
 }
 

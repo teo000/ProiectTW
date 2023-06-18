@@ -61,13 +61,13 @@ const customReadGenresEjs = async (req, res, file_path, genre, pageSize, pageNum
         }
 
         const cookies = req.headers.cookie || '';
-        const decodedGenre = decodeURIComponent(genre);
+        const encodedGenre = encodeURIComponent(genre);
         const path = req.url;
         const booksPromise = new Promise((resolve, reject) => {
             const options = {
                 hostname: 'localhost',
                 port: 6969,
-                path: `/books/genres?genre=${genre}&pageSize=${pageSize}&pageNumber=${pageNumber}`,
+                path: `/books/genres?genre=${encodedGenre}&pageSize=${pageSize}&pageNumber=${pageNumber}`,
                 headers: {
                     'Cookie': cookies // Pass the extracted cookies in the request headers
                 }
@@ -92,7 +92,7 @@ const customReadGenresEjs = async (req, res, file_path, genre, pageSize, pageNum
             const options = {
                 hostname: 'localhost',
                 port: 6969,
-                path: `/books/genres/top/${genre}`,
+                path: `/books/genres/top/${encodedGenre}`,
                 headers: {
                     'Cookie': cookies // Pass the extracted cookies in the request headers
                 }
@@ -116,7 +116,7 @@ const customReadGenresEjs = async (req, res, file_path, genre, pageSize, pageNum
             const options = {
                 hostname: 'localhost',
                 port: 6969,
-                path: `/books/genres/count?genre=${genre}`,
+                path: `/books/genres/count?genre=${encodedGenre}`,
                 headers: {
                     'Cookie': cookies // Pass the extracted cookies in the request headers
                 }
@@ -142,7 +142,7 @@ const customReadGenresEjs = async (req, res, file_path, genre, pageSize, pageNum
             if(numberOfBooks%pageSize!==0)
                 numberOfPages++;
             // Render the EJS template with the data
-            const upperCasedDecodedGenre = decodedGenre.charAt(0).toUpperCase() + decodedGenre.slice(1);
+            const upperCasedDecodedGenre = genre.charAt(0).toUpperCase() + genre.slice(1);
             const renderedEJS = ejs.render(template, {
                 books: booksData,
                 topBooks: topBooksData,
@@ -604,7 +604,7 @@ const server = http.createServer((req, res) => {
     if (url.startsWith('/books/genres?') && url.indexOf(".") === -1) {
         const queryString = req.url.split('?')[1];
         const params = new URLSearchParams(queryString);
-        const genre = decodeURIComponent(params.get('genre'));
+        const genre = params.get('genre');
         const pageSize = params.get('pageSize');
         const pageNumber = params.get('pageNumber');
         customReadGenresEjs(req, res, `../views/ejs/genres.ejs`, genre,pageSize, pageNumber);

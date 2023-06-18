@@ -41,6 +41,7 @@ function removeClasses(target) {
         addButton.style.display = 'flex';
     }
 
+    console.log("aici");
     btns.forEach((btn) => {
         if (btn !== target) {
             btn.classList.remove('active');
@@ -158,9 +159,6 @@ function addToShelf(shelfName){
         })
 }
 
-let isRead = false;
-let isCurrentlyReading = false;
-let isWantToRead = false;
 
 readButton.addEventListener('click', () => {
     isRead = !isRead;
@@ -171,15 +169,22 @@ readButton.addEventListener('click', () => {
 currentlyButton.addEventListener('click', () => {
     isCurrentlyReading = !isCurrentlyReading;
     updateBookshelf('Currently Reading', isCurrentlyReading);
+    console.log("in functie: read:" + isRead + "want to read " + isWantToRead + "currently " + isCurrentlyReading)
+
 });
 
 wantButton.addEventListener('click', () => {
     isWantToRead = !isWantToRead;
     updateBookshelf('Want to Read', isWantToRead);
+
+    console.log("in functie: read:" + isRead + "want to read" + isWantToRead + "currently " + isCurrentlyReading)
+
 });
 
 
 function updateBookshelf(shelf, isAdded){
+    console.log("is added : "+ isAdded)
+
     if (isAdded) {
         addToShelf(shelf);
     } else {
@@ -188,6 +193,7 @@ function updateBookshelf(shelf, isAdded){
 }
 
 function deleteFromShelf(shelf){
+    console.log("deleting")
     const rating = undefined;
     const requestBody = {
         bookid,
@@ -214,13 +220,22 @@ function deleteFromShelf(shelf){
         })
 }
 
+let isRead = false;
+let isCurrentlyReading = false;
+let isWantToRead = false;
 
 document.addEventListener('DOMContentLoaded', function() {
     if (readButton.classList.contains('active')) {
         rating.style.display = 'flex';
         writeReviewSection.style.display = 'flex';
         addButton.style.display = 'flex';
+        isRead = true;
     }
+    if(currentlyButton.classList.contains('active'))
+        isCurrentlyReading = true;
+    if(wantButton.classList.contains('active'))
+        isWantToRead = true;
+        isWantToRead = true;
 
     var ratingElement = document.getElementById('user-rating');
     var userRating = parseFloat(ratingElement.textContent);
@@ -232,8 +247,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const label = document.querySelector(`label[for="${starInput.id}"]`);
             label.classList.add('checked');
         }
-        console.log(starInput.value)
     })
+    console.log("read:" + isRead + "want to read" + isWantToRead + "currently " + isCurrentlyReading)
 });
 
 
