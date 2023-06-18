@@ -35,7 +35,7 @@ async function navigateToPage(url){
 
 function navigateToGenre(genre) {
     const encodedGenre = encodeURIComponent(genre.toLowerCase());
-    window.location.href = `http://localhost:8081/books/genres/${encodedGenre}`;
+    window.location.href = `http://localhost:8081/books/genres?genre=${encodedGenre}&pageSize=100&pageNumber=1`;
 }
 
 function navigateToBook (title){
@@ -62,8 +62,24 @@ function navigateToMyBooks(){
 
 function logout(){
     //ceva request pt logout
+    fetch('http://localhost:6969/logout', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include'
+    }).then((response) => {
+        if (response.ok) {
+            window.location.href = 'http://localhost:8081/login';
+        } else {
+            response.json().then(data => {
+                const errorMessage = data.error;
+                Swal.fire('Error', errorMessage, 'error');
+            });
+        }
+    }).catch(error => console.log(error));
 }
 
-function navigateToHomepage(){
-    window.location.href = `http://localhost:8081/books/reviews/all`;
-}
+// function navigateToHomepage(){
+//     window.location.href = `http://localhost:8081/books/reviews/all`;
+// }

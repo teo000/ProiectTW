@@ -1,4 +1,4 @@
-const {getAllBooks, getBookByID, getBookByTitle, addBook, getGenre,  getTopBooksInGenre} = require("../controllers/BookController");
+const {getAllBooks, getBookByID, getBookByTitle, addBook, getGenre,  getTopBooksInGenre, getGenreCount} = require("../controllers/BookController");
 const {addReview, addGenericReview, getBookReviews, getAllReviews, getReviewsMadeByUser} =require("../controllers/ReviewController");
 const {addBookToShelf, getUserBooks, removeBookFromShelf} =require("../controllers/ShelvesController");
 const bookIdRegex = /^\/books\/[0-9]+$/;
@@ -19,16 +19,26 @@ const routeRequest = async (req, res) => {
 }
 
 const handleGetRequests = (req, res) => {
+
     if (req.url === '/books/getAll') {
         authenticateToken(req, res, getAllBooks)
     } else if (req.url.startsWith('/books/genres/top')) {
         const genre = req.url.split('/')[4].toLowerCase();
         const decodedGenre = decodeURIComponent(genre);
         getTopBooksInGenre(req, res, decodedGenre);
-    } else if (req.url.startsWith('/books/genres/')) {
-        const genre = req.url.split('/')[3].toLowerCase();
-        const decodedGenre = decodeURIComponent(genre);
-        getGenre(req, res, decodedGenre);
+    } else if (req.url.startsWith('/books/genres?')) {
+        const queryString = req.url.split('?')[1];
+        const params = new URLSearchParams(queryString);
+        const genre = decodeURIComponent(params.get('genre'));
+        const pageSize = params.get('pageSize');
+        const pageNumber = params.get('pageNumber');
+        // /books/genres?genre=ceva&pageSize=20&pageNumber=2
+        getGenre(req, res, genre, pageSize, pageNumber);
+    } else if(req.url.startsWith('/books/genres/count')){
+        const queryString = req.url.split('?')[1];
+        const params = new URLSearchParams(queryString);
+        const genre = decodeURIComponent(params.get('genre'));
+        getGenreCount(req,res,genre);
     } else if (req.url.match(bookIdRegex)) {
         const id = req.url.split('/')[2];
         authenticateToken(req, res, getBookByID, id)

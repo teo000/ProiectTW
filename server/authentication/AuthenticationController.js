@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 const cookie = require('cookie');
 
 let refreshTokens = [];
+let bannedAccessTokens = [];
 //@route /login
 const login = async (req, res) => {
     try {
@@ -227,8 +228,10 @@ const logout = async (req, res) => {
             console.log("aici");
             const index = refreshTokens.indexOf(refreshToken);
             refreshTokens.splice(index, 1);
+
+            bannedAccessTokens.push(accessToken);
             res.writeHead(204, {'Content-Type': 'application/json'});
-            res.end(JSON.stringify({error: 'Succeeded'}));
+            res.end(JSON.stringify({bannedAccessTokens : bannedAccessTokens}));
             return;
         }
         res.writeHead(500, {'Content-Type': 'application/json'});

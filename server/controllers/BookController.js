@@ -49,8 +49,15 @@ const getBookByTitle = async (req, res) => {
         const book = await bookRepository.getBookByTitleAndUser(title, user.ID);
 
         if (!book) {
-            res.writeHead(404, {'Content-Type': 'application/json'});
-            res.end(JSON.stringify({error: 'Book not found!'}));
+            //try to find it by title only
+            const bookByTitle = await  bookRepository.getBookByTitle(title);
+            if(!bookByTitle){
+                res.writeHead(404, {'Content-Type': 'application/json'});
+                res.end(JSON.stringify({error: 'Book not found!'}));
+                return;
+            }
+            res.writeHead(201, {'Content-Type': 'application/json'});
+            res.end(JSON.stringify(bookByTitle));
             return;
         }
         res.writeHead(201, {'Content-Type': 'application/json'});
@@ -148,9 +155,11 @@ const addBook = async (req, res) => {
     }
 }
 
-const getGenre = async (req, res, genre) => {
+const getGenre = async (req, res, genre,pageSize, pageNumber) => {
     try {
-        const book = await bookRepository.getBooksByGenre(genre);
+        const limit = pageSize;
+        const offset = (pageNumber-1)*pageSize;
+        const book = await bookRepository.getBooksByGenre(genre,limit, offset);
         if (!book) {
             res.writeHead(404, {'Content-Type': 'application/json'});
             res.end(JSON.stringify({error: 'Books not found!'}));
@@ -163,6 +172,21 @@ const getGenre = async (req, res, genre) => {
     }
 }
 
+const getGenreCount = async(req,res,genre) =>{
+    try{
+        const number = await bookRepository.getGenreCount(genre);
+        if(number.count>3000){
+            res.writeHead(200, {'Content-Type': 'application/json'});
+            res.end(JSON.stringify(3000));//limitex nr de carti
+            return;
+        }
+        res.writeHead(200, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify(number));
+    }
+    catch (error){
+        console.log(error);
+    }
+}
 const getTopBooksInGenre = async (req, res, genre) => {
     try {
         const books = await bookRepository.getTopBooksInGenre(genre);
@@ -183,5 +207,6 @@ module.exports = {
     getBookByTitle,
     addBook,
     getGenre,
-    getTopBooksInGenre
+    getTopBooksInGenre,
+    getGenreCount
 }

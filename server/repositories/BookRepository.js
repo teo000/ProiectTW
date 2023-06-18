@@ -39,7 +39,7 @@ const getBookByTitleAndUser = (title, userid) =>{
 
 const getBookByTitle = (title) =>{
     return new Promise((resolve, reject) => {
-        databaseConnection.pool.query('SELECT * FROM books b where LOWER(title) = $1', [title],(error, results) => {
+        databaseConnection.pool.query('SELECT b.id, b.title, b.author, b.rating as avgrating,b.description, b.edition, b.publisher,b.year,b.coverimg FROM books b where LOWER(title) = $1', [title],(error, results) => {
             if (error) {
                 reject(error);
             }
@@ -47,9 +47,10 @@ const getBookByTitle = (title) =>{
         });
     });
 }
-const getBooksByGenre = async(genre) =>{
+const getBooksByGenre = async(genre,limit, offset) =>{
     return new Promise((resolve, reject) => {
-        databaseConnection.pool.query('select * from books b join book_genre bg on b.id = bg.book_id join genres g on bg.genre_id = g.id where LOWER(g.name)= $1 limit 10',[genre], (error, results) => {
+        databaseConnection.pool.query('select  b.id, b.title,b.author, b.rating, b.description, b.coverimg from books b join book_genre bg on b.id = bg.book_id join genres g on bg.genre_id = g.id where LOWER(g.name)= $1 order by b.id limit $2 offset $3',
+            [genre,limit,offset], (error, results) => {
             if (error) {
                 reject(error);
             }
@@ -82,6 +83,18 @@ const addBook = async (bookData) => {
             });
     });
 }
+const getGenreCount = (genre) =>{
+    return new Promise((resolve, reject) => {
+        databaseConnection.pool.query('select count(*) from books b join book_genre bg on b.id = bg.book_id join genres g on bg.genre_id = g.id where lower(g.name) like $1 group by g.id;',
+            [genre], (error, results) => {
+                if (error) {
+                    reject(error);
+                }
+                console.log(results)
+                resolve(results.rows[0]);
+            });
+    });
+}
 
 module.exports ={
     getAllBooks,
@@ -90,5 +103,6 @@ module.exports ={
     addBook,
     getBooksByGenre,
     getTopBooksInGenre,
-    getBookByTitle
+    getBookByTitle,
+    getGenreCount
 }
