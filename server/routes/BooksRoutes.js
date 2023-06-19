@@ -1,4 +1,4 @@
-const {getAllBooks, getBookByID, getBookByTitle, addBook, getGenre,  getTopBooksInGenre, getGenreCount} = require("../controllers/BookController");
+const {getAllBooks, getBookByID, getBookByTitle, addBook, getGenre,  getTopBooksInGenre,getBooksByCriteria, getGenreCount, getTopBooks} = require("../controllers/BookController");
 const {addReview, addGenericReview, getBookReviews, getAllReviews, getReviewsMadeByUser} =require("../controllers/ReviewController");
 const {addBookToShelf, getUserBooks, removeBookFromShelf} =require("../controllers/ShelvesController");
 const bookIdRegex = /^\/books\/[0-9]+$/;
@@ -57,6 +57,12 @@ const handleGetRequests = (req, res) => {
     }
     else if (req.url.startsWith('/books/reviews/'))
         getBookReviews(req,res);
+    else if(req.url.startsWith('/books/criteria?')){
+        getBooksByCriteria(req,res)
+    }
+    else if(req.url.startsWith('/books/top')){
+        getTopBooks(req,res);
+    }
     else {
         res.writeHead(404, {'Content-Type': 'application/json'});
         res.end(JSON.stringify({error: 'Endpoint not found'}));

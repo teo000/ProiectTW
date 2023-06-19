@@ -135,7 +135,7 @@
                 </p>
 
                 <p id="author">
-                    <%= book.author %>
+                   <a href="javascript:void(0);" onclick="navigateToAuthor('<%=book.author%>')"> <%= book.author %></a>
                 </p>
 
                 <div class="rating-box">
@@ -161,12 +161,40 @@
                         </div>
 
                     </div>
-                   <div class = "bookId">
-                       <p id = "bookId">BookId : <%= book.id%></p>
+                <style>
+                    .bookId p {
+                        margin-bottom: 5px;
+                    }
+                </style>
+
+                <div class="bookId">
+                    <p id="bookId">BookId: <%= book.id %></p>
+                    <p id="publisher">Publisher:
+                        <% if (book.publisher) { %>
+                            <a href="javascript:void(0);" onclick="navigateToPublisher('<%= book.publisher %>')"><%= book.publisher %></a>
+                        <% } else { %>
+                            -
+                        <% } %>
+                    </p>
+                    <p id="edition">Edition:
+                        <% if (book.edition) { %>
+                           <a  href="javascript:void(0);" onclick="navigateToEdition('<%= book.edition %>')"><%= book.edition %></a>
+                        <% } else { %>
+                            -
+                        <% } %>
+                    </p>
+                    <p id="year">Year:
+                        <% if (book.year) { %>
+                            <a href="javascript:void(0);" onclick="navigateToYear('<%= book.year %>')"><%= book.year %></a>
+                        <% } else { %>
+                            -
+                        <% } %>
+                    </p>
+                </div>
 
 
-                </div>
-                </div>
+
+            </div>
             <hr>
             <!--not templatized yet-->
            <!-- <p class="sub-title"> Readers also enjoyed...</p>

@@ -112,7 +112,7 @@ const customReadGenresEjs = async (req, res, file_path, genre, pageSize, pageNum
                 reject(error);
             });
         });
-        const numberOfBooksPromise = new Promise((resolve,reject)=>{
+        const numberOfBooksPromise = new Promise((resolve, reject) => {
             const options = {
                 hostname: 'localhost',
                 port: 6969,
@@ -136,10 +136,10 @@ const customReadGenresEjs = async (req, res, file_path, genre, pageSize, pageNum
             });
         })
         try {
-            const [booksData, topBooksData,numberOfBooks] = await Promise.all([booksPromise, topBooksPromise, numberOfBooksPromise]);
+            const [booksData, topBooksData, numberOfBooks] = await Promise.all([booksPromise, topBooksPromise, numberOfBooksPromise]);
 
-            let numberOfPages = numberOfBooks/pageSize;
-            if(numberOfBooks%pageSize!==0)
+            let numberOfPages = numberOfBooks / pageSize;
+            if (numberOfBooks % pageSize !== 0)
                 numberOfPages++;
             // Render the EJS template with the data
             const upperCasedDecodedGenre = genre.charAt(0).toUpperCase() + genre.slice(1);
@@ -148,7 +148,7 @@ const customReadGenresEjs = async (req, res, file_path, genre, pageSize, pageNum
                 topBooks: topBooksData,
                 genre: upperCasedDecodedGenre,
                 currentPage: pageNumber,
-                totalPages :numberOfPages
+                totalPages: numberOfPages
             });
             res.writeHead(200, {"Content-Type": "text/html"});
             res.end(renderedEJS);
@@ -159,6 +159,95 @@ const customReadGenresEjs = async (req, res, file_path, genre, pageSize, pageNum
     }
 }
 
+const customReadBooksByCriteriaEjs = async (req, res, file_path) =>{
+    if (fs.existsSync(file_path)) {
+        const template = fs.readFileSync(file_path, "utf8");
+        if (!template) {
+            sendErrorResponse(res);
+            return;
+        }
+
+        const cookies = req.headers.cookie || '';
+        const queryString = req.url.split('?')[1];
+        const params = new URLSearchParams(queryString);
+        const edition = encodeURIComponent(params.get('edition'));
+        const publisher = encodeURIComponent(params.get('publisher'));
+        const pageSize = encodeURIComponent(params.get('pageSize'));
+        const pageNumber = encodeURIComponent(params.get('pageNumber'));
+        const year = encodeURIComponent(params.get('year'));
+        const author = encodeURIComponent(params.get('author'));
+        const booksPromise = new Promise((resolve, reject) => {
+            const options = {
+                hostname: 'localhost',
+                port: 6969,
+                path: `/books/criteria?author=${author}&edition=${edition}&publisher=${publisher}&year=${year}&pageSize=${pageSize}&pageNumber=${pageNumber}`,
+                headers: {
+                    'Cookie': cookies // Pass the extracted cookies in the request headers
+                }
+            };
+            //make request to server to get genre data, also should make request to get clasament
+
+            http.get(options, (response) => {
+                let data = "";
+                response.on("data", (chunk) => {
+                    data += chunk;
+                });
+                response.on('end', () => {
+                    const booksData = JSON.parse(data);
+                    resolve(booksData);
+                });
+            }).on("error", (error) => {
+                console.log(error);
+                reject(error);
+            });
+        });
+        const topBooksPromise = new Promise((resolve, reject) => {
+            const options = {
+                hostname: 'localhost',
+                port: 6969,
+                path: `/books/top`,
+                headers: {
+                    'Cookie': cookies // Pass the extracted cookies in the request headers
+                }
+            };
+
+            http.get(options, (response) => {
+                let data = "";
+                response.on("data", (chunk) => {
+                    data += chunk;
+                });
+                response.on('end', () => {
+                    const topBooksData = JSON.parse(data);
+                    resolve(topBooksData);
+                });
+            }).on("error", (error) => {
+                console.log(error);
+                reject(error);
+            });
+        });
+
+        try {
+            const [booksData, topBooksData] = await Promise.all([booksPromise, topBooksPromise]);
+
+            const numberOfBooks =[booksData].length;
+            let numberOfPages = numberOfBooks / pageSize;
+            if (numberOfBooks % pageSize !== 0)
+                numberOfPages++;
+            // Render the EJS template with the data
+            const renderedEJS = ejs.render(template, {
+                books: booksData,
+                topBooks: topBooksData,
+                currentPage: pageNumber,
+                totalPages: numberOfPages
+            });
+            res.writeHead(200, {"Content-Type": "text/html"});
+            res.end(renderedEJS);
+        } catch (error) {
+            console.log(error);
+            sendErrorResponse(res);
+        }
+    }
+}
 const customReadHomepageEjs = async (req, res, file_path) => {
     if (fs.existsSync(file_path)) {
         const template = fs.readFileSync(file_path, "utf8");
@@ -213,8 +302,7 @@ const customReadHomepageEjs = async (req, res, file_path) => {
             console.log(error);
             sendErrorResponse(res);
         }
-    }
-    else {
+    } else {
         sendErrorResponse(res);
     }
 }
@@ -324,8 +412,7 @@ const customReadBooksEjs = async (req, res, file_path, title) => {
             console.log(error);
             sendErrorResponse(res);
         }
-    }
-    else {
+    } else {
         sendErrorResponse(res);
     }
 }
@@ -393,7 +480,7 @@ const customReadUserEjs = async (req, res, file_path) => {
                 return {...review, date: formattedDate}
             })
             // Render the EJS template with the data
-            const renderedEJS = ejs.render(template, {reviews: modifiedReviewDate, user:userObj});
+            const renderedEJS = ejs.render(template, {reviews: modifiedReviewDate, user: userObj});
 
             res.writeHead(200, {"Content-Type": "text/html"});
             res.end(renderedEJS);
@@ -401,8 +488,7 @@ const customReadUserEjs = async (req, res, file_path) => {
             console.log(error);
             sendErrorResponse(res);
         }
-    }
-    else {
+    } else {
         sendErrorResponse(res);
     }
 }
@@ -607,15 +693,15 @@ const server = http.createServer((req, res) => {
         const genre = params.get('genre');
         const pageSize = params.get('pageSize');
         const pageNumber = params.get('pageNumber');
-        customReadGenresEjs(req, res, `../views/ejs/genres.ejs`, genre,pageSize, pageNumber);
+        customReadGenresEjs(req, res, `../views/ejs/genres.ejs`, genre, pageSize, pageNumber);
         //   authenticateToken(req, res, customReadEjsFile,`../views/ejs/genres.ejs`,genre);
     } else if (url.startsWith('/books/getBook/') && url.indexOf(".") === -1) {
         const title = url.split('/')[3].toLowerCase();
         authenticateToken(req, res, customReadBooksEjs, `../views/ejs/bookpage.ejs`, title);
     } else if (url.startsWith('/profile') && url.indexOf(".") === -1) {
         customReadUserEjs(req, res, `../views/ejs/profile.ejs`);
-        //customReadHomepageEjs(req, res, `../views/ejs/homepage.ejs`);
-
+    } else if (req.url.startsWith('/books/criteria?')) {
+        customReadBooksByCriteriaEjs(req,res,'../views/ejs/booksByCriteria.ejs');
     } else if (url.startsWith('/groups/mygroups') && url.indexOf(".") === -1) {
         customReadMyGroupsEjs(req, res, '../views/ejs/mygroups.ejs');
     } else if (url.startsWith('/groups/group/') && url.indexOf(".") === -1) {
@@ -623,7 +709,7 @@ const server = http.createServer((req, res) => {
         customReadGroupEjs(req, res, `../views/ejs/grouppage.ejs`, group);
     } else if (url.startsWith('/books/mybooks/') && url.indexOf(".") === -1) {
         customReadUserBooksEjs(req, res, `../views/ejs/mybooks.ejs`);
-    } else if (url==='/homepage') {
+    } else if (url === '/homepage') {
         customReadHomepageEjs(req, res, `../views/ejs/homepage.ejs`);
     } else if (url.indexOf(".") === -1) {
         //its an html request{

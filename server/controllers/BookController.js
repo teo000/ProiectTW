@@ -45,13 +45,13 @@ const getBookByTitle = async (req, res) => {
         // Extract the title from the pathname
         const encodedTitle = pathname.split('/').pop();
         const title = decodeURIComponent(encodedTitle).toLowerCase();
-        const user = getUserFromCookie(req,res);
+        const user = getUserFromCookie(req, res);
         const book = await bookRepository.getBookByTitleAndUser(title, user.ID);
 
         if (!book) {
             //try to find it by title only
-            const bookByTitle = await  bookRepository.getBookByTitle(title);
-            if(!bookByTitle){
+            const bookByTitle = await bookRepository.getBookByTitle(title);
+            if (!bookByTitle) {
                 res.writeHead(404, {'Content-Type': 'application/json'});
                 res.end(JSON.stringify({error: 'Book not found!'}));
                 return;
@@ -155,11 +155,11 @@ const addBook = async (req, res) => {
     }
 }
 
-const getGenre = async (req, res, genre,pageSize, pageNumber) => {
+const getGenre = async (req, res, genre, pageSize, pageNumber) => {
     try {
         const limit = pageSize;
-        const offset = (pageNumber-1)*pageSize;
-        const book = await bookRepository.getBooksByGenre(genre,limit, offset);
+        const offset = (pageNumber - 1) * pageSize;
+        const book = await bookRepository.getBooksByGenre(genre, limit, offset);
         if (!book) {
             res.writeHead(404, {'Content-Type': 'application/json'});
             res.end(JSON.stringify({error: 'Books not found!'}));
@@ -172,18 +172,17 @@ const getGenre = async (req, res, genre,pageSize, pageNumber) => {
     }
 }
 
-const getGenreCount = async(req,res,genre) =>{
-    try{
+const getGenreCount = async (req, res, genre) => {
+    try {
         const number = await bookRepository.getGenreCount(genre);
-        if(number.count>3000){
+        if (number.count > 3000) {
             res.writeHead(200, {'Content-Type': 'application/json'});
             res.end(JSON.stringify(3000));//limitex nr de carti
             return;
         }
         res.writeHead(200, {'Content-Type': 'application/json'});
         res.end(JSON.stringify(number));
-    }
-    catch (error){
+    } catch (error) {
         console.log(error);
     }
 }
@@ -201,6 +200,81 @@ const getTopBooksInGenre = async (req, res, genre) => {
         console.log(error);
     }
 }
+
+const getTopBooks = async (req, res) => {
+    try {
+        const books = await bookRepository.getTopBooks();
+        if (!books) {
+            res.writeHead(404, {'Content-Type': 'application/json'});
+            res.end(JSON.stringify({error: 'Books not found!'}));
+        } else {
+            res.writeHead(200, {'Content-Type': 'application/json'});
+            res.end(JSON.stringify(books));
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+const getBooksByCriteria = async (req, res) => {
+    const queryString = req.url.split('?')[1];
+    const params = new URLSearchParams(queryString);
+    const edition = decodeURIComponent(params.get('edition'));
+    const publisher = params.get('publisher');
+    const year = params.get('year');
+    const author = params.get('author');
+    const pageSize = params.get('pageSize');
+    let pageNumber = params.get('pageNumber');
+     pageNumber = (pageNumber - 1) * pageSize;
+    try {
+        if (author !== "null" && author!==undefined) {
+            const books = await bookRepository.getBooksByAuthor(author,pageSize,pageNumber);
+            if (!books) {
+                res.writeHead(404, {'Content-Type': 'application/json'});
+                res.end(JSON.stringify({error: 'Books not found!'}));
+            } else {
+                res.writeHead(200, {'Content-Type': 'application/json'});
+                res.end(JSON.stringify(books));
+                return;
+            }
+        }
+        if(edition !== "null" && edition!==undefined){
+            const books = await bookRepository.getBooksByEdition(edition,pageSize,pageNumber);
+            if (!books) {
+                res.writeHead(404, {'Content-Type': 'application/json'});
+                res.end(JSON.stringify({error: 'Books not found!'}));
+            } else {
+                res.writeHead(200, {'Content-Type': 'application/json'});
+                res.end(JSON.stringify(books));
+                return;
+            }
+        }
+        if(year !== "null" && year!==undefined){
+            const books = await bookRepository.getBooksByYear(year,pageSize,pageNumber);
+            if (!books) {
+                res.writeHead(404, {'Content-Type': 'application/json'});
+                res.end(JSON.stringify({error: 'Books not found!'}));
+            } else {
+                res.writeHead(200, {'Content-Type': 'application/json'});
+                res.end(JSON.stringify(books));
+                return;
+            }
+        }
+        if(publisher !=="null" && publisher!==undefined){
+            const books = await bookRepository.getBooksByPublisher(publisher,pageSize,pageNumber);
+            if (!books) {
+                res.writeHead(404, {'Content-Type': 'application/json'});
+                res.end(JSON.stringify({error: 'Books not found!'}));
+            } else {
+                res.writeHead(200, {'Content-Type': 'application/json'});
+                res.end(JSON.stringify(books));
+                return;
+            }
+        }
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
 module.exports = {
     getAllBooks,
     getBookByID,
@@ -208,5 +282,7 @@ module.exports = {
     addBook,
     getGenre,
     getTopBooksInGenre,
-    getGenreCount
+    getTopBooks,
+    getGenreCount,
+    getBooksByCriteria
 }

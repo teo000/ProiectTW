@@ -99,14 +99,14 @@
         <div class="row">
             <div id="clasament-div">
 
-                <h1>Most Liked <%= genre %> Books:</h1>
+                <h1>Most Liked Books:</h1>
                 <nav class="linkuri-clasament">
                     <ol>
                         <% topBooks.forEach(function(topBook) { %>
                             <li>
                                 <a href="javascript:void(0);" onclick="navigateToBook('<%= topBook.title %>')"
                                    class="book-name">
-                                    <%=topBook.title %>
+                                    <%= topBook.title %>
                                 </a>
                             </li>
                         <% }) %>

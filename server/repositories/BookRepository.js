@@ -47,6 +47,47 @@ const getBookByTitle = (title) =>{
         });
     });
 }
+const getBooksByEdition = (edition,limit,offset) =>{
+    return new Promise((resolve, reject) => {
+        databaseConnection.pool.query('SELECT b.id, b.title, b.author, b.rating as avgrating,b.description, b.edition, b.publisher,b.year,b.coverimg FROM books b where LOWER(edition) = $1 order by b.id limit $2 offset $3', [edition,limit,offset],(error, results) => {
+            if (error) {
+                reject(error);
+            }
+            resolve(results.rows);
+        });
+    });
+}
+const getBooksByYear = (year,limit,offset) =>{
+    return new Promise((resolve, reject) => {
+        databaseConnection.pool.query('SELECT b.id, b.title, b.author, b.rating as avgrating,b.description, b.edition, b.publisher,b.year,b.coverimg FROM books b where year = $1 order by b.id limit $2 offset  $3', [year,limit,offset],(error, results) => {
+            if (error) {
+                reject(error);
+            }
+            resolve(results.rows);
+        });
+    });
+}
+
+const getBooksByAuthor = (author,limit,offset) =>{
+    return new Promise((resolve, reject) => {
+        databaseConnection.pool.query('SELECT b.id, b.title, b.author, b.rating as avgrating,b.description, b.edition, b.publisher,b.year,b.coverimg FROM books b where lower(b.author) = $1 order by b.id limit $2 offset  $3', [author,limit,offset],(error, results) => {
+            if (error) {
+                reject(error);
+            }
+            resolve(results.rows);
+        });
+    });
+}
+const getBooksByPublisher = (publisher,limit,offset) =>{
+    return new Promise((resolve, reject) => {
+        databaseConnection.pool.query('SELECT b.id, b.title, b.author, b.rating as avgrating,b.description, b.edition, b.publisher,b.year,b.coverimg FROM books b where lower(b.publisher) = $1 order by b.id limit $2 offset  $3', [publisher,limit, offset],(error, results) => {
+            if (error) {
+                reject(error);
+            }
+            resolve(results.rows);
+        });
+    });
+}
 const getBooksByGenre = async(genre,limit, offset) =>{
     return new Promise((resolve, reject) => {
         databaseConnection.pool.query('select  b.id, b.title,b.author, b.rating, b.description, b.coverimg from books b join book_genre bg on b.id = bg.book_id join genres g on bg.genre_id = g.id where LOWER(g.name)= $1 order by b.id limit $2 offset $3',
@@ -69,6 +110,17 @@ const getTopBooksInGenre = async(genre)=>{
         });
     });
 }
+const getTopBooks = ()=>{
+    return new Promise((resolve, reject) => {
+        databaseConnection.pool.query('select * from books b join book_genre bg on b.id = bg.book_id join genres g on bg.genre_id = g.id order by rating desc limit 3 ', (error, results) => {
+            if (error) {
+                reject(error);
+            }
+            resolve(results.rows);
+        });
+    });
+}
+
 
 const addBook = async (bookData) => {
     return new Promise((resolve, reject) => {
@@ -103,6 +155,11 @@ module.exports ={
     addBook,
     getBooksByGenre,
     getTopBooksInGenre,
+    getTopBooks,
     getBookByTitle,
-    getGenreCount
+    getGenreCount,
+    getBooksByEdition,
+    getBooksByYear,
+    getBooksByPublisher,
+    getBooksByAuthor
 }
