@@ -26,12 +26,12 @@ const getMyGroups = async(userId) => {
     });
 };
 
-const getGroupByName = async(name) => {
+const getGroupByName = async(name, userId) => {
     console.log("groupRepository: getGroupByName");
     console.log(name);
     return new Promise((resolve, reject) => {
-        databaseConnection.pool.query('SELECT * FROM groups g LEFT JOIN books b on g.book_id = b.id where lower(g.name) = $1',
-            [name], (error, results) => {
+        databaseConnection.pool.query('SELECT g.id, g.name, g.creator_id, g.book_id, g.invite_code, (g.creator_id = $1)::boolean AS is_owner , b.title, b.author, b.description, b.rating, b.coverimg FROM groups g LEFT JOIN books b on g.book_id = b.id where lower(g.name) = $2',
+            [userId, name], (error, results) => {
                 if (error) {
                     console.log(error);
                     reject(error);
@@ -89,10 +89,27 @@ const insertGroup = async(name, creatorId) => {
             });
     });
 };
+
+const setBook = async(groupId, bookId) => {
+    console.log("groupRepository: insertGroup");
+
+    return new Promise((resolve, reject) => {
+        databaseConnection.pool.query('UPDATE groups SET book_id = $1 WHERE id = $2',
+            [bookId, groupId], (error, results) => {
+                if (error) {
+                    console.log('e rau');
+                    reject(error);
+                }
+                console.log('e bine');
+                resolve();
+            });
+    });
+};
 module.exports = {
     getMyGroups,
     getGroupByName,
     joinGroup,
     getGroupByInviteCode,
-    insertGroup
+    insertGroup,
+    setBook
 }

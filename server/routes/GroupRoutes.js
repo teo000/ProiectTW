@@ -1,4 +1,4 @@
-const {getMyGroups, getGroup, joinGroupByInviteCode, createGroup} = require("../controllers/GroupController");
+const {getMyGroups, getGroup, joinGroupByInviteCode, createGroup, setCurrentBook} = require("../controllers/GroupController");
 const {getTopBooksInGenre} = require("../controllers/BookController");
 
 const routeRequest = async (req, res) => {
@@ -40,6 +40,11 @@ const handlePostRequests = (req, res) => {
     }
     else if (req.url === '/groups/create') {
         createGroup(req, res);
+    }
+    else if(req.url.startsWith('/groups/currentbook/')){
+        if(req.url === '/groups/currentbook/set'){
+            setCurrentBook(req, res);
+        }
     }
     else {
         res.writeHead(404, {'Content-Type': 'application/json'});
