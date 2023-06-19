@@ -77,6 +77,10 @@ body {
     margin-bottom: 1vh;
 }
 
+#groupId{
+    visibility: hidden;
+}
+
 .book-summary{
     margin-top: 3vh;
     display: flex;
@@ -91,8 +95,8 @@ body {
 .no-book-summary{
     margin-top: 3vh;
     display: flex;
-    flex-direction: row;
     align-items: center;
+    flex-direction: row;
     height: fit-content;
     padding: 20px;
     background-color: #ffb6c1;
@@ -101,6 +105,7 @@ body {
 
 .no-book-summary .book-information{
     display: flex;
+    width: fit-content;
     flex-direction: column;
     margin-left: 2vw;
 }
@@ -109,7 +114,6 @@ body {
     margin-top: 3vh;
     display: flex;
     flex-direction: row;
-    align-items: center;
     height: fit-content;
     padding: 20px;
     background-color: #ffb6c1;
@@ -122,7 +126,54 @@ body {
     height: auto;
     max-width: 200px;
 }
+.add-book {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 10vw;
+}
 
+@media(max-width: 900px){
+    .no-book-summary{
+        flex-direction: column;
+    }
+    .add-book{
+        margin-left: 0;
+    }
+    .no-book-summary .book-cover img{
+        margin-top: 3vh;
+    }
+}
+
+.add-book input[type=text]{
+    padding: 15px;
+    height: 40px;
+    border : none;
+    margin-top: 20px;
+    width:100%;
+    border-radius: 20px;
+    outline: none;
+}
+
+.add-book button{
+    position: relative;
+    width: fit-content;
+    align-self: center;
+    padding: 0.5em 1em;
+    border: 0;
+    border-radius: 0.5em;
+    background-color: white;
+    color: #cf4d5c;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.add-book button:active{
+    top: 2px;
+    left: 1px;
+    box-shadow: none;
+}
 
 .book-summary .book-information{
     display: flex;

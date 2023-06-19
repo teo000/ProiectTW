@@ -110,6 +110,7 @@
                 <p class = "invite-code">
                     invite code: <%=group.invite_code%>
                 </p>
+
             <%if(group.book_id !== null){%>
 
             <p class="category-title">
@@ -302,17 +303,25 @@
 
                     </div>
                     <div class = "book-information">
-                        <h1>
-                            We aren't reading anything at the moment! Come back later!
-                        </h1>
+                         <%if(!group.is_owner){%> <h1>We aren't reading anything at the moment! Come back later!</h1>
+                        <%}else {%>
+                                 <div class = add-book>
+                                     <h1>Choose a book for your group to read!</h1>
+                                     <input type="text" id="addBookInput" placeholder="Enter a book...">
+                                     <button type="button" id="addBookButton">Enter</button>
+                                 </div>
+                        <%}%>
                     </div>
                 </div>
-
             <%}%>
+            <p id = "groupId"> <%=group.id%></p>
+
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src = "../public/scripts/comments_and_likes.js"></script>
+<script src = "grouppage.js"></script>
 <script src ="navigationLinks.js"></script>
 </body>
 </html>

@@ -25,6 +25,21 @@ const getBookByID = (id) =>{
         });
     });
 }
+
+const getBookByName = (name) =>{
+    return new Promise((resolve, reject) => {
+        databaseConnection.pool.query('SELECT * FROM books where title = $1', [name],(error, results) => {
+            if (error) {
+                reject(error);
+            }
+            if(results.rowCount > 0){
+                resolve(results.rows[0]);
+            }
+
+        });
+    });
+}
+
 //@route: GET /books/getBook; json body : {"title": "title"}
 const getBookByTitleAndUser = (title, userid) =>{
     return new Promise((resolve, reject) => {
@@ -161,5 +176,6 @@ module.exports ={
     getBooksByEdition,
     getBooksByYear,
     getBooksByPublisher,
-    getBooksByAuthor
+    getBooksByAuthor,
+    getBookByName
 }
