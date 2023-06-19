@@ -94,6 +94,7 @@
         <div id="my-groups">
             <h1>My groups</h1>
             <hr>
+            <%if(groups !== null){%>
             <% groups.forEach(function(group) { %>
                 <div class="group-summary">
                     <a href="javascript:void(0);" onclick="navigateToGroup('<%=group.name%>')"> <%=group.name%>
@@ -102,7 +103,7 @@
                         <% } %></a>
 
                     <hr>
-                    <%if(group.book_id !== undefined){%>
+                    <%if(group.book_id !== null){%>
                     <div class="book-summary">
                         <div class = "book-cover">
                             <a href = "javascript:void(0);" onclick="navigateToBook('<%=group.title%>')"> <img src="<%= group.coverimg %>" alt="book cover"></a>
@@ -130,7 +131,7 @@
                     <!--chestiuta cu see more dupa rezumatul cartii-->
                     <%}%>
                 </div>
-            <% }); %>
+            <% });} %>
 
         </div>
         <div id="groups-actions">
@@ -144,7 +145,7 @@
             <div class = "group-action">
                 <h1>Create your own group!</h1>
                 <hr>
-                <input type="text" placeholder="Give your group a name...">
+                <label for="createGroupName"></label><input type="text" id="createGroupName" placeholder="Give your group a name...">
                 <button type="button" id="createGroupButton">Create group</button>
             </div>
         </div>

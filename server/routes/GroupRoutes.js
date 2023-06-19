@@ -1,4 +1,4 @@
-const {getMyGroups, getGroup, joinGroupByInviteCode} = require("../controllers/GroupController");
+const {getMyGroups, getGroup, joinGroupByInviteCode, createGroup} = require("../controllers/GroupController");
 const {getTopBooksInGenre} = require("../controllers/BookController");
 
 const routeRequest = async (req, res) => {
@@ -37,7 +37,11 @@ const handlePostRequests = (req, res) => {
     console.log(`handlePostRequests: ${url}`);
     if (req.url === '/groups/join') {
         joinGroupByInviteCode(req, res);
-    } else {
+    }
+    else if (req.url === '/groups/create') {
+        createGroup(req, res);
+    }
+    else {
         res.writeHead(404, {'Content-Type': 'application/json'});
         res.end(JSON.stringify({error: 'Endpoint not found'}));
     }
