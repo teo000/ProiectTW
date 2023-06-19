@@ -43,7 +43,7 @@ const mainServer = http.createServer(
         } else if (url.startsWith('/groups')){
             console.log(`starts with groups ${url}`);
             groupRouter.routeRequest(req, res);
-            console.log(`mains server: ${res.name}`);
+            console.log(`main server`);
         } else if (url.startsWith('/login') || url.startsWith('/logout') || url.startsWith('/token') || url.startsWith('/signup')) {
             handleAuthentication(req, res);
         } else {

@@ -39,7 +39,7 @@
                                 <a href="javascript:void(0);" onclick="navigateToGenre('young adult')">Young Adult</a>
                             </div>
                         </div>
-                        <a class="active" href="javascript:void(0);" onclick="navigateToGroup('mygroups')">My Groups</a>
+                        <a class="active" href="javascript:void(0);" onclick="navigateToMyGroups()">My Groups</a>
                         <div class="hoverable">
 
                             <a class="active" href="#">More</a>
@@ -72,7 +72,7 @@
                         <a href="javascript:void(0);" onclick="navigateToGenre('young adult')">Young Adult</a>
                     </div>
                 </div>
-                <a class="active" href="javascript:void(0);" onclick="navigateToGroup('mygroups')">My Groups</a>
+                <a class="active" href="javascript:void(0);" onclick="navigateToMyGroups()">My Groups</a>
                 <div class="dropdown">
                     <button class="dropDownButton">More</button>
                     <div class="dropdown-categories">
@@ -94,10 +94,16 @@
         <div id="my-groups">
             <h1>My groups</h1>
             <hr>
+            <%if(groups !== null){%>
             <% groups.forEach(function(group) { %>
                 <div class="group-summary">
-                    <a href="javascript:void(0);" onclick="navigateToGroup('<%=group.name%>')"> <%=group.name%> </a>
+                    <a href="javascript:void(0);" onclick="navigateToGroup('<%=group.name%>')"> <%=group.name%>
+                        <% if (group.is_owner) { %>
+                            (OWNER)
+                        <% } %></a>
+
                     <hr>
+                    <%if(group.book_id !== null){%>
                     <div class="book-summary">
                         <div class = "book-cover">
                             <a href = "javascript:void(0);" onclick="navigateToBook('<%=group.title%>')"> <img src="<%= group.coverimg %>" alt="book cover"></a>
@@ -123,22 +129,23 @@
                         <a href="grouppage.html" class="group-link">see more</a>
                     </div>
                     <!--chestiuta cu see more dupa rezumatul cartii-->
+                    <%}%>
                 </div>
-            <% }); %>
+            <% });} %>
 
         </div>
         <div id="groups-actions">
             <div class = "group-action">
                 <h1>Join a new group!</h1>
                 <hr>
-                <input type="text" placeholder="Search for a group...">
-                <button type="button">Search</button>
+                <label for="inviteCodeForJoin"></label><input type="text" id="inviteCodeForJoin" placeholder="Enter the invite code...">
+                <button type="button" id="joinGroupButton">Join</button>
             </div>
 
             <div class = "group-action">
                 <h1>Create your own group!</h1>
                 <hr>
-                <input type="text" placeholder="Give your group a name...">
+                <label for="createGroupName"></label><input type="text" id="createGroupName" placeholder="Give your group a name...">
                 <button type="button" id="createGroupButton">Create group</button>
             </div>
         </div>
@@ -148,6 +155,7 @@
         <p>&copy; Proiect realizat de Savin Miruna si Tudurache Teodora, 2023, Tehnologii Web</p>
     </footer>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src = "mygroups.js"></script>
 <script src ="navigationLinks.js"></script>
 </body>

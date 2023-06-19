@@ -48,7 +48,7 @@
                                 <a href="javascript:void(0);" onclick="navigateToGenre('young adult')">Young Adult</a>
                             </div>
                         </div>
-                        <a class="active" href="javascript:void(0);" onclick="navigateToGroup('mygroups')">My Groups</a>
+                        <a class="active" href="javascript:void(0);" onclick="navigateToMyGroups()">My Groups</a>
                         <div class="hoverable">
 
                             <a class="active" href="#">More</a>
@@ -81,7 +81,7 @@
                         <a href="javascript:void(0);" onclick="navigateToGenre('young adult')">Young Adult</a>
                     </div>
                 </div>
-                <a class="active" href="javascript:void(0);" onclick="navigateToGroup('mygroups')">My Groups</a>
+                <a class="active" href="javascript:void(0);" onclick="navigateToMyGroups()">My Groups</a>
                 <div class="dropdown">
                     <button class="dropDownButton">More</button>
                     <div class="dropdown-categories">
@@ -102,9 +102,17 @@
         <div id="content">
                 <p class = "group-title">
                     <%=group.name%>
+                    <% if (group.is_owner) { %>
+                        (OWNER)
+                    <% } %>
                 </p>
                 <hr>
-                <p class="category-title">
+                <p class = "invite-code">
+                    invite code: <%=group.invite_code%>
+                </p>
+            <%if(group.book_id !== null){%>
+
+            <p class="category-title">
                     We are currently reading...
                 </p>
                 <div class = "book-summary">
@@ -195,99 +203,112 @@
                     </table>
                 </div>
 <!--   aicea nu mai zic -->
-                <div id="feed-div">
-                    <h1>Discussion</h1>
-                    <hr>
-                    <div class="post-container">
-                        <!--aici putem pune poza userului-->
-                        <!-- aici putem pune sus si nr de stelute colorate-->
-                        <div class="user-profile">
-                            <p>Miruna</p>
-                            <span>April 1 2023, 14:48 </span>
-                        </div>
+<!--                <div id="feed-div">-->
+<!--                    <h1>Discussion</h1>-->
+<!--                    <hr>-->
+<!--                    <div class="post-container">-->
+<!--                        &lt;!&ndash;aici putem pune poza userului&ndash;&gt;-->
+<!--                        &lt;!&ndash; aici putem pune sus si nr de stelute colorate&ndash;&gt;-->
+<!--                        <div class="user-profile">-->
+<!--                            <p>Miruna</p>-->
+<!--                            <span>April 1 2023, 14:48 </span>-->
+<!--                        </div>-->
 
 
-                        <p class="post-text">I Rated <a href="bookpage.html" class="book-title">Pride and
-                                Prejudice</a> by <a
-                                    href="#" class="book-author">Jane Austen</a> 5 stars!
-                        </p>
+<!--                        <p class="post-text">I Rated <a href="bookpage.html" class="book-title">Pride and-->
+<!--                                Prejudice</a> by <a-->
+<!--                                    href="#" class="book-author">Jane Austen</a> 5 stars!-->
+<!--                        </p>-->
 
-                        <div class="post-row">
-                            <div class="activity-icons">
-                                <div>
-                                    <i class="fa-regular fa-heart toggle-heart">15</i>
-                                    <i class="fa-regular fa-comment toggle-comment">3</i>
-                                </div>
-                            </div>
-                        </div>
+<!--                        <div class="post-row">-->
+<!--                            <div class="activity-icons">-->
+<!--                                <div>-->
+<!--                                    <i class="fa-regular fa-heart toggle-heart">15</i>-->
+<!--                                    <i class="fa-regular fa-comment toggle-comment">3</i>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
 
-                        <article class="comment-section">
-                            <div class="comment">
-                                <div class="user-profile">
-                                    <p>Teodora</p>
-                                    <span>April 7 2023, 23:17 </span>
-                                </div>
-                                <p class="comment-text">I like it as well!</p>
-                            </div>
-                            <div class="comment">
-                                <div class="user-profile">
-                                    <p>Teodora</p>
-                                    <span>April 7 2023, 23:17 </span>
-                                </div>
-                                <p class="comment-text">I like it as well!</p>
-                            </div>
-                            <div class="comment">
-                                <div class="user-profile">
-                                    <p>Teodora</p>
-                                    <span>April 7 2023, 23:17 </span>
-                                </div>
-                                <p class="comment-text">I like it as well!</p>
-                            </div>
-                            <div class="add-comment">
-                                <input class="comment-input" type="text" placeholder="Write a comment...">
-                                <button class = "add-comment-button">Add Comment</button>
-                            </div>
-                        </article>
+<!--                        <article class="comment-section">-->
+<!--                            <div class="comment">-->
+<!--                                <div class="user-profile">-->
+<!--                                    <p>Teodora</p>-->
+<!--                                    <span>April 7 2023, 23:17 </span>-->
+<!--                                </div>-->
+<!--                                <p class="comment-text">I like it as well!</p>-->
+<!--                            </div>-->
+<!--                            <div class="comment">-->
+<!--                                <div class="user-profile">-->
+<!--                                    <p>Teodora</p>-->
+<!--                                    <span>April 7 2023, 23:17 </span>-->
+<!--                                </div>-->
+<!--                                <p class="comment-text">I like it as well!</p>-->
+<!--                            </div>-->
+<!--                            <div class="comment">-->
+<!--                                <div class="user-profile">-->
+<!--                                    <p>Teodora</p>-->
+<!--                                    <span>April 7 2023, 23:17 </span>-->
+<!--                                </div>-->
+<!--                                <p class="comment-text">I like it as well!</p>-->
+<!--                            </div>-->
+<!--                            <div class="add-comment">-->
+<!--                                <input class="comment-input" type="text" placeholder="Write a comment...">-->
+<!--                                <button class = "add-comment-button">Add Comment</button>-->
+<!--                            </div>-->
+<!--                        </article>-->
 
+
+<!--                    </div>-->
+<!--                    <div class="post-container">-->
+<!--                        &lt;!&ndash;aici putem pune poza userului&ndash;&gt;-->
+<!--                        &lt;!&ndash; aici putem pune sus si nr de stelute colorate&ndash;&gt;-->
+<!--                        <div class="user-profile">-->
+<!--                            <p>Teodora</p>-->
+<!--                            <span>April 1 2023, 15:1 </span>-->
+<!--                        </div>-->
+
+
+<!--                        <p class="post-text">I Rated <a href="#" class="book-title">Pride and Prejudice</a> by <a-->
+<!--                                    href="#" class="book-author">Jane Austen</a> 4 stars!-->
+<!--                        </p>-->
+
+<!--                        <div class="post-row">-->
+<!--                            <div class="activity-icons">-->
+<!--                                <div>-->
+<!--                                    <i class="fa-regular fa-heart toggle-heart">15</i>-->
+<!--                                    <i class="fa-regular fa-comment toggle-comment">1</i>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <article class="comment-section">-->
+<!--                            <div class="comment">-->
+<!--                                <div class="user-profile">-->
+<!--                                    <p>Pau</p>-->
+<!--                                    <span>April 7 2023, 23:29 </span>-->
+<!--                                </div>-->
+<!--                                <p class="comment-text">Great read</p>-->
+<!--                            </div>-->
+<!--                            <div class="add-comment">-->
+<!--                                <input class="comment-input" type="text" placeholder="Write a comment...">-->
+<!--                                <button class = "add-comment-button">Add Comment</button>-->
+<!--                            </div>-->
+<!--                        </article>-->
+<!--                    </div>-->
+<!--                </div>-->
+            <%} else {%>
+                <div class = "no-book-summary">
+                    <div class = "book-cover">
+                        <img src="ghost.png" alt="cute ghost">
 
                     </div>
-                    <div class="post-container">
-                        <!--aici putem pune poza userului-->
-                        <!-- aici putem pune sus si nr de stelute colorate-->
-                        <div class="user-profile">
-                            <p>Teodora</p>
-                            <span>April 1 2023, 15:1 </span>
-                        </div>
-
-
-                        <p class="post-text">I Rated <a href="#" class="book-title">Pride and Prejudice</a> by <a
-                                    href="#" class="book-author">Jane Austen</a> 4 stars!
-                        </p>
-
-                        <div class="post-row">
-                            <div class="activity-icons">
-                                <div>
-                                    <i class="fa-regular fa-heart toggle-heart">15</i>
-                                    <i class="fa-regular fa-comment toggle-comment">1</i>
-                                </div>
-                            </div>
-                        </div>
-                        <article class="comment-section">
-                            <div class="comment">
-                                <div class="user-profile">
-                                    <p>Pau</p>
-                                    <span>April 7 2023, 23:29 </span>
-                                </div>
-                                <p class="comment-text">Great read</p>
-                            </div>
-                            <div class="add-comment">
-                                <input class="comment-input" type="text" placeholder="Write a comment...">
-                                <button class = "add-comment-button">Add Comment</button>
-                            </div>
-                        </article>
+                    <div class = "book-information">
+                        <h1>
+                            We aren't reading anything at the moment! Come back later!
+                        </h1>
                     </div>
                 </div>
 
+            <%}%>
         </div>
     </div>
 </div>
