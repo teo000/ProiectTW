@@ -8,7 +8,7 @@ const getMyGroups = async(userId) => {
     // console.log(user);
 
     return new Promise((resolve, reject) => {
-        databaseConnection.pool.query('SELECT g.id, g.name, g.creator_id, g.book_id, g.invite_code, (g.creator_id = 4)::boolean AS is_owner , b.title, b.author, b.description, b.rating, b.coverimg FROM groups g LEFT JOIN group_members gm on g.id = gm.group_id LEFT JOIN books b on g.book_id = b.id where gm.member_id = $1;',
+        databaseConnection.pool.query('SELECT g.id, g.name, g.creator_id, g.book_id, g.invite_code, (g.creator_id = $1)::boolean AS is_owner , b.title, b.author, b.description, b.rating, b.coverimg FROM groups g LEFT JOIN group_members gm on g.id = gm.group_id LEFT JOIN books b on g.book_id = b.id where gm.member_id = $1;',
             [userId], (error, results) => {
                 if (error) {
                     reject(error);
@@ -20,22 +20,7 @@ const getMyGroups = async(userId) => {
                     resolve(groups);
                 }
                 else {
-                    const groups = results.rows.map((row) => ({
-                        id: row.id,
-                        name: row.name,
-                        creator_id: row.creator_id,
-                        book_id: row.book_id,
-                        invite_code: row.invite_code,
-                        is_owner: (row.creator_id === userId), // Access the is_owner field correctly
-                        title: row.title,
-                        author: row.author,
-                        description: row.description,
-                        rating: row.rating,
-                        coverimg: row.coverimg,
-                    }));
-                    console.log(groups.is_owner);
-                    console.log(groups);
-                    resolve(groups);
+                    resolve(results.rows);
                 }
             });
     });
