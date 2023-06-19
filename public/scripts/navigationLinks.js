@@ -47,6 +47,9 @@ function navigateToGroup (groupName){
     const encodedGroup = encodeURIComponent(groupName);
     window.location.href = `http://localhost:8081/groups/group/${encodedGroup}`;
 }
+function navigateToMyGroups (){
+    window.location.href = `http://localhost:8081/groups/mygroups`;
+}
 function navigateToPage(pageName) {
     const encodedPage = encodeURIComponent(pageName.toLowerCase());
     window.location.href = `http://localhost:8081/${encodedPage}`;
