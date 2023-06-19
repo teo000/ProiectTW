@@ -7,6 +7,7 @@ const userRepository = require("../repositories/UserRepository");
 const {getUserFromCookie} = require("../../helpers/TokenAuthenticator");
 const rssController = require('../controllers/RSSController')
 const {parse} = require("url");
+const topController = require("./TopController");
 
 const addReview = async (req, res) => {
     try {
@@ -128,7 +129,7 @@ const addGenericReview = async(req,res) =>{
                    await reviewRepository.updateBookRating( oldRating, reviewData.stars,reviewData.bookid);
                     //schimb nr de stele de la review
                     const updatedReview =  await  reviewRepository.changeReviewStars(reviewData.stars, reviewData.bookid, userId);
-
+                     await topController.changeTop(book.title);
                     res.writeHead(201, {'Content-Type': 'application/json'});
                     res.end(JSON.stringify({message: 'Review added successfully'}));
                     return;
@@ -136,6 +137,8 @@ const addGenericReview = async(req,res) =>{
 
                 const addedReview = await reviewRepository.addReview(dataToSend);
                 await reviewRepository.addRatingToBook(reviewData.bookid, reviewData.stars);
+
+                await topController.changeTop(book.title);
                 res.writeHead(201, {'Content-Type': 'application/json'});
                 res.end(JSON.stringify({message: 'Review added successfully', review: addedReview}));
 

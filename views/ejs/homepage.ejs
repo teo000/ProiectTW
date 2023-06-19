@@ -50,6 +50,7 @@
                                 <a href="javascript:void(0);" onclick="navigateToUserProfile()">Profile</a>
                                 <a href="javascript:void(0);" onclick="navigateToPage('about')">About</a>
                                 <a href="javascript:void(0);" onclick="navigateToPage('help')">Help</a>
+                                <a href="javascript:void(0);" onclick="navigateToRss()">RSS</a>
                                 <a href="javascript:void(0);" onclick="logout()">Log Out</a>
                             </div>
                         </div>
@@ -82,6 +83,7 @@
                         <a href="javascript:void(0);" onclick="navigateToUserProfile()">Profile</a>
                         <a href="javascript:void(0);" onclick="navigateToPage('about')">About</a>
                         <a href="javascript:void(0);" onclick="navigateToPage('help')">Help</a>
+                        <a href="javascript:void(0);" onclick="navigateToRss()">RSS</a>
                         <a href="javascript:void(0);" onclick="logout()">Log Out</a>
                     </div>
                 </div>
@@ -95,37 +97,17 @@
 
     <div id="content-div">
         <div id="clasament-div">
-            <h1>Most Liked Books This Week:</h1>
+            <h1>Most Liked Books</h1>
             <nav class="linkuri-clasament">
                 <ol>
-                    <li>
-                        <a href="#" class="book-name">
-                            Carte 1
-                        </a></li>
-                    <li>
-                        <a href="#" class="book-name">
-                            Carte 2 </a> <a href="#" class="author-names"> by Author 1</a>
-                    </li>
-                    <li>
-                        <a href="#" class="book-name">
-                            Carte3
-                        </a></li>
-                    <li>
-                        <a href="#" class="book-name">
-                            Carte 4
-                        </a></li>
-                    <li>
-                        <a href="#" class="book-name">
-                            Carte5
-                        </a></li>
-                    <li>
-                        <a href="#" class="book-name">
-                            Carte6
-                        </a></li>
-                    <li>
-                        <a href="#" class="book-name">
-                            Carte7
-                        </a></li>
+                    <% topBooks.forEach(function(topBook) { %>
+                        <li>
+                            <a href="javascript:void(0);" onclick="navigateToBook('<%= topBook.title %>')"
+                               class="book-name">
+                                <%= topBook.title %>
+                            </a>
+                        </li>
+                    <% }) %>
                 </ol>
 
                 <!-- <h3>

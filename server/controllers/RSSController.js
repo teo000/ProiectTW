@@ -1,7 +1,7 @@
 const fs = require('fs');
 const xml2js = require('xml2js');
 const {Feed} = require("feed");
-
+const moment = require('moment');
 
 function generateRssFeed() {
     const feed = new Feed({
@@ -59,6 +59,34 @@ function addReviewToFeed(review) {
     })
 
 }
+function addTopChangeToFeed(data) {
+    const xmlData = fs.readFileSync('../views/rss/rssfeed.xml', 'utf8');
+
+    xml2js.parseString(xmlData, (err, result) => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        const feed = result;
+        const newTop = {
+            title: `The top for ${data.genre} books has changed!`,
+            description: `On the first place : "${data.firstTitle}" by ${data.firstAuthor};
+            On the second place : "${data.secondTitle}" by ${data.secondAuthor};
+            On the third place : "${data.thirdTitle}" by ${data.thirdAuthor}`,
+            date: moment().format('YYYY-MM-DD'),
+        };
+
+        // Check if the item array exists, if not initialize it as an empty array
+        if (!Array.isArray(feed.rss.channel[0].item)) {
+            feed.rss.channel[0].item = [];
+        }
+        feed.rss.channel[0].item.push(newTop);
+        const builder = new xml2js.Builder();
+        const updatedFeed = builder.buildObject(feed);
+        fs.writeFileSync('../views/rss/rssfeed.xml', updatedFeed, 'utf8');
+        console.log("update done");
+    })
+}
 //     feed.addItem({
 //         title: `New Review for book: ${review.bookTitle}`,
 //         description: `Review of ${review.stars} made by user ${review.username} : ${review.content}`,
@@ -70,5 +98,6 @@ function addReviewToFeed(review) {
 // }
 
 module.exports = {
-    addReviewToFeed
+    addReviewToFeed,
+    addTopChangeToFeed
 }

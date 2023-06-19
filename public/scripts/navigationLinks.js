@@ -57,6 +57,9 @@ function navigateToPage(pageName) {
     window.location.href = `http://localhost:8081/${encodedPage}`;
 }
 
+function navigateToRss(){
+    window.location.href = `http://localhost:8081/rss`;
+}
 function navigateToUserProfile (){
     window.location.href = `http://localhost:8081/profile`;
 }

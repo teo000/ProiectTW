@@ -2,7 +2,7 @@
 const http = require("http");
 const fs = require('fs');
 const ejs = require('ejs')
-const cssRouter = require("./routes/CssRouter")
+const bookPromises = require('./promises/BooksPromises')
 const PORT = 8081;
 
 const PageController = require("./controller/PageController")
@@ -201,31 +201,8 @@ const customReadBooksByCriteriaEjs = async (req, res, file_path) =>{
                 reject(error);
             });
         });
-        const topBooksPromise = new Promise((resolve, reject) => {
-            const options = {
-                hostname: 'localhost',
-                port: 6969,
-                path: `/books/top`,
-                headers: {
-                    'Cookie': cookies // Pass the extracted cookies in the request headers
-                }
-            };
 
-            http.get(options, (response) => {
-                let data = "";
-                response.on("data", (chunk) => {
-                    data += chunk;
-                });
-                response.on('end', () => {
-                    const topBooksData = JSON.parse(data);
-                    resolve(topBooksData);
-                });
-            }).on("error", (error) => {
-                console.log(error);
-                reject(error);
-            });
-        });
-
+        const topBooksPromise = bookPromises.getTopBooks(cookies);
         try {
             const [booksData, topBooksData] = await Promise.all([booksPromise, topBooksPromise]);
 
@@ -285,8 +262,9 @@ const customReadHomepageEjs = async (req, res, file_path) => {
                 reject(error);
             });
         });
+        const topBooksPromise = bookPromises.getTopBooks(cookies);
         try {
-            const [reviewsData] = await Promise.all([reviewsPromise]);
+            const [reviewsData,topBooksData] = await Promise.all([reviewsPromise,topBooksPromise]);
 
             const modifiedReviewDate = reviewsData.map(review => {
                 const date = new Date(review.date);
@@ -294,7 +272,7 @@ const customReadHomepageEjs = async (req, res, file_path) => {
                 return {...review, date: formattedDate}
             })
             // Render the EJS template with the data
-            const renderedEJS = ejs.render(template, {reviews: modifiedReviewDate});
+            const renderedEJS = ejs.render(template, {reviews: modifiedReviewDate, topBooks : topBooksData});
 
             res.writeHead(200, {"Content-Type": "text/html"});
             res.end(renderedEJS);
@@ -712,6 +690,10 @@ const server = http.createServer((req, res) => {
     } else if (url.indexOf(".") === -1) {
         //its an html request{
         //check if it is login
+        if(url.indexOf("rss")!==-1){
+            authenticateToken(req,res,customReadFile,`../views/rss/rssfeed.xml`);
+            return;
+        }
         if (url.indexOf("login") === -1 && url.indexOf("signup") === -1) {
             //  res.writeHead(200, {"Content-Type": "text/html"});
             authenticateToken(req, res, customReadFile, getFileUrl(url));
