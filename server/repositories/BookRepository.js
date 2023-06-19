@@ -102,7 +102,9 @@ const getBooksByGenre = async(genre,limit, offset) =>{
 
 const getTopBooksInGenre = async(genre)=>{
     return new Promise((resolve, reject) => {
-        databaseConnection.pool.query('select * from books b join book_genre bg on b.id = bg.book_id join genres g on bg.genre_id = g.id where LOWER(g.name)= $1 order by rating desc limit 3 ',[genre], (error, results) => {
+        databaseConnection.pool.query(`select title, rating, rank, genre, id 
+                                      from top_books
+                                            join books b on top_books.book_id = b.id where genre like $1`,[genre], (error, results) => {
             if (error) {
                 reject(error);
             }
@@ -110,17 +112,6 @@ const getTopBooksInGenre = async(genre)=>{
         });
     });
 }
-const getTopBooks = ()=>{
-    return new Promise((resolve, reject) => {
-        databaseConnection.pool.query('select * from books b join book_genre bg on b.id = bg.book_id join genres g on bg.genre_id = g.id order by rating desc limit 3 ', (error, results) => {
-            if (error) {
-                reject(error);
-            }
-            resolve(results.rows);
-        });
-    });
-}
-
 
 const addBook = async (bookData) => {
     return new Promise((resolve, reject) => {
@@ -155,7 +146,6 @@ module.exports ={
     addBook,
     getBooksByGenre,
     getTopBooksInGenre,
-    getTopBooks,
     getBookByTitle,
     getGenreCount,
     getBooksByEdition,

@@ -5,6 +5,7 @@ const genreRepository = require("../repositories/GenreRepository");
 const bookGenresRepository = require("../repositories/BookGenresRepository");
 const userRepository = require("../repositories/UserRepository");
 const {getUserFromCookie} = require("../../helpers/TokenAuthenticator");
+const rssController = require('../controllers/RSSController')
 const {parse} = require("url");
 
 const addReview = async (req, res) => {
@@ -53,6 +54,16 @@ const addReview = async (req, res) => {
                 //delete any review made by the same user to the same book
                 const deletedReview = await reviewRepository.deleteUserBookReview( data.bookid, data.username)
                 const addedReview = await reviewRepository.addReview(data);
+
+                const dataForRss = {
+                    bookTitle:book.title,
+                    author:book.author,
+                    username:userFromRepo.username,
+                    stars:data.stars,
+                    date:data.date,
+                    content:data.content
+                }
+                rssController.addReviewToFeed(dataForRss)
 
                 res.writeHead(201, {'Content-Type': 'application/json'});
                 res.end(JSON.stringify({message: 'Review added successfully', review: addedReview}));
@@ -109,14 +120,25 @@ const addGenericReview = async(req,res) =>{
                         isgeneric:true
                     }
 
-                // Add the review to the database
-                const alreadyExistingReview = await reviewRepository.getUserBookReviews(reviewData.bookid, userId);
+                // check if the review exists in the database
+                const reviewToDelete = await reviewRepository.getUserBookReviews(reviewData.bookid, userId);
+                if(reviewToDelete[0]){
+                    //nu mai sterg daca e generic, schimb doar ratingul si ratingul cartii
+                    const oldRating = reviewToDelete[0].stars;
+                   await reviewRepository.updateBookRating( oldRating, reviewData.stars,reviewData.bookid);
+                    //schimb nr de stele de la review
+                    const updatedReview =  await  reviewRepository.changeReviewStars(reviewData.stars, reviewData.bookid, userId);
 
-                const deletedReview = await reviewRepository.deleteUserBookReview( reviewData.bookid, userId)
+                    res.writeHead(201, {'Content-Type': 'application/json'});
+                    res.end(JSON.stringify({message: 'Review added successfully'}));
+                    return;
+                }
+
                 const addedReview = await reviewRepository.addReview(dataToSend);
-
+                await reviewRepository.addRatingToBook(reviewData.bookid, reviewData.stars);
                 res.writeHead(201, {'Content-Type': 'application/json'});
                 res.end(JSON.stringify({message: 'Review added successfully', review: addedReview}));
+
 
             } catch (error) {
                 console.log(error);

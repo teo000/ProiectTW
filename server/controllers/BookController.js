@@ -201,20 +201,6 @@ const getTopBooksInGenre = async (req, res, genre) => {
     }
 }
 
-const getTopBooks = async (req, res) => {
-    try {
-        const books = await bookRepository.getTopBooks();
-        if (!books) {
-            res.writeHead(404, {'Content-Type': 'application/json'});
-            res.end(JSON.stringify({error: 'Books not found!'}));
-        } else {
-            res.writeHead(200, {'Content-Type': 'application/json'});
-            res.end(JSON.stringify(books));
-        }
-    } catch (error) {
-        console.log(error);
-    }
-}
 const getBooksByCriteria = async (req, res) => {
     const queryString = req.url.split('?')[1];
     const params = new URLSearchParams(queryString);
@@ -282,7 +268,6 @@ module.exports = {
     addBook,
     getGenre,
     getTopBooksInGenre,
-    getTopBooks,
     getGenreCount,
     getBooksByCriteria
 }

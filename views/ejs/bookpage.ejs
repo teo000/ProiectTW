@@ -168,7 +168,7 @@
                 </style>
 
                 <div class="bookId">
-                    <p id="bookId">BookId: <%= book.id %></p>
+                    <p id="bookId">BookId : <%= book.id %></p>
                     <p id="publisher">Publisher:
                         <% if (book.publisher) { %>
                             <a href="javascript:void(0);" onclick="navigateToPublisher('<%= book.publisher %>')"><%= book.publisher %></a>
@@ -245,22 +245,6 @@
                         <%=review.content%>
                     </p>
                     <% } %>
-
-                    <div class="post-row">
-                        <div class="activity-icons">
-                            <div>
-                                <i class="fa-regular fa-heart toggle-heart">15</i>
-                                <i class="fa-regular fa-comment toggle-comment">0</i>
-                            </div>
-                        </div>
-                    </div>
-                    <article class="comment-section">
-
-                        <div class="add-comment">
-                            <input class="comment-input" type="text" placeholder="Write a comment...">
-                            <button class = "add-comment-button">Add Comment</button>
-                        </div>
-                    </article>
                 </div>
                     <% }); %>
                 <div class = "write_review_container">

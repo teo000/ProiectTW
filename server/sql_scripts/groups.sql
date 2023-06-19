@@ -15,6 +15,7 @@ CREATE TABLE group_members(
 	FOREIGN KEY (group_id) REFERENCES groups(id),
 	FOREIGN KEY (member_id) REFERENCES users(id)
 );
+select * from reviews
 
 DELETE FROM groups WHERE id = 1;
 SELECT * FROM group_members;

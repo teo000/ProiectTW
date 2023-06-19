@@ -719,6 +719,7 @@ const server = http.createServer((req, res) => {
             return;
         }
 
+        res.setHeader('Cache-Control', 'max-age=31536000')
         res.writeHead(200, {"Content-Type": "text/html"});
         customReadFile(req, res, getFileUrl(url));
 
@@ -729,9 +730,12 @@ const server = http.createServer((req, res) => {
         res.writeHead(200, {"Content-Type": "text/css"});
         customReadFile(req, res, getCssUrl(url));
     } else if (url.indexOf(".png") !== -1) {
+        res.setHeader('Cache-Control', 'max-age=31536000')
+
         res.writeHead(200, {"Content-Type": "image/png"});
         customReadFile(req, res, getImagesUrl(url));
     } else if (url.indexOf(".jpg") !== -1) {
+        res.setHeader('Cache-Control', 'max-age=31536000')
         res.writeHead(200, {"Content-Type": "image/jpeg"});
         customReadFile(req, res, getImagesUrl(url));
     } else if (url.indexOf(".ejs") !== -1) {

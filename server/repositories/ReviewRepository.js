@@ -77,6 +77,18 @@ const getAllReviews = () => {
     });
 }
 
+const changeReviewStars = (rating, bookid, userid) =>{
+    return new Promise((resolve, reject) => {
+        databaseConnection.pool.query('update reviews set stars = $1 where userid = $3 and bookid = $2',
+            [rating, bookid,userid ],
+            (error, results) => {
+                if (error) {
+                    reject(error);
+                }
+                resolve(results.rows[0]);
+            });
+    });
+}
 const getReviewsMadeByUser = (id) => {
     return new Promise((resolve, reject) => {
         databaseConnection.pool.query('select b.title, b.author, u.username, r.date, r.content, r.stars, r.isgeneric from reviews r join books b on r.bookid = b.id join users u on r.userid = u.id where u.id =$1',
@@ -89,6 +101,31 @@ const getReviewsMadeByUser = (id) => {
             });
     });
 }
+
+const addRatingToBook = (id, rating) =>{
+    return new Promise((resolve,reject) =>{
+        databaseConnection.pool.query('UPDATE books SET numberofratings = numberofratings + 1,rating = ((rating * (numberofratings )) + $2) /(numberofratings+1) WHERE id = $1',
+            [id,rating],
+            (error, results) => {
+                if (error) {
+                    reject(error);
+                }
+                resolve(results.rows[0]);
+            });
+    } )
+}
+const updateBookRating = ( oldRating,newRating,bookid) =>{
+    return new Promise((resolve,reject) =>{
+        databaseConnection.pool.query('update books set rating = ((rating*numberofratings) - $1 + $2)/numberofratings where id = $3 returning *',
+            [oldRating, newRating, bookid],
+            (error, results) => {
+                if (error) {
+                    reject(error);
+                }
+                resolve(results.rows[0]);
+            });
+    } )
+}
 module.exports = {
     addReview,
     deleteUserBookReview,
@@ -96,5 +133,8 @@ module.exports = {
     getUserBookReviews,
     deleteReview,
     getAllReviews,
-    getReviewsMadeByUser
+    getReviewsMadeByUser,
+    addRatingToBook,
+    changeReviewStars,
+    updateBookRating
 }

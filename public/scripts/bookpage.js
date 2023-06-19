@@ -8,7 +8,7 @@ btns[3] = wantButton;
 const rating = document.querySelector("#adjustable-rating");
 const writeReviewSection = document.querySelector('.write_review_container');
 const addButton = document.querySelector('.add-review-button');
-const bookIdElement = document.querySelector('.bookId #bookId');
+const bookIdElement = document.querySelector(' #bookId');
 const bookIdText = bookIdElement.textContent;
 const bookid = bookIdText.replace('BookId :', '').trim();
 
@@ -239,19 +239,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var ratingElement = document.getElementById('user-rating');
     var userRating = parseFloat(ratingElement.textContent);
+    loadStars(userRating);
+});
+
+function loadStars(rating){
     const inputs = Array.from(document.querySelectorAll('#adjustable-rating input'));
     const reversedInputs = inputs.reverse();
     reversedInputs.forEach((input,index) =>{
         const starInput = reversedInputs[index];
-        if(starInput.value <= userRating){
+        if(starInput.value <= rating){
             const label = document.querySelector(`label[for="${starInput.id}"]`);
             label.classList.add('checked');
         }
     })
-    console.log("read:" + isRead + "want to read" + isWantToRead + "currently " + isCurrentlyReading)
-});
-
-
+}
 const textarea = document.querySelector('#review-text');
 
 addButton.addEventListener('click', ()=>{
