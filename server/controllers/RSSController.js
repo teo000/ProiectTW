@@ -51,7 +51,7 @@ function addReviewToFeed(review) {
         if (!Array.isArray(feed.rss.channel[0].item)) {
             feed.rss.channel[0].item = [];
         }
-        feed.rss.channel[0].item.push(newReview);
+        feed.rss.channel[0].item.unshift(newReview);
         const builder = new xml2js.Builder();
         const updatedFeed = builder.buildObject(feed);
         fs.writeFileSync('../views/rss/rssfeed.xml', updatedFeed, 'utf8');
@@ -80,7 +80,7 @@ function addTopChangeToFeed(data) {
         if (!Array.isArray(feed.rss.channel[0].item)) {
             feed.rss.channel[0].item = [];
         }
-        feed.rss.channel[0].item.push(newTop);
+        feed.rss.channel[0].item.unshift(newTop);
         const builder = new xml2js.Builder();
         const updatedFeed = builder.buildObject(feed);
         fs.writeFileSync('../views/rss/rssfeed.xml', updatedFeed, 'utf8');
