@@ -3,7 +3,7 @@ CREATE TABLE groups(
 	name TEXT,
     invite_code TEXT,
 	creator_id INT,
-	book_id INT, 
+	book_id INT,
 	FOREIGN KEY (creator_id) REFERENCES users(id),
 	FOREIGN KEY (book_id) REFERENCES books(id)
 );

@@ -85,6 +85,10 @@ function navigateToAuthor(author){
 console.log(author);
     window.location.href = `http://localhost:8081/books/criteria?author=${lowerAuthor}&pageSize=100&pageNumber=1`;
 }
+
+function navigateToStatistics (){
+    window.location.href = `http://localhost:8081/statistics`;
+}
 function logout(){
     //ceva request pt logout
     fetch('http://localhost:6969/logout', {

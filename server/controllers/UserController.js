@@ -89,6 +89,7 @@ const createUser = async (req, res) => {
                 console.log(error);
                 res.writeHead(500, {'Content-Type': 'application/json'});
                 res.end(JSON.stringify({error: 'Internal Server Error'}));
+                res.end(JSON.stringify({error: 'Internal Server Error'}));
             }
         });
     } catch (error) {

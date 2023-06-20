@@ -159,7 +159,7 @@ const customReadGenresEjs = async (req, res, file_path, genre, pageSize, pageNum
     }
 }
 
-const customReadBooksByCriteriaEjs = async (req, res, file_path) =>{
+const customReadBooksByCriteriaEjs = async (req, res, file_path) => {
     if (fs.existsSync(file_path)) {
         const template = fs.readFileSync(file_path, "utf8");
         if (!template) {
@@ -208,7 +208,7 @@ const customReadBooksByCriteriaEjs = async (req, res, file_path) =>{
         try {
             const [booksData, topBooksData] = await Promise.all([booksPromise, topBooksPromise]);
 
-            const numberOfBooks =[booksData].length;
+            const numberOfBooks = [booksData].length;
             let numberOfPages = numberOfBooks / pageSize;
             if (numberOfBooks % pageSize !== 0)
                 numberOfPages++;
@@ -266,15 +266,15 @@ const customReadHomepageEjs = async (req, res, file_path) => {
         });
         const topBooksPromise = bookPromises.getTopBooks(cookies);
         try {
-            const [reviewsData,topBooksData] = await Promise.all([reviewsPromise,topBooksPromise]);
+            const [reviewsData, topBooksData] = await Promise.all([reviewsPromise, topBooksPromise]);
 
             const modifiedReviewDate = reviewsData.map(review => {
                 const date = new Date(review.date);
                 const formattedDate = date.toISOString().slice(0, 10);
                 return {...review, date: formattedDate}
-            })
+            });
             // Render the EJS template with the data
-            const renderedEJS = ejs.render(template, {reviews: modifiedReviewDate, topBooks : topBooksData});
+            const renderedEJS = ejs.render(template, {reviews: modifiedReviewDate, topBooks: topBooksData});
 
             res.writeHead(200, {"Content-Type": "text/html"});
             res.end(renderedEJS);
@@ -690,6 +690,54 @@ const customReadGroupEjs = async (req, res, filepath, group) => {
     }
 }
 
+const customReadStatisticsEjs = async (req, res, filepath) => {
+    if (fs.existsSync(filepath)) {
+        const template = fs.readFileSync(filepath, "utf8");
+        if (!template) {
+            sendErrorResponse(res);
+            return;
+        }
+
+        const cookies = req.headers.cookie || '';
+        const mostRatedBooksPromise = new Promise((resolve, reject) => {
+            const options = {
+                hostname: 'localhost',
+                port: 6969,
+                path: `/statistics`,
+                headers: {
+                    'Cookie': cookies // Pass the extracted cookies in the request headers
+                }
+            };
+            http.get(options, (response) => {
+                let data = "";
+                response.on("data", (chunk) => {
+                    data += chunk;
+                });
+                response.on('end', () => {
+                    const booksData = JSON.parse(data);
+                    resolve(booksData);
+                });
+            }).on("error", (error) => {
+                console.log(error);
+                reject(error);
+            });
+        });
+
+        try {
+            const [mostRatedBooksData] = await Promise.all([mostRatedBooksPromise]);
+
+            const renderedEjs = ejs.render(template, {mostRatedBooks: mostRatedBooksData});
+            res.writeHead(200, {"Content-Type": "text/html"});
+            res.end(renderedEjs);
+        } catch (error) {
+            console.log(error);
+            sendErrorResponse(res);
+        }
+    }
+    else{
+        sendErrorResponse(res);
+    }
+}
 const server = http.createServer((req, res) => {
 
     const url = req.url;
@@ -709,21 +757,23 @@ const server = http.createServer((req, res) => {
     } else if (url.startsWith('/profile') && url.indexOf(".") === -1) {
         customReadUserEjs(req, res, `../views/ejs/profile.ejs`);
     } else if (req.url.startsWith('/books/criteria?')) {
-        customReadBooksByCriteriaEjs(req,res,'../views/ejs/booksByCriteria.ejs');
+        customReadBooksByCriteriaEjs(req, res, '../views/ejs/booksByCriteria.ejs');
     } else if (url.startsWith('/groups/mygroups') && url.indexOf(".") === -1) {
         customReadMyGroupsEjs(req, res, '../views/ejs/mygroups.ejs');
     } else if (url.startsWith('/groups/group/') && url.indexOf(".") === -1) {
         const group = url.split('/')[3].toLowerCase();
-        customReadGroupEjs(req, res, `../views/ejs/grouppage.ejs`,  group);
+        customReadGroupEjs(req, res, `../views/ejs/grouppage.ejs`, group);
     } else if (url.startsWith('/books/mybooks/') && url.indexOf(".") === -1) {
         customReadUserBooksEjs(req, res, `../views/ejs/mybooks.ejs`);
     } else if (url === '/homepage') {
         customReadHomepageEjs(req, res, `../views/ejs/homepage.ejs`);
+    } else if (url.startsWith('/statistics') && url.indexOf('.')==-1) {
+        customReadStatisticsEjs(req, res, `../views/ejs/statistics.ejs`);
     } else if (url.indexOf(".") === -1) {
         //its an html request{
         //check if it is login
-        if(url.indexOf("rss")!==-1){
-            authenticateToken(req,res,customReadFile,`../views/rss/rssfeed.xml`);
+        if (url.indexOf("rss") !== -1) {
+            authenticateToken(req, res, customReadFile, `../views/rss/rssfeed.xml`);
             return;
         }
         if (url.indexOf("login") === -1 && url.indexOf("signup") === -1) {

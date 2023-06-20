@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale1.0">
     <title>BOO!</title>
 
-    <link rel="stylesheet" href="homepage.css">
+    <link rel="stylesheet" href="statistics.css">
     <link rel="stylesheet" href="navigation.css">
     <link rel="stylesheet" href="body_content.css">
 
@@ -13,6 +13,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 <div id="wrapper-div">
@@ -27,8 +28,8 @@
                 </a>
                 <div id="dropdown-menu">
                     <div class="menu-buttons">
-                        <a class="active"  href="javascript:void(0);" onclick="navigateToPage('homepage')">Home</a>
-                        <a class="active"  href="javascript:void(0);" onclick="navigateToMyBooks()">My Books</a>
+                        <a class="active" href="javascript:void(0);" onclick="navigateToPage('homepage')">Home</a>
+                        <a class="active" href="javascript:void(0);" onclick="navigateToMyBooks()">My Books</a>
                         <div class="hoverable">
 
                             <a class="active" href="#">Categories</a>
@@ -36,8 +37,9 @@
                                 <a href="javascript:void(0);" onclick="navigateToGenre('romance')">Romance</a>
                                 <a href="javascript:void(0);" onclick="navigateToGenre('biography')">Biography</a>
                                 <a href="javascript:void(0);" onclick="navigateToGenre('crime')">Crime</a>
-                                <a  href="javascript:void(0);"onclick="navigateToGenre('fiction')">Fiction</a>
-                                <a  href="javascript:void(0);" onclick="navigateToGenre('historical fiction')">Historical Fiction</a>
+                                <a href="javascript:void(0);" onclick="navigateToGenre('fiction')">Fiction</a>
+                                <a href="javascript:void(0);" onclick="navigateToGenre('historical fiction')">Historical
+                                    Fiction</a>
                                 <a href="javascript:void(0);" onclick="navigateToGenre('self help')">Self Help</a>
                                 <a href="javascript:void(0);" onclick="navigateToGenre('young adult')">Young Adult</a>
                             </div>
@@ -51,7 +53,6 @@
                                 <a href="javascript:void(0);" onclick="navigateToPage('about')">About</a>
                                 <a href="javascript:void(0);" onclick="navigateToPage('help')">Help</a>
                                 <a href="javascript:void(0);" onclick="navigateToRss()">RSS</a>
-                                <a href="javascript:void(0);" onclick="navigateToStatistics()">Statistics</a>
                                 <a href="javascript:void(0);" onclick="logout()">Log Out</a>
                             </div>
                         </div>
@@ -63,16 +64,17 @@
             <div class="buttons">
                 <a class="logo" href="javascript:void(0);" onclick="navigateToPage('homepage')"><img src="boo.png"
                                                                                                      alt="Ghost reading a book"></a>
-                <a class="active"  href="javascript:void(0);" onclick="navigateToPage('homepage')">Home</a>
-                <a class="active"  href="javascript:void(0);" onclick="navigateToMyBooks()">My Books</a>
+                <a class="active" href="javascript:void(0);" onclick="navigateToPage('homepage')">Home</a>
+                <a class="active" href="javascript:void(0);" onclick="navigateToMyBooks()">My Books</a>
                 <div class="dropdown">
                     <button class="dropDownButton">Categories</button>
                     <div class="dropdown-categories">
                         <a href="javascript:void(0);" onclick="navigateToGenre('romance')">Romance</a>
                         <a href="javascript:void(0);" onclick="navigateToGenre('biography')">Biography</a>
                         <a href="javascript:void(0);" onclick="navigateToGenre('crime')">Crime</a>
-                        <a  href="javascript:void(0);"onclick="navigateToGenre('fiction')">Fiction</a>
-                        <a  href="javascript:void(0);" onclick="navigateToGenre('historical fiction')">Historical Fiction</a>
+                        <a href="javascript:void(0);" onclick="navigateToGenre('fiction')">Fiction</a>
+                        <a href="javascript:void(0);" onclick="navigateToGenre('historical fiction')">Historical
+                            Fiction</a>
                         <a href="javascript:void(0);" onclick="navigateToGenre('self help')">Self Help</a>
                         <a href="javascript:void(0);" onclick="navigateToGenre('young adult')">Young Adult</a>
                     </div>
@@ -85,79 +87,67 @@
                         <a href="javascript:void(0);" onclick="navigateToPage('about')">About</a>
                         <a href="javascript:void(0);" onclick="navigateToPage('help')">Help</a>
                         <a href="javascript:void(0);" onclick="navigateToRss()">RSS</a>
-                        <a href="javascript:void(0);" onclick="navigateToStatistics()">Statistics</a>
                         <a href="javascript:void(0);" onclick="logout()">Log Out</a>
                     </div>
                 </div>
 
             </div>
             <form id="search-bar">
-                <input type="text" id = "search-input" placeholder="Search...">
+                <input type="text" id="search-input" placeholder="Search...">
             </form>
         </nav>
     </div>
 
     <div id="content-div">
-        <div id="clasament-div">
-            <h1>Most Liked Books</h1>
-            <nav class="linkuri-clasament">
-                <ol>
-                    <% topBooks.forEach(function(topBook) { %>
-                        <li>
-                            <a href="javascript:void(0);" onclick="navigateToBook('<%= topBook.title %>')"
-                               class="book-name">
-                                <%= topBook.title %>
-                            </a>
-                        </li>
-                    <% }) %>
-                </ol>
-
-                <!-- <h3>
-                     Give your books ratings to help us create these rankings!
-                 </h3>-->
-            </nav>
-        </div>
 
         <div id="feed-div">
-            <% reviews.forEach(function(review) { %>
-            <div class="post-container">
-                <!--aici putem pune poza userului-->
-                <div class="user-profile">
-                    <p><%=review.username%></p>
-                    <span><%=review.date%> </span>
-                </div>
-
-                <div class="rating-box">
-                    <div class="preset-rating">
-                        <div class="empty-stars"></div>
-                        <div class="full-stars" style="width: <%= review.stars * 20 %>%"></div>
-                    </div>
-                </div>
-
-                <p class="post-text">"I Rated <a href="javascript:void(0);" onclick="navigateToBook('<%= review.title %>')" class="book-title"><%=review.title%></a> by <a
-                            href="javascript:void(0);" onclick="navigateToAuthor('<%= review.author %>')" class="book-author"><%=review.author%></a> <%=review.stars%>
-                    stars!"
-                </p>
-                <% if (!review.isgeneric || review.isgeneric === null) { %>
-                <p class = post-text>
-                    <%=review.content%>
-                </p>
-                <% } %>
-
+            <p class = "chart-name">Most Rated Books</p>
+            <canvas id="mostRatedBooks" class = "chart"></canvas>
+            <div class="buttons-div">
+                <button class="export-button"  id = "most-rated-doc" >Export to DocBook</button>
+                <button class="export-button" id = "most-rated-csv">Export to CSV</button>
             </div>
-            <% }); %>
         </div>
     </div>
-
-    <footer id="main-footer">
-        <p>&copy; Proiect realizat de Savin Miruna si Tudurache Teodora, 2023, Tehnologii Web</p>
-    </footer>
 </div>
-<script src="comments_and_likes.js"></script>
-<script src = "navigationLinks.js"></script>
+
+<footer id="main-footer">
+    <p>&copy; Proiect realizat de Savin Miruna si Tudurache Teodora, 2023, Tehnologii Web</p>
+</footer>
+</div>
+<script>
+    const ctx = document.getElementById('mostRatedBooks').getContext('2d');
+    const data = {
+        labels: [<%- mostRatedBooks.map(book => `'${book.title}'`).join(',') %>],
+        datasets: [{
+            label: 'Likes',
+            data: [<%- mostRatedBooks.map(book => book.numberofratings).join(',') %>],
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+        }]
+    };
+
+    const options = {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    };
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: data,
+        options: options
+    });
+</script>
+<script src="navigationLinks.js"></script>
 <script>
     navigateToSearch();
 </script>
+<script src="bundle.js" type = "module"></script>
 
 </body>
 </html>

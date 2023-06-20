@@ -5,6 +5,7 @@ const userRouter = require('./routes/UserRoutes');
 const bookRouter = require('./routes/BooksRoutes');
 const genreRouter = require('./routes/GenreRoutes');
 const groupRouter = require('./routes/GroupRoutes');
+const statisticsRouter = require('./routes/StatisticsRoutes');
 const {createServer} = require("https");
 const microServiceRoutes = [
     {path: '/login', method: 'POST'},
@@ -44,6 +45,8 @@ const mainServer = http.createServer(
             console.log(`starts with groups ${url}`);
             groupRouter.routeRequest(req, res);
             console.log(`main server`);
+        } else if(req.url.startsWith('/statistics')){
+            statisticsRouter.handleRequests(req, res);
         } else if (url.startsWith('/login') || url.startsWith('/logout') || url.startsWith('/token') || url.startsWith('/signup')) {
             handleAuthentication(req, res);
         } else {
