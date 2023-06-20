@@ -267,5 +267,6 @@ module.exports = {
     getBooksBySearchInput,
     getTopBooksInGenreOverall,
     isTopChanged,
-    changeTop
+    changeTop,
+    getBookByName
 }

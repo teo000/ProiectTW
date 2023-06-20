@@ -1,4 +1,4 @@
-const {getMyGroups, getGroup, joinGroupByInviteCode, createGroup, setCurrentBook} = require("../controllers/GroupController");
+const {getMyGroups, getGroup, joinGroupByInviteCode, createGroup, setCurrentBook, getGroupMembers} = require("../controllers/GroupController");
 const {getTopBooksInGenre} = require("../controllers/BookController");
 
 const routeRequest = async (req, res) => {
@@ -25,6 +25,12 @@ const handleGetRequests = (req, res) => {
         const decodedGroup = decodeURIComponent(group);
         getGroup(req, res, decodedGroup);
         console.log(`handleGetRequests(): ${res.name}`);
+    }
+    else if(req.url.startsWith( '/groups/members')) {
+        const group = req.url.split('/')[3].toLowerCase();
+        const decodedGroup = decodeURIComponent(group);
+        getGroupMembers(req, res, decodedGroup);
+        console.log('gasit membri');
     }
     else {
         res.writeHead(404, {'Content-Type': 'application/json'});
