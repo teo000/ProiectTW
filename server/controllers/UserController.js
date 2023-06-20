@@ -6,14 +6,16 @@ const AuthenticationController = require('../authentication/AuthenticationContro
 var concat = require('concat-stream')
 const jwt = require('jsonwebtoken');
 const {getUserFromCookie} = require("../../helpers/TokenAuthenticator");
-function getStringJson(text){
+
+function getStringJson(text) {
     var json = {}, text = text.split("&");
-    for (let i in text){
+    for (let i in text) {
         let box = text[i].split("=");
         json[box[0]] = box[1];
     }
     return JSON.stringify(json);
 }
+
 //@route GET /users/getAll
 const getAllUsers = async (req, res) => {
     try {
@@ -69,14 +71,14 @@ const createUser = async (req, res) => {
                     res.end(JSON.stringify({error: 'Username already exists'}));
                     return;
                 }
-                
+
                 authData = new AuthenticationModel(userData.password);
                 console.log(authData);
                 const userToAdd = {
                     username: userData.username,
                     passwordHash: authData.password,
                     salt: authData.salt,
-                    email: null 
+                    email: null
                 };
                 console.log(userToAdd);
                 // Add the user to the database
@@ -96,20 +98,19 @@ const createUser = async (req, res) => {
     }
 };
 
-const deleteUser = async(req,res) =>
-{
-    try{
-        const user = getUserFromCookie(res, res);
+const deleteUser = async (req, res) => {
+    try {
+        const user = getUserFromCookie(req, res);
         await userRepository.deleteUser(user.ID);
         res.writeHead(200, {'Content-Type': 'application/json'});
         res.end(JSON.stringify({message: 'User deleted successfully'}));
-    }
-    catch (error) {
+    } catch (error) {
         console.log(error);
         res.writeHead(500, {'Content-Type': 'application/json'});
         res.end(JSON.stringify({error: 'Internal Server Error'}));
     }
 }
+
 module.exports = {
     getAllUsers,
     getUser,

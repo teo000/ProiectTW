@@ -41,7 +41,7 @@ const handlePutRequests = (req, res) => {
 }
 const handleDeleteRequests = (req, res) => {
     if(req.url === '/users'){
-        deleteUser();
+        deleteUser(req,res);
     }
     else {
         res.writeHead(404, {'Content-Type': 'application/json'});

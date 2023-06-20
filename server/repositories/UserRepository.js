@@ -54,8 +54,6 @@ const addUser = async (userData) => {
 const deleteUser = async(id) =>{
 
     return new Promise((resolve, reject) => {
-        const { username, email,passwordHash,salt } = userData;
-        console.log(username, email,passwordHash,salt);
         databaseConnection.pool.query('update users set username = $1 where id = $2 returning *',
             ['BookReviewerUser',id], (error, results) => {
                 if (error) {
