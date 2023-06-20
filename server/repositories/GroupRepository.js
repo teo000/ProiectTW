@@ -27,7 +27,6 @@ const getMyGroups = async(userId) => {
 };
 
 const getGroupByName = async(name, userId) => {
-    console.log("groupRepository: getGroupByName");
     console.log(name);
     return new Promise((resolve, reject) => {
         databaseConnection.pool.query('SELECT g.id, g.name, g.creator_id, g.book_id, g.invite_code, (g.creator_id = $1)::boolean AS is_owner , b.title, b.author, b.description, b.rating, b.coverimg FROM groups g LEFT JOIN books b on g.book_id = b.id where lower(g.name) = $2',
@@ -91,7 +90,7 @@ const insertGroup = async(name, creatorId) => {
 };
 
 const setBook = async(groupId, bookId) => {
-    console.log("groupRepository: insertGroup");
+    console.log("groupRepository: setBook");
 
     return new Promise((resolve, reject) => {
         databaseConnection.pool.query('UPDATE groups SET book_id = $1 WHERE id = $2',
@@ -105,11 +104,32 @@ const setBook = async(groupId, bookId) => {
             });
     });
 };
+
+const getGroupMembersReviews = async(groupId) => {
+    console.log("groupRepository: getGroupMembers");
+
+    return new Promise((resolve, reject) => {
+        databaseConnection.pool.query('SELECT *, book_id FROM (SELECT gm.*, u.*, (SELECT book_id FROM groups WHERE id = $1 LIMIT 1) AS book_id FROM group_members gm LEFT JOIN users u ON gm.member_id = u.id WHERE gm.group_id = $1) subquery LEFT JOIN reviews r ON r.userid = subquery.id AND r.bookid = subquery.book_id LEFT JOIN user_books ub ON ub.userid = subquery.id AND ub.bookid = subquery.book_id;', [groupId], (error, results) => {
+            // Rest of your code
+        // [groupId], (error, results) => {
+                if (error) {
+                    console.log('e rau');
+                    console.log(error);
+                    reject(error);
+                }
+                console.log('e bine');
+                console.log(results);
+                resolve(results.rows);
+            });
+    });
+};
+
 module.exports = {
     getMyGroups,
     getGroupByName,
     joinGroup,
     getGroupByInviteCode,
     insertGroup,
-    setBook
+    setBook,
+    getGroupMembers: getGroupMembersReviews
 }

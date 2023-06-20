@@ -32,7 +32,6 @@ const getMyGroups = async (req, res) =>{
 }
 
 const getGroup = async (req, res, name) =>{
-    console.log("group controller: getGroup");
     const cookies = req.headers.cookie ? parse(req.headers.cookie, '; ') : {};
     const user = jwt.verify(cookies.access_token, `${process.env.ACCESS_TOKEN_SECRET}`)
     const userId = user.user.ID;
@@ -133,7 +132,6 @@ const createGroup = async (req, res) =>{
 
 const setCurrentBook = async (req, res) =>{
     console.log("group controller: setCurrentBook");
-    const cookies = req.headers.cookie ? parse(req.headers.cookie, '; ') : {};
     try {
         let body = '';
         req.on('data', chunk => {
@@ -170,10 +168,28 @@ const setCurrentBook = async (req, res) =>{
     }
 }
 
+const getGroupMembers = async (req, res, groupName) =>{
+    console.log("group controller: getGroupMembers");
+    try {
+            const group = await groupRepository.getGroupByName(groupName);
+            const groupMembers =  await groupRepository.getGroupMembers(group.id);
+            console.log(groupMembers)
+            res.writeHead(200, {'Content-Type': 'application/json'});
+            res.end(JSON.stringify(groupMembers));
+
+    } catch (error) {
+        console.log(error);
+        res.writeHead(500, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify({error: 'Internal Server Error'}));
+    }
+}
+
+
 module.exports = {
     getMyGroups,
     getGroup,
     joinGroupByInviteCode,
     createGroup,
-    setCurrentBook
+    setCurrentBook,
+    getGroupMembers
 }

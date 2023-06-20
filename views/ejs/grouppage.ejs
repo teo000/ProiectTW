@@ -111,7 +111,24 @@
                     invite code: <%=group.invite_code%>
                 </p>
 
-            <%if(group.book_id !== null){%>
+            <%if(group.book_id === null){%>
+                <div class = "no-book-summary">
+                    <div class = "book-cover">
+                        <img src="ghost.png" alt="cute ghost">
+
+                    </div>
+                    <div class = "book-information">
+                        <%if(!group.is_owner){%> <h1>We aren't reading anything at the moment! Come back later!</h1>
+                        <%}else {%>
+                            <div class = add-book>
+                                <h1>Choose a book for your group to read!</h1>
+                                <input type="text" id="addBookInput" placeholder="Enter a book...">
+                                <button type="button" id="addBookButton">Enter</button>
+                            </div>
+                        <%}%>
+                    </div>
+                </div>
+            <%}else{%>
 
             <p class="category-title">
                     We are currently reading...
@@ -133,7 +150,7 @@
                         <div class="rating-box">
                             <div class="preset-rating">
                                 <div class="empty-stars"></div>
-                                <div class="full-stars" style="width:<%=group.title%> / 5 "></div>
+                                <div class="full-stars" style="width: <%= group.rating * 20 %>%"></div>
                             </div>
                             <p>
                                 <%=group.rating%>
@@ -154,7 +171,22 @@
 
                     </div>
                 </div>
-<!--     si o sa tb sa fac request separat si pt membri       -->
+
+            <%if(group.is_owner){%>
+                <div class = "no-book-summary">
+                    <div class = "book-cover">
+                        <img src="ghost.png" alt="cute ghost">
+                    </div>
+                    <div class = "book-information">
+                        <div class = add-book>
+                            <h1>Choose another book for your group to read!</h1>
+                            <input type="text" id="addBookInput" placeholder="Enter a book...">
+                            <button type="button" id="addBookButton">Enter</button>
+                        </div>
+                    </div>
+                </div>
+            <%}%>
+
                 <div class="members-wrapper">
                     <h1>
                         Members' progress:
@@ -165,155 +197,73 @@
                         <thead>
                         <tr>
                             <th>Username</th>
-                            <th>Pages read</th>
+                            <th>Shelf</th>
                             <th>Rating</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr >
-                            <td>Teodora</td>
-                            <td>235/538</td>
-                            <td>-</td>
-                        </tr>
-                        <tr class="active-row" >
-                            <td>Miruna</td>
-                            <td>DONE</td>
-                            <td>
-                                <div class="preset-rating">
-                                    <div class="empty-stars"></div>
-                                    <div class="full-stars" style="width:100%"></div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="active-row" >
-                            <td>Casu</td>
-                            <td>DONE</td>
-                            <td>
-                                <div class="preset-rating">
-                                    <div class="empty-stars"></div>
-                                    <div class="full-stars" style="width:80%"></div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr >
-                            <td>Rares</td>
-                            <td>102/538</td>
-                            <td>-</td>
-                        </tr>
+
+                        <% members.forEach(function(member) { %>
+<!--                        //tb sa fac request si de review aoleo-->
+                            <tr
+                                    <%if(member.shelf === 'Read') {%>
+                                        class = "active-row"
+                                    <%}%>
+                            >
+                                <td> <%=member.username%> </td>
+                                <td>
+                                    <%if(member.shelf !== null){%>
+                                        <%=member.shelf%>
+                                    <%}else{%>
+                                        -
+                                    <%}%>
+                                </td>
+                                <td>
+                                    <%if(member.stars!==null){%>
+                                    <div class="preset-rating">
+                                            <div class="empty-stars"></div>
+                                            <div class="full-stars" style="width: <%= member.stars * 20 %>%"></div>
+                                    </div>
+                                    <%}%>
+                                </td>
+                            </tr>
+                        <%})%>
                         </tbody>
                     </table>
                 </div>
-<!--   aicea nu mai zic -->
-<!--                <div id="feed-div">-->
-<!--                    <h1>Discussion</h1>-->
-<!--                    <hr>-->
-<!--                    <div class="post-container">-->
-<!--                        &lt;!&ndash;aici putem pune poza userului&ndash;&gt;-->
-<!--                        &lt;!&ndash; aici putem pune sus si nr de stelute colorate&ndash;&gt;-->
-<!--                        <div class="user-profile">-->
-<!--                            <p>Miruna</p>-->
-<!--                            <span>April 1 2023, 14:48 </span>-->
-<!--                        </div>-->
 
+                <div id="feed-div">
+                    <h1>Discussion</h1>
+                    <hr>
+                    <% members.forEach(function(review) { %>
+                        <%if(review.stars!== null){%>
+                            <div class="post-container">
+                                <!--aici putem pune poza userului-->
+                                <div class="user-profile">
+                                    <p><%=review.username%></p>
+                                    <span><%=review.date%> </span>
+                                </div>
 
-<!--                        <p class="post-text">I Rated <a href="bookpage.html" class="book-title">Pride and-->
-<!--                                Prejudice</a> by <a-->
-<!--                                    href="#" class="book-author">Jane Austen</a> 5 stars!-->
-<!--                        </p>-->
+                                <div class="rating-box">
+                                    <div class="preset-rating">
+                                        <div class="empty-stars"></div>
+                                        <div class="full-stars" style="width: <%= review.stars * 20 %>%"></div>
+                                    </div>
+                                </div>
 
-<!--                        <div class="post-row">-->
-<!--                            <div class="activity-icons">-->
-<!--                                <div>-->
-<!--                                    <i class="fa-regular fa-heart toggle-heart">15</i>-->
-<!--                                    <i class="fa-regular fa-comment toggle-comment">3</i>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-
-<!--                        <article class="comment-section">-->
-<!--                            <div class="comment">-->
-<!--                                <div class="user-profile">-->
-<!--                                    <p>Teodora</p>-->
-<!--                                    <span>April 7 2023, 23:17 </span>-->
-<!--                                </div>-->
-<!--                                <p class="comment-text">I like it as well!</p>-->
-<!--                            </div>-->
-<!--                            <div class="comment">-->
-<!--                                <div class="user-profile">-->
-<!--                                    <p>Teodora</p>-->
-<!--                                    <span>April 7 2023, 23:17 </span>-->
-<!--                                </div>-->
-<!--                                <p class="comment-text">I like it as well!</p>-->
-<!--                            </div>-->
-<!--                            <div class="comment">-->
-<!--                                <div class="user-profile">-->
-<!--                                    <p>Teodora</p>-->
-<!--                                    <span>April 7 2023, 23:17 </span>-->
-<!--                                </div>-->
-<!--                                <p class="comment-text">I like it as well!</p>-->
-<!--                            </div>-->
-<!--                            <div class="add-comment">-->
-<!--                                <input class="comment-input" type="text" placeholder="Write a comment...">-->
-<!--                                <button class = "add-comment-button">Add Comment</button>-->
-<!--                            </div>-->
-<!--                        </article>-->
-
-
-<!--                    </div>-->
-<!--                    <div class="post-container">-->
-<!--                        &lt;!&ndash;aici putem pune poza userului&ndash;&gt;-->
-<!--                        &lt;!&ndash; aici putem pune sus si nr de stelute colorate&ndash;&gt;-->
-<!--                        <div class="user-profile">-->
-<!--                            <p>Teodora</p>-->
-<!--                            <span>April 1 2023, 15:1 </span>-->
-<!--                        </div>-->
-
-
-<!--                        <p class="post-text">I Rated <a href="#" class="book-title">Pride and Prejudice</a> by <a-->
-<!--                                    href="#" class="book-author">Jane Austen</a> 4 stars!-->
-<!--                        </p>-->
-
-<!--                        <div class="post-row">-->
-<!--                            <div class="activity-icons">-->
-<!--                                <div>-->
-<!--                                    <i class="fa-regular fa-heart toggle-heart">15</i>-->
-<!--                                    <i class="fa-regular fa-comment toggle-comment">1</i>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <article class="comment-section">-->
-<!--                            <div class="comment">-->
-<!--                                <div class="user-profile">-->
-<!--                                    <p>Pau</p>-->
-<!--                                    <span>April 7 2023, 23:29 </span>-->
-<!--                                </div>-->
-<!--                                <p class="comment-text">Great read</p>-->
-<!--                            </div>-->
-<!--                            <div class="add-comment">-->
-<!--                                <input class="comment-input" type="text" placeholder="Write a comment...">-->
-<!--                                <button class = "add-comment-button">Add Comment</button>-->
-<!--                            </div>-->
-<!--                        </article>-->
-<!--                    </div>-->
-<!--                </div>-->
-            <%} else {%>
-                <div class = "no-book-summary">
-                    <div class = "book-cover">
-                        <img src="ghost.png" alt="cute ghost">
-
-                    </div>
-                    <div class = "book-information">
-                         <%if(!group.is_owner){%> <h1>We aren't reading anything at the moment! Come back later!</h1>
-                        <%}else {%>
-                                 <div class = add-book>
-                                     <h1>Choose a book for your group to read!</h1>
-                                     <input type="text" id="addBookInput" placeholder="Enter a book...">
-                                     <button type="button" id="addBookButton">Enter</button>
-                                 </div>
+                                <p class="post-text">"I Rated <a href="javascript:void(0);" onclick="navigateToBook('<%= group.title %>')" class="book-title"><%=group.title%></a> by <a
+                                            href="javascript:void(0);" onclick="navigateToBook('<%= group.author %>')" class="book-author"><%=group.author%></a> <%=review.stars%>
+                                    stars!"
+                                </p>
+                                <% if (!review.isgeneric || review.isgeneric === null) { %>
+                                <p class = post-text>
+                                    <%=review.content%>
+                                </p>
+                                <% } %>
+                            </div>
                         <%}%>
-                    </div>
-                </div>
-            <%}%>
+                <%})}%>
+
             <p id = "groupId"> <%=group.id%></p>
 
         </div>
