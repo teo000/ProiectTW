@@ -237,5 +237,6 @@ module.exports = {
     getBooksByEdition,
     getBooksByYear,
     getBooksByPublisher,
-    getBooksByAuthor
+    getBooksByAuthor,
+    getBookByName
 }

@@ -1,5 +1,5 @@
-const addBookButton = document.querySelector("#addBookButton");
-addBookButton.addEventListener('click', (event) => {
+const buttons = document.querySelectorAll('.add-book > button');
+buttons.forEach(button => button.addEventListener('click', (event) => {
     const bookName = document.querySelector("#addBookInput").value;
     const groupId = parseInt(document.getElementById("groupId").textContent, 10);
 
@@ -39,4 +39,4 @@ addBookButton.addEventListener('click', (event) => {
             });
         }
     }).catch(error => console.log(error));
-});
+}));
