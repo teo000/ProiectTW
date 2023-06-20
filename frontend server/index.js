@@ -629,6 +629,36 @@ const customReadGroupEjs = async (req, res, filepath, group) => {
             }
         };
 
+
+        http.get(options, (response) => {
+            let data = "";
+            response.on("data", (chunk) => {
+                data += chunk;
+            });
+            response.on('end', () => {
+                const groupsData = JSON.parse(data);
+                resolve(groupsData);
+            });
+        }).on("error", (error) => {
+            console.log(error);
+            reject(error);
+        });
+    });
+
+    const membersPromise = new Promise((resolve, reject) => {
+        console.log("members promise");
+
+        const options = {
+            method: 'GET',
+            hostname: 'localhost',
+            port: 6969,
+            path: `/groups/members/${group}`,
+            headers: {
+                'Cookie': cookies // Pass the extracted cookies in the request headers
+            }
+        };
+
+
         http.get(options, (response) => {
             let data = "";
             response.on("data", (chunk) => {
@@ -645,10 +675,10 @@ const customReadGroupEjs = async (req, res, filepath, group) => {
     });
 
     try {
-        const [groupData] = await Promise.all([groupPromise]);
+        const [groupData, membersData] = await Promise.all([groupPromise, membersPromise]);
         console.log(groupData);
         // Render the EJS template with the data
-        const renderedEJS = ejs.render(template, {group: groupData});
+        const renderedEJS = ejs.render(template, {group: groupData, members: membersData});
 
         res.writeHead(200, {"Content-Type": "text/html"});
         res.end(renderedEJS);
