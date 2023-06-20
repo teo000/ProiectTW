@@ -12,7 +12,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
-
+<style>
+    #no-books-found{
+        color:white;
+        margin-top: 20px;
+        display: flex;
+        align-self: center;
+        font-size: 30px;
+    }
+</style>
 </head>
 <body>
 <div id="wrapper-div">
@@ -118,39 +126,43 @@
             </div>
             <div id="feed-div">
                 <div id=template>
-                    <% books.forEach(function(book) { %>
-                        <div class="book-container">
-                            <div class="book-photo">
-                                <img src="<%= book.coverimg %>" alt="book cover">
-                            </div>
-
-                            <div class="post-text">
-                                <div class="book-author-and-title">
-                                    <p class="book-title"><a href="javascript:void(0);"
-                                                             onclick="navigateToBook('<%= book.title %>')"
-                                                             class="book-title-link"><%= book.title %></a></p>
-                                    <p class="book-author"><a href="javascript:void(0);"
-                                                              onclick="navigateToAuthor('<%=book.author%>')"
-                                                              class="book-author-link">by <%= book.author %></a>
-                                    </p>
+                    <% if (books.length === 0) { %>
+                        <p id  ="no-books-found">No books found!</p>
+                    <% } else { %>
+                        <% books.forEach(function(book) { %>
+                            <div class="book-container">
+                                <div class="book-photo">
+                                    <img src="<%= book.coverimg %>" alt="book cover">
                                 </div>
-                                <div class="star-rating">
-                                    <div class="preset-rating">
-                                        <div class="empty-stars"></div>
-                                        <div class="full-stars" style="width: <%= book.rating * 20 %>%"></div>
+
+                                <div class="post-text">
+                                    <div class="book-author-and-title">
+                                        <p class="book-title"><a href="javascript:void(0);"
+                                                                 onclick="navigateToBook('<%= book.title %>')"
+                                                                 class="book-title-link"><%= book.title %></a></p>
+                                        <p class="book-author"><a href="javascript:void(0);"
+                                                                  onclick="navigateToAuthor('<%= book.author %>')"
+                                                                  class="book-author-link">by <%= book.author %></a>
+                                        </p>
                                     </div>
-                                    <p>
-                                        <%= book.rating %>
-                                    </p>
-                                </div>
+                                    <div class="star-rating">
+                                        <div class="preset-rating">
+                                            <div class="empty-stars"></div>
+                                            <div class="full-stars" style="width: <%= book.rating * 20 %>%"></div>
+                                        </div>
+                                        <p>
+                                            <%= book.rating %>
+                                        </p>
+                                    </div>
 
-                                <div>
-                                    <p class="book-description"><%= book.description %></p>
-                                    <button onclick="readMore(this)" class="more-button">Read More</button>
+                                    <div>
+                                        <p class="book-description"><%= book.description %></p>
+                                        <button onclick="readMore(this)" class="more-button">Read More</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    <% }); %>
+                        <% }); %>
+                    <% } %>
                 </div>
             </div>
         </div>

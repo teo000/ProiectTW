@@ -209,9 +209,10 @@ const getBooksByCriteria = async (req, res) => {
     const queryString = req.url.split('?')[1];
     const params = new URLSearchParams(queryString);
     const edition = decodeURIComponent(params.get('edition'));
-    const publisher = params.get('publisher');
-    const year = params.get('year');
-    const author = params.get('author');
+    const publisher = decodeURIComponent(params.get('publisher'));
+    const year = decodeURIComponent(params.get('year'));
+    const author = decodeURIComponent(params.get('author'));
+    const searchInput = decodeURIComponent(params.get('searchInput'))
     const pageSize = params.get('pageSize');
     let pageNumber = params.get('pageNumber');
     pageNumber = (pageNumber - 1) * pageSize;
@@ -251,6 +252,17 @@ const getBooksByCriteria = async (req, res) => {
         }
         if (publisher !== "null" && publisher !== undefined) {
             const books = await bookRepository.getBooksByPublisher(publisher, pageSize, pageNumber);
+            if (!books) {
+                res.writeHead(404, {'Content-Type': 'application/json'});
+                res.end(JSON.stringify({error: 'Books not found!'}));
+            } else {
+                res.writeHead(200, {'Content-Type': 'application/json'});
+                res.end(JSON.stringify(books));
+                return;
+            }
+        }
+        if (searchInput !== "null" && searchInput !== undefined) {
+            const books = await bookRepository.getBooksBySearchInput(searchInput, pageSize, pageNumber);
             if (!books) {
                 res.writeHead(404, {'Content-Type': 'application/json'});
                 res.end(JSON.stringify({error: 'Books not found!'}));

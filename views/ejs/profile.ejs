@@ -96,7 +96,7 @@
 
     <div id = "content-wrapper">
         <div id="buttons-container">
-            <button class="button">Delete Profile</button>
+            <button class="button" onclick="deleteProfile()">Delete Profile</button>
         </div>
         <div id="content">
             <div id="top">
@@ -149,21 +149,6 @@
                     </p>
                     <% } %>
 
-                    <div class="post-row">
-                        <div class="activity-icons">
-                            <div>
-                                <i class="fa-regular fa-heart toggle-heart">15</i>
-                                <i class="fa-regular fa-comment toggle-comment">0</i>
-                            </div>
-                        </div>
-                    </div>
-                    <article class="comment-section">
-
-                        <div class="add-comment">
-                            <input class="comment-input" type="text" placeholder="Write a comment...">
-                            <button class = "add-comment-button">Add Comment</button>
-                        </div>
-                    </article>
                 </div>
                 <% }); %>
             </div>
@@ -176,6 +161,7 @@
 </div>
 <script src="comments_and_likes.js"></script>
 <script src ="navigationLinks.js"></script>
+<script src ="deleteProfile.js"></script>
 </body>
 
 </html>

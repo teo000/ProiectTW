@@ -105,6 +105,22 @@ function logout(){
     }).catch(error => console.log(error));
 }
 
+function navigateToSearch (){
+    const form = document.getElementById('search-bar');
+    const input = document.getElementById('search-input');
+
+    input.addEventListener('keypress', function(event){
+        if(event.key==='Enter'){
+            event.preventDefault();
+            const searchString = input.value.toLowerCase();
+
+            //send request
+            window.location.href = `http://localhost:8081/books/criteria?searchInput=${searchString}&pageSize=100&pageNumber=1`;
+
+        }
+    })
+}
+
 // function navigateToHomepage(){
 //     window.location.href = `http://localhost:8081/books/reviews/all`;
 // }

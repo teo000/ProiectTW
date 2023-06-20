@@ -103,6 +103,32 @@ const getBooksByPublisher = (publisher, limit, offset) => {
         });
     });
 }
+
+const getBooksBySearchInput = (searchInput, limit, offset) => {
+    const searchInputFormated = `%${searchInput}%`;
+    return new Promise((resolve, reject) => {
+        databaseConnection.pool.query(`SELECT b.id,
+       b.title,
+       b.author,
+       b.rating as avgrating,
+       b.description,
+       b.edition,
+       b.publisher,
+       b.year,
+       b.coverimg
+FROM books b
+where lower(b.author) like $1
+or lower(b.title) like $1
+order by b.id
+limit $2 offset $3;
+`, [searchInputFormated, limit, offset], (error, results) => {
+            if (error) {
+                reject(error);
+            }
+            resolve(results.rows);
+        });
+    });
+}
 const getBooksByGenre = async (genre, limit, offset) => {
     return new Promise((resolve, reject) => {
         databaseConnection.pool.query('select  b.id, b.title,b.author, b.rating, b.description, b.coverimg from books b join book_genre bg on b.id = bg.book_id join genres g on bg.genre_id = g.id where LOWER(g.name)= $1 order by b.id limit $2 offset $3',
@@ -237,5 +263,9 @@ module.exports = {
     getBooksByEdition,
     getBooksByYear,
     getBooksByPublisher,
-    getBooksByAuthor
+    getBooksByAuthor,
+    getBooksBySearchInput,
+    getTopBooksInGenreOverall,
+    isTopChanged,
+    changeTop
 }

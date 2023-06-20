@@ -50,9 +50,26 @@ const addUser = async (userData) => {
     });
 }
 
+//instead of deleting it sets the username to BookReviewerUser (like with facebook user)
+const deleteUser = async(id) =>{
+
+    return new Promise((resolve, reject) => {
+        const { username, email,passwordHash,salt } = userData;
+        console.log(username, email,passwordHash,salt);
+        databaseConnection.pool.query('update users set username = $1 where id = $2 returning *',
+            ['BookReviewerUser',id], (error, results) => {
+                if (error) {
+                    reject(error);
+                }
+                resolve(results.rows[0]);
+            });
+    });
+}
+
 module.exports = {
     getAllUsers,
     getUserById,
     getUser,
-    addUser
+    addUser,
+    deleteUser
 }

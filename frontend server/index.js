@@ -176,11 +176,13 @@ const customReadBooksByCriteriaEjs = async (req, res, file_path) =>{
         const pageNumber = encodeURIComponent(params.get('pageNumber'));
         const year = encodeURIComponent(params.get('year'));
         const author = encodeURIComponent(params.get('author'));
+        const searchInput = encodeURIComponent(params.get('searchInput'))
+        const path = `/books/criteria?author=${author}&edition=${edition}&publisher=${publisher}&year=${year}&searchInput=${searchInput}&pageSize=${pageSize}&pageNumber=${pageNumber}`
         const booksPromise = new Promise((resolve, reject) => {
             const options = {
                 hostname: 'localhost',
                 port: 6969,
-                path: `/books/criteria?author=${author}&edition=${edition}&publisher=${publisher}&year=${year}&pageSize=${pageSize}&pageNumber=${pageNumber}`,
+                path: `/books/criteria?author=${author}&edition=${edition}&publisher=${publisher}&year=${year}&searchInput=${searchInput}&pageSize=${pageSize}&pageNumber=${pageNumber}`,
                 headers: {
                     'Cookie': cookies // Pass the extracted cookies in the request headers
                 }

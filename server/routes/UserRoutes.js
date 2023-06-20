@@ -1,4 +1,4 @@
-const {getAllUsers, getUser, createUser} = require('../controllers/userController');
+const {getAllUsers, getUser, createUser, deleteUser} = require('../controllers/userController');
 const usernameRegex = /^\/users\/([A-Za-z0-9_-]+)$/;
 
 const routeRequest = async (req, res) => {
@@ -40,7 +40,13 @@ const handlePutRequests = (req, res) => {
 
 }
 const handleDeleteRequests = (req, res) => {
-
+    if(req.url === '/users'){
+        deleteUser();
+    }
+    else {
+        res.writeHead(404, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify({error: 'Endpoint not found'}));
+    }
 }
 
 module.exports = {
