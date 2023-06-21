@@ -1,4 +1,4 @@
-const {getAllBooks, getBookByID, getBookByTitle, addBook, getGenre,  getTopBooksInGenre,getBooksByCriteria, getGenreCount} = require("../controllers/BookController");
+const {getAllBooks, getBookByID, getBookByTitle, addBook, getGenre,  getTopBooksInGenre,getBooksByCriteria, getGenreCount,getRelatedBooks} = require("../controllers/BookController");
 const {addReview, addGenericReview, getBookReviews, getAllReviews, getReviewsMadeByUser} =require("../controllers/ReviewController");
 const {addBookToShelf, getUserBooks, removeBookFromShelf} =require("../controllers/ShelvesController");
 const bookIdRegex = /^\/books\/[0-9]+$/;
@@ -62,6 +62,12 @@ const handleGetRequests = (req, res) => {
     }
     else if(req.url.startsWith('/books/top')){
         getTopBooksInGenre(req,res,"any");
+    }
+    else if (req.url.startsWith('/books/related/')){
+        const data=  req.url.split('/')
+        const id = data[3];
+        const limit = data[4];
+        getRelatedBooks(req,res,id,limit);
     }
     else {
         res.writeHead(404, {'Content-Type': 'application/json'});

@@ -251,6 +251,20 @@ const getGenreCount = (genre) => {
     });
 }
 
+const getRelatedBooks = (id,limit)=>{
+    return new Promise((resolve, reject) => {
+        databaseConnection.pool.query(`select id, title, author, coverimg
+                                       from books
+                                       where id in (select related_book_id from get_related_books($1) order by match_type) limit $2`,
+            [id,limit], (error, results) => {
+                if (error) {
+                    reject(error);
+                }
+                console.log(results)
+                resolve(results.rows);
+            });
+    });
+}
 module.exports = {
     getAllBooks,
     getBookByID,
@@ -268,5 +282,6 @@ module.exports = {
     getTopBooksInGenreOverall,
     isTopChanged,
     changeTop,
-    getBookByName
+    getBookByName,
+    getRelatedBooks
 }

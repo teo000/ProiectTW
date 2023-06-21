@@ -375,8 +375,39 @@ const customReadBooksEjs = async (req, res, file_path, title) => {
                 reject(error);
             });
         });
+
+        const [bookData] =  await Promise.all([bookPromise]);
+        const relatedBooksPromise= new Promise((resolve, reject) => {
+            const options = {
+                hostname: 'localhost',
+                port: 6969,
+                path: `/books/related/${bookData.id}/7`,
+                headers: {
+                    'Cookie': cookies
+                }
+            };
+
+            http.get(options, (response) => {
+                let relatedBooksData = "";
+                response.on("data", (chunk) => {
+                    relatedBooksData += chunk;
+                });
+                response.on('end', () => {
+                    try {
+                        relatedBooksData = JSON.parse(relatedBooksData);
+                    } catch (error) {
+                        relatedBooksData = [];
+                    }
+                    resolve(relatedBooksData);
+                });
+            }).on("error", (error) => {
+                console.log(error);
+                reject(error);
+            });
+        });
+
         try {
-            const [booksData, genreData, reviewsData] = await Promise.all([bookPromise, genresPromise, reviewsPromise]);
+            const [relatedBooksData, genreData, reviewsData] = await Promise.all([relatedBooksPromise, genresPromise, reviewsPromise]);
 
             const modifiedReviewDate = reviewsData.map(review => {
                 const date = new Date(review.date);
@@ -384,7 +415,7 @@ const customReadBooksEjs = async (req, res, file_path, title) => {
                 return {...review, date: formattedDate}
             })
             // Render the EJS template with the data
-            const renderedEJS = ejs.render(template, {book: booksData, genres: genreData, reviews: modifiedReviewDate});
+            const renderedEJS = ejs.render(template, {book: bookData, genres: genreData, reviews: modifiedReviewDate, relatedBooks : relatedBooksData});
 
             res.writeHead(200, {"Content-Type": "text/html"});
             res.end(renderedEJS);

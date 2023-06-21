@@ -516,18 +516,19 @@ a:hover{
 .sub-title {
     font-size: 20px;
     font-weight: bold;
-    margin-left: 25vw;
-    margin-top: 1vh;
-    margin-bottom: 1vh;
+    align-self: center;
+    margin-left: 35px;
+    margin-bottom: 6px;
 }
 
 
 .other-books {
     display: flex;
     flex-direction: row;
-    margin-left: auto;
+    margin-left : 40px;
+    margin-bottom: 10px;
     overflow-x: scroll;
-    justify-content: center;
+    justify-content: flex-start;
 }
 
 .other-books .book {

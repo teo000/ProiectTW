@@ -191,6 +191,19 @@
                         <% } %>
                     </p>
                 </div>
+                <p class="sub-title"> Readers also enjoyed...</p>
+                <div class="other-books">
+                    <% relatedBooks.forEach(function(book) { %>
+                    <div class="book">
+                        <div class="small-cover">
+                            <img src="<%= book.coverimg %>" alt="book cover">
+                        </div>
+                        <p class="small-title"><a href="javascript:void(0);" onclick="navigateToBook('<%=book.title%>')" ><%=book.title%></a></p>
+                        <p class="small-author"><a href="javascript:void(0);" onclick="navigateToAuthor('<%=book.author%>')"style = "text-decoration: none"><%=book.author%></a></p>
+                    </div>
+                        <% }); %>
+                    <div class="book">
+                </div>
 
 
 

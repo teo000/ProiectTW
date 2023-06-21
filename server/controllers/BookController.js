@@ -276,6 +276,22 @@ const getBooksByCriteria = async (req, res) => {
         console.log(error);
     }
 }
+
+const getRelatedBooks = async(req,res,id,limit) => {
+    try {
+        const books = await bookRepository.getRelatedBooks(Number(id),limit);
+
+        if (!books) {
+            res.writeHead(404, {'Content-Type': 'application/json'});
+            res.end(JSON.stringify({error: 'Books not found!'}));
+        } else {
+            res.writeHead(200, {'Content-Type': 'application/json'});
+            res.end(JSON.stringify(books));
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
 module.exports = {
     getAllBooks,
     getBookByID,
@@ -284,5 +300,6 @@ module.exports = {
     getGenre,
     getTopBooksInGenre,
     getGenreCount,
-    getBooksByCriteria
+    getBooksByCriteria,
+    getRelatedBooks
 }
