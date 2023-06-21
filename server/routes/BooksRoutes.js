@@ -1,5 +1,5 @@
 const {getAllBooks, getBookByID, getBookByTitle, addBook, getGenre,  getTopBooksInGenre,getBooksByCriteria, getGenreCount} = require("../controllers/BookController");
-const {addReview, addGenericReview, getBookReviews, getAllReviews, getReviewsMadeByUser} =require("../controllers/ReviewController");
+const {addReview, addGenericReview, getBookReviews, getAllReviews, getReviewsMadeByUser, deleteReview} =require("../controllers/ReviewController");
 const {addBookToShelf, getUserBooks, removeBookFromShelf} =require("../controllers/ShelvesController");
 const bookIdRegex = /^\/books\/[0-9]+$/;
 const bookTitleRegex = /^\/books\/[a-zA-Z0-9\s]+$/;
@@ -92,8 +92,13 @@ const handlePutRequests = (req, res) => {
 
 }
 const handleDeleteRequests = (req, res) => {
+    console.log(`handleDeleteRequests: ${req.url}`);
     if (req.url.startsWith('/books/shelf')) {
         removeBookFromShelf(req,res);
+    }else if (req.url.startsWith('/books/reviews/')){
+        const reviewId = req.url.split('/')[3].toLowerCase();
+        const decodedReviewId = decodeURIComponent(reviewId);
+        deleteReview(req, res, decodedReviewId)
     }
     else {
         res.writeHead(404, {'Content-Type': 'application/json'});

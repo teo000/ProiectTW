@@ -208,10 +208,24 @@ const getReviewsMadeByUser = async(req,res,id) =>{
         res.end(JSON.stringify({error: 'Internal Server Error'}));
     }
 }
+
+const deleteReview = async(req,res,id) =>{
+    try{
+        const reviews = await reviewRepository.deleteReview(id);
+        res.writeHead(200, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify(reviews));
+    }
+    catch (error){
+        console.log(error);
+        res.writeHead(500, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify({error: 'Internal Server Error'}));
+    }
+}
 module.exports = {
     addReview,
     addGenericReview,
     getBookReviews,
     getAllReviews,
-    getReviewsMadeByUser
+    getReviewsMadeByUser,
+    deleteReview
 }
