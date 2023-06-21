@@ -38,7 +38,7 @@ body{
 #title{
     display: flex;
     flex-direction: row;
-    margin: 0 auto;
+    margin-top: auto;
 }
 
 #title h1{

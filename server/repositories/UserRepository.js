@@ -25,11 +25,13 @@ const getUserById = (id) =>{
 }
 
 const getUser = (username) => {
+    console.log(`getUser`);
     return new Promise((resolve, reject) => {
         databaseConnection.pool.query('SELECT * FROM users where username = $1', [username],(error, results) => {
             if (error) {
                 reject(error);
             }
+            console.log(results.rows[0]);
             resolve(results.rows[0]);
         });
     });
@@ -38,10 +40,10 @@ const getUser = (username) => {
 const addUser = async (userData) => {
     console.log(userData);
     return new Promise((resolve, reject) => {
-        const { username, email,passwordHash,salt } = userData;
+        const { username, email,passwordHash,salt, isAdmin} = userData;
         console.log(username, email,passwordHash,salt);
-        databaseConnection.pool.query('INSERT INTO users (username, email,passwordHash,salt ) VALUES ($1, $2, $3,$4) RETURNING *',
-            [username,email, passwordHash,salt], (error, results) => {
+        databaseConnection.pool.query('INSERT INTO users (username, email,passwordHash,salt, is_admin ) VALUES ($1, $2, $3,$4, $5) RETURNING *',
+            [username,email, passwordHash,salt, isAdmin], (error, results) => {
                 if (error) {
                     reject(error);
                 }

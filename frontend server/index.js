@@ -6,7 +6,7 @@ const bookPromises = require('./promises/BooksPromises')
 const PORT = 8081;
 
 const PageController = require("./controller/PageController")
-const {authenticateToken, extractUser} = require("../helpers/TokenAuthenticator");
+const {authenticateToken, authenticateTokenForAdmin, extractUser} = require("../helpers/TokenAuthenticator");
 const {createServer} = require("https");
 const {parse} = require("querystring");
 
@@ -693,7 +693,9 @@ const server = http.createServer((req, res) => {
     const url = req.url;
     console.log(`front request: ${url}`);
 
-    if (url.startsWith('/books/genres?') && url.indexOf(".") === -1) {
+    if(url === '/adminhomepage')
+        authenticateTokenForAdmin(req, res, customReadHomepageEjs, `../views/ejs/adminhomepage.ejs`);
+    else if (url.startsWith('/books/genres?') && url.indexOf(".") === -1) {
         const queryString = req.url.split('?')[1];
         const params = new URLSearchParams(queryString);
         const genre = params.get('genre');
@@ -716,7 +718,7 @@ const server = http.createServer((req, res) => {
     } else if (url.startsWith('/books/mybooks/') && url.indexOf(".") === -1) {
         customReadUserBooksEjs(req, res, `../views/ejs/mybooks.ejs`);
     } else if (url === '/homepage') {
-        customReadHomepageEjs(req, res, `../views/ejs/homepage.ejs`);
+        authenticateToken(req, res, customReadHomepageEjs, `../views/ejs/homepage.ejs`);
     } else if (url.indexOf(".") === -1) {
         //its an html request{
         //check if it is login

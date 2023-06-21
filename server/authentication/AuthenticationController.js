@@ -35,7 +35,9 @@ const login = async (req, res) => {
                     res.end(JSON.stringify({error: 'Username incorrect!'}));
                     return;
                 }
-                const userObject = new User(existingUser.id, existingUser.username, existingUser.email, existingUser.passwordhash, existingUser.salt);
+                const userObject = new User(existingUser.id, existingUser.username, existingUser.email, existingUser.passwordhash, existingUser.salt, existingUser.isadmin);
+                console.log(`authentication:`);
+                console.log( existingUser);
 
                 //check if the password is valid
                 const isValid = await checkPasswordValidity(userObject, userData.password);
@@ -102,7 +104,66 @@ const signup = async (req, res) => {
                 }
 
                 const hashedPassword = new AuthenticationModel(userData.password);
-                const createUserData = {username: userData.username, passwordHash: hashedPassword.password, salt: hashedPassword.salt};
+                const createUserData = {username: userData.username, passwordHash: hashedPassword.password, salt: hashedPassword.salt, isAdmin: false};
+                await userRepository.addUser(createUserData);
+                res.writeHead(201, {'Content-Type': 'application/json'});
+                res.end(JSON.stringify({success: 'Account created successfully'}));
+
+            } catch (error) {
+                console.log(error);
+                res.writeHead(500, {'Content-Type': 'application/json'});
+                res.end(JSON.stringify({error: 'Internal Server Error'}));
+            }
+        });
+    } catch (error) {
+        console.log(error);
+        res.writeHead(500, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify({error: 'Internal Server Error'}));
+    }
+}
+
+const adminsignup = async (req, res) => {
+    try {
+        let body = '';
+        req.on('data', chunk => {
+            body += chunk.toString();
+        });
+        console.log('cream om');
+
+        req.on('end', async () => {
+            try {
+
+                const userData = JSON.parse(body);
+                console.log(userData);
+                // Validate the required fields (username, password)
+                if (!userData.username || !userData.password) {
+                    res.writeHead(400, {'Content-Type': 'application/json'});
+                    res.end(JSON.stringify({error: 'Username and password are required'}));
+                    return;
+                }
+
+                if(userData.password !== userData.confirmPassword){
+                    res.writeHead(400, {'Content-Type': 'application/json'});
+                    res.end(JSON.stringify({error: 'Passwords do not match'}));
+                    return;
+                }
+
+                // Check if the username is valid
+                const existingUser = await userRepository.getUser(userData.username);
+
+                if (existingUser) {
+                    res.writeHead(401, {'Content-Type': 'application/json'});
+                    res.end(JSON.stringify({error: 'User already exists'}));
+                    return;
+                }
+                if (userData.adminCode !== 'carti123'){
+                    res.writeHead(401, {'Content-Type': 'application/json'});
+                    res.end(JSON.stringify({error: 'The code you have entered is incorrect'}));
+                    return;
+                }
+
+                const hashedPassword = new AuthenticationModel(userData.password);
+                const createUserData = {username: userData.username, passwordHash: hashedPassword.password, salt: hashedPassword.salt, isAdmin: true};
                 await userRepository.addUser(createUserData);
                 res.writeHead(201, {'Content-Type': 'application/json'});
                 res.end(JSON.stringify({success: 'Account created successfully'}));
@@ -212,6 +273,7 @@ function setSecureCookie(res, accessToken, refreshToken) {
     res.end('Authentication successful');
 }
 const logout = async (req, res) => {
+    console.log('logout');
     try {
         const {url, headers} = req;
         const cookies = cookie.parse(headers.cookie || '');
@@ -221,6 +283,7 @@ const logout = async (req, res) => {
 
         if (accessToken == null) {
             res.writeHead(500, {'Content-Type': 'application/json'});
+            console.log('nu e logat');
             res.end(JSON.stringify({error: 'Internal Server Error'}));
             return;
         }
@@ -249,5 +312,6 @@ module.exports = {
     login,
     token,
     logout,
-    signup
+    signup,
+    adminsignup
 }
