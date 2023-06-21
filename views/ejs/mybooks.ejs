@@ -130,7 +130,7 @@
                         <tr>
                             <td><img src="<%= book.coverimg %>" alt="Book cover"></td>
                             <td><a  href="javascript:void(0);" onclick="navigateToBook('<%= book.title %>')" class = "link"><%= book.title %></a></td>
-                            <td><a href ="javascript:void(0);" class="link"><%= book.author %></a> </td>
+                            <td><a href ="javascript:void(0);" onclick="navigateToAuthor('<%= book.author %>')"class="link"><%= book.author %></a> </td>
                             <td><%= book.avgrating %></td>
                             <td>
                                 <div class="preset-rating">

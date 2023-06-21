@@ -13,7 +13,7 @@ function authenticateToken(req, res, next, ...args) {
     jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
         if (err) {
             if(err.name === "TokenExpiredError")
-                  return res.writeHead(403, {'Content-Type': 'text/html'}).end("<h1>Expired</h1>");
+                return res.writeHead(403, {'Content-Type': 'text/html'}).end("<h1>Expired</h1>");
             return res.writeHead(403, {'Content-Type': 'text/html'}).end("<h1>Forbidden</h1>");
         }
         req.user = user;

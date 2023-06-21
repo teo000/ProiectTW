@@ -21,11 +21,11 @@ const routeRequest = async (req, res) => {
 const handleGetRequests = (req, res) => {
 
     if (req.url === '/books/getAll') {
-        authenticateToken(req, res, getAllBooks)
+        getAllBooks(req,res);
     } else if (req.url.startsWith('/books/genres/top')) {
         const genre = req.url.split('/')[4].toLowerCase();
         const decodedGenre = decodeURIComponent(genre);
-        getTopBooksInGenre(req, res, decodedGenre);
+        getTopBooksInGenre(req,res,decodedGenre);
     } else if (req.url.startsWith('/books/genres?')) {
         const queryString = req.url.split('?')[1];
         const params = new URLSearchParams(queryString);
@@ -33,7 +33,7 @@ const handleGetRequests = (req, res) => {
         const pageSize = params.get('pageSize');
         const pageNumber = params.get('pageNumber');
         // /books/genres?genre=ceva&pageSize=20&pageNumber=2
-        getGenre(req, res, genre, pageSize, pageNumber);
+        getGenre(req,res,genre,pageSize,pageNumber);
     } else if(req.url.startsWith('/books/genres/count')){
         const queryString = req.url.split('?')[1];
         const params = new URLSearchParams(queryString);
@@ -41,7 +41,7 @@ const handleGetRequests = (req, res) => {
         getGenreCount(req,res,genre);
     } else if (req.url.match(bookIdRegex)) {
         const id = req.url.split('/')[2];
-        authenticateToken(req, res, getBookByID, id)
+        getBookByID(req,res,id);
     } else if (req.url.startsWith( '/books/getBook') ){
        getBookByTitle(req,res);
     } else if (req.url.startsWith('/books/mybooks/')){
@@ -79,12 +79,12 @@ const handlePostRequests = (req, res) => {
     if (req.url === '/books')
         addBook(req, res);
     else if (req.url.startsWith('/books/review/generic'))
-        addGenericReview(req,res);
+        authenticateToken(req,res,addGenericReview);
     else if(req.url.startsWith('/books/review')){
-        addReview(req,res);
+        authenticateToken(req,res,addReview);
     }
     else if (req.url.startsWith('/books/shelf')){
-        addBookToShelf(req,res);
+       authenticateToken(req,res,addBookToShelf);
     }
 
     else {
@@ -99,7 +99,7 @@ const handlePutRequests = (req, res) => {
 }
 const handleDeleteRequests = (req, res) => {
     if (req.url.startsWith('/books/shelf')) {
-        removeBookFromShelf(req,res);
+        authenticateToken(req,res,removeBookFromShelf);
     }
     else {
         res.writeHead(404, {'Content-Type': 'application/json'});

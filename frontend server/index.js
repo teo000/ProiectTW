@@ -5,7 +5,6 @@ const ejs = require('ejs')
 const bookPromises = require('./promises/BooksPromises')
 const PORT = 8081;
 
-const PageController = require("./controller/PageController")
 const {authenticateToken, extractUser} = require("../helpers/TokenAuthenticator");
 const {createServer} = require("https");
 const {parse} = require("querystring");
@@ -780,26 +779,32 @@ const server = http.createServer((req, res) => {
         const genre = params.get('genre');
         const pageSize = params.get('pageSize');
         const pageNumber = params.get('pageNumber');
-        customReadGenresEjs(req, res, `../views/ejs/genres.ejs`, genre, pageSize, pageNumber);
+        res.setHeader('Cache-Control', 'max-age=31536000')
+        authenticateToken(req,res,customReadGenresEjs,`../views/ejs/genres.ejs`, genre, pageSize, pageNumber);
         //   authenticateToken(req, res, customReadEjsFile,`../views/ejs/genres.ejs`,genre);
     } else if (url.startsWith('/books/getBook/') && url.indexOf(".") === -1) {
         const title = url.split('/')[3].toLowerCase();
+        res.setHeader('Cache-Control', 'max-age=31536000')
+
         authenticateToken(req, res, customReadBooksEjs, `../views/ejs/bookpage.ejs`, title);
     } else if (url.startsWith('/profile') && url.indexOf(".") === -1) {
-        customReadUserEjs(req, res, `../views/ejs/profile.ejs`);
+        res.setHeader('Cache-Control', 'max-age=31536000')
+
+        authenticateToken(req,res,customReadUserEjs`../views/ejs/profile.ejs`);
     } else if (req.url.startsWith('/books/criteria?')) {
-        customReadBooksByCriteriaEjs(req, res, '../views/ejs/booksByCriteria.ejs');
+        authenticateToken(req,res,customReadBooksByCriteriaEjs,'../views/ejs/booksByCriteria.ejs');
     } else if (url.startsWith('/groups/mygroups') && url.indexOf(".") === -1) {
-        customReadMyGroupsEjs(req, res, '../views/ejs/mygroups.ejs');
+        authenticateToken(req,res,customReadMyGroupsEjs,'../views/ejs/mygroups.ejs');
     } else if (url.startsWith('/groups/group/') && url.indexOf(".") === -1) {
         const group = url.split('/')[3].toLowerCase();
-        customReadGroupEjs(req, res, `../views/ejs/grouppage.ejs`, group);
+        authenticateToken(req,res,customReadGroupEjs,`../views/ejs/grouppage.ejs`, group);
     } else if (url.startsWith('/books/mybooks/') && url.indexOf(".") === -1) {
-        customReadUserBooksEjs(req, res, `../views/ejs/mybooks.ejs`);
+        authenticateToken(req,res,customReadUserBooksEjs,`../views/ejs/mybooks.ejs`);
     } else if (url === '/homepage') {
-        customReadHomepageEjs(req, res, `../views/ejs/homepage.ejs`);
+        res.setHeader('Cache-Control', 'max-age=31536000')
+        authenticateToken(req,res,customReadHomepageEjs, `../views/ejs/homepage.ejs`);
     } else if (url.startsWith('/statistics') && url.indexOf('.')==-1) {
-        customReadStatisticsEjs(req, res, `../views/ejs/statistics.ejs`);
+       authenticateToken(req,res, customReadStatisticsEjs,`../views/ejs/statistics.ejs`);
     } else if (url.indexOf(".") === -1) {
         //its an html request{
         //check if it is login
@@ -813,7 +818,7 @@ const server = http.createServer((req, res) => {
             // customReadFile(req, res, getFileUrl(url));
             return;
         }
-
+        //pt login si signup nu cer token
         res.setHeader('Cache-Control', 'max-age=31536000')
         res.writeHead(200, {"Content-Type": "text/html"});
         customReadFile(req, res, getFileUrl(url));
