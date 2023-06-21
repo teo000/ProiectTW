@@ -101,12 +101,31 @@
     <div id="content-div">
 
         <div id="feed-div">
-            <p class = "chart-name">Most Rated Books</p>
-            <canvas id="mostRatedBooks" class = "chart"></canvas>
-            <div class="buttons-div">
-                <button class="export-button"  id = "most-rated-doc" >Export to DocBook</button>
-                <button class="export-button" id = "most-rated-csv">Export to CSV</button>
+            <div class="chart-div">
+                <p class="chart-name">Most Rated Books</p>
+                <canvas id="mostRatedBooks" class="chart"></canvas>
+                <div class="buttons-div">
+                    <button class="export-button" id="most-rated-doc">Export to DocBook</button>
+                    <button class="export-button" id="most-rated-csv">Export to CSV</button>
+                </div>
             </div>
+            <div class="chart-div">
+                <p class="chart-name">Highest Rated Books</p>
+                <canvas id="highestRatedBooks" class="chart"></canvas>
+                <div class="buttons-div">
+                    <button class="export-button" id="highest-rated-doc">Export to DocBook</button>
+                    <button class="export-button" id="highest-rated-csv">Export to CSV</button>
+                </div>
+            </div>
+            <div class="chart-div">
+                <p class="chart-name">User who gave the most reviews</p>
+                <canvas id="usersMostReviews" class="chart"></canvas>
+                <div class="buttons-div">
+                    <button class="export-button" id="most-user-reviews-doc">Export to DocBook</button>
+                    <button class="export-button" id="most-user-reviews-csv">Export to CSV</button>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
@@ -116,8 +135,11 @@
 </footer>
 </div>
 <script>
-    const ctx = document.getElementById('mostRatedBooks').getContext('2d');
-    const data = {
+    const firstChart = document.getElementById('mostRatedBooks').getContext('2d');
+    const secondChart = document.getElementById('highestRatedBooks').getContext('2d');
+    const thirdChart = document.getElementById('usersMostReviews').getContext('2d');
+
+    const dataForMostRatedBooks = {
         labels: [<%- mostRatedBooks.map(book => `'${book.title}'`).join(',') %>],
         datasets: [{
             label: 'Likes',
@@ -128,6 +150,29 @@
         }]
     };
 
+    const dataForHighestRatedBooks = {
+        labels: [<%- highestRatedBooks.map(book => `'${book.title}'`).join(',') %>],
+        datasets: [{
+            label: 'Likes',
+            data: [<%- highestRatedBooks.map(book => book.rating).join(',') %>],
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+        }]
+    };
+    const dataForUsersMostReviews = {
+        labels: [<%- usersMostReviews.map(user => `'${user.username}'`).join(',') %>],
+        datasets: [{
+            label: 'Likes',
+            data: [<%- usersMostReviews.map(user => user.reviewsCount).join(',') %>],
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+        }]
+    };
+
+
+
     const options = {
         responsive: true,
         scales: {
@@ -137,9 +182,19 @@
         }
     };
 
-    new Chart(ctx, {
+    new Chart(firstChart, {
         type: 'bar',
-        data: data,
+        data: dataForMostRatedBooks,
+        options: options
+    });
+    new Chart(secondChart, {
+        type: 'bar',
+        data: dataForHighestRatedBooks,
+        options: options
+    });
+    new Chart(thirdChart, {
+        type: 'bar',
+        data: dataForUsersMostReviews,
         options: options
     });
 </script>
@@ -147,7 +202,7 @@
 <script>
     navigateToSearch();
 </script>
-<script src="bundle.js" type = "module"></script>
+<script src="bundle.js" type="module"></script>
 
 </body>
 </html>

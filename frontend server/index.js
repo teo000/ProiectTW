@@ -699,7 +699,7 @@ const customReadStatisticsEjs = async (req, res, filepath) => {
         }
 
         const cookies = req.headers.cookie || '';
-        const mostRatedBooksPromise = new Promise((resolve, reject) => {
+        const statisticsPromise = new Promise((resolve, reject) => {
             const options = {
                 hostname: 'localhost',
                 port: 6969,
@@ -724,9 +724,9 @@ const customReadStatisticsEjs = async (req, res, filepath) => {
         });
 
         try {
-            const [mostRatedBooksData] = await Promise.all([mostRatedBooksPromise]);
+            const [statisticsData] = await Promise.all([statisticsPromise]);
 
-            const renderedEjs = ejs.render(template, {mostRatedBooks: mostRatedBooksData});
+            const renderedEjs = ejs.render(template, {mostRatedBooks: statisticsData.mostRatings, highestRatedBooks : statisticsData.highestRatings, usersMostReviews : statisticsData.mostReviewsGiven});
             res.writeHead(200, {"Content-Type": "text/html"});
             res.end(renderedEjs);
         } catch (error) {

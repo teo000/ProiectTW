@@ -27,7 +27,7 @@ const getBooksWithHighestRatings  = ()=>{
 
 const getUsersWhoGaveMostReviews = ()=>{
     return new Promise((resolve, reject) => {
-        databaseConnection.pool.query(`select username, userid, count(*)
+        databaseConnection.pool.query(`select username, userid, count(*) as "reviewsCount"
                                        from users
                                                 join reviews r on users.id = r.userid
                                        group by userid, username

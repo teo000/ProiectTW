@@ -3,15 +3,15 @@ const {getUsersWhoGaveMostReviews} = require("../repositories/StatisticsReposito
 async function getStatistics(req, res) {
     try {
         const booksWithMostRatings = await getBooksWithMostRatingsStatistic();
-        //const booksWithHighestRatings =await  getBooksWithHighestRatings()
-        //const usersWhoGaveMostReviews = await getUsersWhoGaveMostReviews();
+        const booksWithHighestRatings =await  getBooksWithHighestRatings()
+        const usersWhoGaveMostReviews = await getUsersWhoGaveMostReviews();
+        const allStatistics = {
+            mostRatings: booksWithMostRatings,
+            highestRatings: booksWithHighestRatings,
+            mostReviewsGiven: usersWhoGaveMostReviews
+        }
         res.writeHead(200, {'Content-Type': 'application/json'});
-        res.end(JSON.stringify(booksWithMostRatings));
-        // return {
-        //     mostRatings: booksWithMostRatings,
-        //     highestRatings: booksWithHighestRatings,
-        //     mostReviewsGive: usersWhoGaveMostReviews
-        // };
+        res.end(JSON.stringify(allStatistics));
     } catch (error) {
         console.log(error);
         // res.writeHead(500, {'Content-Type': 'application/json'});

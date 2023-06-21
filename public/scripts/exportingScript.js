@@ -1,7 +1,8 @@
 import xmlbuilder from "xmlbuilder";
 
 function exportToCSV(id) {
-    const chartCanvas = document.getElementById('mostRatedBooks');
+    console.log("aici")
+    const chartCanvas = document.getElementById(id);
     const chart = Chart.getChart(chartCanvas);
     if (chart) {
         const labels = chart.data.labels || [];
@@ -19,7 +20,7 @@ function exportToCSV(id) {
 function generateCSVContent(labels, datasets) {
     let csvContent = '';
 
-    const header = ['Title', ...datasets.map(dataset => dataset.label)];
+    const header = ['Label', ...datasets.map(dataset => dataset.label)];
     csvContent += header.join(',') + '\n';
 
     for (let i = 0; i < labels.length; i++) {
@@ -77,12 +78,28 @@ function generateDocBookContent(labels, datasets){
 
 
 document.addEventListener('DOMContentLoaded', function() {
-    const exportCsvButton = document.getElementById('most-rated-csv');
-    const exportDocBookButton = document.getElementById('most-rated-doc');
-    exportCsvButton.addEventListener('click', function () {
+    const exportCsvButtonMostRatings = document.getElementById('most-rated-csv');
+    const exportCsvButtonHighestRating = document.getElementById('highest-rated-csv');
+    const exportCsvButtonMostUserReviews = document.getElementById('most-user-reviews-csv');
+    const exportDocBookButtonMostRatings = document.getElementById('most-rated-doc');
+    const exportDocBookButtonHighestRating = document.getElementById('highest-rated-doc');
+    const exportDocBookButtonMostUserReviews = document.getElementById('most-user-reviews-doc');
+    exportCsvButtonMostRatings.addEventListener('click', function () {
         exportToCSV('mostRatedBooks')
     });
-    exportDocBookButton.addEventListener('click', function () {
+    exportDocBookButtonMostRatings.addEventListener('click', function () {
         exportToDocBook('mostRatedBooks')
+    });
+    exportCsvButtonHighestRating.addEventListener('click', function () {
+        exportToCSV('highestRatedBooks')
+    });
+    exportDocBookButtonHighestRating.addEventListener('click', function () {
+        exportToDocBook('highestRatedBooks')
+    });
+    exportCsvButtonMostUserReviews.addEventListener('click', function () {
+        exportToCSV('usersMostReviews')
+    });
+    exportDocBookButtonMostUserReviews.addEventListener('click', function () {
+        exportToDocBook('usersMostReviews')
     });
 });
