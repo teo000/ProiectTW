@@ -49,7 +49,7 @@ const mainServer = http.createServer(
             console.log(`main server`);
         } else if(req.url.startsWith('/statistics')){
             statisticsRouter.handleRequests(req, res);
-        } else if (url.startsWith('/login') || url.startsWith('/logout') || url.startsWith('/token') || url.startsWith('/signup') || url.startsWith('/adminsignup') || url.startsWth('/adminlogin')) {
+        } else if (url.startsWith('/login') || url.startsWith('/logout') || url.startsWith('/token') || url.startsWith('/signup') || url.startsWith('/adminsignup') || url.startsWith('/adminlogin')) {
             handleAuthentication(req, res);
         } else {
             res.writeHead(404, {'Content-Type': 'application/json'});

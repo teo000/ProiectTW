@@ -50,10 +50,14 @@ const handleGetRequests = (req, res) => {
     else if(req.url==='/books/reviews/all'){
         getAllReviews(res,res);
     }
-    else if (req.url.startsWith('/books/reviews/user')){
+    else if (req.url.startsWith('/books/reviews/userid=')){
         const userURI = req.url.split('/')[3];
         const userId = userURI.split('=')[1];
         getReviewsMadeByUser(req,res, userId);
+    } else if (req.url.startsWith('/books/reviews/username=')){
+        const userURI = req.url.split('/')[3];
+        const username = userURI.split('=')[1];
+        getReviewsByUsername(req,res, username);
     }
     else if (req.url.startsWith('/books/reviews/'))
         getBookReviews(req,res);
@@ -68,6 +72,10 @@ const handleGetRequests = (req, res) => {
         const id = data[3];
         const limit = data[4];
         getRelatedBooks(req,res,id,limit);
+    }
+    else if (req.url.startsWith('/books/recommendations/')){
+        const id=  req.url.split('/')[3];
+        getBookRecommendations(req,res,id);
     }
     else {
         res.writeHead(404, {'Content-Type': 'application/json'});
@@ -100,7 +108,12 @@ const handlePutRequests = (req, res) => {
 const handleDeleteRequests = (req, res) => {
     if (req.url.startsWith('/books/shelf')) {
         authenticateToken(req,res,removeBookFromShelf);
+    }else if (req.url.startsWith('/books/reviews/')){
+        const reviewId = req.url.split('/')[3].toLowerCase();
+        const decodedReviewId = decodeURIComponent(reviewId);
+        deleteReview(req, res, decodedReviewId)
     }
+
     else {
         res.writeHead(404, {'Content-Type': 'application/json'});
         res.end(JSON.stringify({error: 'Endpoint not found'}));

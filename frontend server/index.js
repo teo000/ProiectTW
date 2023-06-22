@@ -1036,7 +1036,7 @@ const server = http.createServer((req, res) => {
         else if (url.indexOf("login") === -1 && url.indexOf("signup") === -1)
             authenticateTokenForAdmin(req, res, customReadFile, getFileUrl(url));
         else {
-            res.setHeader('Cache-Control', 'max-age=31536000')
+            //res.setHeader('Cache-Control', 'max-age=31536000')
             res.writeHead(200, {"Content-Type": "text/html"});
             customReadFile(req, res, getFileUrl(url));
         }
@@ -1052,13 +1052,13 @@ const server = http.createServer((req, res) => {
         //   authenticateToken(req, res, customReadEjsFile,`../views/ejs/genres.ejs`,genre);
     } else if (url.startsWith('/books/getBook/') && url.indexOf(".") === -1) {
         const title = url.split('/')[3].toLowerCase();
-        res.setHeader('Cache-Control', 'max-age=31536000')
+       // res.setHeader('Cache-Control', 'max-age=31536000')
 
         authenticateToken(req, res, customReadBooksEjs, `../views/ejs/bookpage.ejs`, title);
     } else if (url.startsWith('/profile') && url.indexOf(".") === -1) {
-        res.setHeader('Cache-Control', 'max-age=31536000')
+       // res.setHeader('Cache-Control', 'max-age=31536000')
 
-        authenticateToken(req,res,customReadUserEjs`../views/ejs/profile.ejs`);
+        authenticateToken(req,res,customReadUserEjs,`../views/ejs/profile.ejs`);
     } else if (req.url.startsWith('/books/criteria?')) {
         authenticateToken(req,res,customReadBooksByCriteriaEjs,'../views/ejs/booksByCriteria.ejs');
     } else if (url.startsWith('/groups/mygroups') && url.indexOf(".") === -1) {
