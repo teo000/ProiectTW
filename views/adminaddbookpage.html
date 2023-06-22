@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
-    <link rel="stylesheet" href="../public/css/adminuserspage.css">
+    <link rel="stylesheet" href="../public/css/adminaddbookpage.css">
+    <link rel="stylesheet" href="../public/css/navigation.css">
+
     <title>Boo!</title>
 </head>
 <body>
-
 <div id="wrapper-div">
-
     <div id="navigation-div">
         <nav>
             <div id="toggle-menu">
@@ -95,44 +95,65 @@
             </div>
         </nav>
     </div>
+
     <div id="content-wrapper">
         <div id="content">
-            <div id="users">
-                <table class="styled-table">
-                    <thead>
-                    <tr>
-                        <th colspan="3">Users</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <% users.forEach(function(user) { %>
-                    <tr >
-                        <td class="username"><%=user.username%></td>
-                        <td>
-                            <a href="javascript:void(0);" onclick="navigateToAdminUserProfile('<%=user.username%>')" class="profile-link">
-                                see more</a>
-                        </td>
-                        <td><button class="serious-button">Remove user</button></td>
-                    </tr>
-                    <%})%>
-                    </tbody>
-                </table>
-            </div>
-            <div id="actions-wrapper">
-                <div class="action-box">
-                    <h1>Search for a user</h1>
-                    <p>If a user is not following our community guidelines you can search for and remove them here</p>
-                    <input type="text" placeholder="Enter a username...">
-                    <button type="button">Enter</button>
+            <h1>Add book</h1>
+            <hr>
+            <form id="addBookForm">
+                <div class="input-class">
+                    <label>
+                    <input type="text" id = "title" placeholder="Title">
+                    </label>
                 </div>
-            </div>
+                <div class="input-class">
+                    <label>
+                        <input type="text" id = "author" placeholder="Author">
+                    </label>
+                </div>
+<!--                genres-->
+
+                <div class="input-class">
+                    <label>
+                        <textarea id="description" placeholder="Description"></textarea>
+                    </label>
+                </div>
+                <div class="input-class">
+                    <label>
+                        <input type="text" id = "edition" placeholder="Edition">
+                    </label>
+                </div>
+                <div class="input-class">
+                    <label>
+                        <input type="text" id = "publisher" placeholder="Publisher">
+                    </label>
+                </div>
+                <div class="input-class">
+                    <label>
+                        <input type="number" id = "year" placeholder="Year">
+                    </label>
+                </div>
+                <div class="input-class">
+                    <label>
+                        <input type="text" id = "genres" placeholder="Genre 1, Genre 2, ...">
+                    </label>
+                </div>
+                <div class="input-class">
+                    <label>
+                        <input type="text" id = "coverimg" placeholder="Cover image">
+                    </label>
+                </div>
+                <button type = "submit" id="addBook"> Submit </button>
+            </form>
         </div>
     </div>
+
+    <footer id = "main-footer">
+        <p>&copy; Proiect realizat de Savin Miruna si Tudurache Teodora, 2023, Tehnologii Web</p>
+    </footer>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src = "comments_and_likes.js"></script>
 <script src ="navigationLinks.js"></script>
-<script src ="adminuserspage.js"></script>
-
+<script src ="adminaddbookpage.js"></script>
 </body>
 </html>

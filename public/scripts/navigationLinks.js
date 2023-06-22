@@ -47,6 +47,7 @@ function navigateToBook (title){
     console.log(title);
     console.log(encodedTitle)
     window.location.href = `http://localhost:8081/books/getBook/${encodedTitle}`;
+    window.reload();
 }
 function navigateToBookAdmin (title){
     const encodedTitle = encodeURIComponent(title);
