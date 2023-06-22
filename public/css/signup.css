@@ -33,6 +33,8 @@
     align-items: center;
     font-size: 50px;
     margin-bottom: 50px;
+    margin-top: auto;
+
 }
 
 .container .div-form form{
@@ -159,6 +161,19 @@ form .span-register a{
 form .span-register:hover a{
     color: #b92639;
 }
+
+.link-admin{
+    color: lightpink;
+    margin-top: auto;
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 5px;
+
+}
+.link-admin:hover{
+    color: #b92639;
+}
+
 
 .final-stuff{
     display: flex;

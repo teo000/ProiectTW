@@ -1,4 +1,4 @@
-const {getMyGroups, getGroup, joinGroupByInviteCode, createGroup, setCurrentBook, getGroupMembers} = require("../controllers/GroupController");
+const {getMyGroups, getGroup, joinGroupByInviteCode, createGroup, setCurrentBook, getGroupMembers, getAllGroups, deleteGroup} = require("../controllers/GroupController");
 const {getTopBooksInGenre} = require("../controllers/BookController");
 
 const routeRequest = async (req, res) => {
@@ -32,6 +32,9 @@ const handleGetRequests = (req, res) => {
         getGroupMembers(req, res, decodedGroup);
         console.log('gasit membri');
     }
+    else if(req.url==='/groups/allgroups') {
+        getAllGroups(req, res);
+    }
     else {
         res.writeHead(404, {'Content-Type': 'application/json'});
         res.end(JSON.stringify({error: 'Endpoint not found'}));
@@ -62,7 +65,11 @@ const handlePutRequests = (req, res) => {
 
 }
 const handleDeleteRequests = (req, res) => {
-
+    if(req.url .startsWith('/groups/group/')){
+        const groupId = req.url.split('/')[3].toLowerCase();
+        const decodedGroupId = decodeURIComponent(groupId);
+        deleteGroup(req, res, decodedGroupId);
+    }
 }
 
 module.exports = {

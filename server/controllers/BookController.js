@@ -105,6 +105,7 @@ const addBook = async (req, res) => {
                     res.end(JSON.stringify({error: 'Book title and author are required'}));
                     return;
                 }
+                console.log(bookData)
                 const {
                     title,
                     author,
@@ -117,7 +118,7 @@ const addBook = async (req, res) => {
                     coverImg,
                     genres
                 } = bookData;
-
+                console.log(genres);
                 //check if all the provided genres exist in the database
                 for (const genre of genres) {
                     const foundGenre = genreRepository.getGenre([genre]);

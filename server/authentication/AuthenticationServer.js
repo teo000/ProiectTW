@@ -13,7 +13,9 @@ const authServer = http.createServer((req,res)=>{
         AuthenticationController.logout(req,res);
     } else if (req.url.startsWith('/signup')){
         AuthenticationController.signup(req,res);
-    }
+    } else if (req.url === '/adminsignup')
+        AuthenticationController.adminsignup(req,res);
+
 });
 
 
