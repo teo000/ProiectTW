@@ -2,6 +2,7 @@ const groupRepository = require('../repositories/GroupRepository');
 const jwt = require('jsonwebtoken');
 const {parse} = require("cookie");
 const {getBookByName} = require("../repositories/BookRepository");
+const userRepository = require("../repositories/UserRepository");
 
 function getStringJson(text){
     var json = {}, text = text.split("&");
@@ -22,6 +23,19 @@ const getMyGroups = async (req, res) =>{
     console.log(username);
     try {
         const groups = await groupRepository.getMyGroups(userId);
+        console.log(groups);
+        res.writeHead(200, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify(groups));
+    } catch (error) {
+        res.writeHead(500, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify({error: 'Internal Server Error'}));
+    }
+}
+
+const getAllGroups = async (req, res) =>{
+    console.log("group controller");
+    try {
+        const groups = await groupRepository.getAllGroups();
         console.log(groups);
         res.writeHead(200, {'Content-Type': 'application/json'});
         res.end(JSON.stringify(groups));
@@ -183,6 +197,18 @@ const getGroupMembers = async (req, res, groupName) =>{
         res.end(JSON.stringify({error: 'Internal Server Error'}));
     }
 }
+const deleteGroup= async(req,res,groupId) =>{
+    try{
+        const user = await groupRepository.deleteGroup(groupId);
+        res.writeHead(200, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify(user));
+    }
+    catch (error){
+        console.log(error);
+        res.writeHead(500, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify({error: 'Internal Server Error'}));
+    }
+}
 
 
 module.exports = {
@@ -191,5 +217,7 @@ module.exports = {
     joinGroupByInviteCode,
     createGroup,
     setCurrentBook,
-    getGroupMembers
+    getGroupMembers,
+    getAllGroups,
+    deleteGroup
 }

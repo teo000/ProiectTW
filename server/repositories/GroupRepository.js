@@ -3,10 +3,6 @@ const {getUser} = require("./UserRepository");
 
 const getMyGroups = async(userId) => {
     console.log("groupRepository: getMyGroups");
-
-    // const user = await getUser(username);
-    // console.log(user);
-
     return new Promise((resolve, reject) => {
         databaseConnection.pool.query('SELECT g.id, g.name, g.creator_id, g.book_id, g.invite_code, (g.creator_id = $1)::boolean AS is_owner , b.title, b.author, b.description, b.rating, b.coverimg FROM groups g LEFT JOIN group_members gm on g.id = gm.group_id LEFT JOIN books b on g.book_id = b.id where gm.member_id = $1;',
             [userId], (error, results) => {
@@ -14,6 +10,25 @@ const getMyGroups = async(userId) => {
                     reject(error);
                 }
                 console.log(userId);
+                if(results.rowCount === 0){
+                    console.log('nu exista');
+                    const groups = null;
+                    resolve(groups);
+                }
+                else {
+                    resolve(results.rows);
+                }
+            });
+    });
+};
+const getAllGroups = async() => {
+    console.log("groupRepository: getAllGroups");
+    return new Promise((resolve, reject) => {
+        databaseConnection.pool.query('SELECT g.id, g.name, g.creator_id, g.book_id, g.invite_code, g.creator_id, b.title, b.author, b.description, b.rating, b.coverimg FROM groups g LEFT JOIN books b on g.book_id = b.id;',
+            [], (error, results) => {
+                if (error) {
+                    reject(error);
+                }
                 if(results.rowCount === 0){
                     console.log('nu exista');
                     const groups = null;
@@ -124,6 +139,20 @@ const getGroupMembersReviews = async(groupId) => {
     });
 };
 
+const deleteGroup = (groupId) => {
+    return new Promise((resolve, reject) => {
+        databaseConnection.pool.query('delete from groups where id=$1 returning  *',
+            [groupId],
+            (error, results) => {
+                if (error) {
+                    reject(error);
+                }
+                resolve(results.rows[0]);
+            });
+    });
+}
+
+
 module.exports = {
     getMyGroups,
     getGroupByName,
@@ -131,5 +160,7 @@ module.exports = {
     getGroupByInviteCode,
     insertGroup,
     setBook,
-    getGroupMembers: getGroupMembersReviews
+    getGroupMembers: getGroupMembersReviews,
+    getAllGroups,
+    deleteGroup
 }
