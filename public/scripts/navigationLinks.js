@@ -89,6 +89,9 @@ console.log(author);
 function navigateToStatistics (){
     window.location.href = `http://localhost:8081/statistics`;
 }
+function navigateToRecommendations(){
+    window.location.href =`http://localhost:8081/recommendations`;
+}
 function logout(){
     //ceva request pt logout
     fetch('http://localhost:6969/logout', {

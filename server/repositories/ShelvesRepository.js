@@ -60,7 +60,7 @@ const deleteBookFromShelf = (data) => {
 const getUserBooks = (id, shelf) => {
     if (shelf === 'all')
         return new Promise((resolve, reject) => {
-            databaseConnection.pool.query('select users.username, b.coverimg,b.title,b.author, b.rating as avgrating,ub.rating, ub.shelf from users join user_books ub on users.id = ub.userid join books b on ub.bookid = b.id where users.id = $1',
+            databaseConnection.pool.query('select users.username,b.id, b.coverimg,b.title,b.author, b.rating as avgrating,ub.rating, ub.shelf from users join user_books ub on users.id = ub.userid join books b on ub.bookid = b.id where users.id = $1',
                 [id],
                 (error, results) => {
                     if (error) {

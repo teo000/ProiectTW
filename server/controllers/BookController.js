@@ -6,6 +6,8 @@ const {authenticateToken} = require('../authentication/AuthenticationController'
 const {parse} = require("url");
 const {getUserFromCookie} = require("../../helpers/TokenAuthenticator");
 const topController = require('../controllers/TopController')
+const {getUserBooks} = require("./ShelvesController");
+const shelvesRepository = require("../repositories/ShelvesRepository");
 
 //@route GET books/getAll
 const getAllBooks = async (req, res) => {
@@ -276,7 +278,31 @@ const getBooksByCriteria = async (req, res) => {
         console.log(error);
     }
 }
+ const getBookRecommendations = async (req,res,userId) => {
+    //foreach book in the user's shelf, get related books
+     try{
+         //get books in user's shelf
+         const booksInUserShelf =  await shelvesRepository.getUserBooks(userId,'all');
 
+         //foreach book, get the books recommendations
+         const recommendations = new Set();
+         for (const book of booksInUserShelf) {
+             const bookRecommendations = await bookRepository.getRelatedBooks(book.id,100,true);
+             bookRecommendations.forEach((rec) =>{
+                recommendations.add(rec);
+            })
+         }
+         if(recommendations.count === 0){
+             res.writeHead(404, {'Content-Type': 'application/json'});
+             res.end(JSON.stringify({error: 'Books not found!'}));
+             return;
+         }
+         res.writeHead(200, {'Content-Type': 'application/json'});
+         res.end(JSON.stringify([...recommendations]));
+     } catch(error){
+         console.log(error);
+     }
+ }
 const getRelatedBooks = async(req,res,id,limit) => {
     try {
         const books = await bookRepository.getRelatedBooks(Number(id),limit);
@@ -301,5 +327,6 @@ module.exports = {
     getTopBooksInGenre,
     getGenreCount,
     getBooksByCriteria,
-    getRelatedBooks
+    getRelatedBooks,
+    getBookRecommendations
 }

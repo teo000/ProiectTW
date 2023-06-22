@@ -22,7 +22,7 @@ const login = async (req, res) => {
                 const userData = JSON.parse(body);
 
                 // Validate the required fields (username, password)
-                if (!userData.username || !userData.password) {
+                if (!userData.username || !userData.password ) {
                     res.writeHead(400, {'Content-Type': 'application/json'});
                     res.end(JSON.stringify({error: 'Username and password are required'}));
                     return;

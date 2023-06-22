@@ -584,6 +584,82 @@ const customReadUserBooksEjs = async (req, res, file_path) => {
     }
 }
 
+const customReadBookRecommendations = async (req, res, file_path) => {
+    if (fs.existsSync(file_path)) {
+        const template = fs.readFileSync(file_path, "utf8");
+        if (!template) {
+            sendErrorResponse(res);
+            return;
+        }
+
+        // Extract cookies from the client's request
+        const cookies = req.headers.cookie ? parse(req.headers.cookie, '; ') : {};
+        if (!cookies.access_token) {
+            res.writeHead(401, {"Content-Type": "text/html"});
+            res.end('<h1>Unauthorized</h1>');
+            return;
+        }
+        let user = null;
+        try {
+            user = extractUser(cookies.access_token);
+        } catch (error) {
+            res.writeHead(403, {"Content-Type": "text/html"});
+            res.end('<h1>Forbidden</h1>');
+            return;
+        }
+
+        if (!user) {
+            res.writeHead(401, {"Content-Type": "text/html"});
+            res.end('<h1>Unauthorized</h1>');
+            return;
+        }
+        const userObj = user.user;
+
+        const cookiesString = JSON.stringify(cookies);
+        const booksPromise = new Promise((resolve, reject) => {
+            const options = {
+                hostname: 'localhost',
+                port: 6969,
+                path: `/books/recommendations/${userObj.ID}`,
+                headers: {
+                    'Cookie': cookiesString // Pass the extracted cookies in the request headers
+                }
+            };
+
+            http.get(options, (response) => {
+                let data = "";
+                response.on("data", (chunk) => {
+                    data += chunk;
+                });
+                response.on('end', () => {
+                    try {
+                        data = JSON.parse(data);
+                    } catch (error) {
+                        data = [];
+                    }
+                    resolve(data);
+                });
+            }).on("error", (error) => {
+                console.log(error);
+                reject(error);
+            });
+        });
+
+        try {
+            // Render the EJS template with the data
+            const [booksData] = await Promise.all([booksPromise]);
+            const renderedEJS = ejs.render(template, {books: booksData});
+
+            res.writeHead(200, {"Content-Type": "text/html"});
+            res.end(renderedEJS);
+        } catch (error) {
+            console.log(error);
+            sendErrorResponse(res);
+        }
+    } else {
+        sendErrorResponse(res);
+    }
+}
 
 const customReadMyGroupsEjs = async (req, res, file_path) => {
     if (fs.existsSync(file_path)) {
@@ -800,8 +876,9 @@ const server = http.createServer((req, res) => {
         authenticateToken(req,res,customReadGroupEjs,`../views/ejs/grouppage.ejs`, group);
     } else if (url.startsWith('/books/mybooks/') && url.indexOf(".") === -1) {
         authenticateToken(req,res,customReadUserBooksEjs,`../views/ejs/mybooks.ejs`);
-    } else if (url === '/homepage') {
-        res.setHeader('Cache-Control', 'max-age=31536000')
+    } else if (url.startsWith('/recommendations') && url.indexOf(".")===-1){
+        authenticateToken(req,res,customReadBookRecommendations,`../views/ejs/recommendations.ejs`);
+    }else if (url === '/homepage') {
         authenticateToken(req,res,customReadHomepageEjs, `../views/ejs/homepage.ejs`);
     } else if (url.startsWith('/statistics') && url.indexOf('.')==-1) {
        authenticateToken(req,res, customReadStatisticsEjs,`../views/ejs/statistics.ejs`);

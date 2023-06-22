@@ -8,12 +8,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <link rel="stylesheet" href="genres.css">
     <link rel="stylesheet" href="navigation.css">
-    <link rel="stylesheet" href="clasament.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
-
+    <style>
+        #no-books-found{
+            color:white;
+            margin-top: 20px;
+            display: flex;
+            align-self: center;
+            font-size: 30px;
+        }
+    </style>
 </head>
 <body>
 <div id="wrapper-div">
@@ -78,7 +85,7 @@
                         <a href="javascript:void(0);" onclick="navigateToGenre('young adult')">Young Adult</a>
                     </div>
                 </div>
-                <a class="active" href="javascript:void(0);" onclick="navigateToMyGroups()">My Groups</a>
+                <a class="active" href="javascript:void(0);" onclick="navigateToGroup('mygroups')">My Groups</a>
                 <div class="dropdown">
                     <button class="dropDownButton">More</button>
                     <div class="dropdown-categories">
@@ -98,67 +105,47 @@
 
     <div id="content-div">
         <div class="row">
-            <div id="clasament-div">
-
-                <h1>Most Liked <%= genre %> Books:</h1>
-                <nav class="linkuri-clasament">
-                    <ol>
-                        <% topBooks.forEach(function(topBook) { %>
-                            <li>
-                                <a href="javascript:void(0);" onclick="navigateToBook('<%= topBook.title %>')"
-                                   class="book-name">
-                                    <%=topBook.title %>
-                                </a>
-                            </li>
-                        <% }) %>
-                    </ol>
-                    <!-- <h3>
-                         Give your books ratings to help us create these rankings!
-                     </h3>-->
-                </nav>
-            </div>
             <div id="feed-div">
                 <div id=template>
-                    <% books.forEach(function(book) { %>
-                        <div class="book-container">
-                            <div class="book-photo">
-                                <img src="<%= book.coverimg %>" alt="book cover">
-                            </div>
-
-                            <div class="post-text">
-                                <div class="book-author-and-title">
-                                    <p class="book-title"><a href="javascript:void(0);"
-                                                             onclick="navigateToBook('<%= book.title %>')"
-                                                             class="book-title-link"><%= book.title %></a></p>
-                                    <p class="book-author"><a href="javascript:void(0);"
-                                                              onclick="navigateToAuthor('<%=book.author%>')"
-                                                              class="book-author-link">by <%= book.author %></a>
-                                    </p>
+                    <% if (books.length === 0) { %>
+                        <p id  ="no-books-found">We can't make you any book recommendations yet :(</p>
+                    <% } else { %>
+                        <% books.forEach(function(book) { %>
+                            <div class="book-container">
+                                <div class="book-photo">
+                                    <img src="<%= book.coverimg %>" alt="book cover">
                                 </div>
-                                <div class="star-rating">
-                                    <div class="preset-rating">
-                                        <div class="empty-stars"></div>
-                                        <div class="full-stars" style="width: <%= book.rating * 20 %>%"></div>
+
+                                <div class="post-text">
+                                    <div class="book-author-and-title">
+                                        <p class="book-title"><a href="javascript:void(0);"
+                                                                 onclick="navigateToBook('<%= book.title %>')"
+                                                                 class="book-title-link"><%= book.title %></a></p>
+                                        <p class="book-author"><a href="javascript:void(0);"
+                                                                  onclick="navigateToAuthor('<%= book.author %>')"
+                                                                  class="book-author-link">by <%= book.author %></a>
+                                        </p>
                                     </div>
-                                    <p>
-                                        <%= book.rating %>
-                                    </p>
-                                </div>
+                                    <div class="star-rating">
+                                        <div class="preset-rating">
+                                            <div class="empty-stars"></div>
+                                            <div class="full-stars" style="width: <%= book.avgrating * 20 %>%"></div>
+                                        </div>
+                                        <p>
+                                            <%= book.rating %>
+                                        </p>
+                                    </div>
 
-                                <div>
-                                    <p class="book-description"><%= book.description %></p>
-                                    <button onclick="readMore(this)" class="more-button">Read More</button>
+                                    <div>
+                                        <p class="book-description"><%= book.description %></p>
+                                        <button onclick="readMore(this)" class="more-button">Read More</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    <% }); %>
+                        <% }); %>
+                    <% } %>
                 </div>
             </div>
-        </div>
-        <div id="pages-div">
-            <% for (let i = 1; i <= totalPages; i++) { %>
-                <button onclick="goToPage(<%= i %>)" <%= i === currentPage ? 'class="page-active"' : '' %>><%= i %></button>
-            <% } %>
         </div>
     </div>
 
