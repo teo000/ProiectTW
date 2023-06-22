@@ -23,7 +23,7 @@ async function changeTop(title) {
                     thirdTitle: books[2].title,
                     thirdAuthor: books[2].author,
                 }
-                rssController.addTopChangeToFeed(data);
+                rssController.addToRss(rssController.addTopChangeToFeed,data);
             }
         }
     } catch (error) {

@@ -64,7 +64,7 @@ const addReview = async (req, res) => {
                     date:data.date,
                     content:data.content
                 }
-                rssController.addReviewToFeed(dataForRss)
+                rssController.addToRss(rssController.addReviewToFeed,dataForRss);
 
                 res.writeHead(201, {'Content-Type': 'application/json'});
                 res.end(JSON.stringify({message: 'Review added successfully', review: addedReview}));

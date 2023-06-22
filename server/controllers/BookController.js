@@ -2,10 +2,12 @@ const bookRepository = require('../repositories/BookRepository')
 const {Book} = require('../models/BookModel')
 const genreRepository = require('../repositories/GenreRepository');
 const bookGenresRepository = require('../repositories/BookGenresRepository');
+const rssController = require('../controllers/RSSController')
 const {authenticateToken} = require('../authentication/AuthenticationController')
 const {parse} = require("url");
 const {getUserFromCookie} = require("../../helpers/TokenAuthenticator");
 const topController = require('../controllers/TopController')
+const {add} = require("nodemon/lib/rules");
 
 //@route GET books/getAll
 const getAllBooks = async (req, res) => {
@@ -143,6 +145,9 @@ const addBook = async (req, res) => {
                     const genreID = foundGenre.id;
                     const addedAssociation = await bookGenresRepository.addAssociation(bookID, genreID);
                 }
+                rssController.addToRss(rssController.addNewBookToFeed,addedBook);
+
+
                 res.writeHead(201, {'Content-Type': 'application/json'});
                 res.end(JSON.stringify({message: 'Book added successfully', book: addedBook}));
 
