@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<rss version="2.0">
+  <channel>
+    <title>Book Reviewer RSS Feed</title>
+    <link>http:/localhost:8081</link>
+    <description>Recently added books, reviews and top book changes</description>
+    <lastBuildDate>Thu, 22 Jun 2023 18:39:25 GMT</lastBuildDate>
+    <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <item>
+      <title>The top for Fantasy books has changed!</title>
+      <description>On the first place : "Maze of Existence" by Tina M. Randolph (Goodreads Author);
+            On the second place : "16 Myths" by Aim Ruivivar (Goodreads Author);
+            On the third place : "Bertie's Book of Spooky Wonders" by Ocelot Emerson</description>
+      <date>2023-06-22</date>
+    </item>
+    <item>
+      <title>The top for Horror books has changed!</title>
+      <description>On the first place : "Demented (Sinister Tales Book 1)" by Anna Gallegos (Goodreads Author);
+            On the second place : "Onyx Webb: Book Six: Episodes 16, 17, 18" by Richard Fenton (Goodreads Author), Andrea Waltz (Goodreads Author);
+            On the third place : "Fighting Out of New Milford, USA" by G.B. Hope (Goodreads Author)</description>
+      <date>2023-06-22</date>
+    </item>
+    <item>
+      <title>The top for Science Fiction books has changed!</title>
+      <description>On the first place : "Kiss Me, I'm Irish" by John Blandly;
+            On the second place : "The Present" by Kenneth Thomas (Goodreads Author);
+            On the third place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author)</description>
+      <date>2023-06-22</date>
+    </item>
+    <item>
+      <title>The top for Young Adult books has changed!</title>
+      <description>On the first place : "Battle for Erthia" by Laurie Forest (Goodreads Author);
+            On the second place : "The Present" by Kenneth Thomas (Goodreads Author);
+            On the third place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author)</description>
+      <date>2023-06-22</date>
+    </item>
+    <item>
+      <title>A new book has been added!</title>
+      <description>"Carte" by gfdhf is available on Boo now!</description>
+      <date>2023-06-22</date>
+    </item>
+  </channel>
+</rss>
