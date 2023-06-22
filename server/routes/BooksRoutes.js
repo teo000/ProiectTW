@@ -91,7 +91,6 @@ const handlePostRequests = (req, res) => {
     else if (req.url.startsWith('/books/shelf')){
        authenticateToken(req,res,addBookToShelf);
     }
-
     else {
         res.writeHead(404, {'Content-Type': 'application/json'});
         res.end(JSON.stringify({error: 'Endpoint not found'}));
