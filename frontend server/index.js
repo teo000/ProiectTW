@@ -1030,7 +1030,6 @@ const server = http.createServer((req, res) => {
         }
         else if (url.startsWith('/admin/profile/')) {
             const username = url.split('/')[3].toLowerCase();
-            console.log(username);
             authenticateTokenForAdmin(req, res, customReadUserForAdminEjs,`../views/ejs/adminuserprofile.ejs`,username);
         }
         else if (url.indexOf("login") === -1 && url.indexOf("signup") === -1)
