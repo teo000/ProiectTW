@@ -236,14 +236,16 @@ document.addEventListener('DOMContentLoaded', function() {
     if(wantButton.classList.contains('active'))
         isWantToRead = true;
         isWantToRead = true;
-
+    console.log("read:" + isRead + "want to read" + isWantToRead + "currently " + isCurrentlyReading)
     var ratingElement = document.getElementById('user-rating');
     var userRating = parseFloat(ratingElement.textContent);
     loadStars(userRating);
+
 });
 
 function loadStars(rating){
     const inputs = Array.from(document.querySelectorAll('#adjustable-rating input'));
+    console.log(rating);
     const reversedInputs = inputs.reverse();
     reversedInputs.forEach((input,index) =>{
         const starInput = reversedInputs[index];
