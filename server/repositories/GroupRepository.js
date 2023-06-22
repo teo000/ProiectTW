@@ -139,6 +139,20 @@ const getGroupMembersReviews = async(groupId) => {
     });
 };
 
+const deleteGroup = (groupId) => {
+    return new Promise((resolve, reject) => {
+        databaseConnection.pool.query('delete from groups where id=$1 returning  *',
+            [groupId],
+            (error, results) => {
+                if (error) {
+                    reject(error);
+                }
+                resolve(results.rows[0]);
+            });
+    });
+}
+
+
 module.exports = {
     getMyGroups,
     getGroupByName,
@@ -147,5 +161,6 @@ module.exports = {
     insertGroup,
     setBook,
     getGroupMembers: getGroupMembersReviews,
-    getAllGroups
+    getAllGroups,
+    deleteGroup
 }

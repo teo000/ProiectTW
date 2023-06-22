@@ -408,9 +408,7 @@ body {
     scrollbar-width: none;
     z-index: 0;
 }
-.reviewId{
-    visibility: hidden;
-}
+
 .user-profile {
     text-align: left;
     display: flex;
@@ -436,7 +434,9 @@ body {
     color: #626262;
     margin: 20px 0;
 }
-
+.reviewId{
+    visibility: hidden;
+}
 .post-header {
     display: flex;
     flex-direction: row;

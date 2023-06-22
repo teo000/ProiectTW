@@ -61,7 +61,7 @@ function navigateToGroup (groupName){
 }
 function navigateToGroupAdmin (groupName){
     const encodedGroup = encodeURIComponent(groupName);
-    window.location.href = `http://localhost:8081/groups/group/${encodedGroup}`;
+    window.location.href = `http://localhost:8081/admin/groups/group/${encodedGroup}`;
 }
 function navigateToMyGroups (){
     window.location.href = `http://localhost:8081/groups/mygroups`;

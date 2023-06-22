@@ -2,6 +2,7 @@ const groupRepository = require('../repositories/GroupRepository');
 const jwt = require('jsonwebtoken');
 const {parse} = require("cookie");
 const {getBookByName} = require("../repositories/BookRepository");
+const userRepository = require("../repositories/UserRepository");
 
 function getStringJson(text){
     var json = {}, text = text.split("&");
@@ -196,6 +197,18 @@ const getGroupMembers = async (req, res, groupName) =>{
         res.end(JSON.stringify({error: 'Internal Server Error'}));
     }
 }
+const deleteGroup= async(req,res,groupId) =>{
+    try{
+        const user = await groupRepository.deleteGroup(groupId);
+        res.writeHead(200, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify(user));
+    }
+    catch (error){
+        console.log(error);
+        res.writeHead(500, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify({error: 'Internal Server Error'}));
+    }
+}
 
 
 module.exports = {
@@ -205,5 +218,6 @@ module.exports = {
     createGroup,
     setCurrentBook,
     getGroupMembers,
-    getAllGroups
+    getAllGroups,
+    deleteGroup
 }

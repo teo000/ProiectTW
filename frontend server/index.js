@@ -609,8 +609,6 @@ const customReadUserBooksEjs = async (req, res, file_path) => {
         sendErrorResponse(res);
     }
 }
-
-
 const customReadMyGroupsEjs = async (req, res, file_path) => {
     if (fs.existsSync(file_path)) {
         const template = fs.readFileSync(file_path, "utf8");
@@ -663,7 +661,6 @@ const customReadMyGroupsEjs = async (req, res, file_path) => {
         }
     }
 }
-
 const customReadAllGroupsEjs = async (req, res, file_path) => {
     if (fs.existsSync(file_path)) {
         const template = fs.readFileSync(file_path, "utf8");
@@ -716,8 +713,6 @@ const customReadAllGroupsEjs = async (req, res, file_path) => {
         }
     }
 }
-
-
 const customReadGroupEjs = async (req, res, filepath, group) => {
     const template = fs.readFileSync(filepath, "utf8");
     if (!template) {
@@ -861,6 +856,10 @@ const server = http.createServer((req, res) => {
             authenticateTokenForAdmin(req, res, customReadHomepageEjs, `../views/ejs/adminhomepage.ejs`);
         else if (url === '/admin/groups/allgroups')
             authenticateTokenForAdmin(req, res, customReadAllGroupsEjs, `../views/ejs/adminallgroupspage.ejs`);
+        else if(url.startsWith('/admin/groups/group/')){
+            const groupName = url.split('/')[4].toLowerCase();
+            authenticateTokenForAdmin(req, res, customReadGroupEjs,`../views/ejs/admingrouppage.ejs`,groupName);
+        }
         else if (url === '/admin/users' )
             authenticateTokenForAdmin(req, res, customReadUsersEjs, `../views/ejs/adminuserspage.ejs`);
         else if (url.startsWith('/admin/books/genres?')){

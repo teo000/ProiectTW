@@ -39,7 +39,7 @@
                                 <a href="javascript:void(0);" onclick="navigateToGenre('young adult')">Young Adult</a>
                             </div>
                         </div>
-                        <a class="active" href="javascript:void(0);" onclick="navigateToAllGroups()">My Groups</a>
+                        <a class="active" href="javascript:void(0);" onclick="navigateToAllGroups()">Groups</a>
                         <div class="hoverable">
 
                             <a class="active" href="#">More</a>
@@ -72,7 +72,7 @@
                         <a href="javascript:void(0);" onclick="navigateToGenre('young adult')">Young Adult</a>
                     </div>
                 </div>
-                <a class="active" href="javascript:void(0);" onclick="navigateToAllGroups()">My Groups</a>
+                <a class="active" href="javascript:void(0);" onclick="navigateToAllGroups()">Groups</a>
                 <div class="dropdown">
                     <button class="dropDownButton">More</button>
                     <div class="dropdown-categories">
@@ -97,7 +97,7 @@
             <%if(groups !== null){%>
                 <% groups.forEach(function(group) { %>
                 <div class="group-summary">
-                    <a href="javascript:void(0);" onclick="navigateToGroup('<%=group.name%>')"> <%=group.name%></a>
+                    <a href="javascript:void(0);" onclick="navigateToGroupAdmin('<%=group.name%>')"> <%=group.name%></a>
 
                     <hr>
                     <%if(group.book_id !== null){%>
@@ -123,7 +123,7 @@
                                 </p>
                             </div>
                         </div>
-                        <a href="grouppage.html" class="group-link">see more</a>
+                        <a href="javascript:void(0);" onclick="navigateToGroupAdmin('<%=group.name%>')" class="group-link">see more</a>
                     </div>
                     <!--chestiuta cu see more dupa rezumatul cartii-->
                     <%}%>
