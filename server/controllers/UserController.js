@@ -7,7 +7,6 @@ var concat = require('concat-stream')
 const jwt = require('jsonwebtoken');
 const {getUserFromCookie} = require("../../helpers/TokenAuthenticator");
 
-function getStringJson(text) {
 const reviewRepository = require("../repositories/ReviewRepository");
 function getStringJson(text){
     var json = {}, text = text.split("&");

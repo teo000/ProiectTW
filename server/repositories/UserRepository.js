@@ -82,7 +82,7 @@ module.exports = {
     getUserById,
     getUser,
     addUser,
-    deleteUserByUsername
+    deleteUserByUsername,
     addUser,
     deleteUser
 }

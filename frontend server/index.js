@@ -5,7 +5,7 @@ const ejs = require('ejs')
 const bookPromises = require('./promises/BooksPromises')
 const PORT = 8081;
 
-const {authenticateToken, extractUser} = require("../helpers/TokenAuthenticator");
+const {authenticateToken, authenticateTokenForAdmin, extractUser} = require("../helpers/TokenAuthenticator");
 const {createServer} = require("https");
 const {parse} = require("querystring");
 

@@ -1,6 +1,4 @@
 const {getAllBooks, getBookByID, getBookByTitle, addBook, getGenre,  getTopBooksInGenre,getBooksByCriteria, getGenreCount,getRelatedBooks} = require("../controllers/BookController");
-const {addReview, addGenericReview, getBookReviews, getAllReviews, getReviewsMadeByUser} =require("../controllers/ReviewController");
-const {getAllBooks, getBookByID, getBookByTitle, addBook, getGenre,  getTopBooksInGenre,getBooksByCriteria, getGenreCount} = require("../controllers/BookController");
 const {addReview, addGenericReview, getBookReviews, getAllReviews, getReviewsMadeByUser, deleteReview, getReviewsByUsername} =require("../controllers/ReviewController");
 const {addBookToShelf, getUserBooks, removeBookFromShelf} =require("../controllers/ShelvesController");
 const bookIdRegex = /^\/books\/[0-9]+$/;
