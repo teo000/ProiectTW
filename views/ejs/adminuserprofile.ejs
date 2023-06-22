@@ -4,16 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../public/css/adminbookpage.css">
-    <link rel="stylesheet" href="../commons/navigation.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" href="profile.css">
     <title>Boo!</title>
 </head>
 
 
 <body>
+
+<!--tb sa pun in meniu asta peste tot lol-->
+<!--sa poti sa scoti comentarii ca admin-->
 
 <div id="wrapper-div">
     <div id="navigation-div">
@@ -94,111 +95,66 @@
             </div>
         </nav>
     </div>
+
     <div id = "content-wrapper">
-        <div id="book-cover-div">
-            <div id = "book-cover">
-                    <img src="../public/images/book-cover.jpg" alt="Book cover">
-            </div>
-
-            <button type="button" id="read-button"> Read </button>
-            <button type="button" id="currently-button"> Currently reading </button>
-            <button type="button" id="want-button"> Want to read </button>
-
-            <div id="adjustable-rating">
-                <input type="radio"  name="stars" id="star-a" value="5"/>
-                <label for="star-a"></label>
-
-                <input type="radio" name="stars" id="star-b" value="4"/>
-                <label for="star-b"></label>
-            
-                <input type="radio" name="stars" id="star-c" value="3"/>
-                <label for="star-c"></label>
-
-                <input type="radio" name="stars" id="star-d" value="2"/>
-                <label for="star-d"></label>
-  
-                <input type="radio" name="stars" id="star-e" value="1"/>
-                <label for="star-e"></label>
-             </div>
-
-            
+        <div id="buttons-container">
+            <button class="button" id="deleteProfile">Delete Profile</button>
+            <p class = "username-hidden"><%=user.username%></p>
         </div>
-
-        <div id="content-div">
-            <div id = "book-description">
-                <p id="title"> 
-                    Pride and prejudice
-                </p>
-
-                <p id="author"> 
-                    Jane Austen
-                </p>
-                
-                <div class="rating-box">
-                    <div class="preset-rating">
-                        <div class="empty-stars"></div>
-                        <div class="full-stars" style="width:85.6%"></div>
+        <div id="content">
+            <div id="top">
+                <img src="ghost.png" alt="profile picture">
+                <div class="user-information">
+                    <div class="information-block">
+                        <p class="category">
+                            Username:
+                        </p>
+                        <p class = "information">
+                            <%=user.username%>
+                        </p>
                     </div>
-                    <p>
-                        4.28
-                    </p>
-                </div>
-                <p id="description"> 
-                    Since its immediate success in 1813, Pride and Prejudice has remained one of the most popular novels in the English language. Jane Austen called this brilliant work "her own darling child" and its vivacious heroine, Elizabeth Bennet, "as delightful a creature as ever appeared in print." The romantic clash between the opinionated Elizabeth and her proud beau, Mr. Darcy, is a splendid performance of civilized sparring. And Jane Austen's radiant wit sparkles as her characters dance a delicate quadrille of flirtation and intrigue, making this book the most superb comedy of manners of Regency England.
-                </p>
-                <div class="genres">
-                    <p class="genre"> Genres: </p>
-                    <div class="genre-tags">
-                        <a href="../HomePage/homepage.html">Classics </a>
-                        <a href="../HomePage/homepage.html">Romance </a>
-                    </div>
+                    <!-- <div class="information-block">
+                         <p class="category">
+                             Preffered genres:
+                         </p>
+                         <p class = "information">
+                             Classics, Crime, Fiction
+                         </p>
+                     </div>-->
+
                 </div>
             </div>
 
-            <hr>
-            
-            <p class="sub-title"> Readers also enjoyed...</p>
-            <div class="other-books">
-                <div class="book">
-                    <div class="small-cover">
-                        <img src="../public/images/great-gatsby.jpg" alt="Book cover">
-                    </div>
-                    <p class="small-title">The Great Gatsby</p>
-                    <p class="small-author">F. Scott Fitzgerald</p>
-
-                </div>
-
-                <div class="book">
-                    <div class="small-cover">
-                        <img src="../public/images/wuthering-heights.jpg" alt="Book cover">
-                    </div>
-                    <p class="small-title">Wuthering Heights</p>
-                    <p class="small-author">Emily Brontë</p>
-
-                </div>
-            </div>
-            <hr>
-
-            <p class="sub-title"> Ratings and Reviews </p>
+            <h2> Ratings and Reviews </h2> <hr>
             <div id="feed-div">
+                <% reviews.forEach(function(review) { %>
                 <div class="post-container">
-                    <!--aici putem pune poza userului-->
-                    <div class="user-profile">
-                        <p>Miruna</p>
-                        <span>April 1 2023, 14:48 </span>
+                    <div class ="post-header">
+                        <div class="user-profile">
+                            <p><%=review.username%></p>
+                            <span><%=review.date%> </span>
+                        </div>
+                        <p class = "reviewId"><%=review.id%></p>
+                        <button type="button"> x </button>
                     </div>
-    
+
                     <div class="rating-box">
                         <div class="preset-rating">
                             <div class="empty-stars"></div>
-                            <div class="full-stars" style="width:100%"></div>
+                            <div class="full-stars" style="width: <%= review.stars * 20 %>%"></div>
                         </div>
                     </div>
 
-                    <p class="post-text">I Rated <a href="#" class="book-title">Pride and Prejudice</a> by <a
-                            href="#" class="book-author">Jane Austen</a> 5 stars!
+                    <p class="post-text">"I Rated <a href="javascript:void(0);" onclick="navigateToBook('<%= review.title %>')" class="book-title"><%=review.title%></a> by <a
+                                href="javascript:void(0);" onclick="navigateToBook('<%= review.author %>')" class="book-author"><%=review.author%></a> <%=review.stars%>
+                        stars!"
                     </p>
-    
+                    <% if (!review.isgeneric || review.isgeneric === null) { %>
+                    <p class = post-text>
+                        <%=review.content%>
+                    </p>
+                    <% } %>
+
                     <div class="post-row">
                         <div class="activity-icons">
                             <div>
@@ -215,66 +171,21 @@
                         </div>
                     </article>
                 </div>
-
-
-                <div class="post-container">
-                    <!--aici putem pune poza userului-->
-                   
-                    <div class="user-profile">
-                        <p>Teodora</p>
-                        <span>April 1 2023, 15:1 </span>
-                    </div>
-                    
-                    <div class="rating-box">
-                        <div class="preset-rating">
-                            <div class="empty-stars"></div>
-                            <div class="full-stars" style="width:80%"></div>
-                        </div>
-                    </div>
-
-                    <p class="post-text">I Rated <a href="#" class="book-title">Pride and Prejudice</a> by <a
-                            href="#" class="book-author">Jane Austen</a> 4 stars!
-                    </p>
-    
-                    <div class="post-row">
-                        <div class="activity-icons">
-                            <div>
-                                <i class="fa-regular fa-heart toggle-heart">15</i>
-                                <i class="fa-regular fa-comment toggle-comment">1</i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <article class="comment-section">
-                        <div class="comment">
-                            <div class="user-profile">
-                                <p>Pau</p>
-                                <span>April 7 2023, 23:29 </span>
-                            </div>
-                            <p class="comment-text">Great read</p>
-                        </div>
-
-                        <div class="add-comment">
-                            <input class="comment-input" type="text" placeholder="Write a comment...">
-                            <button class = "add-comment-button">Add Comment</button>
-                        </div>
-                    </article>
-                </div>
+                <% }); %>
             </div>
-
-
         </div>
+
     </div>
     <footer id = "main-footer">
         <p>&copy; Proiect realizat de Savin Miruna si Tudurache Teodora, 2023, Tehnologii Web</p>
     </footer>
 </div>
-
-
-<script src = "bookpage.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="comments_and_likes.js"></script>
 <script src ="navigationLinks.js"></script>
-
+<script src = "deletepost.js"></script>
+<script src = "adminuserprofile.js"></script>
 
 </body>
+
 </html>

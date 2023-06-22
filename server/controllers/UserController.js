@@ -5,6 +5,7 @@ const {User} = require("../models/UserModel");
 const AuthenticationController = require('../authentication/AuthenticationController')
 var concat = require('concat-stream')
 const jwt = require('jsonwebtoken');
+const reviewRepository = require("../repositories/ReviewRepository");
 function getStringJson(text){
     var json = {}, text = text.split("&");
     for (let i in text){
@@ -94,9 +95,22 @@ const createUser = async (req, res) => {
         res.end(JSON.stringify({error: 'Internal Server Error'}));
     }
 };
+const deleteUser= async(req,res,username) =>{
+    try{
+        const user = await userRepository.deleteUserByUsername(username);
+        res.writeHead(200, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify(user));
+    }
+    catch (error){
+        console.log(error);
+        res.writeHead(500, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify({error: 'Internal Server Error'}));
+    }
+}
 
 module.exports = {
     getAllUsers,
     getUser,
     createUser,
+    deleteUser
 };

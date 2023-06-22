@@ -1,4 +1,5 @@
-const {getAllUsers, getUser, createUser} = require('../controllers/userController');
+const {getAllUsers, getUser, createUser, deleteUser} = require('../controllers/userController');
+const {getGroup} = require("../controllers/GroupController");
 const usernameRegex = /^\/users\/([A-Za-z0-9_-]+)$/;
 
 const routeRequest = async (req, res) => {
@@ -13,7 +14,7 @@ const routeRequest = async (req, res) => {
 }
 
 const handleGetRequests = (req, res) => {
-    if (req.url === '/users/getAll')
+    if (req.url === '/users')
         getAllUsers(req, res);
     else if (req.url.match(usernameRegex)) {
         const username = req.url.split('/')[2];
@@ -40,7 +41,12 @@ const handlePutRequests = (req, res) => {
 
 }
 const handleDeleteRequests = (req, res) => {
-
+     if(req.url.startsWith('/users/')){
+        const username = req.url.split('/')[2].toLowerCase();
+        const decodedUsername = decodeURIComponent(username);
+        deleteUser(req, res, decodedUsername);
+        console.log(`handleDeleteRequests(): ${res.name}`);
+    }
 }
 
 module.exports = {

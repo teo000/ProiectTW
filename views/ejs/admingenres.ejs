@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale1.0">
-    <title>BOO!</title>
+    <title>Romance</title>
 
-    <link rel="stylesheet" href="adminhomepage.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" href="genres.css">
     <link rel="stylesheet" href="navigation.css">
-    <link rel="stylesheet" href="body_content.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,6 +16,7 @@
 </head>
 <body>
 <div id="wrapper-div">
+
     <div id="navigation-div">
         <nav>
             <div id="toggle-menu">
@@ -61,7 +62,7 @@
 
             <div class="buttons">
                 <a class="logo" href="javascript:void(0);" onclick="navigateToAdminPage('homepage')"><img src="boo.png"
-                                                                                                     alt="Ghost reading a book"></a>
+                                                                                                          alt="Ghost reading a book"></a>
                 <a class="active"  href="javascript:void(0);" onclick="navigateToAdminPage('homepage')">Posts</a>
                 <a class="active"  href="javascript:void(0);" onclick="navigateToAdminPage('users')">Users</a>
                 <div class="dropdown">
@@ -96,69 +97,78 @@
     </div>
 
     <div id="content-div">
-        <div id="clasament-div">
-            <h1>Most Liked Books</h1>
-            <nav class="linkuri-clasament">
-                <ol>
-                    <% topBooks.forEach(function(topBook) { %>
-                        <li>
-                            <a href="javascript:void(0);" onclick="navigateToBook('<%= topBook.title %>')"
-                               class="book-name">
-                                <%= topBook.title %>
-                            </a>
-                        </li>
-                    <% }) %>
-                </ol>
+        <div class="row">
+            <div id="clasament-div">
 
-                <!-- <h3>
-                     Give your books ratings to help us create these rankings!
-                 </h3>-->
-            </nav>
-        </div>
-
-        <div id="feed-div">
-            <% reviews.forEach(function(review) { %>
-            <div class="post-container">
-                <!--aici putem pune poza userului-->
-                <div class ="post-header">
-                    <div class="user-profile">
-                        <p><%=review.username%></p>
-                        <span><%=review.date%> </span>
-                    </div>
-                    <p class = "reviewId"><%=review.id%></p>
-                    <button type="button"> x </button>
-                </div>
-
-                <div class="rating-box">
-                    <div class="preset-rating">
-                        <div class="empty-stars"></div>
-                        <div class="full-stars" style="width: <%= review.stars * 20 %>%"></div>
-                    </div>
-                </div>
-
-                <p class="post-text">"I Rated <a href="javascript:void(0);" onclick="navigateToBook('<%= review.title %>')" class="book-title"><%=review.title%></a> by <a
-                            href="javascript:void(0);" onclick="navigateToBook('<%= review.author %>')" class="book-author"><%=review.author%></a> <%=review.stars%>
-                    stars!"
-                </p>
-                <% if (!review.isgeneric || review.isgeneric === null) { %>
-                <p class = post-text>
-                    <%=review.content%>
-                </p>
-                <% } %>
-
+                <h1>Most Liked <%= genre %> Books:</h1>
+                <nav class="linkuri-clasament">
+                    <ol>
+                        <% topBooks.forEach(function(topBook) { %>
+                            <li>
+                                <a href="javascript:void(0);" onclick="navigateToBook('<%= topBook.title %>')"
+                                   class="book-name">
+                                    <%=topBook.title %>
+                                </a>
+                            </li>
+                        <% }) %>
+                    </ol>
+                    <!-- <h3>
+                         Give your books ratings to help us create these rankings!
+                     </h3>-->
+                </nav>
             </div>
-            <% }); %>
+            <div id="feed-div">
+                <div id=template>
+                    <% books.forEach(function(book) { %>
+                        <div class="book-container">
+                            <div class="book-photo">
+                                <img src="<%= book.coverimg %>" alt="book cover">
+                            </div>
+
+                            <div class="post-text">
+                                <div class="book-author-and-title">
+                                    <p class="book-title"><a href="javascript:void(0);"
+                                                             onclick="navigateToBookAdmin('<%= book.title %>')"
+                                                             class="book-title-link"><%= book.title %></a></p>
+                                    <p class="book-author"><a href="javascript:void(0);"
+                                                              onclick="navigateToAuthor('<%=book.author%>')"
+                                                              class="book-author-link">by <%= book.author %></a>
+                                    </p>
+                                </div>
+                                <div class="star-rating">
+                                    <div class="preset-rating">
+                                        <div class="empty-stars"></div>
+                                        <div class="full-stars" style="width: <%= book.rating * 20 %>%"></div>
+                                    </div>
+                                    <p>
+                                        <%= book.rating %>
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <p class="book-description"><%= book.description %></p>
+                                    <button onclick="readMore(this)" class="more-button">Read More</button>
+                                </div>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+            </div>
+        </div>
+        <div id="pages-div">
+            <% for (let i = 1; i <= totalPages; i++) { %>
+                <button onclick="goToPage(<%= i %>)" <%= i === currentPage ? 'class="page-active"' : '' %>><%= i %></button>
+            <% } %>
         </div>
     </div>
+
 
     <footer id="main-footer">
         <p>&copy; Proiect realizat de Savin Miruna si Tudurache Teodora, 2023, Tehnologii Web</p>
     </footer>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="comments_and_likes.js"></script>
-<script src = "navigationLinks.js"></script>
-<script src = "deletepost.js"></script>
 
+<script src="genres.js"></script>
+<script src="navigationLinks.js"></script>
 </body>
 </html>

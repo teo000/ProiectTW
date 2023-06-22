@@ -47,7 +47,7 @@ loginForm.addEventListener('submit', (event) => {
                     document.cookie = cookie.trim();
                 });
             }
-            window.location.href = 'http://localhost:8081/adminhomepage';
+            window.location.href = 'http://localhost:8081/admin/homepage';
         } else {
             response.json().then(data => {
                 const errorMessage = data.error;

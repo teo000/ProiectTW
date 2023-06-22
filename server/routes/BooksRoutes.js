@@ -1,5 +1,5 @@
 const {getAllBooks, getBookByID, getBookByTitle, addBook, getGenre,  getTopBooksInGenre,getBooksByCriteria, getGenreCount} = require("../controllers/BookController");
-const {addReview, addGenericReview, getBookReviews, getAllReviews, getReviewsMadeByUser, deleteReview} =require("../controllers/ReviewController");
+const {addReview, addGenericReview, getBookReviews, getAllReviews, getReviewsMadeByUser, deleteReview, getReviewsByUsername} =require("../controllers/ReviewController");
 const {addBookToShelf, getUserBooks, removeBookFromShelf} =require("../controllers/ShelvesController");
 const bookIdRegex = /^\/books\/[0-9]+$/;
 const bookTitleRegex = /^\/books\/[a-zA-Z0-9\s]+$/;
@@ -50,10 +50,15 @@ const handleGetRequests = (req, res) => {
     else if(req.url==='/books/reviews/all'){
         getAllReviews(res,res);
     }
-    else if (req.url.startsWith('/books/reviews/user')){
+    else if (req.url.startsWith('/books/reviews/userid=')){
         const userURI = req.url.split('/')[3];
         const userId = userURI.split('=')[1];
         getReviewsMadeByUser(req,res, userId);
+    }
+    else if (req.url.startsWith('/books/reviews/username=')){
+        const userURI = req.url.split('/')[3];
+        const username = userURI.split('=')[1];
+        getReviewsByUsername(req,res, username);
     }
     else if (req.url.startsWith('/books/reviews/'))
         getBookReviews(req,res);

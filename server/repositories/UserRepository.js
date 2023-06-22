@@ -52,9 +52,23 @@ const addUser = async (userData) => {
     });
 }
 
+const deleteUserByUsername = (username) => {
+    return new Promise((resolve, reject) => {
+        databaseConnection.pool.query('delete from users where username=$1 returning  *',
+            [username],
+            (error, results) => {
+                if (error) {
+                    reject(error);
+                }
+                resolve(results.rows[0]);
+            });
+    });
+}
+
 module.exports = {
     getAllUsers,
     getUserById,
     getUser,
-    addUser
+    addUser,
+    deleteUserByUsername
 }

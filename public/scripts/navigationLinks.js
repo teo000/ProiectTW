@@ -37,6 +37,10 @@ function navigateToGenre(genre) {
     const encodedGenre = encodeURIComponent(genre.toLowerCase());
     window.location.href = `http://localhost:8081/books/genres?genre=${encodedGenre}&pageSize=100&pageNumber=1`;
 }
+function navigateToGenreAdmin(genre) {
+    const encodedGenre = encodeURIComponent(genre.toLowerCase());
+    window.location.href = `http://localhost:8081/admin/books/genres?genre=${encodedGenre}&pageSize=100&pageNumber=1`;
+}
 
 function navigateToBook (title){
     const encodedTitle = encodeURIComponent(title);
@@ -44,24 +48,46 @@ function navigateToBook (title){
     console.log(encodedTitle)
     window.location.href = `http://localhost:8081/books/getBook/${encodedTitle}`;
 }
+function navigateToBookAdmin (title){
+    const encodedTitle = encodeURIComponent(title);
+    console.log(title);
+    console.log(encodedTitle)
+    window.location.href = `http://localhost:8081/admin/books/getBook/${encodedTitle}`;
+}
 
 function navigateToGroup (groupName){
+    const encodedGroup = encodeURIComponent(groupName);
+    window.location.href = `http://localhost:8081/groups/group/${encodedGroup}`;
+}
+function navigateToGroupAdmin (groupName){
     const encodedGroup = encodeURIComponent(groupName);
     window.location.href = `http://localhost:8081/groups/group/${encodedGroup}`;
 }
 function navigateToMyGroups (){
     window.location.href = `http://localhost:8081/groups/mygroups`;
 }
+function navigateToAllGroups (){
+    window.location.href = `http://localhost:8081/admin/groups/allgroups`;
+}
+
 function navigateToPage(pageName) {
     const encodedPage = encodeURIComponent(pageName.toLowerCase());
     window.location.href = `http://localhost:8081/${encodedPage}`;
 }
-
+function navigateToAdminPage(pageName) {
+    const encodedPage = encodeURIComponent(pageName.toLowerCase());
+    window.location.href = `http://localhost:8081/admin/${encodedPage}`;
+}
 function navigateToRss(){
     window.location.href = `http://localhost:8081/rss`;
 }
 function navigateToUserProfile (){
     window.location.href = `http://localhost:8081/profile`;
+}
+
+function navigateToAdminUserProfile (name){
+    const encodedName = encodeURIComponent(name);
+    window.location.href = `http://localhost:8081/admin/profile/${encodedName}`;
 }
 
 function navigateToMyBooks(){

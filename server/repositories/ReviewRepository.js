@@ -102,6 +102,19 @@ const getReviewsMadeByUser = (id) => {
     });
 }
 
+const getReviewsByUsername = (username) => {
+    return new Promise((resolve, reject) => {
+        databaseConnection.pool.query('select b.title, b.author, u.username, r.date, r.content, r.stars, r.isgeneric, r.id from reviews r join books b on r.bookid = b.id join users u on r.userid = u.id where u.username =$1',
+            [username],
+            (error, results) => {
+                if (error) {
+                    reject(error);
+                }
+                resolve(results.rows);
+            });
+    });
+}
+
 const addRatingToBook = (id, rating) =>{
     return new Promise((resolve,reject) =>{
         databaseConnection.pool.query('UPDATE books SET numberofratings = numberofratings + 1,rating = ((rating * (numberofratings )) + $2) /(numberofratings+1) WHERE id = $1',
@@ -136,5 +149,6 @@ module.exports = {
     getReviewsMadeByUser,
     addRatingToBook,
     changeReviewStars,
-    updateBookRating
+    updateBookRating,
+    getReviewsByUsername
 }
