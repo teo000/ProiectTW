@@ -4,30 +4,47 @@ const {Feed} = require("feed");
 const moment = require('moment');
 
 function generateRssFeed() {
-    const feed = new Feed({
-        title: "Book Reviewer RSS Feed",
-        description: "Recently added books, reviews and top book changes",
-        id: "http:/localhost:8081",
-        link: "http:/localhost:8081",
-        author: [
-            {
-                name: "Savin Miruna",
-                group: "2A5"
-            },
-            {
-                name: "Tudurache Teodora",
-                group: "2A5"
+    return new Promise((resolve, reject) => {
+        const feed = new Feed({
+            title: "Book Reviewer RSS Feed",
+            description: "Recently added books, reviews and top book changes",
+            id: "http:/localhost:8081",
+            link: "http:/localhost:8081",
+            author: [
+                {
+                    name: "Savin Miruna",
+                    group: "2A5"
+                },
+                {
+                    name: "Tudurache Teodora",
+                    group: "2A5"
+                }
+            ]
+        });
+
+        const feedXML = feed.rss2();
+        console.log(process.cwd());
+        fs.writeFileSync('../views/rss/rssfeed.xml', feedXML, 'utf8', (err) => {
+                if (err)
+                    reject(err);
+                else
+                    resolve();
             }
-        ]
-    });
-
-    const feedXML = feed.rss2();
-
-    fs.writeFileSync('../../views/rss/rssfeed.xml', feedXML, 'utf8');
-    console.log("ok");
+        );
+        console.log("ok");
+    })
 }
 
-
+function addToRss(updateRssFile, data){
+    fs.access('../views/rss/rssfeed.xml', fs.constants.F_OK, (err) => {
+        if (err) {
+            generateRssFeed()
+                .then(() => updateRssFile(data))
+                .catch((err) => console.log(err));
+        }
+        else updateRssFile(data);
+    });
+}
 
 function addReviewToFeed(review) {
     const xmlData = fs.readFileSync('../views/rss/rssfeed.xml', 'utf8');
@@ -46,7 +63,6 @@ function addReviewToFeed(review) {
                 name: `${review.username}`
             }
         };
-
         // Check if the item array exists, if not initialize it as an empty array
         if (!Array.isArray(feed.rss.channel[0].item)) {
             feed.rss.channel[0].item = [];
@@ -57,7 +73,6 @@ function addReviewToFeed(review) {
         fs.writeFileSync('../views/rss/rssfeed.xml', updatedFeed, 'utf8');
         console.log("update done");
     })
-
 }
 function addTopChangeToFeed(data) {
     const xmlData = fs.readFileSync('../views/rss/rssfeed.xml', 'utf8');
@@ -87,6 +102,33 @@ function addTopChangeToFeed(data) {
         console.log("update done");
     })
 }
+
+function addNewBookToFeed(book) {
+    const xmlData = fs.readFileSync('../views/rss/rssfeed.xml', 'utf8');
+
+    xml2js.parseString(xmlData, (err, result) => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        const feed = result;
+        const newTop = {
+            title: `A new book has been added!`,
+            description: `"${book.title}" by ${book.author} is available on Boo now!`,
+            date: moment().format('YYYY-MM-DD'),
+        };
+
+        // Check if the item array exists, if not initialize it as an empty array
+        if (!Array.isArray(feed.rss.channel[0].item)) {
+            feed.rss.channel[0].item = [];
+        }
+        feed.rss.channel[0].item.push(newTop);
+        const builder = new xml2js.Builder();
+        const updatedFeed = builder.buildObject(feed);
+        fs.writeFileSync('../views/rss/rssfeed.xml', updatedFeed, 'utf8');
+        console.log("update done");
+    })
+}
 //     feed.addItem({
 //         title: `New Review for book: ${review.bookTitle}`,
 //         description: `Review of ${review.stars} made by user ${review.username} : ${review.content}`,
@@ -99,5 +141,7 @@ function addTopChangeToFeed(data) {
 
 module.exports = {
     addReviewToFeed,
-    addTopChangeToFeed
+    addTopChangeToFeed,
+    addNewBookToFeed,
+    addToRss
 }
