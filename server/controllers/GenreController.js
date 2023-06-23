@@ -18,9 +18,9 @@ const getGenre = async (req, res, name) =>{
 }
 
 //@route /genres/{bookId}
-const getGenreForBook = async (req,res,title) =>{
+const getGenreForBook = async (req,res,id) =>{
     try {
-        const genres = await genreRepository.getGenresForBook(title);
+        const genres = await genreRepository.getGenresForBook(id);
         if (!genres) {
             res.writeHead(404, {'Content-Type': 'application/json'});
             res.end(JSON.stringify({error: 'Genres for book not found!'}));

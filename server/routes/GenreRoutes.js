@@ -14,10 +14,9 @@ const routeRequest = async (req, res) => {
 
 const handleGetRequests = (req, res) => {
     if (req.url.startsWith('/genres/')) {
-        const title = req.url.split('/')[2];
-        const decodedTitle = decodeURIComponent(title);
+        const id = req.url.split('/')[2];
         //getGenreForBook(req,res,decodedTitle)
-        authenticateToken(req, res, getGenreForBook, decodedTitle);
+        authenticateToken(req, res, getGenreForBook, id);
     }else {
         res.writeHead(404, {'Content-Type': 'application/json'});
         res.end(JSON.stringify({error: 'Endpoint not found'}));

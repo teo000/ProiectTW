@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-content: flex-start;
     overflow-wrap: break-word;
     overflow-y: scroll;
     overflow-x: scroll;
@@ -60,8 +59,8 @@
 #clasament-div nav .author-names:hover{
     font-weight: bold;
 }
-#clasament-div nav .book-name:hover{
-    font-weight: bold;
+.book-name:hover{
+    cursor: pointer;
 }
 #clasament-div nav ol{
     display: flex;
@@ -73,7 +72,6 @@
     font-weight: 100;
     color: white;
     padding: 1vh;
-
 }
 
 #clasament-div nav li a{

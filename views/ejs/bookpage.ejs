@@ -198,7 +198,8 @@
                         <div class="small-cover">
                             <img src="<%= book.coverimg %>" alt="book cover">
                         </div>
-                        <p class="small-title"><a href="javascript:void(0);" onclick="navigateToBook('<%=book.title%>')" ><%=book.title%></a></p>
+                        <p class = "related-book-id" style = "display: none " ><%=book.id%></p>
+                        <p class="small-title"><a class = "navigate-to-book"  ><%=book.title%></a></p>
                         <p class="small-author"><a href="javascript:void(0);" onclick="navigateToAuthor('<%=book.author%>')"style = "text-decoration: none"><%=book.author%></a></p>
                     </div>
                         <% }); %>
@@ -249,10 +250,15 @@
                         </div>
                     </div>
 
-                    <p class="post-text">"I Rated <a href="javascript:void(0);" onclick="navigateToBook('<%= review.title %>')" class="book-title"><%=review.title%></a> by <a
-                                href="javascript:void(0);" onclick="navigateToBook('<%= review.author %>')" class="book-author"><%=review.author%></a> <%=review.stars%>
-                        stars!"
-                    </p>
+                    <div class="book">
+                        <p class = "related-book-id" style = "display: none " ><%=review.bookid%></p>
+                        <p class="post-text">"I Rated <a class="navigate-to-book" class="book-title"><%= review.title %></a>
+                            by <a
+                                    href="javascript:void(0);" onclick="navigateToAuthor('<%= review.author %>')"
+                                    class="book-author"><%= review.author %></a> <%= review.stars %>
+                            stars!"
+                        </p>
+                    </div>
                     <% if (!review.isgeneric || review.isgeneric === null) { %>
                     <p class = post-text>
                         <%=review.content%>

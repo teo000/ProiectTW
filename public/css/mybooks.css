@@ -155,12 +155,13 @@ body{
     font-size: 15px;
 }
 
-.link{
+.link, .navigate-to-book{
     color:#626262;
     text-decoration: none;
 }
-.link:hover{
+.link:hover, .navigate-to-book:hover{
     font-weight: bold;
+    cursor: pointer;
 }
 
 .rating-box{

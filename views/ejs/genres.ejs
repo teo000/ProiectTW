@@ -104,12 +104,15 @@
                 <nav class="linkuri-clasament">
                     <ol>
                         <% topBooks.forEach(function(topBook) { %>
-                            <li>
-                                <a href="javascript:void(0);" onclick="navigateToBook('<%= topBook.title %>')"
-                                   class="book-name">
-                                    <%=topBook.title %>
+                        <li>
+                            <div class="book">
+                                <p class="related-book-id" style="display: none "><%= topBook.id %></p>
+                                <a class="navigate-to-book"
+                                   class="book-name" style = "cursor: pointer">
+                                    <%= topBook.title %>
                                 </a>
-                            </li>
+                            </div>
+                        </li>
                         <% }) %>
                     </ol>
                     <!-- <h3>
@@ -126,12 +129,12 @@
                             </div>
 
                             <div class="post-text">
-                                <div class="book-author-and-title">
-                                    <p class="book-title"><a href="javascript:void(0);"
-                                                             onclick="navigateToBook('<%= book.title %>')"
-                                                             class="book-title-link"><%= book.title %></a></p>
+                                <div class="book-author-and-title, book">
+                                    <p class="related-book-id" style="display: none "><%= book.id %></p>
+                                    <p class="book-title" ><a class="navigate-to-book"
+                                                             class="book-title-link" style = "cursor: pointer"><%= book.title %></a></p>
                                     <p class="book-author"><a href="javascript:void(0);"
-                                                              onclick="navigateToAuthor('<%=book.author%>')"
+                                                              onclick="navigateToAuthor('<%= book.author %>')"
                                                               class="book-author-link">by <%= book.author %></a>
                                     </p>
                                 </div>

@@ -289,11 +289,12 @@ const getBooksByCriteria = async (req, res) => {
          const booksInUserShelf =  await shelvesRepository.getUserBooks(userId,'all');
 
          //foreach book, get the books recommendations
-         const recommendations = new Set();
+         const recommendations = new Map();
          for (const book of booksInUserShelf) {
              const bookRecommendations = await bookRepository.getRelatedBooks(book.id,100,true);
              bookRecommendations.forEach((rec) =>{
-                recommendations.add(rec);
+                 const id = rec.id;
+                recommendations.set(id,rec);
             })
          }
          if(recommendations.count === 0){
@@ -302,14 +303,14 @@ const getBooksByCriteria = async (req, res) => {
              return;
          }
          res.writeHead(200, {'Content-Type': 'application/json'});
-         res.end(JSON.stringify([...recommendations]));
+         res.end(JSON.stringify(Array.from(recommendations.values())));
      } catch(error){
          console.log(error);
      }
  }
 const getRelatedBooks = async(req,res,id,limit) => {
     try {
-        const books = await bookRepository.getRelatedBooks(Number(id),limit);
+        const books = await bookRepository.getRelatedBooks(id,limit);
 
         if (!books) {
             res.writeHead(404, {'Content-Type': 'application/json'});

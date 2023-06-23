@@ -138,11 +138,15 @@
                             <div class="full-stars" style="width: <%= review.stars * 20 %>%"></div>
                         </div>
                     </div>
-
-                    <p class="post-text">"I Rated <a href="javascript:void(0);" onclick="navigateToBook('<%= review.title %>')" class="book-title"><%=review.title%></a> by <a
-                                href="javascript:void(0);" onclick="navigateToBook('<%= review.author %>')" class="book-author"><%=review.author%></a> <%=review.stars%>
-                        stars!"
-                    </p>
+                    <div class="book">
+                        <p class = "related-book-id" style = "display: none " ><%=review.bookid%></p>
+                        <p class="post-text">"I Rated <a class="navigate-to-book" class="book-title"><%= review.title %></a>
+                            by <a
+                                    href="javascript:void(0);" onclick="navigateToAuthor('<%= review.author %>')"
+                                    class="book-author"><%= review.author %></a> <%= review.stars %>
+                            stars!"
+                        </p>
+                    </div>
                     <% if (!review.isgeneric || review.isgeneric === null) { %>
                     <p class = post-text>
                         <%=review.content%>

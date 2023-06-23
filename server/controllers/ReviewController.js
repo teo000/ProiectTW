@@ -159,13 +159,12 @@ const getBookReviews = async(req,res) =>{
         const parsedUrl = parse(req.url, true);
         const pathname = parsedUrl.pathname;
 
-        // Extract the title from the pathname
-        const encodedTitle = pathname.split('/').pop();
-        const title = decodeURIComponent(encodedTitle).toLowerCase();
+        // Extract the id from the pathname
+        const id = pathname.split('/').pop();
         const user = getUserFromCookie(req,res);
         if(user === undefined)
             return;
-        const book = await bookRepository.getBookByTitle(title);
+        const book = await bookRepository.getBookByID(id);
 
         if (!book) {
             res.writeHead(404, {'Content-Type': 'application/json'});

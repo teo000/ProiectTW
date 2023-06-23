@@ -297,8 +297,12 @@ body {
 }
 
 #book-cover {
-    height: auto;
-    max-width: 100%;
+    max-height:5%;
+    width: auto;
+}
+#book-cover img{
+    max-height: 400px;
+    width: auto;
 }
 
 #content-div {
@@ -498,6 +502,14 @@ a{
 a:hover{
     color: #393939;
 }
+.post-text a:hover {
+    font-weight: bold;
+    cursor: pointer;
+}
+a.navigate-to-book {
+    text-decoration: none;
+    font-style: italic;
+}
 
 .bookId p:not(:last-child) {
     margin-right: 10px;
@@ -529,6 +541,7 @@ a:hover{
     margin-bottom: 10px;
     overflow-x: scroll;
     justify-content: flex-start;
+    align-content: flex-start;
 }
 
 .other-books .book {

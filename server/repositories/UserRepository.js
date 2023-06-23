@@ -43,6 +43,7 @@ const addUser = async (userData) => {
         databaseConnection.pool.query('INSERT INTO users (username, email,passwordHash,salt, is_admin ) VALUES ($1, $2, $3,$4, $5) RETURNING *',
             [username,email, passwordHash,salt, isAdmin], (error, results) => {
                 if (error) {
+                    console.log(error)
                     reject(error);
                 }
                 resolve(results.rows[0]);

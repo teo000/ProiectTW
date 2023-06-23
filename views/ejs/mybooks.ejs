@@ -127,9 +127,10 @@
                 <tbody>
                 <% if (books.length > 0) { %>
                     <% books.forEach(function(book) { %>
-                        <tr>
+                        <tr class = "book">
+                            <td class ="related-book-id" style="display: none"><%=book.id%></td>
                             <td><img src="<%= book.coverimg %>" alt="Book cover"></td>
-                            <td><a  href="javascript:void(0);" onclick="navigateToBook('<%= book.title %>')" class = "link"><%= book.title %></a></td>
+                            <td><a  class ="navigate-to-book" class = "link"><%= book.title %></a></td>
                             <td><a href ="javascript:void(0);" onclick="navigateToAuthor('<%= book.author %>')"class="link"><%= book.author %></a> </td>
                             <td><%= book.avgrating %></td>
                             <td>

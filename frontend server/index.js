@@ -286,7 +286,7 @@ const customReadHomepageEjs = async (req, res, file_path) => {
     }
 }
 
-const customReadBooksEjs = async (req, res, file_path, title) => {
+const customReadBooksEjs = async (req, res, file_path, id) => {
     if (fs.existsSync(file_path)) {
         const template = fs.readFileSync(file_path, "utf8");
         if (!template) {
@@ -300,7 +300,7 @@ const customReadBooksEjs = async (req, res, file_path, title) => {
             const options = {
                 hostname: 'localhost',
                 port: 6969,
-                path: `/books/getBook/${title}`,
+                path: `/books/${id}`,
                 headers: {
                     'Cookie': cookies // Pass the extracted cookies in the request headers
                 }
@@ -325,7 +325,7 @@ const customReadBooksEjs = async (req, res, file_path, title) => {
             const options = {
                 hostname: 'localhost',
                 port: 6969,
-                path: `/genres/${title}`,
+                path: `/genres/${id}`,
                 headers: {
                     'Cookie': cookies // Pass the extracted cookies in the request headers
                 }
@@ -350,7 +350,7 @@ const customReadBooksEjs = async (req, res, file_path, title) => {
             const options = {
                 hostname: 'localhost',
                 port: 6969,
-                path: `/books/reviews/${title}`,
+                path: `/books/reviews/${id}`,
                 headers: {
                     'Cookie': cookies
                 }
@@ -1054,14 +1054,13 @@ const server = http.createServer((req, res) => {
         const genre = params.get('genre');
         const pageSize = params.get('pageSize');
         const pageNumber = params.get('pageNumber');
-        res.setHeader('Cache-Control', 'max-age=31536000')
+        //res.setHeader('Cache-Control', 'max-age=31536000')
         authenticateTokenForUser(req,res,customReadGenresEjs,`../views/ejs/genres.ejs`, genre, pageSize, pageNumber);
         //   authenticateToken(req, res, customReadEjsFile,`../views/ejs/genres.ejs`,genre);
     } else if (url.startsWith('/books/getBook/') && url.indexOf(".") === -1) {
-        const title = url.split('/')[3].toLowerCase();
        // res.setHeader('Cache-Control', 'max-age=31536000')
-
-        authenticateTokenForUser(req, res, customReadBooksEjs, `../views/ejs/bookpage.ejs`, title);
+        const id = req.url.split('/')[3];
+        authenticateTokenForUser(req, res, customReadBooksEjs, `../views/ejs/bookpage.ejs`, id);
     } else if (url.startsWith('/profile') && url.indexOf(".") === -1) {
        // res.setHeader('Cache-Control', 'max-age=31536000')
 
@@ -1107,7 +1106,6 @@ const server = http.createServer((req, res) => {
         customReadFile(req, res, getCssUrl(url));
     } else if (url.indexOf(".png") !== -1) {
         res.setHeader('Cache-Control', 'max-age=31536000')
-
         res.writeHead(200, {"Content-Type": "image/png"});
         customReadFile(req, res, getImagesUrl(url));
     } else if (url.indexOf(".jpg") !== -1) {
