@@ -16,7 +16,7 @@ const handleGetRequests = (req, res) => {
     if (req.url.startsWith('/genres/')) {
         const title = req.url.split('/')[2];
         const decodedTitle = decodeURIComponent(title);
-       // getGenreForBook(req,res,decodedTitle)
+        //getGenreForBook(req,res,decodedTitle)
         authenticateToken(req, res, getGenreForBook, decodedTitle);
     }else {
         res.writeHead(404, {'Content-Type': 'application/json'});
