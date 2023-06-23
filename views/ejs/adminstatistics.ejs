@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale1.0">
     <title>BOO!</title>
 
-    <link rel="stylesheet" href="adminhomepage.css">
-    <link rel="stylesheet" href="clasament.css">
+    <link rel="stylesheet" href="statistics.css">
     <link rel="stylesheet" href="navigation.css">
     <link rel="stylesheet" href="body_content.css">
 
@@ -14,6 +13,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 <div id="wrapper-div">
@@ -97,74 +97,113 @@
             </div>
         </nav>
     </div>
-
     <div id="content-div">
-        <div id="clasament-div">
-            <h1>Most Liked Books</h1>
-            <nav class="linkuri-clasament">
-                <ol>
-                    <% topBooks.forEach(function(topBook) { %>
-                        <li>
-                            <a href="javascript:void(0);" onclick="navigateToBookAdmin('<%= topBook.title %>')"
-                               class="book-name">
-                                <%= topBook.title %>
-                            </a>
-                        </li>
-                    <% }) %>
-                </ol>
-
-                <!-- <h3>
-                     Give your books ratings to help us create these rankings!
-                 </h3>-->
-            </nav>
-        </div>
 
         <div id="feed-div">
-            <% reviews.forEach(function(review) { %>
-            <div class="post-container">
-                <!--aici putem pune poza userului-->
-                <div class ="post-header">
-                    <div class="user-profile">
-                        <p><%=review.username%></p>
-                        <span><%=review.date%> </span>
-                    </div>
-                    <p class = "reviewId"><%=review.id%></p>
-                    <button type="button"> x </button>
+            <div class="chart-div">
+                <p class="chart-name">Most Rated Books</p>
+                <canvas id="mostRatedBooks" class="chart"></canvas>
+                <div class="buttons-div">
+                    <button class="export-button" id="most-rated-doc">Export to DocBook</button>
+                    <button class="export-button" id="most-rated-csv">Export to CSV</button>
                 </div>
-
-                <div class="rating-box">
-                    <div class="preset-rating">
-                        <div class="empty-stars"></div>
-                        <div class="full-stars" style="width: <%= review.stars * 20 %>%"></div>
-                    </div>
-                </div>
-
-                <p class="post-text">"I Rated <a href="javascript:void(0);" onclick="navigateToBookAdmin('<%= review.title %>')" class="book-title"><%=review.title%></a> by <a
-                            href="javascript:void(0);" onclick="navigateToAuthorAdmin('<%= review.author %>')" class="book-author"><%=review.author%></a> <%=review.stars%>
-                    stars!"
-                </p>
-                <% if (!review.isgeneric || review.isgeneric === null) { %>
-                <p class = post-text>
-                    <%=review.content%>
-                </p>
-                <% } %>
-
             </div>
-            <% }); %>
+            <div class="chart-div">
+                <p class="chart-name">Highest Rated Books</p>
+                <canvas id="highestRatedBooks" class="chart"></canvas>
+                <div class="buttons-div">
+                    <button class="export-button" id="highest-rated-doc">Export to DocBook</button>
+                    <button class="export-button" id="highest-rated-csv">Export to CSV</button>
+                </div>
+            </div>
+            <div class="chart-div">
+                <p class="chart-name">User who gave the most reviews</p>
+                <canvas id="usersMostReviews" class="chart"></canvas>
+                <div class="buttons-div">
+                    <button class="export-button" id="most-user-reviews-doc">Export to DocBook</button>
+                    <button class="export-button" id="most-user-reviews-csv">Export to CSV</button>
+                </div>
+            </div>
+
         </div>
     </div>
-
-    <footer id="main-footer">
-        <p>&copy; Proiect realizat de Savin Miruna si Tudurache Teodora, 2023, Tehnologii Web</p>
-    </footer>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="comments_and_likes.js"></script>
-<script src = "navigationLinks.js"></script>
-<script src = "deletepost.js"></script>
+
+<footer id="main-footer">
+    <p>&copy; Proiect realizat de Savin Miruna si Tudurache Teodora, 2023, Tehnologii Web</p>
+</footer>
+</div>
+<script>
+    const firstChart = document.getElementById('mostRatedBooks').getContext('2d');
+    const secondChart = document.getElementById('highestRatedBooks').getContext('2d');
+    const thirdChart = document.getElementById('usersMostReviews').getContext('2d');
+
+    const dataForMostRatedBooks = {
+        labels: [<%- mostRatedBooks.map(book => `'${book.title}'`).join(',') %>],
+        datasets: [{
+            label: 'Likes',
+            data: [<%- mostRatedBooks.map(book => book.numberofratings).join(',') %>],
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+        }]
+    };
+
+    const dataForHighestRatedBooks = {
+        labels: [<%- highestRatedBooks.map(book => `'${book.title}'`).join(',') %>],
+        datasets: [{
+            label: 'Likes',
+            data: [<%- highestRatedBooks.map(book => book.rating).join(',') %>],
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+        }]
+    };
+    const dataForUsersMostReviews = {
+        labels: [<%- usersMostReviews.map(user => `'${user.username}'`).join(',') %>],
+        datasets: [{
+            label: 'Likes',
+            data: [<%- usersMostReviews.map(user => user.reviewsCount).join(',') %>],
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+        }]
+    };
+
+
+
+    const options = {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    };
+
+    new Chart(firstChart, {
+        type: 'bar',
+        data: dataForMostRatedBooks,
+        options: options
+    });
+    new Chart(secondChart, {
+        type: 'bar',
+        data: dataForHighestRatedBooks,
+        options: options
+    });
+    new Chart(thirdChart, {
+        type: 'bar',
+        data: dataForUsersMostReviews,
+        options: options
+    });
+</script>
+<script src="navigationLinks.js"></script>
+<script>
+    navigateToSearch();
+</script>
+<script src="bundle.js" type="module"></script>
 <script>
     navigateToSearchAdmin();
 </script>
-
 </body>
 </html>
