@@ -162,27 +162,39 @@
                 </div>
                 <div class="bookId">
                     <p id="bookId">BookId : <%= book.id %></p>
-                    <p id="publisher">Publisher:
-                        <% if (book.publisher) { %>
-                            <a href="javascript:void(0);" onclick="navigateToPublisherAdmin('<%= book.publisher %>')"><%= book.publisher %></a>
-                        <% } else { %>
-                            -
-                        <% } %>
-                    </p>
-                    <p id="edition">Edition:
-                        <% if (book.edition) { %>
-                            <a  href="javascript:void(0);" onclick="navigateToEditionAdmin('<%= book.edition %>')"><%= book.edition %></a>
-                        <% } else { %>
-                            -
-                        <% } %>
-                    </p>
-                    <p id="year">Year:
-                        <% if (book.year) { %>
-                            <a href="javascript:void(0);" onclick="navigateToYearAdmin('<%= book.year %>')"><%= book.year %></a>
-                        <% } else { %>
-                            -
-                        <% } %>
-                    </p>
+                    <div class = "editable-information">
+                        <p id="publisher">Publisher:
+                            <% if (book.publisher) { %>
+                                <a id="publisherContent" href="javascript:void(0);" onclick="navigateToPublisherAdmin('<%= book.publisher %>')"><%= book.publisher %></a>
+                            <% } else { %>
+                                -
+                            <% } %>
+                        </p>
+                        <button type = "button" id="editPublisherButton">Edit</button>
+                    </div>
+
+                    <div class = "editable-information">
+                        <p id="edition">Edition:
+                            <% if (book.edition) { %>
+                                <a id="editionContent" href="javascript:void(0);" onclick="navigateToEditionAdmin('<%= book.edition %>')"><%= book.edition %></a>
+                            <% } else { %>
+                                <p id="editionContent">-</p>
+                            <% } %>
+                        </p>
+                        <button type = "button" id="editEditionButton">Edit</button>
+                    </div>
+
+                    <div class = "editable-information">
+                        <p id="year">Year:
+                            <% if (book.year) { %>
+                                <a id="yearContent" href="javascript:void(0);" onclick="navigateToYearAdmin('<%= book.year %>')"><%= book.year %></a>
+                            <% } else { %>
+                                <p id="yearContent">-</p>
+                            <% } %>
+                        </p>
+                        <button type = "button" id="editYearButton">Edit</button>
+                    </div>
+
                 </div>
                 <p class="sub-title"> Readers also enjoyed...</p>
                 <div class="other-books">
