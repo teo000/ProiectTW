@@ -1,5 +1,5 @@
 const {getAllBooks, getBookByID, getBookByTitle, addBook, getGenre,  getTopBooksInGenre,getBookRecommendations,getBooksByCriteria, getGenreCount,getRelatedBooks, deleteBook, updateBook,
-    updateBookCover, updateBookDescription, deleteBookGenreAssociation
+    updateBookCover, updateBookDescription, deleteBookGenreAssociation, addBookGenreAssociation
 } = require("../controllers/BookController");
 const {addReview, addGenericReview, getBookReviews, getAllReviews, getReviewsMadeByUser,deleteReview, getReviewsByUsername} =require("../controllers/ReviewController");
 const {addBookToShelf, getUserBooks, removeBookFromShelf} =require("../controllers/ShelvesController");
@@ -88,6 +88,8 @@ const handleGetRequests = (req, res) => {
 const handlePostRequests = (req, res) => {
     if (req.url === '/books')
         addBook(req, res);
+    else if (req.url === '/books/genres')
+        addBookGenreAssociation(req, res);
     else if (req.url.startsWith('/books/review/generic'))
         authenticateToken(req,res,addGenericReview);
     else if(req.url.startsWith('/books/review')){
@@ -96,7 +98,6 @@ const handlePostRequests = (req, res) => {
     else if (req.url.startsWith('/books/shelf')){
        authenticateToken(req,res,addBookToShelf);
     }
-
     else {
         res.writeHead(404, {'Content-Type': 'application/json'});
         res.end(JSON.stringify({error: 'Endpoint not found'}));

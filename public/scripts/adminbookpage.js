@@ -281,83 +281,216 @@ deleteGenreButtons.forEach(function(button) {
         }).catch(error => console.log(error));
     });
 });
-//
-// const addGenreButton = document.getElementById('addGenreButton');
-// addGenreButton.addEventListener('click', function(event) {
-//     const genreToAdd = document.getElementById('addGenreInput').value;
-//
-//     event.preventDefault();
-//
-//     fetch(`http://localhost:6969/books/genres`, {
-//         method: 'DELETE',
-//         headers: {
-//             'Content-Type': 'application/json'
-//         },
-//         credentials: 'include'
-//     }).then((response) => {
-//         if (response.ok) {
-//             const cookieHeader = response.headers.get('Set-Cookie');
-//             if (cookieHeader) {
-//                 const cookies = cookieHeader.split(';');
-//                 cookies.forEach(cookie => {
-//                     document.cookie = cookie.trim();
-//                 });
-//             }
-//
-//             Swal.fire('Success', 'Group deleted successfully', 'success').then((result) => {
-//                 if (result.isConfirmed) {
-//                     location.href='http://localhost:8081/admin/groups/allgroups';
-//                 }
-//             });
-//
-//         } else { //+check for 404
-//             response.json().then(data => {
-//                 const errorMessage = data.error;
-//                 Swal.fire('Error', errorMessage, 'error');
-//             });
-//         }
-//     }).catch(error => console.log(error));
-// });
-//
 
-// function submitDescriptionButtonClick() {
-//     const input = document.querySelector('#descriptionInput');
-//     const newText = input.value;
-//     console.log(newText);
-//     console.log(bookid);
-//     console.log(oldAuthor);
-//
-//
-//     fetch(`http://localhost:6969/books/description`, {
-//         method: 'PUT',
-//         body: JSON.stringify({bookid, description: newText}),
-//         headers: {
-//             'Content-Type': 'application/json'
-//         },
-//         credentials: 'include'
-//
-//     }).then((response) => {
-//         if (response.ok) {
-//             const cookieHeader = response.headers.get('Set-Cookie');
-//             if (cookieHeader) {
-//                 const cookies = cookieHeader.split(';');
-//                 cookies.forEach(cookie => {
-//                     document.cookie = cookie.trim();
-//                 });
-//             }
-//
-//             Swal.fire('Success', 'Book description updated successfully', 'success').then((result) => {
-//                 if (result.isConfirmed) {
-//                     location.reload()
-//                 }
-//             });
-//
-//         } else { //+check for 404
-//             response.json().then(data => {
-//                 const errorMessage = data.error;
-//                 Swal.fire('Error', errorMessage, 'error');
-//             });
-//         }
-//     }).catch(error => console.log(error));
-//
-// }
+const addGenreButton = document.getElementById('addGenreButton');
+addGenreButton.addEventListener('click', function(event) {
+    const genreToAdd = document.getElementById('addGenreInput').value;
+    console.log(genreToAdd)
+    event.preventDefault();
+
+    fetch(`http://localhost:6969/books/genres`, {
+        method: 'POST',
+        body: JSON.stringify({bookid, genre: genreToAdd}),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include'
+    }).then((response) => {
+        if (response.ok) {
+            const cookieHeader = response.headers.get('Set-Cookie');
+            if (cookieHeader) {
+                const cookies = cookieHeader.split(';');
+                cookies.forEach(cookie => {
+                    document.cookie = cookie.trim();
+                });
+            }
+
+            Swal.fire('Success', 'Genre added successfully', 'success').then((result) => {
+                if (result.isConfirmed) {
+                    location.reload();
+                }
+            });
+
+        } else { //+check for 404
+            response.json().then(data => {
+                const errorMessage = data.error;
+                Swal.fire('Error', errorMessage, 'error');
+            });
+        }
+    }).catch(error => console.log(error));
+});
+
+
+const publisherParagraph = document.getElementById('publisherContent');
+const editPublisherButton = document.getElementById('editPublisherButton');
+
+
+editPublisherButton.addEventListener('click', () => {
+    const input = document.createElement('input');
+    input.id='publisherInput'
+    input.value = publisherParagraph.textContent.trim();
+
+    publisherParagraph.replaceWith(input);
+
+    editPublisherButton.textContent = 'Submit';
+    editPublisherButton.style.marginTop= '0';
+
+    editPublisherButton.addEventListener('click', submitPublisherButtonClick);
+});
+
+function submitPublisherButtonClick() {
+    const input = document.querySelector('#publisherInput');
+    const newText = input.value;
+    console.log(newText);
+    console.log(bookid);
+
+
+    fetch(`http://localhost:6969/books?bookid=${bookid}&publisher=${newText}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include'
+
+    }).then((response) => {
+        if (response.ok) {
+            const cookieHeader = response.headers.get('Set-Cookie');
+            if (cookieHeader) {
+                const cookies = cookieHeader.split(';');
+                cookies.forEach(cookie => {
+                    document.cookie = cookie.trim();
+                });
+            }
+
+            Swal.fire('Success', 'Book publisher updated successfully', 'success').then((result) => {
+                if (result.isConfirmed) {
+                    location.reload()
+                }
+            });
+
+        } else { //+check for 404
+            response.json().then(data => {
+                const errorMessage = data.error;
+                Swal.fire('Error', errorMessage, 'error');
+            });
+        }
+    }).catch(error => console.log(error));
+
+}
+
+
+const editionParagraph = document.getElementById('editionContent');
+const editEditionButton = document.getElementById('editEditionButton');
+
+
+editEditionButton.addEventListener('click', () => {
+    const input = document.createElement('input');
+    input.id='editionInput'
+    input.value = editionParagraph.textContent.trim();
+
+    editionParagraph.replaceWith(input);
+
+    editEditionButton.textContent = 'Submit';
+    editEditionButton.style.marginTop= '0';
+
+    editEditionButton.addEventListener('click', submitEditionButtonClick);
+});
+
+function submitEditionButtonClick() {
+    const input = document.querySelector('#editionInput');
+    const newText = input.value;
+    console.log(newText);
+    console.log(bookid);
+
+
+    fetch(`http://localhost:6969/books?bookid=${bookid}&edition=${newText}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include'
+
+    }).then((response) => {
+        if (response.ok) {
+            const cookieHeader = response.headers.get('Set-Cookie');
+            if (cookieHeader) {
+                const cookies = cookieHeader.split(';');
+                cookies.forEach(cookie => {
+                    document.cookie = cookie.trim();
+                });
+            }
+
+            Swal.fire('Success', 'Book edition updated successfully', 'success').then((result) => {
+                if (result.isConfirmed) {
+                    location.reload()
+                }
+            });
+
+        } else { //+check for 404
+            response.json().then(data => {
+                const errorMessage = data.error;
+                Swal.fire('Error', errorMessage, 'error');
+            });
+        }
+    }).catch(error => console.log(error));
+
+}
+
+
+const yearParagraph = document.getElementById('yearContent');
+const editYearButton = document.getElementById('editYearButton');
+
+
+editYearButton.addEventListener('click', () => {
+    const input = document.createElement('input');
+    input.id='yearInput';
+    input.type = 'number';
+    input.value = yearParagraph.textContent.trim();
+
+    yearParagraph.replaceWith(input);
+
+    editYearButton.textContent = 'Submit';
+    editYearButton.style.marginTop= '0';
+
+    editYearButton.addEventListener('click', submitYearButtonClick);
+});
+
+function submitYearButtonClick() {
+    const input = document.querySelector('#yearInput');
+    const newText = input.value;
+    console.log(newText);
+    console.log(bookid);
+
+
+    fetch(`http://localhost:6969/books?bookid=${bookid}&year=${newText}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include'
+
+    }).then((response) => {
+        if (response.ok) {
+            const cookieHeader = response.headers.get('Set-Cookie');
+            if (cookieHeader) {
+                const cookies = cookieHeader.split(';');
+                cookies.forEach(cookie => {
+                    document.cookie = cookie.trim();
+                });
+            }
+
+            Swal.fire('Success', 'Book year updated successfully', 'success').then((result) => {
+                if (result.isConfirmed) {
+                    location.reload()
+                }
+            });
+
+        } else { //+check for 404
+            response.json().then(data => {
+                const errorMessage = data.error;
+                Swal.fire('Error', errorMessage, 'error');
+            });
+        }
+    }).catch(error => console.log(error));
+
+}

@@ -340,12 +340,12 @@ const updateBook = async (req, res) => {
     const queryString = req.url.split('?')[1];
     const params = new URLSearchParams(queryString);
     console.log(`bookController: ${params}`);
-    const bookid = decodeURIComponent(params.get('bookid'));
-    const title = decodeURIComponent(params.get('title'));
-    const author = decodeURIComponent(params.get('author'));
-    const edition = decodeURIComponent(params.get('edition'));
-    const publisher = decodeURIComponent(params.get('publisher'));
-    const year = decodeURIComponent(params.get('year'));
+    const bookid = params.has('bookid') ? decodeURIComponent(params.get('bookid')) : null;
+    const title = params.has('title') ? decodeURIComponent(params.get('title')) : null;
+    const author = params.has('author') ? decodeURIComponent(params.get('author')) : null;
+    const edition = params.has('edition') ? decodeURIComponent(params.get('edition')) : null;
+    const publisher = params.has('publisher') ? decodeURIComponent(params.get('publisher')) : null;
+    const year = params.has('year') ? decodeURIComponent(params.get('year')) : null;
     try {
         console.log(bookid);
 
@@ -354,7 +354,10 @@ const updateBook = async (req, res) => {
             res.end(JSON.stringify({error: 'Book not found!'}));
             return;
         }
+
         console.log(bookid);
+        console.log(author);
+        console.log(`edition: ${edition}`)
         if(author !== null && author !== undefined){
             const book = bookRepository.updateBookAuthor(parseInt(bookid, 10), author);
             res.writeHead(200, {'Content-Type': 'application/json'});
@@ -362,8 +365,33 @@ const updateBook = async (req, res) => {
             return;
         }
 
+        if(publisher !== null && publisher !== undefined){
+            const book = bookRepository.updateBookPublisher(parseInt(bookid, 10), publisher);
+            res.writeHead(200, {'Content-Type': 'application/json'});
+            res.end(JSON.stringify(book));
+            return;
+        }
+
+        if(edition !== null && edition !== undefined){
+            const book = bookRepository.updateBookEdition(parseInt(bookid, 10), edition);
+            res.writeHead(200, {'Content-Type': 'application/json'});
+            res.end(JSON.stringify(book));
+            return;
+        }
+
+        if(year !== null && year !== undefined){
+            const book = bookRepository.updateBookYear(parseInt(bookid, 10), parseInt(year, 10));
+            res.writeHead(200, {'Content-Type': 'application/json'});
+            res.end(JSON.stringify(book));
+            return;
+        }
+
+        res.writeHead(500, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify({error: 'Internal error'}));
     } catch (error) {
         console.log(error);
+        res.writeHead(500, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify({error: 'Internal Server Error'}));
     }
 }
 
@@ -454,6 +482,39 @@ const deleteBookGenreAssociation = async (req, res) => {
     }
 }
 
+const addBookGenreAssociation = async (req, res) => {
+    try {
+        let body = '';
+        req.on('data', chunk => {
+            body += chunk.toString();
+        });
+
+        req.on('end', async () => {
+            try {
+                const bookData = JSON.parse(body);
+
+                var genre = await genreRepository.getGenre([bookData.genre]);
+                if (genre === null || genre === undefined){
+                    genre = await genreRepository.addGenre(bookData.genre);
+                }
+
+                console.log(`genre: ${genre}`);
+                console.log(`bookData: ${bookData}`);
+                const book = await bookRepository.addBookGenre(bookData.bookid, genre.id);
+                res.writeHead(200, {'Content-Type': 'application/json'});
+                res.end(JSON.stringify(book));
+            } catch (error) {
+                console.log(error);
+                res.writeHead(500, {'Content-Type': 'application/json'});
+                res.end(JSON.stringify({error: 'Internal Server Error'}));
+            }
+        });
+    } catch (error) {
+        res.writeHead(500, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify({error: 'Internal Server Error'}));
+    }
+}
+
 module.exports = {
     getAllBooks,
     getBookByID,
@@ -469,5 +530,6 @@ module.exports = {
     updateBook,
     updateBookCover,
     updateBookDescription,
-    deleteBookGenreAssociation
+    deleteBookGenreAssociation,
+    addBookGenreAssociation
 }

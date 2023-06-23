@@ -355,10 +355,73 @@ const updateBookDescription = (bookId, description) => {
     });
 }
 
+const updateBookPublisher = (bookId, publisher) => {
+    console.log(`updateBookDescription: ${bookId}, ${publisher}`);
+    return new Promise((resolve, reject) => {
+        databaseConnection.pool.query('update books set publisher = $1 where id=$2 returning  *',
+            [publisher, bookId],
+            (error, results) => {
+                if (error) {
+                    console.log(error);
+                    reject(error);
+                }
+                console.log(results.rows);
+                resolve(results.rows[0]);
+            });
+    });
+}
+
+const updateBookEdition = (bookId, edition) => {
+    console.log(`updateBookDescription: ${bookId}, ${edition}`);
+    return new Promise((resolve, reject) => {
+        databaseConnection.pool.query('update books set edition = $1 where id=$2 returning  *',
+            [edition, bookId],
+            (error, results) => {
+                if (error) {
+                    console.log(error);
+                    reject(error);
+                }
+                console.log(results.rows);
+                resolve(results.rows[0]);
+            });
+    });
+}
+const updateBookYear = (bookId, year) => {
+    console.log(`updateBookDescription: ${bookId}, ${year}`);
+    return new Promise((resolve, reject) => {
+        databaseConnection.pool.query('update books set year = $1 where id=$2 returning  *',
+            [year, bookId],
+            (error, results) => {
+                if (error) {
+                    console.log(error);
+                    reject(error);
+                }
+                console.log(results.rows);
+                resolve(results.rows[0]);
+            });
+    });
+}
+
 const deleteBookGenre = (bookId, genreId) => {
     console.log(`updateBookDescription: ${bookId}, ${genreId}`);
     return new Promise((resolve, reject) => {
         databaseConnection.pool.query('delete from book_genre where book_id=$1 and genre_id = $2 returning  *',
+            [bookId, genreId],
+            (error, results) => {
+                if (error) {
+                    console.log(error);
+                    reject(error);
+                }
+                console.log(results.rows);
+                resolve(results.rows[0]);
+            });
+    });
+}
+
+const addBookGenre = (bookId, genreId) => {
+    console.log(`updateBookDescription: ${bookId}, ${genreId}`);
+    return new Promise((resolve, reject) => {
+        databaseConnection.pool.query('insert into book_genre (book_id, genre_id) values ($1, $2) returning  *',
             [bookId, genreId],
             (error, results) => {
                 if (error) {
@@ -394,5 +457,9 @@ module.exports = {
     updateCoverImage,
     updateBookAuthor,
     updateBookDescription,
-    deleteBookGenre
+    deleteBookGenre,
+    addBookGenre,
+    updateBookPublisher,
+    updateBookEdition,
+    updateBookYear
 }

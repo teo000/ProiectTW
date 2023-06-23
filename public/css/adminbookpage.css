@@ -598,6 +598,13 @@ body {
 
 }
 
+.bookId{
+    flex-direction: column;
+}
+
+.bookId .editable-information button  {
+    margin-top:0;
+}
 .bookId p a {
     color: black;
     font-weight: bold;
@@ -606,6 +613,7 @@ body {
 .bookId p a:hover {
     color: #393939;
 }
+
 a{
     color: black;
     font-weight: bold;
@@ -614,9 +622,7 @@ a:hover{
     color: #393939;
 }
 
-.bookId p:not(:last-child) {
-    margin-right: 10px;
-}
+
 
 .genre {
     color: gray;
@@ -667,6 +673,8 @@ a:hover{
     width:100%;
     display: inline-flex;
     align-items: center;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
 }
 #addGenre input{
     background-color: #ffd0d6;

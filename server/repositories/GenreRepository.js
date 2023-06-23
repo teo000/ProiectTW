@@ -39,8 +39,20 @@ const getGenresForBook = async(title) =>{
     });
 }
 
+const addGenre = (name) => {
+    return new Promise((resolve, reject) => {
+        databaseConnection.pool.query('INSERT INTO genres (name) VALUES ($1)', [name], (error, results) => {
+            if (error) {
+                reject(error);
+            }
+            resolve(results.rows[0]);
+        });
+    });
+};
+
 module.exports = {
     getGenre,
     getAllGenres,
-    getGenresForBook
+    getGenresForBook,
+    addGenre
 }
