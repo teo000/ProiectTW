@@ -25,7 +25,7 @@
                 <div id="dropdown-menu">
                     <div class="menu-buttons">
                         <a class="active"  href="javascript:void(0);" onclick="navigateToPage('homepage')">Home</a>
-                        <a class="active"  href="javascript:void(0);" onclick="navigateToPage('mybooks')">My Books</a>
+                        <a class="active"  href="javascript:void(0);" onclick="navigateToMyBooks()">My Books</a>
                         <div class="hoverable">
 
                             <a class="active" href="#">Categories</a>
@@ -44,9 +44,11 @@
 
                             <a class="active" href="#">More</a>
                             <div class="hamburger-double-dropdown">
-                                <a href="javascript:void(0);" onclick="navigateToPage('userpage')">Profile</a>
+                                <a href="javascript:void(0);" onclick="navigateToUserProfile()">Profile</a>
                                 <a href="javascript:void(0);" onclick="navigateToPage('about')">About</a>
                                 <a href="javascript:void(0);" onclick="navigateToPage('help')">Help</a>
+                                <a href="javascript:void(0);" onclick="navigateToRss()">RSS</a>
+                                <a href="javascript:void(0);" onclick="navigateToStatistics()">Statistics</a>
                                 <a href="javascript:void(0);" onclick="logout()">Log Out</a>
                             </div>
                         </div>
@@ -59,7 +61,7 @@
                 <a class="logo" href="javascript:void(0);" onclick="navigateToPage('homepage')"><img src="boo.png"
                                                                                                      alt="Ghost reading a book"></a>
                 <a class="active"  href="javascript:void(0);" onclick="navigateToPage('homepage')">Home</a>
-                <a class="active"  href="javascript:void(0);" onclick="navigateToPage('mybooks')">My Books</a>
+                <a class="active"  href="javascript:void(0);" onclick="navigateToMyBooks()">My Books</a>
                 <div class="dropdown">
                     <button class="dropDownButton">Categories</button>
                     <div class="dropdown-categories">
@@ -76,20 +78,22 @@
                 <div class="dropdown">
                     <button class="dropDownButton">More</button>
                     <div class="dropdown-categories">
-                        <a href="javascript:void(0);" onclick="navigateToPage('userpage')">Profile</a>
+                        <a href="javascript:void(0);" onclick="navigateToRecommendations()">Recommendations</a>
+                        <a href="javascript:void(0);" onclick="navigateToUserProfile()">Profile</a>
                         <a href="javascript:void(0);" onclick="navigateToPage('about')">About</a>
                         <a href="javascript:void(0);" onclick="navigateToPage('help')">Help</a>
+                        <a href="javascript:void(0);" onclick="navigateToRss()">RSS</a>
+                        <a href="javascript:void(0);" onclick="navigateToStatistics()">Statistics</a>
                         <a href="javascript:void(0);" onclick="logout()">Log Out</a>
                     </div>
                 </div>
 
             </div>
-            <div id="search-bar">
-                <input type="text" placeholder="Search...">
-            </div>
+            <form id="search-bar">
+                <input type="text" id = "search-input" placeholder="Search...">
+            </form>
         </nav>
     </div>
-
     <div id="content-wrapper">
         <div id="my-groups">
             <h1>My groups</h1>
@@ -158,5 +162,8 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src = "mygroups.js"></script>
 <script src ="navigationLinks.js"></script>
+<script>
+    navigateToSearch();
+</script>
 </body>
 </html>

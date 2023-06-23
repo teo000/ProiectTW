@@ -49,9 +49,8 @@
 
                             <a class="active" href="#">More</a>
                             <div class="hamburger-double-dropdown">
-                                <a href="javascript:void(0);" onclick="navigateToUserProfile()">Profile</a>
-                                <a href="javascript:void(0);" onclick="navigateToPage('about')">About</a>
-                                <a href="javascript:void(0);" onclick="navigateToPage('help')">Help</a>
+                                <a href="javascript:void(0);" onclick="navigateToAdminOwnUserProfile()">Profile</a>
+                                <a href="javascript:void(0);" onclick="navigateToStatisticsAdmin()">Statistics</a>
                                 <a href="javascript:void(0);" onclick="navigateToRss()">RSS</a>
                                 <a href="javascript:void(0);" onclick="logout()">Log Out</a>
                             </div>
@@ -84,9 +83,8 @@
                 <div class="dropdown">
                     <button class="dropDownButton">More</button>
                     <div class="dropdown-categories">
-                        <a href="javascript:void(0);" onclick="navigateToUserProfile()">Profile</a>
-                        <a href="javascript:void(0);" onclick="navigateToPage('about')">About</a>
-                        <a href="javascript:void(0);" onclick="navigateToPage('help')">Help</a>
+                        <a href="javascript:void(0);" onclick="navigateToAdminOwnUserProfile()">Profile</a>
+                        <a href="javascript:void(0);" onclick="navigateToStatisticsAdmin()">Statistics</a>
                         <a href="javascript:void(0);" onclick="navigateToRss()">RSS</a>
                         <a href="javascript:void(0);" onclick="logout()">Log Out</a>
                     </div>
@@ -94,7 +92,7 @@
 
             </div>
             <div id="search-bar">
-                <input type="text" placeholder="Search...">
+                <input type="text" id="search-input" placeholder="Search...">
             </div>
         </nav>
     </div>
@@ -267,5 +265,8 @@
     <script src="comments_and_likes.js"></script>
     <script src="adminbookpage.js"></script>
     <script src ="navigationLinks.js"></script>
+    <script>
+        navigateToSearchAdmin();
+    </script>
 </body>
 </html>
