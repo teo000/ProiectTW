@@ -49,6 +49,10 @@ function navigateToUserProfile (){
     window.location.href = `http://localhost:8081/profile`;
 }
 
+function navigateToAdminOwnUserProfile (){
+    window.location.href = `http://localhost:8081/admin/profile`;
+}
+
 function navigateToAdminUserProfile (name){
     const encodedName = encodeURIComponent(name);
     window.location.href = `http://localhost:8081/admin/profile/${encodedName}`;
@@ -95,6 +99,10 @@ function navigateToAuthorAdmin(author){
 function navigateToStatistics (){
     window.location.href = `http://localhost:8081/statistics`;
 }
+
+function navigateToStatisticsAdmin (){
+    window.location.href = `http://localhost:8081/admin/statistics`;
+}
 function navigateToRecommendations(){
     window.location.href =`http://localhost:8081/recommendations`;
 }
@@ -134,6 +142,25 @@ function navigateToSearch (){
     })
 }
 
+function navigateToSearchAdmin (){
+    const form = document.getElementById('search-bar');
+    const input = document.getElementById('search-input');
+
+    input.addEventListener('keypress', function(event){
+        if(event.key==='Enter'){
+            event.preventDefault();
+            const searchString = input.value.toLowerCase();
+
+            //send request
+            window.location.href = `http://localhost:8081/admin/books/criteria?searchInput=${searchString}&pageSize=100&pageNumber=1`;
+
+        }
+    })
+}
+
+// function navigateToHomepage(){
+//     window.location.href = `http://localhost:8081/books/reviews/all`;
+// }
 
 const navigateToBookLinks =  document.querySelectorAll('a.navigate-to-book');
 
