@@ -28,22 +28,31 @@ const getAllBooks = async (req, res) => {
 
 const getBookByID = async (req, res, id) => {
     try {
-        const book = await bookRepository.getBookByID(id);
+        const user = getUserFromCookie(req, res);
+        const book = await bookRepository.getBookByIdAndUser(id,user.ID);
         if (!book) {
-            res.writeHead(404, {'Content-Type': 'application/json'});
-            res.end(JSON.stringify({error: 'Book not found!'}));
+            const bookById = await bookRepository.getBookByID(id);
+            if(!bookById){
+                res.writeHead(404, {'Content-Type': 'application/json'});
+                res.end(JSON.stringify({error: 'Book not found!'}));
+                return;
+            }
+            res.writeHead(200, {'Content-Type': 'application/json'});
+            res.end(JSON.stringify(bookById));
         } else {
             res.writeHead(200, {'Content-Type': 'application/json'});
             res.end(JSON.stringify(book));
         }
     } catch (error) {
         console.log(error);
+        res.writeHead(500, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify({error: 'Internal Server Error'}));
     }
 }
 
 //@route /books/{title}
 
-const getBookByTitle = async (req, res) => {
+/*const getBookByTitle = async (req, res) => {
     try {
         const parsedUrl = parse(req.url, true);
         const pathname = parsedUrl.pathname;
@@ -74,7 +83,7 @@ const getBookByTitle = async (req, res) => {
         res.end(JSON.stringify({error: 'Internal Server Error'}));
     }
 }
-
+*/
 //@desc : create a new book
 //@route POST /books
 //ex de json:
@@ -519,7 +528,6 @@ const addBookGenreAssociation = async (req, res) => {
 module.exports = {
     getAllBooks,
     getBookByID,
-    getBookByTitle,
     addBook,
     getGenre,
     getTopBooksInGenre,

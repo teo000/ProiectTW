@@ -128,7 +128,7 @@ const addGenericReview = async(req,res) =>{
                    await reviewRepository.updateBookRating( oldRating, reviewData.stars,reviewData.bookid);
                     //schimb nr de stele de la review
                     const updatedReview =  await  reviewRepository.changeReviewStars(reviewData.stars, reviewData.bookid, userId);
-                     await topController.changeTop(book.title);
+                     await topController.changeTop(book.id);
                     res.writeHead(201, {'Content-Type': 'application/json'});
                     res.end(JSON.stringify({message: 'Review added successfully'}));
                     return;
@@ -137,7 +137,7 @@ const addGenericReview = async(req,res) =>{
                 const addedReview = await reviewRepository.addReview(dataToSend);
                 await reviewRepository.addRatingToBook(reviewData.bookid, reviewData.stars);
 
-                await topController.changeTop(book.title);
+                await topController.changeTop(book.id);
                 res.writeHead(201, {'Content-Type': 'application/json'});
                 res.end(JSON.stringify({message: 'Review added successfully', review: addedReview}));
 

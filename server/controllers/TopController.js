@@ -2,9 +2,9 @@ const bookRepository = require("../repositories/BookRepository");
 const rssController = require("./RSSController");
 const genreRepository = require('../repositories/GenreRepository')
 
-async function changeTop(title) {
+async function changeTop(id) {
     try {
-        const genres = await genreRepository.getGenresForBook(title.toLowerCase());
+        const genres = await genreRepository.getGenresForBook(id);
         if(!genres){
           return;
         }

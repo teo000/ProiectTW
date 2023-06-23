@@ -14,7 +14,7 @@ const getAllBooks = () => {
 
 const getBookByID = (id) => {
     return new Promise((resolve, reject) => {
-        databaseConnection.pool.query('SELECT * FROM books  where id = $1', [id], (error, results) => {
+        databaseConnection.pool.query('SELECT b.id, b.title, b.author, b.rating as avgrating, b.description, b.edition, b.publisher, b.year, b.coverimg FROM books b  where id = $1', [id], (error, results) => {
             if (error) {
                 reject(error);
             }
@@ -41,9 +41,9 @@ const getBookByName = (name) => {
 }
 
 //@route: GET /books/getBook; json body : {"title": "title"}
-const getBookByTitleAndUser = (title, userid) => {
+const getBookByIdAndUser = (bookid, userid) => {
     return new Promise((resolve, reject) => {
-        databaseConnection.pool.query('SELECT b.id, b.title, b.author, b.rating as avgrating, b.description, b.edition, b.publisher, b.year, b.coverimg ,ub.rating, ub.shelf FROM books b join user_books ub on ub.bookid = b.id where LOWER(title) = $1 and ub.userid = $2', [title, userid], (error, results) => {
+        databaseConnection.pool.query('SELECT b.id, b.title, b.author, b.rating as avgrating, b.description, b.edition, b.publisher, b.year, b.coverimg ,ub.rating, ub.shelf FROM books b join user_books ub on ub.bookid = b.id where b.id = $1 and ub.userid = $2', [bookid, userid], (error, results) => {
             if (error) {
                 reject(error);
             }
@@ -437,7 +437,7 @@ const addBookGenre = (bookId, genreId) => {
 module.exports = {
     getAllBooks,
     getBookByID,
-    getBookByTitleAndUser,
+    getBookByIdAndUser,
     addBook,
     getBooksByGenre,
     getTopBooksInGenre,
