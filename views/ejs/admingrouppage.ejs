@@ -140,12 +140,12 @@
             </p>
             <div class = "book-summary">
                 <div class = "book-cover">
-                    <a href = "javascript:void(0);" onclick="navigateToBook('<%=group.title%>')">
+                    <a href = "javascript:void(0);" onclick="navigateToBooAdmink('<%=group.title%>')">
                         <img src="<%= group.coverimg %>" alt="Book cover">
                     </a>
                 </div>
                 <div class = "book-information">
-                    <a class="title" href = "javascript:void(0);" onclick="navigateToBook('<%=group.title%>')">
+                    <a class="title" href = "javascript:void(0);" onclick="navigateToBookAdmin('<%=group.title%>')">
                         <%=group.title%>
                     </a>
                     <a class="author" href ="#">
@@ -252,8 +252,8 @@
                         </div>
                     </div>
 
-                    <p class="post-text">"I Rated <a href="javascript:void(0);" onclick="navigateToBook('<%= group.title %>')" class="book-title"><%=group.title%></a> by <a
-                                href="javascript:void(0);" onclick="navigateToBook('<%= group.author %>')" class="book-author"><%=group.author%></a> <%=review.stars%>
+                    <p class="post-text">"I Rated <a href="javascript:void(0);" onclick="navigateToBookAdmin('<%= group.title %>')" class="book-title"><%=group.title%></a> by <a
+                                href="javascript:void(0);" onclick="navigateToAuthorAdmin('<%= group.author %>')" class="book-author"><%=group.author%></a> <%=review.stars%>
                         stars!"
                     </p>
                     <% if (!review.isgeneric || review.isgeneric === null) { %>

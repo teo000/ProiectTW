@@ -146,8 +146,8 @@
                         </div>
                     </div>
 
-                    <p class="post-text">"I Rated <a href="javascript:void(0);" onclick="navigateToBook('<%= review.title %>')" class="book-title"><%=review.title%></a> by <a
-                                href="javascript:void(0);" onclick="navigateToBook('<%= review.author %>')" class="book-author"><%=review.author%></a> <%=review.stars%>
+                    <p class="post-text">"I Rated <a href="javascript:void(0);" onclick="navigateToBookAdmin('<%= review.title %>')" class="book-title"><%=review.title%></a> by <a
+                                href="javascript:void(0);" onclick="navigateToBookAdmin('<%= review.author %>')" class="book-author"><%=review.author%></a> <%=review.stars%>
                         stars!"
                     </p>
                     <% if (!review.isgeneric || review.isgeneric === null) { %>

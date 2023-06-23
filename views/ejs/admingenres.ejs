@@ -108,7 +108,7 @@
                     <ol>
                         <% topBooks.forEach(function(topBook) { %>
                             <li>
-                                <a href="javascript:void(0);" onclick="navigateToBook('<%= topBook.title %>')"
+                                <a href="javascript:void(0);" onclick="navigateToBookAdmin('<%= topBook.title %>')"
                                    class="book-name">
                                     <%=topBook.title %>
                                 </a>
@@ -134,7 +134,7 @@
                                                              onclick="navigateToBookAdmin('<%= book.title %>')"
                                                              class="book-title-link"><%= book.title %></a></p>
                                     <p class="book-author"><a href="javascript:void(0);"
-                                                              onclick="navigateToAuthor('<%=book.author%>')"
+                                                              onclick="navigateToAuthorAdmin('<%=book.author%>')"
                                                               class="book-author-link">by <%= book.author %></a>
                                     </p>
                                 </div>
