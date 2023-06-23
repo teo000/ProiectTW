@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
+    <link  href="adminbookpage.css" rel="stylesheet">
+    <link rel="stylesheet" href="navigation.css">
+
+    <title>Boo!</title>
+</head>
+
+
+<body>
+
+<div id="wrapper-div">
+    <div id="navigation-div">
+        <nav>
+            <div id="toggle-menu">
+
+                <a href="#" class="toggle-button">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </a>
+                <div id="dropdown-menu">
+                    <div class="menu-buttons">
+                        <a class="active"  href="javascript:void(0);" onclick="navigateToAdminPage('homepage')">Posts</a>
+                        <a class="active"  href="javascript:void(0);" onclick="navigateToAdminPage('users')">Users</a>
+                        <a class="active"  href="javascript:void(0);" onclick="navigateToAdminPage('adminaddbookpage')">Add book</a>
+
+                        <div class="hoverable">
+
+                            <a class="active" href="#">Categories</a>
+                            <div class="hamburger-double-dropdown">
+                                <a href="javascript:void(0);" onclick="navigateToGenreAdmin('romance')">Romance</a>
+                                <a href="javascript:void(0);" onclick="navigateToGenreAdmin('biography')">Biography</a>
+                                <a href="javascript:void(0);" onclick="navigateToGenreAdmin('crime')">Crime</a>
+                                <a  href="javascript:void(0);"onclick="navigateToGenreAdmin('fiction')">Fiction</a>
+                                <a  href="javascript:void(0);" onclick="navigateToGenreAdmin('historical fiction')">Historical Fiction</a>
+                                <a href="javascript:void(0);" onclick="navigateToGenreAdmin('self help')">Self Help</a>
+                                <a href="javascript:void(0);" onclick="navigateToGenreAdmin('young adult')">Young Adult</a>
+                            </div>
+                        </div>
+                        <a class="active" href="javascript:void(0);" onclick="navigateToAllGroups()">Groups</a>
+                        <div class="hoverable">
+
+                            <a class="active" href="#">More</a>
+                            <div class="hamburger-double-dropdown">
+                                <a href="javascript:void(0);" onclick="navigateToUserProfile()">Profile</a>
+                                <a href="javascript:void(0);" onclick="navigateToPage('about')">About</a>
+                                <a href="javascript:void(0);" onclick="navigateToPage('help')">Help</a>
+                                <a href="javascript:void(0);" onclick="navigateToRss()">RSS</a>
+                                <a href="javascript:void(0);" onclick="logout()">Log Out</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="buttons">
+                <a class="logo" href="javascript:void(0);" onclick="navigateToAdminPage('homepage')"><img src="boo.png"
+                                                                                                          alt="Ghost reading a book"></a>
+                <a class="active"  href="javascript:void(0);" onclick="navigateToAdminPage('homepage')">Posts</a>
+                <a class="active"  href="javascript:void(0);" onclick="navigateToAdminPage('users')">Users</a>
+                <a class="active"  href="javascript:void(0);" onclick="navigateToAdminPage('adminaddbookpage')">Add book</a>
+
+                <div class="dropdown">
+                    <button class="dropDownButton">Categories</button>
+                    <div class="dropdown-categories">
+                        <a href="javascript:void(0);" onclick="navigateToGenreAdmin('romance')">Romance</a>
+                        <a href="javascript:void(0);" onclick="navigateToGenreAdmin('biography')">Biography</a>
+                        <a href="javascript:void(0);" onclick="navigateToGenreAdmin('crime')">Crime</a>
+                        <a  href="javascript:void(0);" onclick="navigateToGenreAdmin('fiction')">Fiction</a>
+                        <a  href="javascript:void(0);" onclick="navigateToGenreAdmin('historical fiction')">Historical Fiction</a>
+                        <a href="javascript:void(0);" onclick="navigateToGenreAdmin('self help')">Self Help</a>
+                        <a href="javascript:void(0);" onclick="navigateToGenreAdmin('young adult')">Young Adult</a>
+                    </div>
+                </div>
+                <a class="active" href="javascript:void(0);" onclick="navigateToAllGroups()">Groups</a>
+                <div class="dropdown">
+                    <button class="dropDownButton">More</button>
+                    <div class="dropdown-categories">
+                        <a href="javascript:void(0);" onclick="navigateToUserProfile()">Profile</a>
+                        <a href="javascript:void(0);" onclick="navigateToPage('about')">About</a>
+                        <a href="javascript:void(0);" onclick="navigateToPage('help')">Help</a>
+                        <a href="javascript:void(0);" onclick="navigateToRss()">RSS</a>
+                        <a href="javascript:void(0);" onclick="logout()">Log Out</a>
+                    </div>
+                </div>
+
+            </div>
+            <div id="search-bar">
+                <input type="text" placeholder="Search...">
+            </div>
+        </nav>
+    </div>
+
+    <div id = "content-wrapper">
+        <div id="book-cover-div">
+            <div id = "book-cover">
+                <img  src="<%= book.coverimg %>" alt="Book cover">
+            </div>
+            <div id = "buttons-container">
+                <button class="button" id="deleteBook">Delete Book</button>
+                <button class="button" id="displayUpdateCover">Update Cover</button>
+                <div id="new-cover">
+                    <input type="text" id = "updateCoverInput" placeholder="Cover image link">
+                    <button class="button" id="updateCoverButton"> Enter </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="content-div">
+            <div id = "book-description">
+                <p id="title">
+                    <%= book.title %>
+                </p>
+                <div class = "editable-information">
+                    <p id="author">
+                        <a href="javascript:void(0);" onclick="navigateToAuthorAdmin('<%=book.author%>')"><%=book.author%></a>
+                    </p>
+                    <button type = "button" id="editAuthorButton">Edit</button>
+                </div>
+
+                <div class="rating-box">
+                    <div class="preset-rating">
+                        <div class="empty-stars"></div>
+                        <div class="full-stars" style="width: <%= book.avgrating * 20 %>%"></div>
+                    </div>
+                    <p>
+                        <%= book.avgrating %>
+                    </p>
+                    <p id = "user-rating" style = "display:none"><%= book.rating%></p>
+                </div>
+                <div class = "editable-information">
+                    <p id="description">
+                        <%= book.description %>
+                    </p>
+                    <button type = "button" id="editDescriptionButton">Edit</button>
+                </div>
+                <div class="genres">
+                    <p class="genre"> Genres: </p>
+                    <div class = "editable-information">
+                        <div id="genre-tags">
+                            <% genres.forEach(function(genre) { %>
+                                <div class="editable-genre">
+                                    <a  href="javascript:void(0);" onclick="navigateToGenreAdmin('<%= genre.name %>')"><%= genre.name %>  </a>
+                                    <button type="button">x</button>
+                                </div>
+                            <% }); %>
+                        </div>
+                        <button type = "button" id="editGenresButton">Edit</button>
+                    </div>
+                </div>
+                <div id="addGenre">
+                    <input id="addGenreInput" placeholder="New Genre">
+                    <button type="button" id="addGenreButton">Add Genre</button>
+                </div>
+                <div class="bookId">
+                    <p id="bookId">BookId : <%= book.id %></p>
+                    <p id="publisher">Publisher:
+                        <% if (book.publisher) { %>
+                            <a href="javascript:void(0);" onclick="navigateToPublisherAdmin('<%= book.publisher %>')"><%= book.publisher %></a>
+                        <% } else { %>
+                            -
+                        <% } %>
+                    </p>
+                    <p id="edition">Edition:
+                        <% if (book.edition) { %>
+                            <a  href="javascript:void(0);" onclick="navigateToEditionAdmin('<%= book.edition %>')"><%= book.edition %></a>
+                        <% } else { %>
+                            -
+                        <% } %>
+                    </p>
+                    <p id="year">Year:
+                        <% if (book.year) { %>
+                            <a href="javascript:void(0);" onclick="navigateToYearAdmin('<%= book.year %>')"><%= book.year %></a>
+                        <% } else { %>
+                            -
+                        <% } %>
+                    </p>
+                </div>
+                <p class="sub-title"> Readers also enjoyed...</p>
+                <div class="other-books">
+                    <% relatedBooks.forEach(function(book) { %>
+                        <div class="book">
+                            <div class="small-cover">
+                                <img src="<%= book.coverimg %>" alt="book cover">
+                            </div>
+                            <p class="small-title"><a href="javascript:void(0);" onclick="navigateToBookAdmin('<%=book.title%>')" ><%=book.title%></a></p>
+                            <p class="small-author"><a href="javascript:void(0);" onclick="navigateToAuthorAdmin('<%=book.author%>')" style = "text-decoration: none"><%=book.author%></a></p>
+                        </div>
+                    <% }); %>
+                    <div class="book">
+                    </div>
+
+
+
+                </div>
+                <hr>
+
+                <p class="sub-title"> Ratings and Reviews : <%= reviews.length%> </p>
+                <div id="feed-div">
+                    <% reviews.forEach(function(review) { %>
+                    <div class="post-container">
+
+                        <div class ="post-header">
+                            <div class="user-profile">
+                                <p><%=review.username%></p>
+                                <span><%=review.date%> </span>
+                            </div>
+                            <p class = "reviewId"><%=review.id%></p>
+                            <button type="button"> x </button>
+                        </div>
+
+                        <div class="rating-box">
+                            <div class="preset-rating">
+                                <div class="empty-stars"></div>
+                                <div class="full-stars" style="width: <%= review.stars * 20 %>%"></div>
+                            </div>
+                        </div>
+
+                        <p class="post-text">"I Rated <a href="javascript:void(0);" onclick="navigateToBookAdmin('<%= review.title %>')" class="book-title"><%=review.title%></a> by <a
+                                    href="javascript:void(0);" onclick="navigateToAuthorAdmin('<%= review.author %>')" class="book-author"><%=review.author%></a> <%=review.stars%>
+                            stars!"
+                        </p>
+                        <% if (!review.isgeneric || review.isgeneric === null) { %>
+                        <p class = post-text>
+                            <%=review.content%>
+                        </p>
+                        <% } %>
+                    </div>
+                    <% }); %>
+                    <div class = "write_review_container">
+
+                        <textarea class="comment-input" id = "review-text" type="text" placeholder="Write a review..."></textarea>
+                        <button class = "add-review-button">Add Review</button>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <footer id = "main-footer">
+            <p>&copy; Proiect realizat de Savin Miruna si Tudurache Teodora, 2023, Tehnologii Web</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="deletepost.js"></script>
+    <script src="comments_and_likes.js"></script>
+    <script src="adminbookpage.js"></script>
+    <script src ="navigationLinks.js"></script>
+</body>
+</html>

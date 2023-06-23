@@ -9,6 +9,7 @@ const {getUserFromCookie} = require("../../helpers/TokenAuthenticator");
 const topController = require('../controllers/TopController')
 const {getUserBooks} = require("./ShelvesController");
 const shelvesRepository = require("../repositories/ShelvesRepository");
+const groupRepository = require("../repositories/GroupRepository");
 
 //@route GET books/getAll
 const getAllBooks = async (req, res) => {
@@ -321,6 +322,138 @@ const getRelatedBooks = async(req,res,id,limit) => {
         console.log(error);
     }
 }
+
+const deleteBook = async(req,res,bookId) =>{
+    try{
+        const user = await bookRepository.deleteBook(bookId);
+        res.writeHead(200, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify(user));
+    }
+    catch (error){
+        console.log(error);
+        res.writeHead(500, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify({error: 'Internal Server Error'}));
+    }
+}
+
+const updateBook = async (req, res) => {
+    const queryString = req.url.split('?')[1];
+    const params = new URLSearchParams(queryString);
+    console.log(`bookController: ${params}`);
+    const bookid = decodeURIComponent(params.get('bookid'));
+    const title = decodeURIComponent(params.get('title'));
+    const author = decodeURIComponent(params.get('author'));
+    const edition = decodeURIComponent(params.get('edition'));
+    const publisher = decodeURIComponent(params.get('publisher'));
+    const year = decodeURIComponent(params.get('year'));
+    try {
+        console.log(bookid);
+
+        if(bookid === null || bookid === undefined){
+            res.writeHead(404, {'Content-Type': 'application/json'});
+            res.end(JSON.stringify({error: 'Book not found!'}));
+            return;
+        }
+        console.log(bookid);
+        if(author !== null && author !== undefined){
+            const book = bookRepository.updateBookAuthor(parseInt(bookid, 10), author);
+            res.writeHead(200, {'Content-Type': 'application/json'});
+            res.end(JSON.stringify(book));
+            return;
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const updateBookCover = async (req, res) => {
+
+    try {
+        let body = '';
+        req.on('data', chunk => {
+            body += chunk.toString();
+        });
+
+        req.on('end', async () => {
+            try {
+                const bookData = JSON.parse(body);
+
+                console.log(bookData)
+                const book = await bookRepository.updateCoverImage(bookData.bookid, bookData.coverImg)
+                res.writeHead(200, {'Content-Type': 'application/json'});
+                res.end(JSON.stringify(book));
+            } catch (error) {
+                console.log(error);
+                res.writeHead(500, {'Content-Type': 'application/json'});
+                res.end(JSON.stringify({error: 'Internal Server Error'}));
+            }
+        });
+    } catch (error) {
+        res.writeHead(500, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify({error: 'Internal Server Error'}));
+    }
+}
+
+
+const updateBookDescription = async (req, res) => {
+    try {
+        let body = '';
+        req.on('data', chunk => {
+            body += chunk.toString();
+        });
+
+        req.on('end', async () => {
+            try {
+                const bookData = JSON.parse(body);
+
+                console.log(bookData);
+                const book = await bookRepository.updateBookDescription(bookData.bookid, bookData.description);
+                res.writeHead(200, {'Content-Type': 'application/json'});
+                res.end(JSON.stringify(book));
+            } catch (error) {
+                console.log(error);
+                res.writeHead(500, {'Content-Type': 'application/json'});
+                res.end(JSON.stringify({error: 'Internal Server Error'}));
+            }
+        });
+    } catch (error) {
+        res.writeHead(500, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify({error: 'Internal Server Error'}));
+    }
+}
+
+
+const deleteBookGenreAssociation = async (req, res) => {
+    try {
+        let body = '';
+        req.on('data', chunk => {
+            body += chunk.toString();
+        });
+
+        req.on('end', async () => {
+            try {
+                const bookData = JSON.parse(body);
+
+                const genre = await genreRepository.getGenre([bookData.genre]);
+
+                console.log(genre);
+                console.log(bookData);
+                const book = await bookRepository.deleteBookGenre(bookData.bookid, genre.id);
+                res.writeHead(200, {'Content-Type': 'application/json'});
+                res.end(JSON.stringify(book));
+            } catch (error) {
+                console.log(error);
+                res.writeHead(500, {'Content-Type': 'application/json'});
+                res.end(JSON.stringify({error: 'Internal Server Error'}));
+            }
+        });
+    } catch (error) {
+        res.writeHead(500, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify({error: 'Internal Server Error'}));
+    }
+}
+
 module.exports = {
     getAllBooks,
     getBookByID,
@@ -331,5 +464,10 @@ module.exports = {
     getGenreCount,
     getBooksByCriteria,
     getRelatedBooks,
-    getBookRecommendations
+    getBookRecommendations,
+    deleteBook,
+    updateBook,
+    updateBookCover,
+    updateBookDescription,
+    deleteBookGenreAssociation
 }

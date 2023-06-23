@@ -97,20 +97,36 @@ function navigateToMyBooks(){
 
 function navigateToPublisher(publisher){
     const lowerPublisher = publisher.toLowerCase();
-
     window.location.href = `http://localhost:8081/books/criteria?publisher=${lowerPublisher}&pageSize=100&pageNumber=1`;
 }
+function navigateToPublisherAdmin(publisher){
+    const lowerPublisher = publisher.toLowerCase();
+    window.location.href = `http://localhost:8081/admin/books/criteria?publisher=${lowerPublisher}&pageSize=100&pageNumber=1`;
+}
+
 function navigateToYear(year){
     window.location.href = `http://localhost:8081/books/criteria?year=${year}&pageSize=100&pageNumber=1`;
+}
+function navigateToYearAdmin(year){
+    window.location.href = `http://localhost:8081/admin/books/criteria?year=${year}&pageSize=100&pageNumber=1`;
 }
 function navigateToEdition(edition){
     const lowerEdition = edition.toLowerCase();
     window.location.href = `http://localhost:8081/books/criteria?edition=${lowerEdition}&pageSize=100&pageNumber=1`;
 }
+function navigateToEditionAdmin(edition){
+    const lowerEdition = edition.toLowerCase();
+    window.location.href = `http://localhost:8081/admin/books/criteria?edition=${lowerEdition}&pageSize=100&pageNumber=1`;
+}
 function navigateToAuthor(author){
     const lowerAuthor = author.toLowerCase();
 console.log(author);
     window.location.href = `http://localhost:8081/books/criteria?author=${lowerAuthor}&pageSize=100&pageNumber=1`;
+}
+function navigateToAuthorAdmin(author){
+    const lowerAuthor = author.toLowerCase();
+    console.log(author);
+    window.location.href = `http://localhost:8081/admin/books/criteria?author=${lowerAuthor}&pageSize=100&pageNumber=1`;
 }
 
 function navigateToStatistics (){

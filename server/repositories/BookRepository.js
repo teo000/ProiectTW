@@ -291,6 +291,86 @@ const getRelatedBooks = (id, limit, information) => {
     });
 
 }
+
+const deleteBook = (bookId) => {
+    console.log(`deleteBook: ${bookId}`);
+    return new Promise((resolve, reject) => {
+        databaseConnection.pool.query('delete from books where id=$1 returning  *',
+            [bookId],
+            (error, results) => {
+                if (error) {
+                    console.log(error);
+                    reject(error);
+                }
+                console.log(results);
+                resolve(results.rows[0]);
+            });
+    });
+}
+
+const updateCoverImage = (bookId, coverimg) => {
+    console.log(`updateCoverImage: ${bookId}, ${coverimg}`);
+    return new Promise((resolve, reject) => {
+        databaseConnection.pool.query('update books set coverimg = $1 where id=$2 returning  *',
+            [coverimg, bookId],
+            (error, results) => {
+                if (error) {
+                    console.log(error);
+                    reject(error);
+                }
+                console.log(results);
+                resolve(results.rows[0]);
+            });
+    });
+}
+const updateBookAuthor = (bookId, author) => {
+    console.log(`updateBookAuthor: ${bookId}, ${author}`);
+    return new Promise((resolve, reject) => {
+        databaseConnection.pool.query('update books set author = $1 where id=$2 returning  *',
+            [author, bookId],
+            (error, results) => {
+                if (error) {
+                    console.log(error);
+                    reject(error);
+                }
+                console.log(results.rows);
+                resolve(results.rows[0]);
+            });
+    });
+}
+
+const updateBookDescription = (bookId, description) => {
+    console.log(`updateBookDescription: ${bookId}, ${description}`);
+    return new Promise((resolve, reject) => {
+        databaseConnection.pool.query('update books set description = $1 where id=$2 returning  *',
+            [description, bookId],
+            (error, results) => {
+                if (error) {
+                    console.log(error);
+                    reject(error);
+                }
+                console.log(results.rows);
+                resolve(results.rows[0]);
+            });
+    });
+}
+
+const deleteBookGenre = (bookId, genreId) => {
+    console.log(`updateBookDescription: ${bookId}, ${genreId}`);
+    return new Promise((resolve, reject) => {
+        databaseConnection.pool.query('delete from book_genre where book_id=$1 and genre_id = $2 returning  *',
+            [bookId, genreId],
+            (error, results) => {
+                if (error) {
+                    console.log(error);
+                    reject(error);
+                }
+                console.log(results.rows);
+                resolve(results.rows[0]);
+            });
+    });
+}
+
 module.exports = {
     getAllBooks,
     getBookByID,
@@ -309,5 +389,10 @@ module.exports = {
     isTopChanged,
     changeTop,
     getBookByName,
-    getRelatedBooks
+    getRelatedBooks,
+    deleteBook,
+    updateCoverImage,
+    updateBookAuthor,
+    updateBookDescription,
+    deleteBookGenre
 }

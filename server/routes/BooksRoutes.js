@@ -1,4 +1,6 @@
-const {getAllBooks, getBookByID, getBookByTitle, addBook, getGenre,  getTopBooksInGenre,getBookRecommendations,getBooksByCriteria, getGenreCount,getRelatedBooks} = require("../controllers/BookController");
+const {getAllBooks, getBookByID, getBookByTitle, addBook, getGenre,  getTopBooksInGenre,getBookRecommendations,getBooksByCriteria, getGenreCount,getRelatedBooks, deleteBook, updateBook,
+    updateBookCover, updateBookDescription, deleteBookGenreAssociation
+} = require("../controllers/BookController");
 const {addReview, addGenericReview, getBookReviews, getAllReviews, getReviewsMadeByUser,deleteReview, getReviewsByUsername} =require("../controllers/ReviewController");
 const {addBookToShelf, getUserBooks, removeBookFromShelf} =require("../controllers/ShelvesController");
 const bookIdRegex = /^\/books\/[0-9]+$/;
@@ -102,8 +104,20 @@ const handlePostRequests = (req, res) => {
 }
 //books/shelf?bookid=...
 const handlePutRequests = (req, res) => {
-
-
+    console.log(req.url);
+    if (req.url === '/books/coverimg'){
+        updateBookCover(req, res);
+    }
+    if (req.url === '/books/description'){
+        updateBookDescription(req, res);
+    }
+    else if (req.url.startsWith('/books?')){
+        updateBook(req, res);
+    }
+    else {
+        res.writeHead(404, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify({error: 'Endpoint not found'}));
+    }
 }
 const handleDeleteRequests = (req, res) => {
     if (req.url.startsWith('/books/shelf')) {
@@ -112,8 +126,13 @@ const handleDeleteRequests = (req, res) => {
         const reviewId = req.url.split('/')[3].toLowerCase();
         const decodedReviewId = decodeURIComponent(reviewId);
         deleteReview(req, res, decodedReviewId)
+    } else if (req.url.startsWith('/books/book/')){
+        const bookId = req.url.split('/')[3].toLowerCase();
+        const decodedBookId = decodeURIComponent(bookId);
+        deleteBook(req, res, decodedBookId);
+    } else if (req.url === '/books/genres'){
+        deleteBookGenreAssociation(req, res);
     }
-
     else {
         res.writeHead(404, {'Content-Type': 'application/json'});
         res.end(JSON.stringify({error: 'Endpoint not found'}));
