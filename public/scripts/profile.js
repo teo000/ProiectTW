@@ -1,11 +1,11 @@
-function deleteUserProfile(){
+function deleteUserProfile() {
     const confirmation = confirm("Are you sure you want to delete your profile?");
-    if(confirmation){
+    if (confirmation) {
         deleteUser();
     }
 }
 
-function deleteUser(){
+function deleteUser() {
     fetch('http://localhost:6969/users', {
         method: 'DELETE',
         credentials: 'include'
@@ -25,6 +25,37 @@ function deleteUser(){
     }).catch(error => console.log(error));
 }
 
-function resetPassword () {
-    window.location.href = 'http://localhost:8081/resetPassword'
+async function resetPassword() {
+    const resetPasswordCode = await generateResetPasswordCode();
+    console.log(resetPasswordCode)
+    if (resetPasswordCode !== null)
+        window.location.href = `http://localhost:8081/resetpassword?code=${resetPasswordCode}`;
+    else
+        Swal.fire('Error', 'An error has occurred', 'error');
 }
+
+async function generateResetPasswordCode() {
+    try {
+        const response =await fetch('http://localhost:6969/changeResetPasswordCode', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include'
+        });
+        if (response.ok) {
+            const data = await response.json();
+            const code = data.resetCode;
+            console.log("code = " + code);
+            return code;
+        }
+        const data = await response.json();
+        const errorMessage = data.error;
+        Swal.fire('Error', errorMessage, 'error');
+    } catch
+        (error) {
+        Swal.fire('Error', 'An error has occurred', 'error');
+    }
+    return null;
+}
+

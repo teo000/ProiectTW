@@ -34,13 +34,15 @@ resetPasswordForm.addEventListener('submit', (event) => {
     const confirmPassword = document.querySelector('#confirmPassword').value;
 
     console.log("aici")
+    const urlParams = new URLSearchParams(window.location.search);
+    const resetCode = urlParams.get('code');
 
-    fetch('http://localhost:6969/resetPassword', {
+    fetch(`http://localhost:6969/resetPassword`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ username, password , confirmPassword}),
+        body: JSON.stringify({ username, password , confirmPassword, resetCode}),
         credentials: 'include'
     }).then((response) => {
         if (response.ok) {

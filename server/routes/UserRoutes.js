@@ -1,4 +1,4 @@
-const {getAllUsers, getUser, createUser, deleteUser, deleteUserByUsername} = require('../controllers/userController');
+const {getAllUsers, getUser, createUser, deleteUser, deleteUserByUsername,changeResetPasswordCode} = require('../controllers/userController');
 const {getGroup} = require("../controllers/GroupController");
 const usernameRegex = /^\/users\/([A-Za-z0-9_-]+)$/;
 
@@ -21,6 +21,8 @@ const handleGetRequests = (req, res) => {
         getUser(req, res, username);
     } else if(req.url.startsWith('/users/profile')){
 
+    }else if(req.url.startsWith('/changeResetPasswordCode')){
+        changeResetPasswordCode(req,res);
     }
     else {
         res.writeHead(404, {'Content-Type': 'application/json'});

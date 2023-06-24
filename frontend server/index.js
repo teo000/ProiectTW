@@ -100,7 +100,9 @@ const server = http.createServer((req, res) => {
         authenticateTokenForUser(req, res, customReadHomepageEjs, `../views/ejs/homepage.ejs`);
     } else if (url.startsWith('/statistics') && url.indexOf('.') === -1) {
         authenticateTokenForUser(req, res, customReadStatisticsEjs, `../views/ejs/statistics.ejs`);
-    } else if (url.indexOf(".") === -1) {
+    }else if(url.startsWith('/resetpassword') && url.indexOf('.') === -1){
+        customReadFile(req,res,`../views/resetpassword.html`);
+    }else if (url.indexOf(".") === -1) {
         //its an html request
         //check if it is login
         if (url.indexOf("rss") !== -1) {

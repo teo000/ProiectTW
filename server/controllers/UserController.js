@@ -124,11 +124,25 @@ const deleteUser = async (req, res) => {
         res.end(JSON.stringify({error: 'Internal Server Error'}));
     }
 }
+const changeResetPasswordCode = async (req, res) => {
+    try {
+        const user = getUserFromCookie(req, res);
+        const code = Math.floor(Math.random()*(9999999999-1000000000));
+        await userRepository.addResetPasswordCode(user.ID,code);
+        res.writeHead(200, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify({resetCode: code}));
+    } catch (error) {
+        console.log(error);
+        res.writeHead(500, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify({error: 'Internal Server Error'}));
+    }
+}
 
 module.exports = {
     getAllUsers,
     getUser,
     createUser,
     deleteUser,
-    deleteUserByUsername
+    deleteUserByUsername,
+    changeResetPasswordCode
 };

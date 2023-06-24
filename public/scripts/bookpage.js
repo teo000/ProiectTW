@@ -61,6 +61,7 @@ stars.forEach(star =>{
     star.addEventListener('click', ()=>{
         const rating = star.value;
         sendRating(rating);
+
     })
 })
 
@@ -83,7 +84,11 @@ function sendRating(rating){
     })
         .then(response =>{
             if(response.ok){
-                Swal.fire('Book added to shelf successfully!', '', 'success');
+                Swal.fire('Book added to shelf successfully!', '', 'success').then((result) => {
+                    if (result.isConfirmed) {
+                        location.reload();
+                    }
+                });
             }
             else{
                 response.json().then(data => {
@@ -145,7 +150,11 @@ function addToShelf(shelfName){
         .then(response =>{
             if(response.ok){
                 console.log('ok');
-                Swal.fire('Book added to shelf successfully!', '', 'success');
+                Swal.fire('Book added to shelf successfully!', '', 'success').then((result) => {
+                    if (result.isConfirmed) {
+                        location.reload();
+                    }
+                });
             }
             else{
                 response.json().then(data => {
@@ -206,7 +215,7 @@ function deleteFromShelf(shelf){
     })
         .then(response =>{
             if(response.ok){
-                Swal.fire('Book removed from shelf!', 'boo', 'success');
+                Swal.fire('Book removed from shelf!', '', 'success');
             }
             else{
                 response.json().then(data => {
@@ -275,7 +284,11 @@ addButton.addEventListener('click', ()=>{
         .then(response =>{
             if(response.ok){
                 console.log('ok');
-                Swal.fire('Book review successfully added', '', 'success');
+                Swal.fire('Book review successfully added', '', 'success').then((result) => {
+                    if (result.isConfirmed) {
+                        location.reload();
+                    }
+                });
             }
             else{
                 response.json().then(data => {
