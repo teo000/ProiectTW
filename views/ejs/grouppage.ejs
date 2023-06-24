@@ -141,7 +141,7 @@
             <div class="book">
 
                 <div class = "book-summary">
-                        <p class = "related-book-id" style = "display: none " ><%=group.bookid%></p>
+                        <p class = "related-book-id" style = "display: none " ><%=group.book_id%></p>
                         <div class = "book-cover">
                             <a class = "navigate-to-book">
                                 <img src="<%= group.coverimg %>" alt="Book cover">
@@ -149,9 +149,11 @@
                         </div>
 
                         <div class = "book-information">
-                            <a class="title" class = "navigate-to-book">
-                                <%=group.title%>
-                            </a>
+                            <div class = "title">
+                                <a class = "navigate-to-book">
+                                    <%=group.title%>
+                                </a>
+                            </div>
                             <a href="javascript:void(0);" onclick="navigateToAuthor('<%=group.author%>')" class="author">
                                 <%=group.author%>
                             </a>

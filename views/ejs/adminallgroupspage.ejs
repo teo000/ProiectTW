@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
-    <link rel="stylesheet" href="../public/css/mygroupspage.css">
+    <link rel="stylesheet" href="../public/css/adminallgroups.css">
     <link rel="stylesheet" href="../public/css/navigation.css">
 
     <title>Boo!</title>
@@ -102,7 +102,7 @@
             <%if(groups !== null){%>
                 <% groups.forEach(function(group) { %>
                 <div class="group-summary">
-                    <a href="javascript:void(0);" onclick="navigateToGroup('<%=group.name%>')"> <%=group.name%>
+                    <a href="javascript:void(0);" onclick="navigateToGroupAdmin('<%=group.name%>')"> <%=group.name%>
                         <% if (group.is_owner) { %>
                             (OWNER)
                         <% } %></a>
@@ -122,7 +122,7 @@
                                 >
                                     <%= group.title %>
                                 </a>
-                                <a href="javascript:void(0);" onclick="navigateToAuthor('<%=group.author%>')" class="author">
+                                <a href="javascript:void(0);" onclick="navigateToAuthorAdmin('<%=group.author%>')" class="author">
                                     <%= group.author %>
                                 </a>
 
@@ -136,7 +136,7 @@
                                     </p>
                                 </div>
                             </div>
-                            <a href="javascript:void(0);" onclick="navigateToGroup('<%=group.name%>')" class="group-link">see more</a>
+                            <a href="javascript:void(0);" onclick="navigateToGroupAdmin('<%=group.name%>')" class="group-link">see more</a>
                         </div>
                     </div>
                     <!--chestiuta cu see more dupa rezumatul cartii-->
@@ -144,14 +144,14 @@
                 </div>
             <% });} %>
 
-        </div>
-        <div id="groups-actions">
-            <div class = "group-action">
-                <h1>Search for a group</h1>
-                <hr>
-                <label for="inviteCodeForSearch"></label><input type="text" id="inviteCodeForSearch" placeholder="Enter the invite code...">
-                <button type="button" id="searchGroupButton">Search</button>
-            </div>
+<!--        </div>-->
+<!--        <div id="groups-actions">-->
+<!--            <div class = "group-action">-->
+<!--                <h1>Search for a group</h1>-->
+<!--                <hr>-->
+<!--                <label for="inviteCodeForSearch"></label><input type="text" id="inviteCodeForSearch" placeholder="Enter the invite code...">-->
+<!--                <button type="button" id="searchGroupButton">Search</button>-->
+<!--            </div>-->
 
         </div>
 

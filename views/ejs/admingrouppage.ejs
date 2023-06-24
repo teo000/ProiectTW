@@ -143,18 +143,21 @@
             <div class="book">
 
                 <div class = "book-summary">
-                    <p class = "related-book-id" style = "display: none " ><%=group.bookid%></p>
+                    <p class = "related-book-id" style = "display: none " ><%=group.book_id%></p>
                     <div class = "book-cover">
-                        <a class = "navigate-to-book">
+                        <a class = "navigate-to-book-admin">
                             <img src="<%= group.coverimg %>" alt="Book cover">
                         </a>
                     </div>
 
                     <div class = "book-information">
-                        <a class="title" class = "navigate-to-book">
-                            <%=group.title%>
-                        </a>
-                        <a href="javascript:void(0);" onclick="navigateToAuthor('<%=group.author%>')" class="author">
+
+                        <div class = "title">
+                            <a class = "navigate-to-book-admin">
+                                <%=group.title%>
+                            </a>
+                        </div>
+                        <a href="javascript:void(0);" onclick="navigateToAuthorAdmin('<%=group.author%>')" class="author">
                             <%=group.author%>
                         </a>
 
@@ -245,7 +248,7 @@
                     <!--aici putem pune poza userului-->
                     <div class="user-profile">
                         <p><%=review.username%></p>
-                        <span><%=review.date%> </span>
+                        <span><%= review.date %> </span>
                     </div>
 
                     <div class="rating-box">
@@ -257,9 +260,9 @@
 
                     <div class="book">
                         <p class = "related-book-id" style = "display: none " ><%=group.book_id%></p>
-                        <p class="post-text">"I Rated <a class="navigate-to-book" class="book-title"><%= group.title %></a>
+                        <p class="post-text">"I Rated <a class="navigate-to-book-admin" class="book-title"><%= group.title %></a>
                             by <a
-                                    href="javascript:void(0);" onclick="navigateToAuthor('<%= group.author %>')"
+                                    href="javascript:void(0);" onclick="navigateToAuthorAdmin('<%= group.author %>')"
                                     class="book-author"><%= group.author %></a> <%= review.stars %>
                             stars!"
                         </p>

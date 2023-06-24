@@ -366,7 +366,7 @@ body {
     margin-left: 2vw;
 }
 
-.book-summary .book-information .title{
+.title a{
     color:black;
     text-decoration: none;
     font-family: 'Lato', sans-serif;

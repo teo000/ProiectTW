@@ -51,6 +51,7 @@ const getGroup = async (req, res, name) =>{
     const userId = user.user.ID;
     try {
         const groups = await groupRepository.getGroupByName(name, userId);
+
         res.writeHead(200, {'Content-Type': 'application/json'});
         res.end(JSON.stringify(groups));
         console.log(groups);

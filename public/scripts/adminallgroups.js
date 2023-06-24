@@ -1,4 +1,4 @@
-const searchGroupButton = document.querySelector("#searchGroupButton");
+// const searchGroupButton = document.querySelector("#searchGroupButton");
 //
 // searchGroupButton.addEventListener('click', (event) => {
 //     const groupName = document.querySelector("#inviteCodeForSearch").value;
@@ -9,12 +9,12 @@ const searchGroupButton = document.querySelector("#searchGroupButton");
 //
 //     event.preventDefault();
 //
-//     fetch(`http://localhost:6969/groups/get`, {
-//         method: 'POST',
+//     fetch(`http://localhost:6969/groups/group`, {
+//         method: 'GET',
 //         headers: {
 //             'Content-Type': 'application/json'
 //         },
-//         body: JSON.stringify({newGroupName}),
+//         body: JSON.stringify({groupName}),
 //         credentials: 'include'
 //     }).then((response) => {
 //         if (response.ok) {
@@ -39,6 +39,6 @@ const searchGroupButton = document.querySelector("#searchGroupButton");
 //         }
 //     }).catch(error => console.log(error));
 // });
-//
+
 
 

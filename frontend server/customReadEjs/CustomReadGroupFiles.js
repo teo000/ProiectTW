@@ -42,7 +42,7 @@ const customReadAllGroupsEjs = async (req, res, file_path) => {
         try {
             const [groupsData] = await Promise.all([groupPromise]);
             console.log(groupsData);
-            // Render the EJS template with the data
+
             const renderedEJS = ejs.render(template, {groups: groupsData});
 
             res.writeHead(200, {"Content-Type": "text/html"});
@@ -70,8 +70,14 @@ const customReadGroupEjs = async (req, res, filepath, group) => {
     try {
         const [groupData, membersData] = await Promise.all([groupPromise, membersPromise]);
         console.log(groupData);
-        // Render the EJS template with the data
-        const renderedEJS = ejs.render(template, {group: groupData, members: membersData});
+
+        const modifiedMembersDate = membersData.map(review => {
+            const date = new Date(review.date);
+            const formattedDate = date.toISOString().slice(0, 10);
+            return {...review, date: formattedDate}
+        });
+
+        const renderedEJS = ejs.render(template, {group: groupData, members: modifiedMembersDate});
 
         res.writeHead(200, {"Content-Type": "text/html"});
         res.end(renderedEJS);
