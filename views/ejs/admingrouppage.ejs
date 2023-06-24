@@ -245,11 +245,15 @@
                 <% members.forEach(function(review) { %>
                 <%if(review.stars!== null){%>
                 <div class="post-container">
-                    <!--aici putem pune poza userului-->
-                    <div class="user-profile">
-                        <p><%=review.username%></p>
-                        <span><%= review.date %> </span>
+                    <div class ="post-header">
+                        <div class="user-profile">
+                            <p><%=review.username%></p>
+                            <span><%=review.date%> </span>
+                        </div>
+                        <p class = "reviewId"><%=review.id%></p>
+                        <button type="button"> x </button>
                     </div>
+
 
                     <div class="rating-box">
                         <div class="preset-rating">

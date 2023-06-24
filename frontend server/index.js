@@ -53,7 +53,7 @@ const server = http.createServer((req, res) => {
 
             authenticateTokenForAdmin(req, res, customReadBooksEjs, `../views/ejs/adminbookpage.ejs`, title);
         } else if (url === '/admin/profile')
-            authenticateTokenForAdmin(req, res, customReadUserEjs, `../views/ejs/adminuserprofile.ejs`);
+            authenticateTokenForAdmin(req, res, customReadUserEjs, `../views/ejs/adminownprofile.ejs`);
         else if (url.startsWith('/admin/profile/')) {
             const username = url.split('/')[3].toLowerCase();
             authenticateTokenForAdmin(req, res, customReadUserForAdminEjs, `../views/ejs/adminuserprofile.ejs`, username);

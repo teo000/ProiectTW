@@ -78,5 +78,27 @@
         <name>teo</name>
       </author>
     </item>
+    <item>
+      <title>The top for Crime books has changed!</title>
+      <description>On the first place : "The War on Women" by Sue Lloyd-Roberts;
+            On the second place : "All the Lies" by S.T. Abby;
+            On the third place : "Know My Name" by Chanel Miller</description>
+      <date>2023-06-25</date>
+    </item>
+    <item>
+      <title>The top for Fiction books has changed!</title>
+      <description>On the first place : "Battle for Erthia" by Laurie Forest (Goodreads Author);
+            On the second place : "Here Before Kilroy" by Su Walton;
+            On the third place : "The Present" by Kenneth Thomas (Goodreads Author)</description>
+      <date>2023-06-25</date>
+    </item>
+    <item>
+      <title>New Review for book "Crime and Punishment" by "Fyodor Dostoyevsky, David McDuff (Translator)"</title>
+      <description>Review of 5 stars made by user "teo": "pe asta chiar am citit o B)"</description>
+      <date>2023-06-24</date>
+      <author>
+        <name>teo</name>
+      </author>
+    </item>
   </channel>
 </rss>
