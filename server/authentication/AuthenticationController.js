@@ -6,6 +6,7 @@ const {checkPasswordValidity, AuthenticationModel} = require("../models/Authenti
 const jwt = require("jsonwebtoken");
 const cookie = require('cookie');
 const {getUser} = require("../repositories/UserRepository");
+const {use} = require("bcrypt/promises");
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -165,6 +166,7 @@ const requestResetPassword = async (req, res) => {
                     res.end(JSON.stringify({error: 'We could not process your request'}));
                     return;
                 }
+                const code = await addResetPasswordCode(user);
                 const mailOptions = {
                     from: 'boobookreviewer@gmail.com',
                     to: `${user.email}`,
@@ -174,7 +176,7 @@ const requestResetPassword = async (req, res) => {
                         <h1>Password Reset</h1>
                         <p>Hello,</p>
                         <p>We received a request to reset your password. Click the link below to proceed with the password reset:</p>
-                        <a href="http://localhost:8081/login">Reset Password</a>
+                        <a href="http://localhost:8081/resetpassword?code=${code}">Reset Password</a>
                         <p>If you did not request this password reset, please ignore this email.</p>
                         <p>Best regards,</p>
                         <p>The Boo Team</p>
@@ -209,7 +211,13 @@ const requestResetPassword = async (req, res) => {
     }
 }
 
-
+const addResetPasswordCode = async(user) =>{
+    //create code for password reset : up to a 10 digit number
+    const code = Math.floor(Math.random()*(9999999999-1000000000));
+    //add the code to the user
+    await userRepository.addResetPasswordCode (user.id, code);
+    return code;
+}
 const adminsignup = async (req, res) => {
     try {
         let body = '';
@@ -405,7 +413,6 @@ const resetPassword = async (req, res) => {
 
         req.on('end', async () => {
             try {
-
                 const userData = JSON.parse(body);
                 console.log(userData);
                 // Validate the required fields (username, password)
@@ -424,8 +431,17 @@ const resetPassword = async (req, res) => {
                 // Check if the username is valid
                 const existingUser = await userRepository.getUser(userData.username);
                 if (!existingUser) {
-                    res.writeHead(401, {'Content-Type': 'application/json'});
+                    res.writeHead(404, {'Content-Type': 'application/json'});
                     res.end(JSON.stringify({error: 'User does not exist'}));
+                    return;
+                }
+                //check if the code provided
+                // is the same as the one in the database
+                const resetCodeFromDb = existingUser.reset_password_code;
+
+                if(userData.resetCode !== resetCodeFromDb || !userData.resetCode){
+                    res.writeHead(401, {'Content-Type': 'application/json'});
+                    res.end(JSON.stringify({error: 'You are not authorized to perform this operation'}));
                     return;
                 }
 

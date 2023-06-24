@@ -51,6 +51,18 @@ const addUser = async (userData) => {
     });
 }
 
+const addResetPasswordCode = (id, code) =>{
+    return new Promise((resolve, reject) => {
+        databaseConnection.pool.query(`update users set reset_password_code = $1 where id = $2`,
+            [code,id], (error, results) => {
+                if (error) {
+                    console.log(error)
+                    reject(error);
+                }
+                resolve(results.rows[0]);
+            });
+    });
+}
 const deleteUserByUsername = (username) => {
     return new Promise((resolve, reject) => {
         databaseConnection.pool.query('delete from users where username=$1 returning  *',
@@ -82,7 +94,7 @@ const resetPassword = async(userData) =>{
     console.log(userData);
     return new Promise((resolve, reject) => {
         const { username,passwordHash,salt} = userData;
-        databaseConnection.pool.query(`update users set passwordhash = $2, salt = $3 where username = $1 returning *;`,
+        databaseConnection.pool.query(`update users set passwordhash = $2, salt = $3, reset_password_code = null where username = $1 returning *;`,
             [username,passwordHash,salt], (error, results) => {
                 if (error) {
                     console.log(error)
@@ -99,5 +111,6 @@ module.exports = {
     addUser,
     deleteUserByUsername,
     resetPassword,
-    deleteUser
+    deleteUser,
+    addResetPasswordCode,
 }
