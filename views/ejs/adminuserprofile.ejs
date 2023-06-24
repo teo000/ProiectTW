@@ -100,7 +100,7 @@
     <div id = "content-wrapper">
         <div id="buttons-container">
             <button class="button" id="deleteProfile">Delete Profile</button>
-            <p class = "username-hidden"><%=user.username%></p>
+<!--            <p id = "username-hidden"><%=user.username%></p>-->
         </div>
         <div id="content">
             <div id="top">
@@ -110,7 +110,7 @@
                         <p class="category">
                             Username:
                         </p>
-                        <p class = "information">
+                        <p class = "information" id = "username">
                             <%=user.username%>
                         </p>
                     </div>
@@ -146,31 +146,22 @@
                         </div>
                     </div>
 
-                    <p class="post-text">"I Rated <a href="javascript:void(0);" onclick="navigateToBookAdmin('<%= review.title %>')" class="book-title"><%=review.title%></a> by <a
-                                href="javascript:void(0);" onclick="navigateToBookAdmin('<%= review.author %>')" class="book-author"><%=review.author%></a> <%=review.stars%>
-                        stars!"
-                    </p>
+                    <div class="book">
+                        <p class = "related-book-id" style = "display: none " ><%=review.bookid%></p>
+                        <p class="post-text">"I Rated <a class="navigate-to-book-admin" class="book-title"><%= review.title %></a>
+                            by <a
+                                    href="javascript:void(0);" onclick="navigateToAuthorAdmin('<%= review.author %>')"
+                                    class="book-author"><%= review.author %></a> <%= review.stars %>
+                            stars!"
+                        </p>
+                    </div>
                     <% if (!review.isgeneric || review.isgeneric === null) { %>
                     <p class = post-text>
                         <%=review.content%>
                     </p>
                     <% } %>
 
-                    <div class="post-row">
-                        <div class="activity-icons">
-                            <div>
-                                <i class="fa-regular fa-heart toggle-heart">15</i>
-                                <i class="fa-regular fa-comment toggle-comment">0</i>
-                            </div>
-                        </div>
-                    </div>
-                    <article class="comment-section">
 
-                        <div class="add-comment">
-                            <input class="comment-input" type="text" placeholder="Write a comment...">
-                            <button class = "add-comment-button">Add Comment</button>
-                        </div>
-                    </article>
                 </div>
                 <% }); %>
             </div>

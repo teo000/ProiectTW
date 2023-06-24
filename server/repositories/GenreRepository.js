@@ -29,6 +29,7 @@ const getGenresForBook = async(id) =>{
     return new Promise((resolve, reject) => {
         databaseConnection.pool.query('select distinct g.name from books b  join book_genre bg on b.id = bg.book_id join genres g on bg.genre_id = g.id where b.id = $1', [id],(error, results) => {
             if (error) {
+                console.log(error)
                 reject(error);
             }
             if(results.rowCount > 0)

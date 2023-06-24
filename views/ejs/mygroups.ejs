@@ -101,7 +101,7 @@
             <%if(groups !== null){%>
             <% groups.forEach(function(group) { %>
                 <div class="group-summary">
-                    <a href="javascript:void(0);" onclick="navigateToGroup('<%=group.name%>')"> <%=group.name%>
+                    <a href="javascript:void(0);" onclick="navigateToGroup('<%=group.id%>')"> <%=group.name%>
                         <% if (group.is_owner) { %>
                             (OWNER)
                         <% } %></a>
@@ -135,7 +135,7 @@
                                     </p>
                                 </div>
                             </div>
-                            <a href="javascript:void(0);" onclick="navigateToGroup('<%=group.name%>')" class="group-link">see more</a>
+                            <a href="javascript:void(0);" onclick="navigateToGroup('<%=group.id%>')" class="group-link">see more</a>
                         </div>
                     </div>
                     <!--chestiuta cu see more dupa rezumatul cartii-->

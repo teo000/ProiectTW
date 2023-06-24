@@ -17,6 +17,7 @@ const getBookByID = (id) => {
         databaseConnection.pool.query('SELECT b.id, b.title, b.author, b.rating as avgrating, b.description, b.edition, b.publisher, b.year, b.coverimg FROM books b  where id = $1', [id], (error, results) => {
             if (error) {
                 reject(error);
+                console.log(error);
             }
             if (results.rowCount > 0) {
                 resolve(results.rows[0]);

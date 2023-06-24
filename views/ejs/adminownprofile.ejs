@@ -2,28 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale1.0">
-    <title>Romance</title>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
-    <link rel="stylesheet" href="genres.css">
-    <link rel="stylesheet" href="navigation.css">
-    <link rel="stylesheet" href="clasament.css">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
-    <style>
-        #no-books-found{
-            color:white;
-            margin-top: 20px;
-            display: flex;
-            align-self: center;
-            font-size: 30px;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" href="profile.css">
+    <title>Boo!</title>
 </head>
+
+
 <body>
+
+<!--tb sa pun in meniu asta peste tot lol-->
+<!--sa poti sa scoti comentarii ca admin-->
+
 <div id="wrapper-div">
     <div id="navigation-div">
         <nav>
@@ -105,90 +97,84 @@
             </div>
         </nav>
     </div>
+    <div id = "content-wrapper">
+        <div id="buttons-container">
+            <button class="button" onclick="deleteUserProfile()">Delete Profile</button>
+            <button class="button" onclick="resetPassword()">Reset Password</button>
+        </div>
+        <div id="content">
+            <div id="top">
+                <img src="ghost.png" alt="profile picture">
+                <div class="user-information">
+                    <div class="information-block">
+                        <p class="category">
+                            Username:
+                        </p>
+                        <p class = "information">
+                            <%=user.username%>
+                        </p>
+                    </div>
+                    <!-- <div class="information-block">
+                         <p class="category">
+                             Preffered genres:
+                         </p>
+                         <p class = "information">
+                             Classics, Crime, Fiction
+                         </p>
+                     </div>-->
 
-    <div id="content-div">
-        <div class="row">
-            <div id="clasament-div">
-
-                <h1>Most Liked Books:</h1>
-                <nav class="linkuri-clasament">
-                    <ol>
-                        <% topBooks.forEach(function(topBook) { %>
-                            <li>
-                                <div class="book">
-                                    <p class="related-book-id" style="display: none "><%= topBook.id %></p>
-                                    <a class="navigate-to-book-admin"
-                                       class="book-name" style = "cursor: pointer">
-                                        <%= topBook.title %>
-                                    </a>
-                                </div>
-                            </li>
-                        <% }) %>
-                    </ol>
-                    <!-- <h3>
-                         Give your books ratings to help us create these rankings!
-                     </h3>-->
-                </nav>
-            </div>
-            <div id="feed-div">
-                <div id=template>
-                    <% if (books.length === 0) { %>
-                        <p id  ="no-books-found">No books found!</p>
-                    <% } else { %>
-                        <% books.forEach(function(book) { %>
-                                <div class="book-container">
-                                    <div class="book-photo">
-                                        <img src="<%= book.coverimg %>" alt="book cover">
-                                    </div>
-
-                                    <div class="post-text">
-                                        <div class="book-author-and-title, book">
-                                            <p class="related-book-id" style="display: none "><%= book.id %></p>
-                                            <p class="book-title" ><a class="navigate-to-book-admin"
-                                                                      class="book-title-link" style = "cursor: pointer"><%= book.title %></a></p>
-                                            <p class="book-author"><a href="javascript:void(0);"
-                                                                      onclick="navigateToAuthorAdmin('<%= book.author %>')"
-                                                                      class="book-author-link">by <%= book.author %></a>
-                                            </p>
-                                        </div>
-                                        <div class="star-rating">
-                                            <div class="preset-rating">
-                                                <div class="empty-stars"></div>
-                                                <div class="full-stars" style="width: <%= book.rating * 20 %>%"></div>
-                                            </div>
-                                            <p>
-                                                <%= book.rating %>
-                                            </p>
-                                        </div>
-
-                                        <div>
-                                            <p class="book-description"><%= book.description %></p>
-                                            <button onclick="readMore(this)" class="more-button">Read More</button>
-                                        </div>
-                                    </div>
-                                </div>
-                        <% }); %>
-                    <% } %>
                 </div>
             </div>
+
+            <h2> Ratings and Reviews </h2> <hr>
+            <div id="feed-div">
+                <% reviews.forEach(function(review) { %>
+                <div class="post-container">
+                    <!--aici putem pune poza userului-->
+                    <div class="user-profile">
+                        <p><%=review.username%></p>
+                        <span><%=review.date%> </span>
+                    </div>
+
+                    <div class="rating-box">
+                        <div class="preset-rating">
+                            <div class="empty-stars"></div>
+                            <div class="full-stars" style="width: <%= review.stars * 20 %>%"></div>
+                        </div>
+                    </div>
+                    <div class="book">
+                        <p class = "related-book-id" style = "display: none " ><%=review.bookid%></p>
+                        <p class="post-text">"I Rated <a class="navigate-to-book-admin" class="book-title"><%= review.title %></a>
+                            by <a
+                                    href="javascript:void(0);" onclick="navigateToAuthorAdmin('<%= review.author %>')"
+                                    class="book-author"><%= review.author %></a> <%= review.stars %>
+                            stars!"
+                        </p>
+                    </div>
+                    <% if (!review.isgeneric || review.isgeneric === null) { %>
+                    <p class = post-text>
+                        <%=review.content%>
+                    </p>
+                    <% } %>
+
+                </div>
+                <% }); %>
+            </div>
         </div>
-        <div id="pages-div">
-            <% for (let i = 1; i <= totalPages; i++) { %>
-                <button onclick="goToPage(<%= i %>)" <%= i === currentPage ? 'class="page-active"' : '' %>><%= i %></button>
-            <% } %>
-        </div>
+
     </div>
-
-
-    <footer id="main-footer">
+    <footer id = "main-footer">
         <p>&copy; Proiect realizat de Savin Miruna si Tudurache Teodora, 2023, Tehnologii Web</p>
     </footer>
 </div>
+<script src="comments_and_likes.js"></script>
+<script src ="navigationLinks.js"></script>
+<script src ="profile.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<script src="genres.js"></script>
-<script src="navigationLinks.js"></script>
 <script>
-    navigateToSearchAdmin();
+    navigateToSearch();
 </script>
 </body>
+
 </html>

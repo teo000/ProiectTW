@@ -11,6 +11,8 @@ const {getUserBooks} = require("./ShelvesController");
 const shelvesRepository = require("../repositories/ShelvesRepository");
 const groupRepository = require("../repositories/GroupRepository");
 
+
+
 //@route GET books/getAll
 const getAllBooks = async (req, res) => {
     try {
@@ -492,6 +494,7 @@ const deleteBookGenreAssociation = async (req, res) => {
     }
 }
 
+
 const addBookGenreAssociation = async (req, res) => {
     try {
         let body = '';
@@ -503,9 +506,11 @@ const addBookGenreAssociation = async (req, res) => {
             try {
                 const bookData = JSON.parse(body);
 
-                var genre = await genreRepository.getGenre([bookData.genre]);
+                const genre = await genreRepository.getGenre([bookData.genre]);
                 if (genre === null || genre === undefined){
-                    genre = await genreRepository.addGenre(bookData.genre);
+                    res.writeHead(404, {'Content-Type': 'application/json'});
+                    res.end(JSON.stringify({error: 'Enter an existing genre'}));
+                    return;
                 }
 
                 console.log(`genre: ${genre}`);
