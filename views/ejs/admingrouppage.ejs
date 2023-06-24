@@ -107,9 +107,11 @@
             <button class="button" id="deleteGroup">Delete Group</button>
         </div>
         <div id="content">
-
             <p class = "group-title">
                 <%=group.name%>
+                <% if (group.is_owner) { %>
+                    (OWNER)
+                <% } %>
             </p>
             <hr>
             <p class = "invite-code">
@@ -138,34 +140,39 @@
             <p class="category-title">
                 We are currently reading...
             </p>
-            <div class = "book-summary">
-                <div class = "book-cover">
-                    <a href = "javascript:void(0);" onclick="navigateToBooAdmink('<%=group.title%>')">
-                        <img src="<%= group.coverimg %>" alt="Book cover">
-                    </a>
-                </div>
-                <div class = "book-information">
-                    <a class="title" href = "javascript:void(0);" onclick="navigateToBookAdmin('<%=group.title%>')">
-                        <%=group.title%>
-                    </a>
-                    <a class="author" href ="#">
-                        <%=group.author%>
-                    </a>
+            <div class="book">
 
-                    <div class="rating-box">
-                        <div class="preset-rating">
-                            <div class="empty-stars"></div>
-                            <div class="full-stars" style="width: <%= group.rating * 20 %>%"></div>
-                        </div>
-                        <p>
-                            <%=group.rating%>
-                        </p>
+                <div class = "book-summary">
+                    <p class = "related-book-id" style = "display: none " ><%=group.bookid%></p>
+                    <div class = "book-cover">
+                        <a class = "navigate-to-book">
+                            <img src="<%= group.coverimg %>" alt="Book cover">
+                        </a>
                     </div>
 
-                    <p class="description">
-                        <%=group.description%>
-                    </p>
+                    <div class = "book-information">
+                        <a class="title" class = "navigate-to-book">
+                            <%=group.title%>
+                        </a>
+                        <a href="javascript:void(0);" onclick="navigateToAuthor('<%=group.author%>')" class="author">
+                            <%=group.author%>
+                        </a>
 
+                        <div class="rating-box">
+                            <div class="preset-rating">
+                                <div class="empty-stars"></div>
+                                <div class="full-stars" style="width: <%= group.rating * 20 %>%"></div>
+                            </div>
+                            <p>
+                                <%=group.rating%>
+                            </p>
+                        </div>
+
+                        <p class="description">
+                            <%=group.description%>
+                        </p>
+
+                    </div>
                 </div>
             </div>
 
@@ -236,13 +243,9 @@
                 <%if(review.stars!== null){%>
                 <div class="post-container">
                     <!--aici putem pune poza userului-->
-                    <div class ="post-header">
-                        <div class="user-profile">
-                            <p><%=review.username%></p>
-                            <span><%=review.date%> </span>
-                        </div>
-                        <p class = "reviewId"><%=review.id%></p>
-                        <button type="button"> x </button>
+                    <div class="user-profile">
+                        <p><%=review.username%></p>
+                        <span><%=review.date%> </span>
                     </div>
 
                     <div class="rating-box">
@@ -252,10 +255,15 @@
                         </div>
                     </div>
 
-                    <p class="post-text">"I Rated <a href="javascript:void(0);" onclick="navigateToBookAdmin('<%= group.title %>')" class="book-title"><%=group.title%></a> by <a
-                                href="javascript:void(0);" onclick="navigateToAuthorAdmin('<%= group.author %>')" class="book-author"><%=group.author%></a> <%=review.stars%>
-                        stars!"
-                    </p>
+                    <div class="book">
+                        <p class = "related-book-id" style = "display: none " ><%=group.book_id%></p>
+                        <p class="post-text">"I Rated <a class="navigate-to-book" class="book-title"><%= group.title %></a>
+                            by <a
+                                    href="javascript:void(0);" onclick="navigateToAuthor('<%= group.author %>')"
+                                    class="book-author"><%= group.author %></a> <%= review.stars %>
+                            stars!"
+                        </p>
+                    </div>
                     <% if (!review.isgeneric || review.isgeneric === null) { %>
                     <p class = post-text>
                         <%=review.content%>

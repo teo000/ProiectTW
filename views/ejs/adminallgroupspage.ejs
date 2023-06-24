@@ -102,33 +102,42 @@
             <%if(groups !== null){%>
                 <% groups.forEach(function(group) { %>
                 <div class="group-summary">
-                    <a href="javascript:void(0);" onclick="navigateToGroupAdmin('<%=group.name%>')"> <%=group.name%></a>
+                    <a href="javascript:void(0);" onclick="navigateToGroup('<%=group.name%>')"> <%=group.name%>
+                        <% if (group.is_owner) { %>
+                            (OWNER)
+                        <% } %></a>
 
                     <hr>
                     <%if(group.book_id !== null){%>
-                    <div class="book-summary">
-                        <div class = "book-cover">
-                            <a href = "javascript:void(0);" onclick="navigateToBookAdmin('<%=group.title%>')"> <img src="<%= group.coverimg %>" alt="book cover"></a>
-                        </div>
-                        <div class = "book-information">
-                            <a href = "javascript:void(0);" onclick="navigateToBookAdmin('<%=group.title%>')" class="title">
-                                <%= group.title %>
-                            </a>
-                            <a href="#" class="author">
-                                <%= group.author %>
-                            </a>
-
-                            <div class="rating-box">
-                                <div class="preset-rating">
-                                    <div class="empty-stars"></div>
-                                    <div class="full-stars" style="width: <%= group.rating * 20 %>%"></div>
-                                </div>
-                                <p>
-                                    <%= group.rating %>
-                                </p>
+                    <div class="book">
+                        <p class = "related-book-id" style = "display: none"><%=group.book_id%></p>
+                        <div class="book-summary">
+                            <div class = "book-cover">
+                                <a class="navigate-to-book-admin"
+                                > <img src="<%= group.coverimg %>" alt="book cover"></a>
                             </div>
+                            <div class = "book-information">
+                                <a class="navigate-to-book-admin"
+                                   class="title"
+                                >
+                                    <%= group.title %>
+                                </a>
+                                <a href="javascript:void(0);" onclick="navigateToAuthor('<%=group.author%>')" class="author">
+                                    <%= group.author %>
+                                </a>
+
+                                <div class="rating-box">
+                                    <div class="preset-rating">
+                                        <div class="empty-stars"></div>
+                                        <div class="full-stars" style="width: <%= group.rating * 20 %>%"></div>
+                                    </div>
+                                    <p>
+                                        <%= group.rating %>
+                                    </p>
+                                </div>
+                            </div>
+                            <a href="javascript:void(0);" onclick="navigateToGroup('<%=group.name%>')" class="group-link">see more</a>
                         </div>
-                        <a href="javascript:void(0);" onclick="navigateToGroupAdmin('<%=group.name%>')" class="group-link">see more</a>
                     </div>
                     <!--chestiuta cu see more dupa rezumatul cartii-->
                     <%}%>
