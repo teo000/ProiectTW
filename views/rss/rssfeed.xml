@@ -1,0 +1,892 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<rss version="2.0">
+  <channel>
+    <title>Book Reviewer RSS Feed</title>
+    <link>http:/localhost:8081</link>
+    <description>Recently added books, reviews and top book changes</description>
+    <lastBuildDate>Mon, 19 Jun 2023 18:58:37 GMT</lastBuildDate>
+    <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <item>
+      <title>New Review for book: The Hunger Games by Suzanne Collins</title>
+      <description>Review of 4 made by user "miruna": "f buna carte"</description>
+      <date>06-19-2023</date>
+      <author>
+        <name>miruna</name>
+      </author>
+    </item>
+    <item>
+      <title>New Review for book "Harry Potter and the Order of the Phoenix" by "J.K. Rowling, Mary GrandPré (Illustrator)"</title>
+      <description>Review of 5 stars made by user "vlad": "great one"</description>
+      <date>2023-06-19</date>
+      <author>
+        <name>vlad</name>
+      </author>
+    </item>
+    <item>
+      <title>New Review for book "Harry Potter and the Order of the Phoenix" by "J.K. Rowling, Mary GrandPré (Illustrator)"</title>
+      <description>Review of 5 stars made by user "vlad": "also a good book"</description>
+      <date>2023-06-19</date>
+      <author>
+        <name>vlad</name>
+      </author>
+    </item>
+    <item>
+      <title>The top for Crime books has changed!</title>
+      <description>On the first place : Crime and Punishment by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : Know My Name by Chanel Miller;
+            On the third place : Paint It All Red by S.T. Abby</description>
+      <date>2023-06-20</date>
+    </item>
+    <item>
+      <title>The top for Fiction books has changed!</title>
+      <description>On the first place : Crime and Punishment by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : Book Too: Because of Grandmother by Ali Marsman (Goodreads Author);
+            On the third place : Maya of the Inbetween by Sita Bennett (Goodreads Author)</description>
+      <date>2023-06-20</date>
+    </item>
+    <item>
+      <title>The top for Crime books has changed!</title>
+      <description>On the first place : Crime and Punishment by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : Know My Name by Chanel Miller;
+            On the third place : Paint It All Red by S.T. Abby</description>
+      <date>2023-06-20</date>
+    </item>
+    <item>
+      <title>The top for Fiction books has changed!</title>
+      <description>On the first place : Crime and Punishment by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : Book Too: Because of Grandmother by Ali Marsman (Goodreads Author);
+            On the third place : Maya of the Inbetween by Sita Bennett (Goodreads Author)</description>
+      <date>2023-06-20</date>
+    </item>
+    <item>
+      <title>The top for Crime books has changed!</title>
+      <description>On the first place : Crime and Punishment by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : Know My Name by Chanel Miller;
+            On the third place : Paint It All Red by S.T. Abby</description>
+      <date>2023-06-20</date>
+    </item>
+    <item>
+      <title>The top for Crime books has changed!</title>
+      <description>On the first place : Crime and Punishment by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : Know My Name by Chanel Miller;
+            On the third place : Paint It All Red by S.T. Abby</description>
+      <date>2023-06-20</date>
+    </item>
+    <item>
+      <title>The top for Fiction books has changed!</title>
+      <description>On the first place : Crime and Punishment by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : Book Too: Because of Grandmother by Ali Marsman (Goodreads Author);
+            On the third place : Maya of the Inbetween by Sita Bennett (Goodreads Author)</description>
+      <date>2023-06-20</date>
+    </item>
+    <item>
+      <title>The top for Fiction books has changed!</title>
+      <description>On the first place : Crime and Punishment by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : Book Too: Because of Grandmother by Ali Marsman (Goodreads Author);
+            On the third place : Maya of the Inbetween by Sita Bennett (Goodreads Author)</description>
+      <date>2023-06-20</date>
+    </item>
+    <item>
+      <title>The top for Fiction books has changed!</title>
+      <description>On the first place : "Crime and Punishment" by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : "The Hunger Games" by Suzanne Collins;
+            On the third place : "Book Too: Because of Grandmother" by Ali Marsman (Goodreads Author)</description>
+      <date>2023-06-20</date>
+    </item>
+    <item>
+      <title>The top for Romance books has changed!</title>
+      <description>On the first place : "The Hunger Games" by Suzanne Collins;
+            On the second place : "The Hunted" by Virginia McKevitt (Goodreads Author);
+            On the third place : "Untitled" by Leigh Bardugo (Goodreads Author)</description>
+      <date>2023-06-20</date>
+    </item>
+    <item>
+      <title>The top for Young Adult books has changed!</title>
+      <description>On the first place : "The Hunger Games" by Suzanne Collins;
+            On the second place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author);
+            On the third place : "Thicker Than Water" by S.F. Mazhar (Goodreads Author)</description>
+      <date>2023-06-20</date>
+    </item>
+    <item>
+      <title>The top for Self Help books has changed!</title>
+      <description>On the first place : "The Simplest Book Ever on Life Attitude and Happiness" by Martin Gover (Goodreads Author);
+            On the second place : "The Explorer's Mindset: Unlock Health Happiness and Success the Fun Way" by Francis Shenstone (Goodreads Author);
+            On the third place : "Awakening Inner Guru" by Banani Ray (Goodreads Author), Amit Ray</description>
+      <date>2023-06-20</date>
+    </item>
+    <item>
+      <title>The top for Biography books has changed!</title>
+      <description>On the first place : "Nutuk" by Mustafa Kemal Atatürk, Zeynep Korkmaz (Editor);
+            On the second place : "One Direction: A Year with One Direction" by One Direction, Niall Horan, Louis Tomlinson, Liam Payne, Harry Styles, Zayn Malik;
+            On the third place : "March" by John Lewis, Andrew Aydin (Goodreads Author), Nate Powell (Illustrator)</description>
+      <date>2023-06-20</date>
+    </item>
+    <item>
+      <title>The top for Fiction books has changed!</title>
+      <description>On the first place : "Crime and Punishment" by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : "The Hunger Games" by Suzanne Collins;
+            On the third place : "Book Too: Because of Grandmother" by Ali Marsman (Goodreads Author)</description>
+      <date>2023-06-20</date>
+    </item>
+    <item>
+      <title>The top for Historical Fiction books has changed!</title>
+      <description>On the first place : "The Book of Jubilees" by Eric M. Black (Goodreads Author);
+            On the second place : "Kronika o našem Malom mistu" by Miljenko Smoje;
+            On the third place : "Mark of the Lion Trilogy" by Francine Rivers (Goodreads Author)</description>
+      <date>2023-06-20</date>
+    </item>
+    <item>
+      <title>The top for Romance books has changed!</title>
+      <description>On the first place : "The Hunger Games" by Suzanne Collins;
+            On the second place : "The Hunted" by Virginia McKevitt (Goodreads Author);
+            On the third place : "Untitled" by Leigh Bardugo (Goodreads Author)</description>
+      <date>2023-06-20</date>
+    </item>
+    <item>
+      <title>New Review for book "Gone with the Wind" by "Margaret Mitchell"</title>
+      <description>Review of 4 stars made by user "miruna1": "really nice"</description>
+      <date>2023-06-20</date>
+      <author>
+        <name>miruna1</name>
+      </author>
+    </item>
+    <item>
+      <title>The top for Fiction books has changed!</title>
+      <description>On the first place : "Crime and Punishment" by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : "The Hunger Games" by Suzanne Collins;
+            On the third place : "Book Too: Because of Grandmother" by Ali Marsman (Goodreads Author)</description>
+      <date>2023-06-21</date>
+    </item>
+    <item>
+      <title>The top for Historical Fiction books has changed!</title>
+      <description>On the first place : "The Book of Jubilees" by Eric M. Black (Goodreads Author);
+            On the second place : "Kronika o našem Malom mistu" by Miljenko Smoje;
+            On the third place : "Mark of the Lion Trilogy" by Francine Rivers (Goodreads Author)</description>
+      <date>2023-06-21</date>
+    </item>
+    <item>
+      <title>The top for Romance books has changed!</title>
+      <description>On the first place : "The Hunger Games" by Suzanne Collins;
+            On the second place : "The Hunted" by Virginia McKevitt (Goodreads Author);
+            On the third place : "Untitled" by Leigh Bardugo (Goodreads Author)</description>
+      <date>2023-06-21</date>
+    </item>
+    <item>
+      <title>The top for Biography books has changed!</title>
+      <description>On the first place : "Nutuk" by Mustafa Kemal Atatürk, Zeynep Korkmaz (Editor);
+            On the second place : "One Direction: A Year with One Direction" by One Direction, Niall Horan, Louis Tomlinson, Liam Payne, Harry Styles, Zayn Malik;
+            On the third place : "March" by John Lewis, Andrew Aydin (Goodreads Author), Nate Powell (Illustrator)</description>
+      <date>2023-06-21</date>
+    </item>
+    <item>
+      <title>The top for Crime books has changed!</title>
+      <description>On the first place : "Crime and Punishment" by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : "Know My Name" by Chanel Miller;
+            On the third place : "Paint It All Red" by S.T. Abby</description>
+      <date>2023-06-21</date>
+    </item>
+    <item>
+      <title>The top for Crime books has changed!</title>
+      <description>On the first place : "Crime and Punishment" by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : "Paint It All Red" by S.T. Abby;
+            On the third place : "Know My Name" by Chanel Miller</description>
+      <date>2023-06-22</date>
+    </item>
+    <item>
+      <title>The top for Romance books has changed!</title>
+      <description>On the first place : "The Hunger Games" by Suzanne Collins;
+            On the second place : "Paint It All Red" by S.T. Abby;
+            On the third place : "The Hunted" by Virginia McKevitt (Goodreads Author)</description>
+      <date>2023-06-22</date>
+    </item>
+    <item>
+      <title>The top for Crime books has changed!</title>
+      <description>On the first place : "Crime and Punishment" by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : "Paint It All Red" by S.T. Abby;
+            On the third place : "Know My Name" by Chanel Miller</description>
+      <date>2023-06-22</date>
+    </item>
+    <item>
+      <title>The top for Romance books has changed!</title>
+      <description>On the first place : "The Hunger Games" by Suzanne Collins;
+            On the second place : "Paint It All Red" by S.T. Abby;
+            On the third place : "The Hunted" by Virginia McKevitt (Goodreads Author)</description>
+      <date>2023-06-22</date>
+    </item>
+    <item>
+      <title>The top for Crime books has changed!</title>
+      <description>On the first place : "Crime and Punishment" by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : "Know My Name" by Chanel Miller;
+            On the third place : "Death Sets Sail" by Robin Stevens (Goodreads Author)</description>
+      <date>2023-06-22</date>
+    </item>
+    <item>
+      <title>The top for Romance books has changed!</title>
+      <description>On the first place : "The Hunger Games" by Suzanne Collins;
+            On the second place : "The Hunted" by Virginia McKevitt (Goodreads Author);
+            On the third place : "Untitled" by Leigh Bardugo (Goodreads Author)</description>
+      <date>2023-06-22</date>
+    </item>
+    <item>
+      <title>The top for Crime books has changed!</title>
+      <description>On the first place : "Crime and Punishment" by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : "Know My Name" by Chanel Miller;
+            On the third place : "Death Sets Sail" by Robin Stevens (Goodreads Author)</description>
+      <date>2023-06-22</date>
+    </item>
+    <item>
+      <title>The top for Fiction books has changed!</title>
+      <description>On the first place : "Crime and Punishment" by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : "The Hunger Games" by Suzanne Collins;
+            On the third place : "Book Too: Because of Grandmother" by Ali Marsman (Goodreads Author)</description>
+      <date>2023-06-22</date>
+    </item>
+    <item>
+      <title>The top for Historical Fiction books has changed!</title>
+      <description>On the first place : "The Book of Jubilees" by Eric M. Black (Goodreads Author);
+            On the second place : "Kronika o našem Malom mistu" by Miljenko Smoje;
+            On the third place : "Mark of the Lion Trilogy" by Francine Rivers (Goodreads Author)</description>
+      <date>2023-06-22</date>
+    </item>
+    <item>
+      <title>The top for Young Adult books has changed!</title>
+      <description>On the first place : "The Hunger Games" by Suzanne Collins;
+            On the second place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author);
+            On the third place : "Thicker Than Water" by S.F. Mazhar (Goodreads Author)</description>
+      <date>2023-06-22</date>
+    </item>
+    <item>
+      <title>New Review for book "The Da Vinci Code" by "Dan Brown (Goodreads Author)"</title>
+      <description>Review of 3 stars made by user "miruna": "bla bla"</description>
+      <date>2023-06-23</date>
+      <author>
+        <name>miruna</name>
+      </author>
+    </item>
+    <item>
+      <title>The top for Crime books has changed!</title>
+      <description>On the first place : "Crime and Punishment" by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : "Know My Name" by Chanel Miller;
+            On the third place : "Death Sets Sail" by Robin Stevens (Goodreads Author)</description>
+      <date>2023-06-23</date>
+    </item>
+    <item>
+      <title>The top for Fiction books has changed!</title>
+      <description>On the first place : "Crime and Punishment" by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : "The Hunger Games" by Suzanne Collins;
+            On the third place : "Book Too: Because of Grandmother" by Ali Marsman (Goodreads Author)</description>
+      <date>2023-06-23</date>
+    </item>
+    <item>
+      <title>The top for Historical Fiction books has changed!</title>
+      <description>On the first place : "The Book of Jubilees" by Eric M. Black (Goodreads Author);
+            On the second place : "Kronika o našem Malom mistu" by Miljenko Smoje;
+            On the third place : "Mark of the Lion Trilogy" by Francine Rivers (Goodreads Author)</description>
+      <date>2023-06-23</date>
+    </item>
+    <item>
+      <title>The top for Young Adult books has changed!</title>
+      <description>On the first place : "The Hunger Games" by Suzanne Collins;
+            On the second place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author);
+            On the third place : "Thicker Than Water" by S.F. Mazhar (Goodreads Author)</description>
+      <date>2023-06-23</date>
+    </item>
+    <item>
+      <title>The top for Crime books has changed!</title>
+      <description>On the first place : "Crime and Punishment" by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : "Know My Name" by Chanel Miller;
+            On the third place : "Death Sets Sail" by Robin Stevens (Goodreads Author)</description>
+      <date>2023-06-23</date>
+    </item>
+    <item>
+      <title>The top for Fiction books has changed!</title>
+      <description>On the first place : "Crime and Punishment" by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : "The Hunger Games" by Suzanne Collins;
+            On the third place : "Book Too: Because of Grandmother" by Ali Marsman (Goodreads Author)</description>
+      <date>2023-06-23</date>
+    </item>
+    <item>
+      <title>The top for Historical Fiction books has changed!</title>
+      <description>On the first place : "The Book of Jubilees" by Eric M. Black (Goodreads Author);
+            On the second place : "Kronika o našem Malom mistu" by Miljenko Smoje;
+            On the third place : "Mark of the Lion Trilogy" by Francine Rivers (Goodreads Author)</description>
+      <date>2023-06-23</date>
+    </item>
+    <item>
+      <title>The top for Young Adult books has changed!</title>
+      <description>On the first place : "The Hunger Games" by Suzanne Collins;
+            On the second place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author);
+            On the third place : "Thicker Than Water" by S.F. Mazhar (Goodreads Author)</description>
+      <date>2023-06-23</date>
+    </item>
+    <item>
+      <title>The top for Crime books has changed!</title>
+      <description>On the first place : "Crime and Punishment" by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : "Know My Name" by Chanel Miller;
+            On the third place : "Death Sets Sail" by Robin Stevens (Goodreads Author)</description>
+      <date>2023-06-23</date>
+    </item>
+    <item>
+      <title>The top for Fiction books has changed!</title>
+      <description>On the first place : "Crime and Punishment" by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : "The Hunger Games" by Suzanne Collins;
+            On the third place : "Book Too: Because of Grandmother" by Ali Marsman (Goodreads Author)</description>
+      <date>2023-06-23</date>
+    </item>
+    <item>
+      <title>The top for Historical Fiction books has changed!</title>
+      <description>On the first place : "The Book of Jubilees" by Eric M. Black (Goodreads Author);
+            On the second place : "Kronika o našem Malom mistu" by Miljenko Smoje;
+            On the third place : "Mark of the Lion Trilogy" by Francine Rivers (Goodreads Author)</description>
+      <date>2023-06-23</date>
+    </item>
+    <item>
+      <title>The top for Young Adult books has changed!</title>
+      <description>On the first place : "The Hunger Games" by Suzanne Collins;
+            On the second place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author);
+            On the third place : "Thicker Than Water" by S.F. Mazhar (Goodreads Author)</description>
+      <date>2023-06-23</date>
+    </item>
+    <item>
+      <title>The top for Fiction books has changed!</title>
+      <description>On the first place : "Crime and Punishment" by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : "The Hunger Games" by Suzanne Collins;
+            On the third place : "Book Too: Because of Grandmother" by Ali Marsman (Goodreads Author)</description>
+      <date>2023-06-23</date>
+    </item>
+    <item>
+      <title>The top for Historical Fiction books has changed!</title>
+      <description>On the first place : "The Book of Jubilees" by Eric M. Black (Goodreads Author);
+            On the second place : "Kronika o našem Malom mistu" by Miljenko Smoje;
+            On the third place : "Mark of the Lion Trilogy" by Francine Rivers (Goodreads Author)</description>
+      <date>2023-06-23</date>
+    </item>
+    <item>
+      <title>The top for Self Help books has changed!</title>
+      <description>On the first place : "The Explorer's Mindset: Unlock Health Happiness and Success the Fun Way" by Francis Shenstone (Goodreads Author);
+            On the second place : "Awakening Inner Guru" by Banani Ray (Goodreads Author), Amit Ray;
+            On the third place : "Meditation: Insights and Inspirations" by Amit Ray</description>
+      <date>2023-06-23</date>
+    </item>
+    <item>
+      <title>The top for Fiction books has changed!</title>
+      <description>On the first place : "Crime and Punishment" by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : "The Hunger Games" by Suzanne Collins;
+            On the third place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author)</description>
+      <date>2023-06-23</date>
+    </item>
+    <item>
+      <title>The top for Fiction books has changed!</title>
+      <description>On the first place : "Crime and Punishment" by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : "The Hunger Games" by Suzanne Collins;
+            On the third place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author)</description>
+      <date>2023-06-23</date>
+    </item>
+    <item>
+      <title>The top for Historical Fiction books has changed!</title>
+      <description>On the first place : "The Book of Jubilees" by Eric M. Black (Goodreads Author);
+            On the second place : "Kronika o našem Malom mistu" by Miljenko Smoje;
+            On the third place : "Mark of the Lion Trilogy" by Francine Rivers (Goodreads Author)</description>
+      <date>2023-06-23</date>
+    </item>
+    <item>
+      <title>The top for Young Adult books has changed!</title>
+      <description>On the first place : "The Hunger Games" by Suzanne Collins;
+            On the second place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author);
+            On the third place : "Thicker Than Water" by S.F. Mazhar (Goodreads Author)</description>
+      <date>2023-06-23</date>
+    </item>
+    <item>
+      <title>The top for Crime books has changed!</title>
+      <description>On the first place : "Crime and Punishment" by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : "Know My Name" by Chanel Miller;
+            On the third place : "Death Sets Sail" by Robin Stevens (Goodreads Author)</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Fiction books has changed!</title>
+      <description>On the first place : "Crime and Punishment" by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : "The Hunger Games" by Suzanne Collins;
+            On the third place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author)</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Historical Fiction books has changed!</title>
+      <description>On the first place : "The Book of Jubilees" by Eric M. Black (Goodreads Author);
+            On the second place : "Kronika o našem Malom mistu" by Miljenko Smoje;
+            On the third place : "Mark of the Lion Trilogy" by Francine Rivers (Goodreads Author)</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>New Review for book "The Da Vinci Code" by "Dan Brown (Goodreads Author)"</title>
+      <description>Review of 5 stars made by user "miruna2": "faina carte"</description>
+      <date>2023-06-24</date>
+      <author>
+        <name>miruna2</name>
+      </author>
+    </item>
+    <item>
+      <title>The top for Fiction books has changed!</title>
+      <description>On the first place : "Crime and Punishment" by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : "The Hunger Games" by Suzanne Collins;
+            On the third place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author)</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Young Adult books has changed!</title>
+      <description>On the first place : "The Hunger Games" by Suzanne Collins;
+            On the second place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author);
+            On the third place : "Thicker Than Water" by S.F. Mazhar (Goodreads Author)</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Self Help books has changed!</title>
+      <description>On the first place : "Awakening Inner Guru" by Banani Ray (Goodreads Author), Amit Ray;
+            On the second place : "The Explorer's Mindset: Unlock Health Happiness and Success the Fun Way" by Francis Shenstone (Goodreads Author);
+            On the third place : "Meditation: Insights and Inspirations" by Amit Ray</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Self Help books has changed!</title>
+      <description>On the first place : "The Explorer's Mindset: Unlock Health Happiness and Success the Fun Way" by Francis Shenstone (Goodreads Author);
+            On the second place : "Meditation: Insights and Inspirations" by Amit Ray;
+            On the third place : "Nonviolence: The Transforming Power" by Amit Ray</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Fiction books has changed!</title>
+      <description>On the first place : "Crime and Punishment" by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : "The Hunger Games" by Suzanne Collins;
+            On the third place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author)</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Young Adult books has changed!</title>
+      <description>On the first place : "The Hunger Games" by Suzanne Collins;
+            On the second place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author);
+            On the third place : "Thicker Than Water" by S.F. Mazhar (Goodreads Author)</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Fiction books has changed!</title>
+      <description>On the first place : "Crime and Punishment" by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : "The Hunger Games" by Suzanne Collins;
+            On the third place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author)</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Young Adult books has changed!</title>
+      <description>On the first place : "The Hunger Games" by Suzanne Collins;
+            On the second place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author);
+            On the third place : "Thicker Than Water" by S.F. Mazhar (Goodreads Author)</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Fiction books has changed!</title>
+      <description>On the first place : "Crime and Punishment" by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : "The Hunger Games" by Suzanne Collins;
+            On the third place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author)</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Historical Fiction books has changed!</title>
+      <description>On the first place : "The Book of Jubilees" by Eric M. Black (Goodreads Author);
+            On the second place : "Kronika o našem Malom mistu" by Miljenko Smoje;
+            On the third place : "Mark of the Lion Trilogy" by Francine Rivers (Goodreads Author)</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Young Adult books has changed!</title>
+      <description>On the first place : "The Hunger Games" by Suzanne Collins;
+            On the second place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author);
+            On the third place : "Thicker Than Water" by S.F. Mazhar (Goodreads Author)</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Fiction books has changed!</title>
+      <description>On the first place : "Crime and Punishment" by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : "The Hunger Games" by Suzanne Collins;
+            On the third place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author)</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Young Adult books has changed!</title>
+      <description>On the first place : "The Hunger Games" by Suzanne Collins;
+            On the second place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author);
+            On the third place : "Thicker Than Water" by S.F. Mazhar (Goodreads Author)</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Fiction books has changed!</title>
+      <description>On the first place : "Crime and Punishment" by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : "The Hunger Games" by Suzanne Collins;
+            On the third place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author)</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Young Adult books has changed!</title>
+      <description>On the first place : "The Hunger Games" by Suzanne Collins;
+            On the second place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author);
+            On the third place : "Thicker Than Water" by S.F. Mazhar (Goodreads Author)</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Fiction books has changed!</title>
+      <description>On the first place : "Crime and Punishment" by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : "The Hunger Games" by Suzanne Collins;
+            On the third place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author)</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Historical Fiction books has changed!</title>
+      <description>On the first place : "The Book of Jubilees" by Eric M. Black (Goodreads Author);
+            On the second place : "Kronika o našem Malom mistu" by Miljenko Smoje;
+            On the third place : "Mark of the Lion Trilogy" by Francine Rivers (Goodreads Author)</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Young Adult books has changed!</title>
+      <description>On the first place : "The Hunger Games" by Suzanne Collins;
+            On the second place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author);
+            On the third place : "Thicker Than Water" by S.F. Mazhar (Goodreads Author)</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>New Review for book "The Book Thief" by "Markus Zusak (Goodreads Author)"</title>
+      <description>Review of 3 stars made by user "miruna_boss": "nice book
+"</description>
+      <date>2023-06-24</date>
+      <author>
+        <name>miruna_boss</name>
+      </author>
+    </item>
+    <item>
+      <title>The top for Self Help books has changed!</title>
+      <description>On the first place : "The Explorer's Mindset: Unlock Health Happiness and Success the Fun Way" by Francis Shenstone (Goodreads Author);
+            On the second place : "Meditation: Insights and Inspirations" by Amit Ray;
+            On the third place : "Nonviolence: The Transforming Power" by Amit Ray</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>New Review for book "The Simplest Book Ever on Life Attitude and Happiness" by "Martin Gover (Goodreads Author)"</title>
+      <description>Review of 4 stars made by user "miruna3": "faina carte"</description>
+      <date>2023-06-24</date>
+      <author>
+        <name>miruna3</name>
+      </author>
+    </item>
+    <item>
+      <title>The top for Fiction books has changed!</title>
+      <description>On the first place : "Crime and Punishment" by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : "The Hunger Games" by Suzanne Collins;
+            On the third place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author)</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Historical Fiction books has changed!</title>
+      <description>On the first place : "The Book of Jubilees" by Eric M. Black (Goodreads Author);
+            On the second place : "Kronika o našem Malom mistu" by Miljenko Smoje;
+            On the third place : "Mark of the Lion Trilogy" by Francine Rivers (Goodreads Author)</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Fiction books has changed!</title>
+      <description>On the first place : "Crime and Punishment" by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : "The Hunger Games" by Suzanne Collins;
+            On the third place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author)</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Historical Fiction books has changed!</title>
+      <description>On the first place : "The Book of Jubilees" by Eric M. Black (Goodreads Author);
+            On the second place : "Kronika o našem Malom mistu" by Miljenko Smoje;
+            On the third place : "Mark of the Lion Trilogy" by Francine Rivers (Goodreads Author)</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Fiction books has changed!</title>
+      <description>On the first place : "Crime and Punishment" by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : "The Hunger Games" by Suzanne Collins;
+            On the third place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author)</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Historical Fiction books has changed!</title>
+      <description>On the first place : "The Book of Jubilees" by Eric M. Black (Goodreads Author);
+            On the second place : "Kronika o našem Malom mistu" by Miljenko Smoje;
+            On the third place : "Mark of the Lion Trilogy" by Francine Rivers (Goodreads Author)</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Self Help books has changed!</title>
+      <description>On the first place : "The Explorer's Mindset: Unlock Health Happiness and Success the Fun Way" by Francis Shenstone (Goodreads Author);
+            On the second place : "Meditation: Insights and Inspirations" by Amit Ray;
+            On the third place : "Nonviolence: The Transforming Power" by Amit Ray</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>New Review for book "The Simplest Book Ever on Life Attitude and Happiness" by "Martin Gover (Goodreads Author)"</title>
+      <description>Review of 4 stars made by user "miruna6": "faina carte"</description>
+      <date>2023-06-24</date>
+      <author>
+        <name>miruna6</name>
+      </author>
+    </item>
+    <item>
+      <title>The top for Self Help books has changed!</title>
+      <description>On the first place : "The Explorer's Mindset: Unlock Health Happiness and Success the Fun Way" by Francis Shenstone (Goodreads Author);
+            On the second place : "Meditation: Insights and Inspirations" by Amit Ray;
+            On the third place : "Nonviolence: The Transforming Power" by Amit Ray</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>New Review for book "The Simplest Book Ever on Life Attitude and Happiness" by "Martin Gover (Goodreads Author)"</title>
+      <description>Review of 4 stars made by user "miruna6": "faina carte"</description>
+      <date>2023-06-24</date>
+      <author>
+        <name>miruna6</name>
+      </author>
+    </item>
+    <item>
+      <title>The top for Self Help books has changed!</title>
+      <description>On the first place : "The Explorer's Mindset: Unlock Health Happiness and Success the Fun Way" by Francis Shenstone (Goodreads Author);
+            On the second place : "Meditation: Insights and Inspirations" by Amit Ray;
+            On the third place : "Nonviolence: The Transforming Power" by Amit Ray</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>New Review for book "The Simplest Book Ever on Life Attitude and Happiness" by "Martin Gover (Goodreads Author)"</title>
+      <description>Review of 4 stars made by user "miruna1": "buna rau cartea"</description>
+      <date>2023-06-24</date>
+      <author>
+        <name>miruna1</name>
+      </author>
+    </item>
+    <item>
+      <title>The top for Fiction books has changed!</title>
+      <description>On the first place : "Crime and Punishment" by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : "The Hunger Games" by Suzanne Collins;
+            On the third place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author)</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Fiction books has changed!</title>
+      <description>On the first place : "Crime and Punishment" by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : "The Hunger Games" by Suzanne Collins;
+            On the third place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author)</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Fiction books has changed!</title>
+      <description>On the first place : "Crime and Punishment" by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : "The Hunger Games" by Suzanne Collins;
+            On the third place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author)</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Romance books has changed!</title>
+      <description>On the first place : "The Hunger Games" by Suzanne Collins;
+            On the second place : "The Hunted" by Virginia McKevitt (Goodreads Author);
+            On the third place : "Untitled" by Leigh Bardugo (Goodreads Author)</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Fiction books has changed!</title>
+      <description>On the first place : "Crime and Punishment" by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : "The Hunger Games" by Suzanne Collins;
+            On the third place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author)</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Fiction books has changed!</title>
+      <description>On the first place : "Crime and Punishment" by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : "The Hunger Games" by Suzanne Collins;
+            On the third place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author)</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Romance books has changed!</title>
+      <description>On the first place : "The Hunger Games" by Suzanne Collins;
+            On the second place : "The Hunted" by Virginia McKevitt (Goodreads Author);
+            On the third place : "Untitled" by Leigh Bardugo (Goodreads Author)</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Self Help books has changed!</title>
+      <description>On the first place : "The Explorer's Mindset: Unlock Health Happiness and Success the Fun Way" by Francis Shenstone (Goodreads Author);
+            On the second place : "Meditation: Insights and Inspirations" by Amit Ray;
+            On the third place : "Nonviolence: The Transforming Power" by Amit Ray</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for any books has changed!</title>
+      <description>On the first place : "Crime and Punishment" by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : "Crime and Punishment" by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the third place : "The Hunger Games" by Suzanne Collins</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Crime books has changed!</title>
+      <description>On the first place : "Know My Name" by Chanel Miller;
+            On the second place : "Death Sets Sail" by Robin Stevens (Goodreads Author);
+            On the third place : "Una Historia de Ayer" by Sergio Cobo</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Fiction books has changed!</title>
+      <description>On the first place : "The Hunger Games" by Suzanne Collins;
+            On the second place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author);
+            On the third place : "Predestination: The Future is History" by S. W. Cotton</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for any books has changed!</title>
+      <description>On the first place : "The Hunger Games" by Suzanne Collins;
+            On the second place : "The Hunger Games" by Suzanne Collins;
+            On the third place : "The Hunger Games" by Suzanne Collins</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Crime books has changed!</title>
+      <description>On the first place : "Crime and Punishment" by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : "Know My Name" by Chanel Miller;
+            On the third place : "Death Sets Sail" by Robin Stevens (Goodreads Author)</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Fiction books has changed!</title>
+      <description>On the first place : "Crime and Punishment" by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : "The Hunger Games" by Suzanne Collins;
+            On the third place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author)</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for any books has changed!</title>
+      <description>On the first place : "Crime and Punishment" by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : "Crime and Punishment" by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the third place : "The Hunger Games" by Suzanne Collins</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Crime books has changed!</title>
+      <description>On the first place : "Know My Name" by Chanel Miller;
+            On the second place : "Death Sets Sail" by Robin Stevens (Goodreads Author);
+            On the third place : "Una Historia de Ayer" by Sergio Cobo</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Fiction books has changed!</title>
+      <description>On the first place : "The Hunger Games" by Suzanne Collins;
+            On the second place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author);
+            On the third place : "Predestination: The Future is History" by S. W. Cotton</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Crime books has changed!</title>
+      <description>On the first place : "Crime and Punishment" by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : "Know My Name" by Chanel Miller;
+            On the third place : "Death Sets Sail" by Robin Stevens (Goodreads Author)</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Fiction books has changed!</title>
+      <description>On the first place : "Crime and Punishment" by Fyodor Dostoyevsky, David McDuff (Translator);
+            On the second place : "The Hunger Games" by Suzanne Collins;
+            On the third place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author)</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Crime books has changed!</title>
+      <description>On the first place : "Know My Name" by Chanel Miller;
+            On the second place : "Death Sets Sail" by Robin Stevens (Goodreads Author);
+            On the third place : "Una Historia de Ayer" by Sergio Cobo</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Fiction books has changed!</title>
+      <description>On the first place : "The Hunger Games" by Suzanne Collins;
+            On the second place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author);
+            On the third place : "Predestination: The Future is History" by S. W. Cotton</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Crime books has changed!</title>
+      <description>On the first place : "Know My Name" by Chanel Miller;
+            On the second place : "Death Sets Sail" by Robin Stevens (Goodreads Author);
+            On the third place : "Una Historia de Ayer" by Sergio Cobo</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Fiction books has changed!</title>
+      <description>On the first place : "The Hunger Games" by Suzanne Collins;
+            On the second place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author);
+            On the third place : "Predestination: The Future is History" by S. W. Cotton</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for any books has changed!</title>
+      <description>On the first place : "The Hunger Games" by Suzanne Collins;
+            On the second place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author);
+            On the third place : "Predestination: The Future is History" by S. W. Cotton</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Fiction books has changed!</title>
+      <description>On the first place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author);
+            On the second place : "The Hunger Games" by Suzanne Collins;
+            On the third place : "Predestination: The Future is History" by S. W. Cotton</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Young Adult books has changed!</title>
+      <description>On the first place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author);
+            On the second place : "The Hunger Games" by Suzanne Collins;
+            On the third place : "Thicker Than Water" by S.F. Mazhar (Goodreads Author)</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for any books has changed!</title>
+      <description>On the first place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author);
+            On the second place : "The Hunger Games" by Suzanne Collins;
+            On the third place : "Predestination: The Future is History" by S. W. Cotton</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Fiction books has changed!</title>
+      <description>On the first place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author);
+            On the second place : "Predestination: The Future is History" by S. W. Cotton;
+            On the third place : "The Complete Calvin and Hobbes" by Bill Watterson</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Romance books has changed!</title>
+      <description>On the first place : "The Hunger Games" by Suzanne Collins;
+            On the second place : "The Hunted" by Virginia McKevitt (Goodreads Author);
+            On the third place : "Untitled" by Leigh Bardugo (Goodreads Author)</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for Young Adult books has changed!</title>
+      <description>On the first place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author);
+            On the second place : "Thicker Than Water" by S.F. Mazhar (Goodreads Author);
+            On the third place : "The Hunger Games" by Suzanne Collins</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>The top for any books has changed!</title>
+      <description>On the first place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author);
+            On the second place : "Predestination: The Future is History" by S. W. Cotton;
+            On the third place : "The Book of Jubilees" by Eric M. Black (Goodreads Author)</description>
+      <date>2023-06-24</date>
+    </item>
+    <item>
+      <title>New Review for book "The Hunger Games" by "Suzanne Collins"</title>
+      <description>Review of 4 stars made by user "user": "mi-a placut"</description>
+      <date>2023-06-24</date>
+      <author>
+        <name>user</name>
+      </author>
+    </item>
+  </channel>
+</rss>
