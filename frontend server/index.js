@@ -142,10 +142,14 @@ const customReadGenresEjs = async (req, res, file_path, genre, pageSize, pageNum
                 numberOfPages++;
             // Render the EJS template with the data
             const upperCasedDecodedGenre = genre.charAt(0).toUpperCase() + genre.slice(1);
+            const capitalizedGenre = genre.split(" ");
+            for(let i = 0; i < capitalizedGenre.length; i++){
+                capitalizedGenre[i] = capitalizedGenre[i][0].toUpperCase() + capitalizedGenre[i].slice(1);
+            }
             const renderedEJS = ejs.render(template, {
                 books: booksData,
                 topBooks: topBooksData,
-                genre: upperCasedDecodedGenre,
+                genre: capitalizedGenre.join(" "),
                 currentPage: pageNumber,
                 totalPages: numberOfPages
             });

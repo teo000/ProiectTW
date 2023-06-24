@@ -7,232 +7,428 @@
     <title>Book Reviewer</title>
 </head>
 <body prefix="schema: http://schema.org">
-    <header>
-        <h1>Book Reviewer</h1>
-    </header>
-    <div role="contentinfo">
-        <dl>
-            <dt>Authors</dt>
-            <dd>
-                Savin Miruna
-                &amp;
-                Tudurache Teodora-Otilia
-            </dd>
-            <dt>Repository</dt>
-            <dd>
-                <a href="https://github.com/teo000/ProiectTW">Private Github Repository</a>
-            </dd>
-        </dl>
-    </div>
-    <section id="introduction" role="doc-introduction">
-        <h2>1. Introduction</h2>
-            <section id="purpose">
-                <h3>1.1 Purpose</h3>
-                <p>
-                    This document should highlight the software requirements for the 
-                    <code>Web Technologies</code> course project entitled <code>Book Reviewer</code>.
-                </p>
-                <p>
-                    The website is a platform for book lovers, enabling users to connect, review, rate, and search for books 
-                    based on various criteria.
-                </p>
-            </section>
-            <section id="scope">
-                <h3>1.2 Product Scope</h3>
-                <p>
-                    This product is intended to be used by the general public in order to track their 
-                    reading progress and exchange opinions about books with either strangers or people from a 
-                    reading group. The website allows users to search for books based on different criteria 
-                    (genre, author, related books). In addition, the website generates various statistics such 
-                    as the most popular books or authors and provides regular updates which are available through 
-                    an RSS feed.
-                </p>
-            </section>
+<header>
+    <h1>Book Reviewer</h1>
+</header>
+<div role="contentinfo">
+    <dl>
+        <dt>Authors</dt>
+        <dd>
+            Savin Miruna
+            &amp;
+            Tudurache Teodora-Otilia
+        </dd>
+        <dt>Repository</dt>
+        <dd>
+            <a href="https://github.com/teo000/ProiectTW">Private Github Repository</a>
+        </dd>
+    </dl>
+</div>
+<section id="introduction" role="doc-introduction">
+    <h2>1. Introduction</h2>
+    <section id="purpose">
+        <h3>1.1 Purpose</h3>
+        <p>
+            This document should highlight the software requirements for the
+            <code>Web Technologies</code> course project entitled <code>Book Reviewer</code>.
+        </p>
+        <p>
+            The website is a platform for book lovers, enabling users to connect, review, rate, and search for books
+            based on various criteria.
+        </p>
     </section>
-    <section id="description">
-        <h2>2. Overall Description</h2>
-            <section id="functions">
-                <h3>2.1 Product Functions</h3>
-                    <p>
-                        The web application is expected to perform the following functionalities: 
-                    </p>
-                    <ul>
-                        <li>Login and registration forms. The registration form allows users to select their book preferences.</li>
-                        
-                        <li>Provide access to a book database providing various information and allows users to search for books 
-                            based on certain criteria.</li>
-                        <li>Provides a page for each book where users can see a description as well as other people's ratings and reviews.</li>
-
-                        <li>Allows users to provide ratings and reviews for books.</li>
-                        <li>Users will be able to like and comment on other people's book reviews.</li>
-
-                        <li>Users will be able to create and join reading groups in which members will read a certain book and give their updates
-                            on their progress.
-                        </li>
-
-                        <li>Each user will have a personalized news feed where he will get updates on popular books or the reviews of people 
-                            in the same groups as him.
-                        </li>
-                        <li>Users will be able to add books to one of three categories: "Read", "Currently Reading" and "Want to Read".  </li>
-                        <li>The admins will have access to statistics and will be able to delete user accounts and groups. </li>
-                        <li>The website generates and continuosly updates rankings for the top books overall and for each genre</li>
-                    </ul>
-            </section>
-            <section id="user-characteristics">
-                <h3>2.2 User Classes and Characteristics</h3>
-                <p>
-                    There are two main categories of users: 
-                </p>
-                <ol>                         
-                    <li> Standard users will have access to the following:
-                    <ul>
-                        <li>Login panel</li>
-                        <li>Register panel</li>
-                        <li>My Groups page</li>
-                        <li>My Books page</li>
-                        <li>Home feed</li>
-                        <li>Genre pages (books organized by categories)</li>
-                    </ul>
-                    </li>
-                    <li> Admins have access to all of the above plus the following: 
-                    <ul>
-                        <li>Can remove users and groups</li>
-                    </ul>
-                    </li>
-                </ol>
-            </section>
-            <section id="operating-environment">
-                    <h3>2.3 Operating Environment</h3>
-                    <p>The following technologies have been used. It is important to mention that no 
-                        frameworks have been used, according to the <code>Web Technologies</code> requirements.
-                    </p>
-                    <p>Front-end technologies: HTML, CSS, JavaScript</p>
-            </section>
-            <section id="Usage-manual">
-                    <h3>2.4 Usage Manual</h3>
-                    <ol>
-                        
-                        <li>Login/Register
-                        <p>
-                            When registering, users can set their preferences regarding book genres.
-                            Upon logging in, they will have access to all the website's functionalities.
-                        </p>
-                        </li>
-                        <li>Home Page
-                        <p>
-                            The home page provides the users with a news feed and a ranking of the most
-                            liked books on the website.
-                        </p>
-                        </li>
-                        <li>My Books
-                        <p>
-                            The users can see the books that they have previously added to their reading list;
-                        </p>
-                        </li>
-                        <li>Book Page
-                        <p>
-                            Users can see information on a certain book such as overall rating, description, genres and reviews,
-                            as well as add the book to one of their shelves.
-                        </p>
-                        </li>
-                        <li>Categories
-                        <p>
-                            Each genre page provides a list of all the books in that genre and a ranking of those books.
-                        </p>
-                        </li>
-                        <li>My Groups
-                        <p>
-                            The users can see the groups that they belong in as well as join and create others.
-                        </p>
-                        </li>
-                        <li>Group Page
-                        <p>
-                            Users can see information about a group such as what book the members are currently reading and their progress.
-                        </p>
-                        </li>
-                        <li>About
-                        <p>
-                            Users can see information about the website and its creators.
-                        </p>
-                        </li>
-                        <li>Help
-                        <p>
-                            Users can see answers to frequently asked questions.
-                        </p>
-                        </li>
-                    </ol>
-            </section>
+    <section id="scope">
+        <h3>1.2 Product Scope</h3>
+        <p>
+            This product is intended to be used by the general public in order to track their
+            reading progress and exchange opinions about books with either strangers or people from a
+            reading group. The website allows users to search for books based on different criteria
+            (genre, author, related books). In addition, the website generates various statistics such
+            as the most popular books or authors and provides regular updates which are available through
+            an RSS feed.
+        </p>
     </section>
-    <section id="Communication-interfaces">
-        <h2>3. Communication Interfaces</h2>
+</section>
+<section id="description">
+    <h2>2. Overall Description</h2>
+    <section id="functions">
+        <h3>2.1 Product Functions</h3>
+        <p>
+            The web application is expected to perform the following functionalities:
+        </p>
+        <ul>
+            <li>Login and registration forms.</li>
+
+            <li>Provide access to a book database providing various information and allows users to search for books
+                based on certain criteria, by using the search bar or by clicking on the category tags that each book
+                has.
+            </li>
+            <li>Provides a page for each book where users can see a description, the categories in which this book fits,
+                books related to it, as well as other people's ratings and reviews.
+            </li>
+
+            <li>Allows users to provide ratings and reviews for books. Users can also add books to their collection, and
+                organize them on shelves.
+            </li>
+
+            <li>Users will be able to create and join reading groups in which members will read a certain book and give
+                their updates
+                on their progress.
+            </li>
+
+            <li>Each user will have news feed where they will get updates on popular books or the reviews which other
+                users give.
+            </li>
+            <li>Users will be able to add books to one of three categories: "Read", "Currently Reading" and "Want to
+                Read". They will be able to rate and review a book only if it is in their "Read" shelf.
+            </li>
+            <li>
+                Users will get book recommendations based on the books they have in their shelves.
+            </li>
+            <li>
+                Users will have access to statistics with graphical representations, depicting the most liked books and
+                the most
+                active users. They will be able to export these books in CSV or in DocBook format.
+            </li>
+            <li>
+                In their profile, users can see all the reviews and ratings they have given.
+            </li>
+            <li>The admins will be able to delete user accounts, reviews and groups.</li>
+            <li>The admins will be able to add new books or modify the categories attached to an already existing
+                book.
+            </li>
+            <li>The website generates and dynamically updates rankings and statistics for the top books overall and for
+                each genre.
+            </li>
+            <li>The rating for each book is dynamically updated when a user posts a review / rating.</li>
+            <li>
+                Updates such as new reviews, changes in book rankings or the addition of new books will be visible in an
+                RSS feed.
+            </li>
+        </ul>
+    </section>
+    <section id="user-characteristics">
+        <h3>2.2 User Classes and Characteristics</h3>
+        <p>
+            There are two main categories of users:
+        </p>
         <ol>
-            <li>Registration
-                <p>This page allow the users to create an account. It contains:</p>
+            <li> Standard users will have access to the following:
                 <ul>
-                    <li>Username field</li>
-                    <li>Password field</li>
-                    <li>Confirm password field</li>
-                    <li>Genre preferences</li>
-                    <li>Button to register</li>
+                    <li>Login panel</li>
+                    <li>Register panel</li>
+                    <li>My Groups page</li>
+                    <li>My Books page</li>
+                    <li>Home feed</li>
+                    <li>Genre pages (books organized by categories)</li>
+                    <li>Recommendations</li>
+                    <li>Statistics</li>
+                    <li>Profile</li>
+                    <li>About & Help pages</li>
                 </ul>
-                <img src="resources/signup.PNG" alt="signup photo"  height="500" />
-                </li>
-    
-                <li>Login
-                    <p>This page allows the user to log in. It contains:</p>
-                    <ul>
-                        <li>Username field</li>
-                        <li>Password field</li>
-                        <li>Button to log in</li>
-                    </ul>
-                    <img src="resources/login.PNG" alt="login photo" height="500"/>
-                </li>
-    
-                <li>Home page
-                    <p>Provides users with: </p>
-                        <ul>
-                            <li>News feed</li>
-                            <li>Ranking for all books</li>
-                        </ul>
-                    <img src="resources/home.PNG" alt="home" height="500"/>
-                </li>
-    
-                <li>My Books
-                    <p>Provides users with: </p>
-                        <ul>
-                            <li>A list of the books in their shelves</li>
-                            <li>Filters to select certain books</li>
-                        </ul>
-                    
-                    <img src="resources/my-books.PNG" alt="my-books" height="500"/>
-                </li>
-                <li>Book Page
-                    <p>Provides information about a book (cover, author, description, genre list) and the following: </p>
-                        <ul>
-                            <li>Buttons to add a book to a certain shelf</li>
-                            <li>A list of similar books</li>
-                            <li>A review section</li>
-                        </ul>
-                    
-                    <img src="resources/bookpage.PNG" alt="book" height="500"/>
-                </li>
-                <li> My Groups 
-                    <p>Provides a list of groups and buttons to create a new group or join an existing one. </p>
-                    
-                    <img src="resources/my-groups.PNG" alt="mygroups" height="500"/>
-                </li>
-                <li> Groups
-                    <p>Contains: </p>
-                        <ul>
-                            <li>A description of the book being read</li>
-                            <li>A list of group members and their progress</li>
-                            <li>A review section</li>
-                        </ul>
-                    
-                    <img src="resources/group.PNG" alt="group" height="500"/>
-                    <img src="resources/group2.PNG" alt="group2" height="500"/>
-                </li>
+            </li>
+            <li> Admins have access to all of the above plus the following:
+                <ul>
+                    <li>Can remove users and groups</li>
+                    <li>Can remove posts</li>
+                    <li>Can update existing books</li>
+                    <li>Can add new books</li>
+                </ul>
+            </li>
         </ol>
     </section>
+    <section id="operating-environment">
+        <h3>2.3 Operating Environment</h3>
+        <p>The following technologies have been used. It is important to mention that no
+            frameworks have been used, according to the <code>Web Technologies</code> requirements.
+        </p>
+        <p>Front-end technologies: HTML, CSS, JavaScript</p>
+        <p>Back-end technologies : Node.js, EJS (for server side rendering)</p>
+        <p>Database Management : PostgreSQL</p>
+        <p>Testing the API: Postman</p>
+    </section>
+    <section id="Usage-manual">
+        <h3>2.4 Usage Manual</h3>
+        <ol>
+
+            <li>Login/Register
+                <p>
+                    When registering, users set a username and a password; additionally, for creating an admin account,
+                    they have to enter a special code as well.
+                    Upon logging in, they will have access to all the website's functionalities.
+                </p>
+            </li>
+            <li>Home Page
+                <p>
+                    The home page provides the users with a news feed and a ranking of the most
+                    liked books on the website.
+                </p>
+            </li>
+            <li>My Books
+                <p>
+                    The users can see the books that they have previously added to their shelves;
+                </p>
+            </li>
+            <li>Book Page
+                <p>
+                    Users can see information on a certain book such as overall rating, description, genres and reviews,
+                    edition, publisher, the year of publishing. From here they can click on any of these categories and
+                    see
+                    other books in the same category. They can add a book to one of their shelves, and give it a rating
+                    or a review.
+                </p>
+            </li>
+            <li>Categories
+                <p>
+                    Each genre page provides a list of all the books in that genre and a ranking of those books.
+                </p>
+            </li>
+            <li>My Groups
+                <p>
+                    The users can see the groups that they belong in as well as join and create others.
+                </p>
+            </li>
+            <li>Group Page
+                <p>
+                    Users can see information about a group such as what book the members are currently reading and
+                    their progress. Group admins can propose a new book for the group to read.
+                </p>
+            </li>
+            <li>Recommendations
+                <p>
+                    Users can see a personalized list of recommended books, based on the books in their collection.
+                </p>
+            </li>
+            <li>Statistics
+                <p>
+                    Users can see graphics depicting statistics such as most liked books or most active users.
+                    They can export these statistics in CSV or DocBook format.
+                </p>
+            </li>
+            <li>RSS
+                <p>
+                    Users have access to the RSS feed, which contains updates about the website.
+                </p>
+            </li>
+            <li>Profile
+                <p>
+                    Users can see the reviews they have posted. They can also delete their account and are automatically
+                    signed out.
+                </p>
+            </li>
+            <li>About
+                <p>
+                    Users can see information about the website and its creators.
+                </p>
+            </li>
+            <li>Help
+                <p>
+                    Users can see answers to frequently asked questions.
+                </p>
+            </li>
+        </ol>
+    </section>
+</section>
+<section id="Architecture">
+    <h2>3. System Architecture</h2>
+    <section id="microservices-overview">
+        <h3>3.1. Overview of Microservices Architecture</h3>
+        <p>We have 3 servers in the app:</p>
+        <ol>
+            <li>
+                The frontend server;
+            </li>
+            <li>The main backend serve;</li>
+            <li>The authentication server, which is implemented as a microservice;</li>
+        </ol>
+    </section>
+    <section id="frontend-server">
+        <h3>3.2. The frontend server</h3>
+        <ul>
+            <li>The frontend server receives requests from the client when it needs content in the form of .html, .css
+                or .js files.
+            </li>
+            <li> When the client requests HTML which requires dynamic rendering, the frontend server retrieves the .ejs
+                file, makes a request to
+                the backend server to get the necessary data, renders the .ejs file and sends the client the result in
+                the form af an .html file.
+            </li>
+            <li>Whenever the frontend server receives a request from the client, it checks whether the client is
+                authorized to make that request by validating the JWT, before asking the main server for other data.
+            </li>
+            <li>It communicates with the backend server using HTTP requests and JSONs.</li>
+        </ul>
+    </section>
+    <section id="backend-server">
+        <h3>3.2. The backend server</h3>
+        <ul>
+            <li>The backend server encapsulates the business logic.It is structured in:
+                <ul>
+                    <li>routes: responsible for routing the request to the corresponding controller function which will
+                        handle it;
+                    </li>
+                    <li>controllers: responsible for the business logic and creating the responses which will be sent
+                        back to the client;
+                    </li>
+                    <li>repositories: responsible for making requests to the database;</li>
+                    <li>models : representing the most used objects in the requests</li>
+                </ul>
+            </li>
+            <li>The MainServer.js is responsible for routing the request to the corresponding route file (ex: a request
+                url which starts with '/books'
+                will be routed to the BookRoutes file). The requests regarding logging in, singing up and logging out
+                are redirected to the Authentication Microservice.
+            </li>
+        </ul>
+    </section>
+    <section id="authentication-server">
+        <h3>3.3. Authentication Microservice</h3>
+        <p>The Authentication Microservice is responsible for the handling the following requests:</p>
+        <ul>
+            <li>Logging in: after checking the credentials, it generates an access token and a refresh token, in the form of JWTs, which are attached in the Cookie header.
+            </li>
+            <li>Singing up</li>
+            <li>Logging out: it invalidates the refresh token in the Cookie header of the received request. After the
+                access token expires, the user will be forced to log back in, in order to
+                get access to the website again.
+            </li>
+        </ul>
+    </section>
+<section id = "benefits">
+    <h3>3.4. Benefits of this architecture</h3>
+    <p>This architecture has the following strong points:</p>
+    <ul>
+        <li>It allows project modularization;</li>
+        <li>It makes the project easy to change and extend; </li>
+        <li>The servers are loosely coupled, meaning that we can change the logic inside them without
+        affecting too much of the app;</li>
+        <li>We can easily change the type of database we are using, because the data layer(repositories) is separated from the business layer(controllers);</li>
+        <li>We can change the type of authentication by changing the authentication microservice;</li>
+        <li>We can change the main server entirely, because the frontend server relies on making requests to certain endpoints from the backend server,
+        but it is separated from the logic in the main server;</li>
+        <li>We can change the type of server sided rendering, because the client only relies on receiving html files, but it does not rely
+        on the way in which the files are rendered.</li>
+    </ul>
+</section>
+<section id="Communication-interfaces">
+    <h2>4. Communication Interfaces</h2>
+    <ol>
+        <li>Registration
+            <p>This page allow the users to create an account. It contains:</p>
+            <ul>
+                <li>Username field</li>
+                <li>Password field</li>
+                <li>Confirm password field</li>
+                <li>Button to register</li>
+            </ul>
+            <img src="resources/signup.PNG" alt="signup photo" height="500"/>
+        </li>
+
+        <li>Login
+            <p>This page allows the user to log in. It contains:</p>
+            <ul>
+                <li>Username field</li>
+                <li>Password field</li>
+                <li>Button to log in</li>
+            </ul>
+            <img src="resources/login.PNG" alt="login photo" height="500"/>
+        </li>
+
+        <li>Home page
+            <p>Provides users with: </p>
+            <ul>
+                <li>News feed</li>
+                <li>Ranking for all books</li>
+            </ul>
+            <img src="resources/home.PNG" alt="home" height="500"/>
+        </li>
+
+        <li>My Books
+            <p>Provides users with: </p>
+            <ul>
+                <li>A list of the books in their shelves</li>
+                <li>Filters to select certain books</li>
+            </ul>
+
+            <img src="resources/my-books.PNG" alt="my-books" height="500"/>
+        </li>
+        <li>Book Page
+            <p>Provides information about a book (cover, author, description, genre list, edition, publisher, year) and
+                the following: </p>
+            <ul>
+                <li>Buttons to add a book to a certain shelf (if your book is already in one of your shelves, the
+                    corresponding button is already selected
+                </li>
+                <li>A list of similar books</li>
+                <li>A review section</li>
+            </ul>
+
+            <img src="resources/bookpage.PNG" alt="book" height="500"/>
+        </li>
+        <li> My Groups
+            <p>Provides a list of groups and buttons to create a new group or join an existing one. </p>
+
+            <img src="resources/my-groups.PNG" alt="mygroups" height="500"/>
+        </li>
+        <li> Groups
+            <p>Contains: </p>
+            <ul>
+                <li>A description of the book being read</li>
+                <li>A list of group members and their progress</li>
+                <li>A review section</li>
+            </ul>
+
+            <img src="resources/group.PNG" alt="group" height="500"/>
+            <img src="resources/group2.PNG" alt="group2" height="500"/>
+        </li>
+        <li>Categories
+            <p>Provides a list of books in the specified genre, and a ranking of the top books in the genre.</p>
+            <p>Functionalities:</p>
+            <ul>
+                <li>Users can navigate to another page by using the buttons on the bottom of the page.</li>
+                <li>By clicking the "Read More" button, the users can see the entire description of the book.</li>
+                <li>By clicking the title of the book, they are redirected to the corresponding book page.</li>
+                <li>By clicking the title of the book, they are redirected to a list of books by the same author.</li>
+            </ul>
+        </li>
+        <li>Recommendations
+            <p>Provides a personalized list of book recommendations.</p>
+        </li>
+        <li>Statistics:
+            <p>
+                Users can see graphics depicting statistics such as most liked books or most active users.
+                They can export these statistics in CSV or DocBook format by clicking the buttons.</p>
+        </li>
+        <li>
+            RSS Feed:
+        </li>
+        <li>
+            Profile:
+        </li>
+        <li>Searching books by criteria: when clicking on a category attached to a book (edition, year, author or
+            publisher) or when entering
+            something in the search bar,
+            the users are redirected to a list of books in that category. The examples below are :
+            <ol>
+                <li> for the search input "harry";</li>
+                <li> for the year 2003;</li>
+            </ol>
+        </li>
+
+    </ol>
+</section>
+<section id="Security Requirements">
+    <h2>5. Security Requirements</h2>
+    <p>The following security requirements are taken into account: </p>
+    <ol>
+        <li>Securing the web environment by eliminating bugs</li>
+        <li>Validating user input</li>
+        <li>Using JWTs to authenticate users and authorize admins to perform operations.</li>
+        <li>When a request is received by the frontend server, it is authorized before demanding data from the main
+            backend server.
+        </li>
+        <li>Preventing SQL injection by using parameterized queries to the database</li>
+    </ol>
+</section>
 </body>
 </html>

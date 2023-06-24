@@ -11,7 +11,7 @@ function deleteUser(){
         credentials: 'include'
     }).then((response) => {
         if (response.ok) {
-            Swal.fire('Account deleted successfully', '', 'success');
+            console.log("aici")
             logout();
         } else {
             response.json().then(data => {

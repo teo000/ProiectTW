@@ -107,6 +107,7 @@ function navigateToRecommendations(){
     window.location.href =`http://localhost:8081/recommendations`;
 }
 function logout(){
+    console.log("in logout")
     //ceva request pt logout
     fetch('http://localhost:6969/logout', {
         method: 'POST',
