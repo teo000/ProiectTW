@@ -121,9 +121,11 @@ const server = http.createServer((req, res) => {
         customReadFile(req, res, getFileUrl(url));
 
     } else if (url.indexOf(".js") !== -1) {
+        res.setHeader('Cache-Control', 'max-age=31536000')
         res.writeHead(200, {"Content-Type": "text/javascript"});
         customReadFile(req, res, getScriptsUrl(url));
     } else if (url.indexOf(".css") !== -1) {
+        res.setHeader('Cache-Control', 'max-age=31536000')
         res.writeHead(200, {"Content-Type": "text/css"});
         customReadFile(req, res, getCssUrl(url));
     } else if (url.indexOf(".png") !== -1) {

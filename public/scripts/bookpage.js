@@ -215,7 +215,11 @@ function deleteFromShelf(shelf){
     })
         .then(response =>{
             if(response.ok){
-                Swal.fire('Book removed from shelf!', '', 'success');
+                Swal.fire('Book removed from shelf!', '', 'success').then((result) => {
+                    if (result.isConfirmed) {
+                        location.reload();
+                    }
+                });
             }
             else{
                 response.json().then(data => {
@@ -243,7 +247,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if(currentlyButton.classList.contains('active'))
         isCurrentlyReading = true;
     if(wantButton.classList.contains('active'))
-        isWantToRead = true;
         isWantToRead = true;
     console.log("read:" + isRead + "want to read" + isWantToRead + "currently " + isCurrentlyReading)
     var ratingElement = document.getElementById('user-rating');

@@ -8,74 +8,40 @@
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <generator>https://github.com/jpmonette/feed</generator>
     <item>
-      <title>The top for Adventure books has changed!</title>
-      <description>On the first place : "Jellybean the Dragon" by Elias Zapple (Goodreads Author);
-            On the second place : "My First Fun Golf Steps (My First Travel Books Series)" by Anna Othitis (Goodreads Author), John Othitis;
-            On the third place : "Fangless" by Elias Zapple (Goodreads Author)</description>
-      <date>2023-06-24</date>
-    </item>
-    <item>
-      <title>The top for Dystopia books has changed!</title>
-      <description>On the first place : "The Present" by Kenneth Thomas (Goodreads Author);
-            On the second place : "Down and Rising" by Rohith S. Katbamna (Goodreads Author);
-            On the third place : "The Past" by Kenneth Thomas (Goodreads Author)</description>
-      <date>2023-06-24</date>
-    </item>
-    <item>
-      <title>The top for Fantasy books has changed!</title>
-      <description>On the first place : "Maze of Existence" by Tina M. Randolph (Goodreads Author);
-            On the second place : "16 Myths" by Aim Ruivivar (Goodreads Author);
-            On the third place : "Bertie's Book of Spooky Wonders" by Ocelot Emerson</description>
-      <date>2023-06-24</date>
-    </item>
-    <item>
-      <title>The top for Fiction books has changed!</title>
-      <description>On the first place : "Here Before Kilroy" by Su Walton;
-            On the second place : "Battle for Erthia" by Laurie Forest (Goodreads Author);
-            On the third place : "The Present" by Kenneth Thomas (Goodreads Author)</description>
-      <date>2023-06-24</date>
-    </item>
-    <item>
-      <title>The top for Post Apocalyptic books has changed!</title>
-      <description>On the first place : "The Present" by Kenneth Thomas (Goodreads Author);
-            On the second place : "Down and Rising" by Rohith S. Katbamna (Goodreads Author);
-            On the third place : "Z Plan: Homecoming" by Mikhail Lerma (Goodreads Author)</description>
-      <date>2023-06-24</date>
-    </item>
-    <item>
-      <title>The top for Romance books has changed!</title>
-      <description>On the first place : "fdsafsad" by fdsafsda;
-            On the second place : "Carte" by gfdhf;
-            On the third place : "fdasfds" by fdsafsa</description>
-      <date>2023-06-24</date>
-    </item>
-    <item>
-      <title>The top for Science Fiction books has changed!</title>
-      <description>On the first place : "Kiss Me, I'm Irish" by John Blandly;
-            On the second place : "The Present" by Kenneth Thomas (Goodreads Author);
-            On the third place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author)</description>
-      <date>2023-06-24</date>
-    </item>
-    <item>
-      <title>The top for Teen books has changed!</title>
-      <description>On the first place : "Crank Trilogy" by Ellen Hopkins (Goodreads Author);
-            On the second place : "Vampire Academy" by Richelle Mead (Goodreads Author);
-            On the third place : "Cress: Chapters 1-5" by Marissa Meyer (Goodreads Author)</description>
-      <date>2023-06-24</date>
-    </item>
-    <item>
-      <title>The top for Young Adult books has changed!</title>
-      <description>On the first place : "Battle for Erthia" by Laurie Forest (Goodreads Author);
-            On the second place : "The Present" by Kenneth Thomas (Goodreads Author);
-            On the third place : "Maya of the Inbetween" by Sita Bennett (Goodreads Author)</description>
-      <date>2023-06-24</date>
-    </item>
-    <item>
       <title>New Review for book "The Hunger Games" by "Suzanne Collins"</title>
       <description>Review of 4 stars made by user "teo": "fain"</description>
       <date>2023-06-24</date>
       <author>
         <name>teo</name>
+      </author>
+    </item>
+    <item>
+      <title>The top for Fiction books has changed!</title>
+      <description>On the first place : "Predestination: The Future is History" by S. W. Cotton;
+            On the second place : "The Complete Calvin and Hobbes" by Bill Watterson;
+            On the third place : "The Hunger Games" by Suzanne Collins</description>
+      <date>2023-06-25</date>
+    </item>
+    <item>
+      <title>The top for Young Adult books has changed!</title>
+      <description>On the first place : "Thicker Than Water" by S.F. Mazhar (Goodreads Author);
+            On the second place : "The Hunger Games" by Suzanne Collins;
+            On the third place : "Wings of Fire Boxset, Books 1-5" by Tui T. Sutherland, Bea Reiter (Translator)</description>
+      <date>2023-06-25</date>
+    </item>
+    <item>
+      <title>The top for any books has changed!</title>
+      <description>On the first place : "Predestination: The Future is History" by S. W. Cotton;
+            On the second place : "The Book of Jubilees" by Eric M. Black (Goodreads Author);
+            On the third place : "Thicker Than Water" by S.F. Mazhar (Goodreads Author)</description>
+      <date>2023-06-25</date>
+    </item>
+    <item>
+      <title>New Review for book "Maya of the Inbetween" by "Sita Bennett (Goodreads Author)"</title>
+      <description>Review of 4 stars made by user "miruna": "i loved it"</description>
+      <date>2023-06-24</date>
+      <author>
+        <name>miruna</name>
       </author>
     </item>
     <item>
