@@ -18,7 +18,7 @@ const authServer = http.createServer((req, res) => {
     else if (req.url === '/resetPassword')
         AuthenticationController.resetPassword(req, res);
     else if (req.url === '/requestresetpassword')
-        AuthenticationController.requestresetPassword(req,res);
+        AuthenticationController.requestResetPassword(req,res);
     else {
         res.writeHead(404, {'Content-Type': 'application/json'});
         res.end(JSON.stringify({error: 'Endpoint not found'}));

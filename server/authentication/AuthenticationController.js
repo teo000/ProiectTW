@@ -132,7 +132,7 @@ const signup = async (req, res) => {
     }
 }
 
-const resetPassword = async (req, res) => {
+const requestResetPassword = async (req, res) => {
 
     const transporter = nodemailer.createTransport({
         service: "gmail",
@@ -454,5 +454,6 @@ module.exports = {
     logout,
     signup,
     adminsignup,
-    resetPassword
+    resetPassword,
+    requestResetPassword
 }
