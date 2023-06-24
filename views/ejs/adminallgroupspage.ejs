@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
-    <link rel="stylesheet" href="../public/css/mygroupspage.css">
+    <link rel="stylesheet" href="../public/css/adminallgroups.css">
     <link rel="stylesheet" href="../public/css/navigation.css">
 
     <title>Boo!</title>
@@ -102,47 +102,56 @@
             <%if(groups !== null){%>
                 <% groups.forEach(function(group) { %>
                 <div class="group-summary">
-                    <a href="javascript:void(0);" onclick="navigateToGroupAdmin('<%=group.name%>')"> <%=group.name%></a>
+                    <a href="javascript:void(0);" onclick="navigateToGroupAdmin('<%=group.name%>')"> <%=group.name%>
+                        <% if (group.is_owner) { %>
+                            (OWNER)
+                        <% } %></a>
 
                     <hr>
                     <%if(group.book_id !== null){%>
-                    <div class="book-summary">
-                        <div class = "book-cover">
-                            <a href = "javascript:void(0);" onclick="navigateToBookAdmin('<%=group.title%>')"> <img src="<%= group.coverimg %>" alt="book cover"></a>
-                        </div>
-                        <div class = "book-information">
-                            <a href = "javascript:void(0);" onclick="navigateToBookAdmin('<%=group.title%>')" class="title">
-                                <%= group.title %>
-                            </a>
-                            <a href="#" class="author">
-                                <%= group.author %>
-                            </a>
-
-                            <div class="rating-box">
-                                <div class="preset-rating">
-                                    <div class="empty-stars"></div>
-                                    <div class="full-stars" style="width: <%= group.rating * 20 %>%"></div>
-                                </div>
-                                <p>
-                                    <%= group.rating %>
-                                </p>
+                    <div class="book">
+                        <p class = "related-book-id" style = "display: none"><%=group.book_id%></p>
+                        <div class="book-summary">
+                            <div class = "book-cover">
+                                <a class="navigate-to-book-admin"
+                                > <img src="<%= group.coverimg %>" alt="book cover"></a>
                             </div>
+                            <div class = "book-information">
+                                <a class="navigate-to-book-admin"
+                                   class="title"
+                                >
+                                    <%= group.title %>
+                                </a>
+                                <a href="javascript:void(0);" onclick="navigateToAuthorAdmin('<%=group.author%>')" class="author">
+                                    <%= group.author %>
+                                </a>
+
+                                <div class="rating-box">
+                                    <div class="preset-rating">
+                                        <div class="empty-stars"></div>
+                                        <div class="full-stars" style="width: <%= group.rating * 20 %>%"></div>
+                                    </div>
+                                    <p>
+                                        <%= group.rating %>
+                                    </p>
+                                </div>
+                            </div>
+                            <a href="javascript:void(0);" onclick="navigateToGroupAdmin('<%=group.name%>')" class="group-link">see more</a>
                         </div>
-                        <a href="javascript:void(0);" onclick="navigateToGroupAdmin('<%=group.name%>')" class="group-link">see more</a>
                     </div>
                     <!--chestiuta cu see more dupa rezumatul cartii-->
                     <%}%>
                 </div>
             <% });} %>
 
-        </div>
-        <div id="groups-actions">
-            <div class = "group-action">
-                <h1>Search for a group</h1>
-                <hr>
-                <label for="inviteCodeForSearch"></label><input type="text" id="inviteCodeForSearch" placeholder="Enter the invite code...">
-                <button type="button" id="searchGroupButton">Search</button>
-            </div>
+<!--        </div>-->
+<!--        <div id="groups-actions">-->
+<!--            <div class = "group-action">-->
+<!--                <h1>Search for a group</h1>-->
+<!--                <hr>-->
+<!--                <label for="inviteCodeForSearch"></label><input type="text" id="inviteCodeForSearch" placeholder="Enter the invite code...">-->
+<!--                <button type="button" id="searchGroupButton">Search</button>-->
+<!--            </div>-->
 
         </div>
 

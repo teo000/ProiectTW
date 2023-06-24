@@ -203,7 +203,7 @@
                             </div>
                             <p class = "related-book-id" style = "display: none " ><%=book.id%></p>
                             <p class="small-title"><a class = "navigate-to-book"  ><%=book.title%></a></p>
-                            <p class="small-author"><a href="javascript:void(0);" onclick="navigateToAuthor('<%=book.author%>')"style = "text-decoration: none"><%=book.author%></a></p>
+                            <p class="small-author"><a href="javascript:void(0);" onclick="navigateToAuthorAdmin('<%=book.author%>')"style = "text-decoration: none"><%=book.author%></a></p>
                         </div>
                     <% }); %>
                     <div class="book">
@@ -239,7 +239,7 @@
                             <p class = "related-book-id" style = "display: none " ><%=review.bookid%></p>
                             <p class="post-text">"I Rated <a class="navigate-to-book-admin" class="book-title"><%= review.title %></a>
                                 by <a
-                                        href="javascript:void(0);" onclick="navigateToAuthor('<%= review.author %>')"
+                                        href="javascript:void(0);" onclick="navigateToAuthorAdmin('<%= review.author %>')"
                                         class="book-author"><%= review.author %></a> <%= review.stars %>
                                 stars!"
                             </p>
