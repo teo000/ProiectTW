@@ -78,12 +78,26 @@ const deleteUser = async(id) =>{
     });
 }
 
+const resetPassword = async(userData) =>{
+    console.log(userData);
+    return new Promise((resolve, reject) => {
+        const { username,passwordHash,salt} = userData;
+        databaseConnection.pool.query(`update users set passwordhash = $2, salt = $3 where username = $1 returning *;`,
+            [username,passwordHash,salt], (error, results) => {
+                if (error) {
+                    console.log(error)
+                    reject(error);
+                }
+                resolve(results.rows[0]);
+            });
+    });
+}
 module.exports = {
     getAllUsers,
     getUserById,
     getUser,
     addUser,
     deleteUserByUsername,
-    addUser,
+    resetPassword,
     deleteUser
 }

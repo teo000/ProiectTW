@@ -1,4 +1,4 @@
-function deleteProfile(){
+function deleteUserProfile(){
     const confirmation = confirm("Are you sure you want to delete your profile?");
     if(confirmation){
         deleteUser();
@@ -20,4 +20,8 @@ function deleteUser(){
             });
         }
     }).catch(error => console.log(error));
+}
+
+function resetPassword () {
+    window.location.href = 'http://localhost:8081/resetPassword'
 }

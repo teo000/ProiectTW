@@ -12,6 +12,7 @@ const microServiceRoutes = [
     {path: '/logout', method: 'POST'},
     {path: '/token', method: 'POST'},
     {path: '/signup', method: 'POST'},
+    {path: '/resetPassword', method: 'POST'},
     {path: '/adminsignup', method: 'POST'},
     {path: '/adminlogin', method: 'POST'}
 
@@ -49,7 +50,7 @@ const mainServer = http.createServer(
             console.log(`main server`);
         } else if(req.url.startsWith('/statistics')){
             statisticsRouter.handleRequests(req, res);
-        } else if (url.startsWith('/login') || url.startsWith('/logout') || url.startsWith('/token') || url.startsWith('/signup') || url.startsWith('/adminsignup') || url.startsWith('/adminlogin')) {
+        } else if (url.startsWith('/login') || url.startsWith('/logout') || url.startsWith('/token') || url.startsWith('/signup') || url.startsWith('/adminsignup') || url.startsWith('/adminlogin') || url.startsWith('/resetPassword')) {
             handleAuthentication(req, res);
         } else {
             res.writeHead(404, {'Content-Type': 'application/json'});

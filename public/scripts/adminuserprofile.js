@@ -1,4 +1,4 @@
-const deleteProfile = document.querySelector('#deleteProfile');
+const deleteProfile = document.querySelector('#profile');
 
 deleteProfile.addEventListener('click', function(event) {
     const username = this.parentElement.querySelector('.username-hidden').textContent;

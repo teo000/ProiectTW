@@ -307,11 +307,63 @@ const logout = async (req, res) => {
         res.end(JSON.stringify({error: 'Internal Server Error'}));
     }
 }
+const resetPassword = async (req, res) => {
+    try {
+        let body = '';
+        req.on('data', chunk => {
+            body += chunk.toString();
+        });
+
+        req.on('end', async () => {
+            try {
+
+                const userData = JSON.parse(body);
+                console.log(userData);
+                // Validate the required fields (username, password)
+                if (!userData.username || !userData.password) {
+                    res.writeHead(400, {'Content-Type': 'application/json'});
+                    res.end(JSON.stringify({error: 'Username and password are required'}));
+                    return;
+                }
+
+                if(userData.password !== userData.confirmPassword){
+                    res.writeHead(400, {'Content-Type': 'application/json'});
+                    res.end(JSON.stringify({error: 'Passwords do not match'}));
+                    return;
+                }
+
+                // Check if the username is valid
+                const existingUser = await userRepository.getUser(userData.username);
+                if (!existingUser) {
+                    res.writeHead(401, {'Content-Type': 'application/json'});
+                    res.end(JSON.stringify({error: 'User does not exist'}));
+                    return;
+                }
+
+                const hashedPassword = new AuthenticationModel(userData.password);
+                const data = {username: userData.username, passwordHash: hashedPassword.password, salt: hashedPassword.salt};
+                await userRepository.resetPassword(data);
+                res.writeHead(201, {'Content-Type': 'application/json'});
+                res.end(JSON.stringify({success: 'Account created successfully'}));
+
+            } catch (error) {
+                console.log(error);
+                res.writeHead(500, {'Content-Type': 'application/json'});
+                res.end(JSON.stringify({error: 'Internal Server Error'}));
+            }
+        });
+    } catch (error) {
+        console.log(error);
+        res.writeHead(500, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify({error: 'Internal Server Error'}));
+    }
+}
 
 module.exports = {
     login,
     token,
     logout,
     signup,
-    adminsignup
+    adminsignup,
+    resetPassword
 }
