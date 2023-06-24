@@ -182,3 +182,16 @@ navigateToBookLinks.forEach((link) =>{
         window.location.href = `http://localhost:8081/books/getBook/${bookId}`;
     })
 })
+
+const navigateToBookLinksAdmin =  document.querySelectorAll('a.navigate-to-book-admin');
+
+navigateToBookLinksAdmin.forEach((link) =>{
+    link.addEventListener('click', () =>{
+        console.log("aici")
+        const bookContainer = link.closest('.book');
+        const bookId = bookContainer.querySelector('.related-book-id').textContent;
+        console.log("aici")
+        window.location.href = `http://localhost:8081/admin/books/getBook/${bookId}`;
+    })
+})
+
