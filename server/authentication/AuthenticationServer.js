@@ -15,6 +15,8 @@ const authServer = http.createServer((req,res)=>{
         AuthenticationController.signup(req,res);
     } else if (req.url === '/adminsignup')
         AuthenticationController.adminsignup(req,res);
+    else if (req.url === '/requestresetpassword')
+        AuthenticationController.resetPassword(req,res);
 
 });
 

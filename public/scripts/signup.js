@@ -34,6 +34,7 @@ signupForm.addEventListener('submit', (event) => {
     const username = document.querySelector('#username').value;
     const password = document.querySelector('#password').value;
     const confirmPassword = document.querySelector('#confirmPassword').value;
+    const email = document.querySelector('#email').value;
 
 
     fetch('http://localhost:6969/signup', {
@@ -41,7 +42,7 @@ signupForm.addEventListener('submit', (event) => {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ username, password , confirmPassword}),
+        body: JSON.stringify({ username, password , confirmPassword, email}),
         credentials: 'include'
     }).then((response) => {
         if (response.ok) {

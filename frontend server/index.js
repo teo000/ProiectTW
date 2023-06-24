@@ -1095,7 +1095,7 @@ const server = http.createServer((req, res) => {
             authenticateToken(req, res, customReadFile, `../views/rss/rssfeed.xml`);
             return;
         }
-        if (url.indexOf("login") === -1 && url.indexOf("signup") === -1) {
+        if (url.indexOf("login") === -1 && url.indexOf("signup") === -1 && url.indexOf("requestresetpassword") === -1) {
             //  res.writeHead(200, {"Content-Type": "text/html"});
             authenticateTokenForUser(req, res, customReadFile, getFileUrl(url));
             // customReadFile(req, res, getFileUrl(url));
