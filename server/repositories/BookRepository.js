@@ -159,6 +159,25 @@ const getTopBooksInGenre = async (genre) => {
 
 
 const getTopBooksInGenreOverall = async (genre) => {
+    if(genre === "any")
+        return new Promise((resolve, reject) => {
+            databaseConnection.pool.query(`select b.id,
+                                                  b.title,
+                                                  b.author,
+                                                  b.rating,
+                                                  b.description,
+                                                  b.edition,
+                                                  b.publisher,
+                                                  b.year,
+                                                  b.coverimg
+                                           from books b
+                                           order by rating desc limit 3`, (error, results) => {
+                if (error) {
+                    reject(error);
+                }
+                resolve(results.rows);
+            });
+        });
     return new Promise((resolve, reject) => {
         databaseConnection.pool.query(`select b.id,
                                               b.title,

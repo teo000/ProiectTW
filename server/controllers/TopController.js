@@ -4,10 +4,11 @@ const genreRepository = require('../repositories/GenreRepository')
 
 async function changeTop(id) {
     try {
-        const genres = await genreRepository.getGenresForBook(id);
+        let genres = await genreRepository.getGenresForBook(id);
         if(!genres){
           return;
         }
+        genres.push({name: "any"});
         for (const genre of genres) {
             const books = await bookRepository.getTopBooksInGenreOverall(genre.name.toLowerCase());
             const isTopChanged = await bookRepository.isTopChanged(genre.name.toLowerCase(), Number(books[0].id), Number(books[1].id), Number(books[2].id));
