@@ -37,6 +37,15 @@
 
 }
 
+.container .div-form h2{
+    display: flex;
+    align-self: center;
+    font-size: 20px;
+    margin-bottom: 50px;
+    margin-top: auto;
+    font-weight: normal;
+}
+
 .container .div-form form{
     display:flex;
     flex-direction: column;

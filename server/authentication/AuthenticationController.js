@@ -1,9 +1,13 @@
 //login & authenticate token functions
+const nodemailer = require('nodemailer');
 const userRepository = require("../repositories/UserRepository");
 const {User} = require("../models/UserModel");
 const {checkPasswordValidity, AuthenticationModel} = require("../models/AuthenticationModel");
 const jwt = require("jsonwebtoken");
 const cookie = require('cookie');
+const {getUser} = require("../repositories/UserRepository");
+
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 let refreshTokens = [];
 let bannedAccessTokens = [];
@@ -95,6 +99,12 @@ const signup = async (req, res) => {
                     return;
                 }
 
+                if(!emailPattern.test(userData.email)){
+                    res.writeHead(400, {'Content-Type': 'application/json'});
+                    res.end(JSON.stringify({error: 'Please enter a valid email'}));
+                    return;
+                }
+
                 // Check if the username is valid
                 const existingUser = await userRepository.getUser(userData.username);
                 if (existingUser) {
@@ -104,7 +114,7 @@ const signup = async (req, res) => {
                 }
 
                 const hashedPassword = new AuthenticationModel(userData.password);
-                const createUserData = {username: userData.username, passwordHash: hashedPassword.password, salt: hashedPassword.salt, isAdmin: false};
+                const createUserData = {username: userData.username, email: userData.email, passwordHash: hashedPassword.password, salt: hashedPassword.salt, isAdmin: false};
                 await userRepository.addUser(createUserData);
                 res.writeHead(201, {'Content-Type': 'application/json'});
                 res.end(JSON.stringify({success: 'Account created successfully'}));
@@ -121,6 +131,84 @@ const signup = async (req, res) => {
         res.end(JSON.stringify({error: 'Internal Server Error'}));
     }
 }
+
+const resetPassword = async (req, res) => {
+
+    const transporter = nodemailer.createTransport({
+        service: "gmail",
+        host: 'smtp.gmail.com',
+        port: 5887,
+        secure: false,
+        auth: {
+            user: 'boobookreviewer@gmail.com',
+            pass: 'lvpzivpekvulevzr'
+        }
+    });
+
+
+    try {
+        let body = '';
+        req.on('data', chunk => {
+            body += chunk.toString();
+        });
+
+        req.on('end', async () => {
+            try {
+                const userData = JSON.parse(body);
+                console.log(userData);
+
+                const user = await getUser(userData.username);
+                console.log(user);
+
+                if(user.email === null || user.email === undefined){
+                    res.writeHead(400, {'Content-Type': 'application/json'});
+                    res.end(JSON.stringify({error: 'We could not process your request'}));
+                    return;
+                }
+                const mailOptions = {
+                    from: 'boobookreviewer@gmail.com',
+                    to: `${user.email}`,
+                    subject: 'Password Reset',
+                    //text: 'Test email'
+                    html: `
+                        <h1>Password Reset</h1>
+                        <p>Hello,</p>
+                        <p>We received a request to reset your password. Click the link below to proceed with the password reset:</p>
+                        <a href="http://localhost:8081/login">Reset Password</a>
+                        <p>If you did not request this password reset, please ignore this email.</p>
+                        <p>Best regards,</p>
+                        <p>The Boo Team</p>
+                         `
+                };
+
+                await transporter.sendMail(mailOptions, (error, info) => {
+                    if (error) {
+                        console.log(error);
+                        res.writeHead(400, {'Content-Type': 'application/json'});
+                        res.end(JSON.stringify({error: 'Error while sending mail'}));
+                    } else {
+                        console.log('Email sent successfully!');
+                        console.log('Message ID:', info.messageId);
+                        res.writeHead(200, {'Content-Type': 'application/json'});
+                        res.end(JSON.stringify({error: 'Email sent successfully'}));
+                    }
+                });
+
+
+
+            } catch (error) {
+                console.log(error);
+                res.writeHead(500, {'Content-Type': 'application/json'});
+                res.end(JSON.stringify({error: 'Internal Server Error'}));
+            }
+        });
+    } catch (error) {
+        console.log(error);
+        res.writeHead(500, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify({error: 'Internal Server Error'}));
+    }
+}
+
 
 const adminsignup = async (req, res) => {
     try {
