@@ -105,10 +105,13 @@
                 <ol>
                     <% topBooks.forEach(function(topBook) { %>
                         <li>
-                            <a href="javascript:void(0);" onclick="navigateToBookAdmin('<%= topBook.title %>')"
-                               class="book-name">
-                                <%= topBook.title %>
-                            </a>
+                            <div class="book">
+                                <p class="related-book-id" style="display: none "><%= topBook.id %></p>
+                                <a class="navigate-to-book-admin"
+                                   class="book-name" style="cursor: pointer">
+                                    <%= topBook.title %>
+                                </a>
+                            </div>
                         </li>
                     <% }) %>
                 </ol>
@@ -139,10 +142,16 @@
                     </div>
                 </div>
 
-                <p class="post-text">"I Rated <a href="javascript:void(0);" onclick="navigateToBookAdmin('<%= review.title %>')" class="book-title"><%=review.title%></a> by <a
-                            href="javascript:void(0);" onclick="navigateToAuthorAdmin('<%= review.author %>')" class="book-author"><%=review.author%></a> <%=review.stars%>
-                    stars!"
-                </p>
+                <div class="book">
+                    <p class = "related-book-id" style = "display: none " ><%=review.bookid%></p>
+                    <p class="post-text">"I Rated <a class="navigate-to-book-admin" class="book-title"><%= review.title %></a>
+                        by <a
+                                href="javascript:void(0);" onclick="navigateToAuthorAdmin('<%= review.author %>')"
+                                class="book-author"><%= review.author %></a> <%= review.stars %>
+                        stars!"
+                    </p>
+                </div>
+
                 <% if (!review.isgeneric || review.isgeneric === null) { %>
                 <p class = post-text>
                     <%=review.content%>

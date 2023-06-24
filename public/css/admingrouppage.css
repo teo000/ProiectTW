@@ -789,3 +789,9 @@ body {
         right: 40vw;
     }
 }
+
+a.navigate-to-book-admin {
+    color: #626262;
+    text-decoration: none;
+    font-style: italic;
+}

@@ -960,3 +960,9 @@ a:hover{
     }
 
 }
+
+a.navigate-to-book-admin {
+    color: #626262;
+    text-decoration: none;
+    font-style: italic;
+}
