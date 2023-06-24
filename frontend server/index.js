@@ -36,8 +36,8 @@ const server = http.createServer((req, res) => {
         else if (url === '/admin/groups/allgroups')
             authenticateTokenForAdmin(req, res, customReadAllGroupsEjs, `../views/ejs/adminallgroupspage.ejs`);
         else if (url.startsWith('/admin/groups/group/')) {
-            const groupName = url.split('/')[4].toLowerCase();
-            authenticateTokenForAdmin(req, res, customReadGroupEjs, `../views/ejs/admingrouppage.ejs`, groupName);
+            const groupId = url.split('/')[4].toLowerCase();
+            authenticateTokenForAdmin(req, res, customReadGroupEjs, `../views/ejs/admingrouppage.ejs`, groupId);
         } else if (url === '/admin/users')
             authenticateTokenForAdmin(req, res, customReadUsersEjs, `../views/ejs/adminuserspage.ejs`);
         else if (url.startsWith('/admin/books/genres?')) {
@@ -90,8 +90,8 @@ const server = http.createServer((req, res) => {
     } else if (url.startsWith('/groups/mygroups') && url.indexOf(".") === -1) {
         authenticateTokenForUser(req, res, customReadMyGroupsEjs, '../views/ejs/mygroups.ejs');
     } else if (url.startsWith('/groups/group/') && url.indexOf(".") === -1) {
-        const group = url.split('/')[3].toLowerCase();
-        authenticateTokenForUser(req, res, customReadGroupEjs, `../views/ejs/grouppage.ejs`, group);
+        const groupId = url.split('/')[3].toLowerCase();
+        authenticateTokenForUser(req, res, customReadGroupEjs, `../views/ejs/grouppage.ejs`, groupId);
     } else if (url.startsWith('/books/mybooks/') && url.indexOf(".") === -1) {
         authenticateTokenForUser(req, res, customReadUserBooksEjs, `../views/ejs/mybooks.ejs`);
     } else if (url.startsWith('/recommendations') && url.indexOf(".") === -1) {

@@ -11,21 +11,13 @@ function navigateToGenreAdmin(genre) {
     const encodedGenre = encodeURIComponent(genre.toLowerCase());
     window.location.href = `http://localhost:8081/admin/books/genres?genre=${encodedGenre}&pageSize=100&pageNumber=1`;
 }
-
-function navigateToBookAdmin (title){
-    const encodedTitle = encodeURIComponent(title);
-    console.log(title);
-    console.log(encodedTitle)
-    window.location.href = `http://localhost:8081/admin/books/getBook/${encodedTitle}`;
+function navigateToGroup (groupId){
+    // const encodedGroup = encodeURIComponent(groupName);
+    window.location.href = `http://localhost:8081/groups/group/${groupId}`;
 }
-
-function navigateToGroup (groupName){
-    const encodedGroup = encodeURIComponent(groupName);
-    window.location.href = `http://localhost:8081/groups/group/${encodedGroup}`;
-}
-function navigateToGroupAdmin (groupName){
-    const encodedGroup = encodeURIComponent(groupName);
-    window.location.href = `http://localhost:8081/admin/groups/group/${encodedGroup}`;
+function navigateToGroupAdmin (groupId){
+    // const encodedGroup = encodeURIComponent(groupName);
+    window.location.href = `http://localhost:8081/admin/groups/group/${groupId}`;
 }
 function navigateToMyGroups (){
     window.location.href = `http://localhost:8081/groups/mygroups`;

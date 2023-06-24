@@ -45,12 +45,12 @@ const getAllGroups = async (req, res) =>{
     }
 }
 
-const getGroup = async (req, res, name) =>{
+const getGroup = async (req, res, groupId) =>{
     const cookies = req.headers.cookie ? parse(req.headers.cookie, '; ') : {};
     const user = jwt.verify(cookies.access_token, `${process.env.ACCESS_TOKEN_SECRET}`)
     const userId = user.user.ID;
     try {
-        const groups = await groupRepository.getGroupByName(name, userId);
+        const groups = await groupRepository.getGroup(groupId, userId);
 
         res.writeHead(200, {'Content-Type': 'application/json'});
         res.end(JSON.stringify(groups));
@@ -183,11 +183,11 @@ const setCurrentBook = async (req, res) =>{
     }
 }
 
-const getGroupMembers = async (req, res, groupName) =>{
+const getGroupMembers = async (req, res, groupId) =>{
     console.log("group controller: getGroupMembers");
     try {
-            const group = await groupRepository.getGroupByName(groupName);
-            const groupMembers =  await groupRepository.getGroupMembers(group.id);
+            // const group = await groupRepository.getGroupByName(groupName);
+            const groupMembers =  await groupRepository.getGroupMembers(groupId);
             console.log(groupMembers)
             res.writeHead(200, {'Content-Type': 'application/json'});
             res.end(JSON.stringify(groupMembers));

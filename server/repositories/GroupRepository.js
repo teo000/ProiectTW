@@ -57,6 +57,21 @@ const getGroupByName = async(name, userId) => {
     });
 };
 
+const getGroup = async(groupId, userId) => {
+    return new Promise((resolve, reject) => {
+        databaseConnection.pool.query('SELECT g.id, g.name, g.creator_id, g.book_id, g.invite_code, (g.creator_id = $1)::boolean AS is_owner , b.title, b.author, b.description, b.rating, b.coverimg FROM groups g LEFT JOIN books b on g.book_id = b.id where g.id = $2',
+            [userId, groupId], (error, results) => {
+                if (error) {
+                    console.log(error);
+                    reject(error);
+                }
+
+                resolve(results.rows[0]);
+
+            });
+    });
+};
+
 const getGroupByInviteCode = async(inviteCode) => {
     console.log("groupRepository: getGroupByInviteCode");
 
@@ -133,7 +148,7 @@ const getGroupMembersReviews = async(groupId) => {
                     reject(error);
                 }
                 console.log('e bine');
-                console.log(results);
+                // console.log(results);
                 resolve(results.rows);
             });
     });
@@ -162,5 +177,6 @@ module.exports = {
     setBook,
     getGroupMembers: getGroupMembersReviews,
     getAllGroups,
-    deleteGroup
+    deleteGroup,
+    getGroup
 }
