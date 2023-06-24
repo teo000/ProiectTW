@@ -11,8 +11,11 @@ function deleteUser(){
         credentials: 'include'
     }).then((response) => {
         if (response.ok) {
-            console.log("aici")
-            logout();
+            Swal.fire('Success', 'Account deleted successfully', 'success').then((result) => {
+                if (result.isConfirmed) {
+                    logout();
+                }
+            });
         } else {
             response.json().then(data => {
                 const errorMessage = data.error;

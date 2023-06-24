@@ -242,22 +242,14 @@ function setCookie(res, accessToken, refreshToken) {
             secure: true,
             sameSite: 'None',
             maxAge: 86400 * 30,
-            path: '/', // Adjust the path as per your requirements
+            path: '/'
         }),
-       /* cookie.serialize('exclude_cookie', 'true', {
-            path: '/login', // Specific path to exclude
-            // Other cookie options
-        }),
-        cookie.serialize('exclude_cookie', 'true', {
-            path: '/signup', // Specific path to exclude
-            // Other cookie options
-        }),*/
         cookie.serialize('a', "b", {
             httpOnly: true,
             secure: false,
             sameSite: 'Strict',
             maxAge: 86400 * 30,
-            path: '/', // Adjust the path as per your requirements
+            path: '/'
         })
     ]);
 
@@ -265,12 +257,22 @@ function setCookie(res, accessToken, refreshToken) {
 
 
 function setSecureCookie(res, accessToken, refreshToken) {
+    const maxAge = 86400*30;
     res.setHeader('Set-Cookie', [
-        `access_token=${accessToken}; Secure; HttpOnly; SameSite=Strict`,
-        `refresh_token=${refreshToken}; Secure; HttpOnly; SameSite=Strict`
+        `access_token=${accessToken}; Secure; HttpOnly; SameSite=Strict; Max-Age : ${maxAge}`,
+        `refresh_token=${refreshToken}; Secure; HttpOnly; SameSite=Strict;  Max-Age : ${maxAge}`
     ]);
     res.writeHead(200, { 'Content-Type': 'text/plain' });
     res.end('Authentication successful');
+}
+function unsetCookies (res){
+    const maxAge = 86400*30;
+    res.setHeader('Set-Cookie', [
+        `access_token=; Secure; HttpOnly; SameSite=Strict; Max-Age : ${maxAge}`,
+        `refresh_token=; Secure; HttpOnly; SameSite=Strict;  Max-Age : ${maxAge}`
+    ]);
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.end('Logout successful');
 }
 const logout = async (req, res) => {
     console.log('logout');
@@ -293,8 +295,7 @@ const logout = async (req, res) => {
             refreshTokens.splice(index, 1);
 
             bannedAccessTokens.push(accessToken);
-            res.writeHead(204, {'Content-Type': 'application/json'});
-            res.end(JSON.stringify({bannedAccessTokens : bannedAccessTokens}));
+            unsetCookies(res);
             return;
         }
         res.writeHead(500, {'Content-Type': 'application/json'});

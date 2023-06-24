@@ -107,7 +107,7 @@ function navigateToRecommendations(){
     window.location.href =`http://localhost:8081/recommendations`;
 }
 function logout(){
-    console.log("in logout")
+    console.log("ok")
     //ceva request pt logout
     fetch('http://localhost:6969/logout', {
         method: 'POST',
@@ -117,6 +117,14 @@ function logout(){
         credentials: 'include'
     }).then((response) => {
         if (response.ok) {
+            const cookieHeader = response.headers.get('Set-Cookie');
+            if (cookieHeader) {
+                const cookies = cookieHeader.split(';');
+                cookies.forEach(cookie => {
+                    document.cookie = cookie.trim();
+                });
+            }
+
             window.location.href = 'http://localhost:8081/login';
         } else {
             response.json().then(data => {
