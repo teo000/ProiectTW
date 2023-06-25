@@ -142,6 +142,7 @@ const addBook = async (req, res) => {
                     }
                 }
 
+
                 // Add the book to the database
                 const addedBook = await bookRepository.addBook(bookData);
 
