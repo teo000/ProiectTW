@@ -1,0 +1,1373 @@
+---
+openapi: 3.0.3
+info:
+  title: Book Reviewer - OpenAPI
+  description: "This is an API developed by Savin Miruna and Tudurache Teodora as part of their Web Technologies project, 2023."
+  contact:
+    email: miruna.savin02@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+- url: http://localhost:6969
+- url: http://localhost:8081
+tags:
+- name: books
+  description: Operations regarding the books in the system
+- name: genre
+  description: Operations regarding the genres in the system
+- name: user
+  description: Operations about user
+- name: group
+  description: Operations about the reading groups
+paths:
+  /groups/mygroups:
+    get:
+      tags:
+      - group
+      summary: gets the group list for a logged user
+      description: This can only be done by the logged in user.
+      operationId: getMyGroups
+      responses:
+        default:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Group'
+  /groups/group/{groupId}:
+    get:
+      tags:
+      - group
+      summary: gets the group with a certain id
+      description: This can only be done by the logged in user.
+      operationId: getGroup
+      parameters:
+      - name: groupId
+        in: path
+        description: ""
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        default:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+    delete:
+      tags:
+      - group
+      summary: deletes a grouop
+      description: This can only be done by the logged in admin.
+      operationId: deleteGroup
+      parameters:
+      - name: groupId
+        in: path
+        description: ""
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        default:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+  /groups/members/{groupId}:
+    get:
+      tags:
+      - group
+      summary: gets the members of a certain group
+      description: This can only be done by the logged in user.
+      operationId: getGroupMembers
+      parameters:
+      - name: groupId
+        in: path
+        description: ""
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        default:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /groups/allgroups:
+    get:
+      tags:
+      - group
+      summary: gets all groups in the database
+      description: This can only be done by the logged in admin.
+      operationId: getAllGroups
+      responses:
+        default:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+  /groups/join:
+    post:
+      tags:
+      - book
+      summary: Allows the logged in user to join a group
+      description: This operation can only be performed by a logged in user
+      operationId: joinGroup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/groups_join_body'
+      responses:
+        "200":
+          description: Successful operation
+        "404":
+          description: Group not found
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Group not found
+        default:
+          description: successful operation
+  /groups/create:
+    post:
+      tags:
+      - book
+      summary: Allows the logged in user to create a group with a given name
+      description: This operation can only be performed by a logged in user
+      operationId: createGroup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/groups_create_body'
+      responses:
+        "200":
+          description: Successful operation
+        "404":
+          description: Group not found
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Group not found
+        default:
+          description: successful operation
+  /groups/currentbook/set:
+    post:
+      tags:
+      - book
+      summary: Allows the owner of a group to set what book the group is currently reading
+      description: This operation can only be performed by a logged in user
+      operationId: setCurrentBook
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/currentbook_set_body'
+      responses:
+        "200":
+          description: Successful operation
+        "404":
+          description: Group not found
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Group not found
+        default:
+          description: successful operation
+  /genres/{bookid}:
+    get:
+      tags:
+      - genre
+      summary: gets the genre list for a book
+      description: This can only be done by the logged in user.
+      operationId: getGenreForBook
+      parameters:
+      - name: bookid
+        in: path
+        description: the id of a book
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        default:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  example: "{\"genre\":\"romance\"}"
+  /books/getAll:
+    get:
+      tags:
+      - book
+      summary: get all books
+      description: This can only be done by the logged in user.
+      operationId: getAllBooks
+      responses:
+        default:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+  /books/getbook/{title}:
+    get:
+      tags:
+      - book
+      summary: get book by title
+      description: Get information about one book.
+      operationId: getBookByTitle
+      parameters:
+      - name: title
+        in: path
+        description: the title of the book
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        "404":
+          description: Book not found
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Book not found
+        default:
+          description: successful operation
+  /books/{bookId}:
+    get:
+      tags:
+      - book
+      summary: get book by title
+      description: Get information about one book.
+      operationId: getBookByID
+      parameters:
+      - name: bookId
+        in: path
+        description: the id of the book
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        "404":
+          description: Book not found
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Book not found
+        default:
+          description: successful operation
+  /books/top:
+    get:
+      tags:
+      - book
+      summary: get top books overall
+      description: ""
+      operationId: getTopBooks
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+        "404":
+          description: Books not found
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Books not found
+        default:
+          description: successful operation
+  /books/genres:
+    get:
+      tags:
+      - book
+      summary: get books in genre
+      description: ""
+      operationId: getGenre
+      parameters:
+      - name: genre
+        in: query
+        description: ""
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: number of books on page
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+      - name: pageNumber
+        in: query
+        description: number of the page on which you are searching
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+        "404":
+          description: Book not found
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Books not found
+    post:
+      tags:
+      - book
+      summary: Adds a new genre to a book
+      description: This operation can only be performed by a logged in admin
+      operationId: addBookGenreAssociation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+      responses:
+        "200":
+          description: Successful operation
+    delete:
+      tags:
+      - book
+      summary: Removes a genre from a book's description
+      description: This operation can only be performed by a logged in admin
+      operationId: deleteBookGenreAssociation
+      parameters:
+      - name: bookid
+        in: query
+        description: ""
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+      - name: genre
+        in: query
+        description: name of a genre
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successful operation
+        "404":
+          description: Genre not found!
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Genre not found
+        default:
+          description: successful operation
+  /books/genres/top/{genre}:
+    get:
+      tags:
+      - book
+      summary: get top books in genre
+      description: ""
+      operationId: getTopBooksInGenre
+      parameters:
+      - name: genre
+        in: path
+        description: the title of the book
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+        "404":
+          description: Books not found
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Books not found
+        default:
+          description: successful operation
+  /books/genres/count:
+    get:
+      tags:
+      - book
+      summary: gets the number of books in a genre
+      description: ""
+      operationId: getGenreCount
+      parameters:
+      - name: genre
+        in: query
+        description: the name of the genre
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: integer
+                example: 2345
+        default:
+          description: successful operation
+  /books/mybooks/{shelfName}:
+    get:
+      tags:
+      - book
+      summary: get books in a shelf of the user's
+      description: ""
+      operationId: getUserBooks
+      parameters:
+      - name: shelfName
+        in: path
+        description: the shelf from which the user wants to retrieve books
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+        "404":
+          description: Books not found!
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Books not found
+  /books/reviews/all:
+    get:
+      tags:
+      - review
+      summary: get all reviews made in the app
+      description: ""
+      operationId: getAllReviews
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Review'
+        "404":
+          description: Book not found
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Reviews not found
+  /books/reviews/userid={userid}:
+    get:
+      tags:
+      - review
+      summary: get reviews made by a user
+      description: ""
+      operationId: getReviewsMadeByUser
+      parameters:
+      - name: userid
+        in: path
+        description: the id of the user whose reviews you want to retrieve
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Review'
+        "404":
+          description: Book not found
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Reviews not found
+  /books/reviews/username={username}:
+    get:
+      tags:
+      - review
+      summary: get reviews made by a user
+      description: ""
+      operationId: getReviewsMadeByUsername
+      parameters:
+      - name: username
+        in: path
+        description: the username of the user whose reviews you want to retrieve
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Review'
+        "404":
+          description: Book not found
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Reviews not found
+  /books/reviews/{title}:
+    get:
+      tags:
+      - review
+      summary: get reviews for a specific book
+      description: ""
+      operationId: getBookReviews
+      parameters:
+      - name: title
+        in: path
+        description: the title of the books whose reviews you want to retrieve
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Review'
+        "404":
+          description: Book not found
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Reviews not found
+  /books/criteria:
+    get:
+      tags:
+      - book
+      summary: "get books, based on a specific criteria"
+      description: "The criteria can be anything from the following: year, edition, publisher,author,search string"
+      operationId: getBookByCriteria
+      parameters:
+      - name: edition
+        in: query
+        description: ""
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: publisher
+        in: query
+        description: ""
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: year
+        in: query
+        description: ""
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: author
+        in: query
+        description: ""
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: searchInput
+        in: query
+        description: ""
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: number of books shown on page
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+      - name: pageNumber
+        in: query
+        description: the page on which you are on
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Review'
+        "404":
+          description: Book not found
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Reviews not found
+  /books/recommendations/{userId}:
+    get:
+      tags:
+      - book
+      summary: get books recommendations for a specific user
+      description: "Gets books recommendations for a user, taking into account which books he has in his collection"
+      operationId: getBookRecommendations
+      parameters:
+      - name: userId
+        in: path
+        description: the id of the user
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        "404":
+          description: Books not found
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Books not found
+        default:
+          description: successful operation
+  /books/related/{bookId}/{limit}:
+    get:
+      tags:
+      - book
+      summary: get books recommendations for a specific user
+      description: Gets books similar to the one given in the path
+      operationId: getRelatedBooks
+      parameters:
+      - name: bookId
+        in: path
+        description: the id of a book
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      - name: limit
+        in: path
+        description: the maximum number of books that should be returned
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        "404":
+          description: Books not found
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Books not found
+        default:
+          description: successful operation
+  /books:
+    put:
+      tags:
+      - book
+      summary: Modifies a field of the book
+      description: This operation can only be performed by a logged in admin
+      operationId: updateBook
+      parameters:
+      - name: bookId
+        in: query
+        description: ""
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+      - name: title
+        in: query
+        description: ""
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: author
+        in: query
+        description: ""
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: edition
+        in: query
+        description: ""
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: publisher
+        in: query
+        description: ""
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: year
+        in: query
+        description: ""
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Successful operation
+        "404":
+          description: Book not found
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Book not found
+        default:
+          description: successful operation
+    post:
+      tags:
+      - book
+      summary: Adds a new book to the database
+      description: This operation can only be performed by a logged in admin
+      operationId: addBook
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+      responses:
+        "200":
+          description: Successful operation
+  /books/coverimg:
+    put:
+      tags:
+      - book
+      summary: Modifies the cover image of a book
+      description: This operation can only be performed by a logged in admin
+      operationId: updateBookCover
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/books_coverimg_body'
+      responses:
+        "200":
+          description: Successful operation
+        "404":
+          description: Book not found
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Book not found
+        default:
+          description: successful operation
+  /books/description:
+    put:
+      tags:
+      - book
+      summary: Modifies the coverimg
+      description: This operation can only be performed by a logged in admin
+      operationId: updateBookDescription
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/books_description_body'
+      responses:
+        "200":
+          description: Successful operation
+        "404":
+          description: Books not found
+          content:
+            application/json:
+              schema:
+                type: string
+                example: Books not found
+        default:
+          description: successful operation
+  /books/shelf/bookid={bookid}:
+    delete:
+      tags:
+      - book
+      summary: remove a book from your shelf
+      description: ""
+      operationId: removeBookFromShelf
+      parameters:
+      - name: bookid
+        in: path
+        description: the id of the books you want to remove from shelf
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successful operation
+  /books/review/{bookid}:
+    delete:
+      tags:
+      - book
+      summary: Delete a review
+      description: ""
+      operationId: deleteReview
+      parameters:
+      - name: bookid
+        in: path
+        description: ""
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successful operation
+  /books/book/{bookid}:
+    delete:
+      tags:
+      - book
+      summary: Delete a book
+      description: Only a logged in admin can perform this operation
+      operationId: deleteBook
+      parameters:
+      - name: bookid
+        in: path
+        description: ""
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successful operation
+  /books/review/generic:
+    post:
+      tags:
+      - review
+      summary: Add a new generic review
+      description: ' Add a review which has no content given by the user; the content is automatically generated by the app'
+      operationId: addGenericReview
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Review'
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+        "405":
+          description: Invalid input
+  /books/review:
+    post:
+      tags:
+      - review
+      summary: Add a new review
+      description: Add a review written by the user
+      operationId: addReview
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Review'
+      responses:
+        "201":
+          description: Review added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+        "405":
+          description: Invalid input
+  /books/shelf:
+    post:
+      tags:
+      - book
+      summary: Adds a book to one of the logged user's shelves
+      description: ""
+      operationId: addBookToShelf
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Review'
+      responses:
+        "201":
+          description: Book added to shelf successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        "404":
+          description: Book cannot be found!
+  /users/getAll:
+    get:
+      tags:
+      - user
+      summary: get all users
+      description: This can only be done by the admin.
+      operationId: getAllUsers
+      responses:
+        default:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+  /users/{userId}:
+    get:
+      tags:
+      - user
+      summary: Returns the user with the given id
+      description: '  '
+      operationId: getUser
+      parameters:
+      - name: userId
+        in: path
+        description: the id of the user
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        "404":
+          description: User not found
+          content:
+            application/json:
+              schema:
+                type: string
+                example: User not found
+        default:
+          description: successful operation
+  /users/user:
+    post:
+      tags:
+      - user
+      summary: Creates a new user
+      description: ""
+      operationId: createUser
+      parameters:
+      - name: username
+        in: query
+        description: The username
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: password
+        in: query
+        description: The password
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "201":
+          description: successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        "400":
+          description: Missing username and password
+        "409":
+          description: Username already exists
+  /user/logout:
+    get:
+      tags:
+      - user
+      summary: Logs out current logged in user session
+      description: ""
+      operationId: logoutUser
+      parameters: []
+      responses:
+        default:
+          description: successful operation
+  /users:
+    delete:
+      tags:
+      - user
+      summary: Delete user
+      description: This can only be done by the logged in user.
+      operationId: deleteUser
+      responses:
+        "400":
+          description: Invalid username supplied
+        "404":
+          description: User not found
+  /users/{username}:
+    delete:
+      tags:
+      - user
+      summary: Delete user by username
+      description: This can only be done by the logged in user.
+      operationId: deleteUserByUsername
+      parameters:
+      - name: username
+        in: path
+        description: 'The name that needs to be fetched. Use user1 for testing. '
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "400":
+          description: Invalid username supplied
+        "404":
+          description: User not found
+  /user/{username}:
+    get:
+      tags:
+      - user
+      summary: Get user by user name
+      description: ""
+      operationId: getUserByName
+      parameters:
+      - name: username
+        in: path
+        description: 'The name that needs to be fetched. Use user1 for testing. '
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/User'
+        "400":
+          description: Invalid username supplied
+        "404":
+          description: User not found
+components:
+  schemas:
+    User:
+      required:
+      - ID
+      - passwordHash
+      - salt
+      - username
+      type: object
+      properties:
+        ID:
+          type: integer
+          format: int64
+          example: 10
+        username:
+          type: string
+          example: miruna1
+        email:
+          type: string
+          example: miruna.savin@example.com
+        passwordHash:
+          type: string
+          example: "12345"
+        salt:
+          type: string
+          example: "12345"
+      xml:
+        name: user
+    Book:
+      required:
+      - ID
+      - author
+      - description
+      - rating
+      - title
+      type: object
+      properties:
+        ID:
+          type: integer
+          format: int64
+          example: 10
+        title:
+          type: string
+          example: Harry Potter
+        author:
+          type: string
+          example: JK Rowling
+        rating:
+          type: number
+          example: 4.5
+        description:
+          type: string
+          example: nice book
+        edition:
+          type: string
+          example: First Edition
+        publishDate:
+          type: string
+          example: "1960"
+        numberOfRatings:
+          type: integer
+          example: 12312
+        coverImg:
+          type: string
+          example: http://cevalink
+      xml:
+        name: book
+    Group:
+      required:
+      - ID
+      - book_id
+      - creator_id
+      - invite_code
+      - name
+      type: object
+      properties:
+        ID:
+          type: integer
+          format: int64
+          example: 10
+        name:
+          type: string
+          example: Grupul meu
+        creator_id:
+          type: integer
+          format: int64
+          example: 5
+        book_id:
+          type: integer
+          format: int64
+          example: 7
+        invite_code:
+          type: string
+          example: ae57ec2e-827a-23f1-a8d7-9aa4e7424a6e
+      xml:
+        name: book
+    Review:
+      required:
+      - ID
+      - bookAuthor
+      - bookTitle
+      - reviewDate
+      - username
+      type: object
+      properties:
+        ID:
+          type: integer
+          example: 1231
+        username:
+          type: string
+          example: miruna1
+        bookTitle:
+          type: string
+          example: Harry Potter
+        bookAuthor:
+          type: string
+          example: JK Rowling
+        reviewDate:
+          type: string
+          example: 06-22-2023
+        reviewStars:
+          type: integer
+          example: 5
+        isGeneric:
+          type: boolean
+          example: false
+      xml:
+        name: user
+    groups_join_body:
+      required:
+      - groupId
+      type: object
+      properties:
+        groupId:
+          type: integer
+    groups_create_body:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+    currentbook_set_body:
+      required:
+      - bookid
+      type: object
+      properties:
+        bookid:
+          type: integer
+    books_coverimg_body:
+      required:
+      - bookid
+      - coverImg
+      type: object
+      properties:
+        bookid:
+          type: string
+        coverImg:
+          type: string
+    books_description_body:
+      required:
+      - bookid
+      - description
+      type: object
+      properties:
+        bookid:
+          type: string
+        coverImg:
+          type: string
+  requestBodies:
+    UserArray:
+      description: List of user object
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/User'
