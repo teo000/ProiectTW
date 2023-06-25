@@ -238,6 +238,12 @@ const adminsignup = async (req, res) => {
                     return;
                 }
 
+                if(!emailPattern.test(userData.email)){
+                    res.writeHead(400, {'Content-Type': 'application/json'});
+                    res.end(JSON.stringify({error: 'Please enter a valid email'}));
+                    return;
+                }
+
                 if(userData.password !== userData.confirmPassword){
                     res.writeHead(400, {'Content-Type': 'application/json'});
                     res.end(JSON.stringify({error: 'Passwords do not match'}));
@@ -259,7 +265,7 @@ const adminsignup = async (req, res) => {
                 }
 
                 const hashedPassword = new AuthenticationModel(userData.password);
-                const createUserData = {username: userData.username, passwordHash: hashedPassword.password, salt: hashedPassword.salt, isAdmin: true};
+                const createUserData = {username: userData.username, email: userData.email, passwordHash: hashedPassword.password, salt: hashedPassword.salt, isAdmin: true};
                 await userRepository.addUser(createUserData);
                 res.writeHead(201, {'Content-Type': 'application/json'});
                 res.end(JSON.stringify({success: 'Account created successfully'}));

@@ -22,13 +22,13 @@ const routeRequest = async (req, res) => {
 
 const handleGetRequests = (req, res) => {
 
-    if (req.url === '/books/getAll') {
+    if (req.url === '/books/getAll') { // /books/getAll
         getAllBooks(req,res);
-    } else if (req.url.startsWith('/books/genres/top')) {
+    } else if (req.url.startsWith('/books/genres/top')) { // /books/genres/top/{genre}
         const genre = req.url.split('/')[4].toLowerCase();
         const decodedGenre = decodeURIComponent(genre);
         getTopBooksInGenre(req,res,decodedGenre);
-    } else if (req.url.startsWith('/books/genres?')) {
+    } else if (req.url.startsWith('/books/genres?')) {  // /books/genres
         const queryString = req.url.split('?')[1];
         const params = new URLSearchParams(queryString);
         const genre = decodeURIComponent(params.get('genre'));
@@ -36,7 +36,7 @@ const handleGetRequests = (req, res) => {
         const pageNumber = params.get('pageNumber');
         // /books/genres?genre=ceva&pageSize=20&pageNumber=2
         getGenre(req,res,genre,pageSize,pageNumber);
-    } else if(req.url.startsWith('/books/genres/count')){
+    } else if(req.url.startsWith('/books/genres/count')){ // /books/genres/count?genre={genre}
         const queryString = req.url.split('?')[1];
         const params = new URLSearchParams(queryString);
         const genre = decodeURIComponent(params.get('genre'));
