@@ -32,7 +32,6 @@ const getGenresForBook = async(id) =>{
                 console.log(error)
                 reject(error);
             }
-            if(results.rowCount > 0)
                 resolve(results.rows);
 
         });

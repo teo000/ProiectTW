@@ -40,7 +40,7 @@ const login = async (req, res) => {
                     res.end(JSON.stringify({error: 'Username incorrect!'}));
                     return;
                 }
-                const userObject = new User(existingUser.id, existingUser.username, existingUser.email, existingUser.passwordhash, existingUser.salt, existingUser.isadmin);
+                const userObject = new User(existingUser.id, existingUser.username, existingUser.email, existingUser.passwordhash, existingUser.salt, existingUser.is_admin);
                 console.log(`authentication:`);
                 console.log( existingUser);
 
