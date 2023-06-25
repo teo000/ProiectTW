@@ -37,12 +37,14 @@ addBookForm.addEventListener('submit', function(event) {
                     document.cookie = cookie.trim();
                 });
             }
-
-            Swal.fire('Success', 'Book added successfully', 'success').then((result) => {
-                if (result.isConfirmed) {
-                    location.reload() ; //o sa fac sa te duca la carte da nu am facut admin book page inca
-                }
+            response.json().then(data => {
+                Swal.fire('Success', 'Book added successfully', 'success').then((result) => {
+                    if (result.isConfirmed) {
+                        location.href = `http://localhost:8081/admin/books/getBook/${data.book.id}` ; //o sa fac sa te duca la carte da nu am facut admin book page inca
+                    }
+                });
             });
+
 
         } else { //+check for 404
             response.json().then(data => {

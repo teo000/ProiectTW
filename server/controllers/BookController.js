@@ -133,8 +133,9 @@ const addBook = async (req, res) => {
                 } = bookData;
                 console.log(genres);
                 //check if all the provided genres exist in the database
+                if(genres.length>=1)
                 for (const genre of genres) {
-                    const foundGenre = genreRepository.getGenre([genre]);
+                    const foundGenre = await genreRepository.getGenre([genre]);
                     if (!foundGenre) {
                         res.writeHead(404, {'Content-Type': 'application/json'});
                         res.end(JSON.stringify({error: 'Genre Not found!'}));
@@ -149,7 +150,8 @@ const addBook = async (req, res) => {
 
                 //add the book genres to the book_genre_associations
                 const bookID = addedBook.id;
-                for (const genre of genres) {
+                if(genres.length>=1)
+                    for (const genre of genres) {
                     const foundGenre = await genreRepository.getGenre([genre]);
                     if (!foundGenre) { //stiu ca am mai verificat inca o data dar poate intre timp cnv a sters acest genre idl
                         res.writeHead(404, {'Content-Type': 'application/json'});
