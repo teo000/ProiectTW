@@ -331,3 +331,6 @@
     }
 }
 
+.navigate-to-book, .navigate-to-book-admin{
+    cursor: pointer
+}

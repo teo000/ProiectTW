@@ -5,12 +5,18 @@ const userRouter = require('./routes/UserRoutes');
 const bookRouter = require('./routes/BooksRoutes');
 const genreRouter = require('./routes/GenreRoutes');
 const groupRouter = require('./routes/GroupRoutes');
+const statisticsRouter = require('./routes/StatisticsRoutes');
 const {createServer} = require("https");
 const microServiceRoutes = [
     {path: '/login', method: 'POST'},
     {path: '/logout', method: 'POST'},
     {path: '/token', method: 'POST'},
-    {path: '/signup', method: 'POST'}
+    {path: '/signup', method: 'POST'},
+    {path: '/resetPassword', method: 'POST' },
+    {path: '/adminsignup', method: 'POST'},
+    {path: '/adminlogin', method: 'POST'},
+    {path: '/requestresetpassword', method: 'POST'}
+
 ];
 
 const authenticationMicroservice = {
@@ -33,8 +39,7 @@ const mainServer = http.createServer(
         const {url} = req;
 
         console.log(`back request: ${url}`);
-
-        if (url.startsWith('/users')) {
+        if (url.startsWith('/users') || url.startsWith('/changeResetPasswordCode')) {
             userRouter.routeRequest(req, res);
         } else if (url.startsWith('/books')) {
             bookRouter.routeRequest(req, res);
@@ -44,7 +49,10 @@ const mainServer = http.createServer(
             console.log(`starts with groups ${url}`);
             groupRouter.routeRequest(req, res);
             console.log(`main server`);
-        } else if (url.startsWith('/login') || url.startsWith('/logout') || url.startsWith('/token') || url.startsWith('/signup')) {
+        } else if(req.url.startsWith('/statistics')){
+            statisticsRouter.handleRequests(req, res);
+        } else if (url.startsWith('/login') || url.startsWith('/logout') || url.startsWith('/token') || url.startsWith('/signup')
+            || url.startsWith('/adminsignup') || url.startsWith('/adminlogin') || url.startsWith('/requestresetpassword') || url.startsWith('/resetPassword') ) {
             handleAuthentication(req, res);
         } else {
             res.writeHead(404, {'Content-Type': 'application/json'});
@@ -77,7 +85,8 @@ const handleAuthentication = async (req, res) => {
         res.writeHead(response.statusCode, response.headers);
     });
 
-    req.pipe(request);
+    if(request.method === 'POST')
+     req.pipe(request);
 
 
     request.on('error', error => {

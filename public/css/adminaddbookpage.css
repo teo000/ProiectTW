@@ -1,0 +1,132 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Lato', sans-serif;
+    font-weight: 100;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-image: linear-gradient(170deg,rgba(255, 175, 189, 0.5),rgba(255, 195, 160, 0.7)),url("wallpaper.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+#wrapper-div {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100px;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+}
+
+#content-wrapper{
+    display: flex;
+    flex-direction: row;
+    width:80%;
+    min-height: 95vh;
+    margin-top: 1vh;
+    align-content: center;
+    justify-content: center;
+    z-index:10;
+}
+
+#content{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    height: fit-content;
+    width: 90%;
+    margin-top: 12vh;
+    background-color:#cf4d5c ;
+    border-radius: 50px;
+    padding:20px;
+}
+
+@media(max-width:1100px){
+    #content{
+        margin-top: 14vh;
+    }
+}
+
+@media(max-width:550px){
+    #content{
+        margin-top: 4vh;
+    }
+}
+
+#content h1{
+    font-weight: bold;
+    color: white;
+
+}
+#content h2{
+    font-weight: bold;
+    color: white;
+}
+
+form{
+    width:80%;
+    align-self: center;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+form .input-class{
+    width: 100%;
+    max-height: 300px;
+    margin-top: 2vh;
+    margin-bottom:10px;
+    align-items: center;
+    /*border-radius:50px;*/
+    /*background-color: #ffafbd;*/
+    position: relative;
+}
+form .input-class input{
+    width:100%;
+    height: 100%;
+    border-radius:30px;
+    outline:none;
+    border:none;
+    padding:20px 40px;
+    font-size: 18px;
+}
+form .input-class textarea{
+    width: 100%;
+    height: 300px;
+    border-radius:30px;
+    box-sizing: border-box;
+    outline:none;
+    border:none;
+    padding:20px 40px;
+    font-size: 18px;
+    resize:none;
+    overflow: auto;
+}
+
+form button{
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    position: relative;
+    padding: 0.5em 1em;
+    border: 0;
+    border-radius: 0.5em;
+    background-color: lightpink;
+    color: black;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    font-size: 20px;
+}
+form button:hover{
+    background-color: #fc7d88;
+}
+form button:active {
+    top: 2px;
+    left: 1px;
+    box-shadow: none;
+}

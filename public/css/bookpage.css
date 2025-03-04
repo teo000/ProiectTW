@@ -297,8 +297,12 @@ body {
 }
 
 #book-cover {
-    height: auto;
-    max-width: 100%;
+    max-height:5%;
+    width: auto;
+}
+#book-cover img{
+    max-height: 400px;
+    width: auto;
 }
 
 #content-div {
@@ -498,6 +502,14 @@ a{
 a:hover{
     color: #393939;
 }
+.post-text a:hover {
+    font-weight: bold;
+    cursor: pointer;
+}
+a.navigate-to-book {
+    text-decoration: none;
+    font-style: italic;
+}
 
 .bookId p:not(:last-child) {
     margin-right: 10px;
@@ -516,18 +528,20 @@ a:hover{
 .sub-title {
     font-size: 20px;
     font-weight: bold;
-    margin-left: 25vw;
-    margin-top: 1vh;
-    margin-bottom: 1vh;
+    align-self: center;
+    margin-left: 35px;
+    margin-bottom: 6px;
 }
 
 
 .other-books {
     display: flex;
     flex-direction: row;
-    margin-left: auto;
+    margin-left : 40px;
+    margin-bottom: 10px;
     overflow-x: scroll;
-    justify-content: center;
+    justify-content: flex-start;
+    align-content: flex-start;
 }
 
 .other-books .book {
@@ -589,7 +603,39 @@ a:hover{
     color: #383838;
     margin: 20px 0;
 }
+.reviewId{
+    visibility: hidden;
+}
+.post-header {
+    display: flex;
+    flex-direction: row;
+}
 
+
+.post-header button {
+    position: relative;
+    padding: 1em;
+    height: fit-content;
+    border: 0;
+    border-radius: 0.5em;
+    background-color: darkred;
+    color: white;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: bold;
+    margin-left: auto;
+    margin-right: 10px;
+}
+
+.post-header button:hover{
+    background-color: red;
+}
+.post-header button:active {
+    top: 2px;
+    left: 1px;
+    box-shadow: none;
+}
 .post-text, .comment-text {
     color: #383838;
     margin: 15px 0;

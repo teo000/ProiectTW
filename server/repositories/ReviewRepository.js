@@ -17,7 +17,7 @@ const addReview = (reviewData) => {
 
 const getUserBookReviews = (bookid, userid) => {
     return new Promise((resolve, reject) => {
-        databaseConnection.pool.query('select b.title, b.author, u.username, r.date, r.content, r.stars, r.isgeneric, r.id from reviews r join books b on r.bookid = b.id join users u on r.userid = u.id  where bookid = $1 and u.id = $2',
+        databaseConnection.pool.query('select b.title, b.author, u.username, r.date, r.content, r.stars, r.isgeneric, r.id from reviews r join books b on r.bookid = b.id join users u on r.userid = u.id  where bookid = $1 and u.id = $2 order by date desc',
             [bookid, userid],
             (error, results) => {
                 if (error) {
@@ -35,13 +35,13 @@ const deleteReview = (reviewid) => {
                 if (error) {
                     reject(error);
                 }
-                resolve(results.rows);
+                resolve(results.rows[0]);
             });
     });
 }
 const getBookReviews = (bookid) => {
     return new Promise((resolve, reject) => {
-        databaseConnection.pool.query('select b.title, b.author, u.username, r.date, r.content, r.stars, r.isgeneric from reviews r join books b on r.bookid = b.id join users u on r.userid = u.id  where bookid = $1',
+        databaseConnection.pool.query('select b.id as bookid,b.title, b.author, u.username, r.date, r.content, r.stars, r.isgeneric, r.id from reviews r join books b on r.bookid = b.id join users u on r.userid = u.id  where bookid = $1  order by date desc',
             [bookid],
             (error, results) => {
                 if (error) {
@@ -67,7 +67,7 @@ const deleteUserBookReview = (bookid, userid) => {
 
 const getAllReviews = () => {
     return new Promise((resolve, reject) => {
-        databaseConnection.pool.query('select b.title, b.author, u.username, r.date, r.content, r.stars, r.isgeneric from reviews r join books b on r.bookid = b.id join users u on r.userid = u.id',
+        databaseConnection.pool.query('select b.id as bookid,b.title, b.author, u.username, r.date, r.content, r.stars, r.isgeneric, r.id from reviews r join books b on r.bookid = b.id join users u on r.userid = u.id  order by date desc',
             (error, results) => {
                 if (error) {
                     reject(error);
@@ -91,8 +91,21 @@ const changeReviewStars = (rating, bookid, userid) =>{
 }
 const getReviewsMadeByUser = (id) => {
     return new Promise((resolve, reject) => {
-        databaseConnection.pool.query('select b.title, b.author, u.username, r.date, r.content, r.stars, r.isgeneric from reviews r join books b on r.bookid = b.id join users u on r.userid = u.id where u.id =$1',
+        databaseConnection.pool.query('select b.id as bookid,b.title, b.author, u.username, r.date, r.content, r.stars, r.isgeneric, r.id from reviews r join books b on r.bookid = b.id join users u on r.userid = u.id where u.id =$1',
             [id],
+            (error, results) => {
+                if (error) {
+                    reject(error);
+                }
+                resolve(results.rows);
+            });
+    });
+}
+
+const getReviewsByUsername = (username) => {
+    return new Promise((resolve, reject) => {
+        databaseConnection.pool.query('select b.title, b.author, u.username, r.date, r.content, r.stars, r.isgeneric, r.id from reviews r join books b on r.bookid = b.id join users u on r.userid = u.id where u.username =$1',
+            [username],
             (error, results) => {
                 if (error) {
                     reject(error);
@@ -136,5 +149,6 @@ module.exports = {
     getReviewsMadeByUser,
     addRatingToBook,
     changeReviewStars,
-    updateBookRating
+    updateBookRating,
+    getReviewsByUsername
 }

@@ -64,8 +64,7 @@ const addReview = async (req, res) => {
                     date:data.date,
                     content:data.content
                 }
-                rssController.addReviewToFeed(dataForRss)
-
+                rssController.addToRss(rssController.addReviewToFeed,dataForRss);
                 res.writeHead(201, {'Content-Type': 'application/json'});
                 res.end(JSON.stringify({message: 'Review added successfully', review: addedReview}));
 
@@ -129,7 +128,7 @@ const addGenericReview = async(req,res) =>{
                    await reviewRepository.updateBookRating( oldRating, reviewData.stars,reviewData.bookid);
                     //schimb nr de stele de la review
                     const updatedReview =  await  reviewRepository.changeReviewStars(reviewData.stars, reviewData.bookid, userId);
-                     await topController.changeTop(book.title);
+                     await topController.changeTop(book.id);
                     res.writeHead(201, {'Content-Type': 'application/json'});
                     res.end(JSON.stringify({message: 'Review added successfully'}));
                     return;
@@ -138,7 +137,7 @@ const addGenericReview = async(req,res) =>{
                 const addedReview = await reviewRepository.addReview(dataToSend);
                 await reviewRepository.addRatingToBook(reviewData.bookid, reviewData.stars);
 
-                await topController.changeTop(book.title);
+                await topController.changeTop(book.id);
                 res.writeHead(201, {'Content-Type': 'application/json'});
                 res.end(JSON.stringify({message: 'Review added successfully', review: addedReview}));
 
@@ -160,13 +159,12 @@ const getBookReviews = async(req,res) =>{
         const parsedUrl = parse(req.url, true);
         const pathname = parsedUrl.pathname;
 
-        // Extract the title from the pathname
-        const encodedTitle = pathname.split('/').pop();
-        const title = decodeURIComponent(encodedTitle).toLowerCase();
+        // Extract the id from the pathname
+        const id = pathname.split('/').pop();
         const user = getUserFromCookie(req,res);
         if(user === undefined)
             return;
-        const book = await bookRepository.getBookByTitle(title);
+        const book = await bookRepository.getBookByID(id);
 
         if (!book) {
             res.writeHead(404, {'Content-Type': 'application/json'});
@@ -208,10 +206,38 @@ const getReviewsMadeByUser = async(req,res,id) =>{
         res.end(JSON.stringify({error: 'Internal Server Error'}));
     }
 }
+
+const getReviewsByUsername = async(req,res,username) =>{
+    try{
+        const reviews = await reviewRepository.getReviewsByUsername(username);
+        res.writeHead(200, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify(reviews));
+    }
+    catch (error){
+        console.log(error);
+        res.writeHead(500, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify({error: 'Internal Server Error'}));
+    }
+}
+
+const deleteReview = async(req,res,id) =>{
+    try{
+        const reviews = await reviewRepository.deleteReview(id);
+        res.writeHead(200, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify(reviews));
+    }
+    catch (error){
+        console.log(error);
+        res.writeHead(500, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify({error: 'Internal Server Error'}));
+    }
+}
 module.exports = {
     addReview,
     addGenericReview,
     getBookReviews,
     getAllReviews,
-    getReviewsMadeByUser
+    getReviewsMadeByUser,
+    getReviewsByUsername,
+    deleteReview
 }

@@ -30,30 +30,30 @@ loginForm.addEventListener('submit', (event) => {
     const username = document.querySelector('#username').value;
     const password = document.querySelector('#password_field').value;
 
-    fetch('http://localhost:6969/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ username, password }),
-        credentials: 'include'
-    }).then((response) => {
-        if (response.ok) {
-            const cookieHeader = response.headers.get('Set-Cookie');
-            if (cookieHeader) {
-                const cookies = cookieHeader.split(';');
-                cookies.forEach(cookie => {
-                    document.cookie = cookie.trim();
-                });
-            }
-            window.location.href = 'http://localhost:8081/homepage';
-        } else {
-            response.json().then(data => {
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'http://localhost:6969/login', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                const cookieHeader = xhr.getResponseHeader('Set-Cookie');
+                if (cookieHeader) {
+                    const cookies = cookieHeader.split(';');
+                    cookies.forEach(cookie => {
+                        document.cookie = cookie.trim();
+                    });
+                }
+                window.location.href = 'http://localhost:8081/homepage';
+            } else {
+                const data = JSON.parse(xhr.responseText);
                 const errorMessage = data.error;
                 Swal.fire('Error', errorMessage, 'error');
-            });
+            }
         }
-    }).catch(error => console.log(error));
+    };
+    xhr.withCredentials = true;
+    const requestData = JSON.stringify({ username, password });
+    xhr.send(requestData);
 });
 
 

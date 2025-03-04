@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale1.0">
+    <title>BOO!</title>
+
+    <link rel="stylesheet" href="statistics.css">
+    <link rel="stylesheet" href="navigation.css">
+    <link rel="stylesheet" href="body_content.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<div id="wrapper-div">
+    <div id="navigation-div">
+        <nav>
+            <div id="toggle-menu">
+
+                <a href="#" class="toggle-button">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </a>
+                <div id="dropdown-menu">
+                    <div class="menu-buttons">
+                        <a class="active"  href="javascript:void(0);" onclick="navigateToAdminPage('homepage')">Posts</a>
+                        <a class="active"  href="javascript:void(0);" onclick="navigateToAdminPage('users')">Users</a>
+                        <a class="active"  href="javascript:void(0);" onclick="navigateToAdminPage('adminaddbookpage')">Add book</a>
+
+                        <div class="hoverable">
+
+                            <a class="active" href="#">Categories</a>
+                            <div class="hamburger-double-dropdown">
+                                <a href="javascript:void(0);" onclick="navigateToGenreAdmin('romance')">Romance</a>
+                                <a href="javascript:void(0);" onclick="navigateToGenreAdmin('biography')">Biography</a>
+                                <a href="javascript:void(0);" onclick="navigateToGenreAdmin('crime')">Crime</a>
+                                <a  href="javascript:void(0);"onclick="navigateToGenreAdmin('fiction')">Fiction</a>
+                                <a  href="javascript:void(0);" onclick="navigateToGenreAdmin('historical fiction')">Historical Fiction</a>
+                                <a href="javascript:void(0);" onclick="navigateToGenreAdmin('self help')">Self Help</a>
+                                <a href="javascript:void(0);" onclick="navigateToGenreAdmin('young adult')">Young Adult</a>
+                            </div>
+                        </div>
+                        <a class="active" href="javascript:void(0);" onclick="navigateToAllGroups()">Groups</a>
+                        <div class="hoverable">
+
+                            <a class="active" href="#">More</a>
+                            <div class="hamburger-double-dropdown">
+                                <a href="javascript:void(0);" onclick="navigateToAdminOwnUserProfile()">Profile</a>
+                                <a href="javascript:void(0);" onclick="navigateToStatisticsAdmin()">Statistics</a>
+                                <a href="javascript:void(0);" onclick="navigateToRss()">RSS</a>
+                                <a href="javascript:void(0);" onclick="logout()">Log Out</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="buttons">
+                <a class="logo" href="javascript:void(0);" onclick="navigateToAdminPage('homepage')"><img src="boo.png"
+                                                                                                          alt="Ghost reading a book"></a>
+                <a class="active"  href="javascript:void(0);" onclick="navigateToAdminPage('homepage')">Posts</a>
+                <a class="active"  href="javascript:void(0);" onclick="navigateToAdminPage('users')">Users</a>
+                <a class="active"  href="javascript:void(0);" onclick="navigateToAdminPage('adminaddbookpage')">Add book</a>
+
+                <div class="dropdown">
+                    <button class="dropDownButton">Categories</button>
+                    <div class="dropdown-categories">
+                        <a href="javascript:void(0);" onclick="navigateToGenreAdmin('romance')">Romance</a>
+                        <a href="javascript:void(0);" onclick="navigateToGenreAdmin('biography')">Biography</a>
+                        <a href="javascript:void(0);" onclick="navigateToGenreAdmin('crime')">Crime</a>
+                        <a  href="javascript:void(0);" onclick="navigateToGenreAdmin('fiction')">Fiction</a>
+                        <a  href="javascript:void(0);" onclick="navigateToGenreAdmin('historical fiction')">Historical Fiction</a>
+                        <a href="javascript:void(0);" onclick="navigateToGenreAdmin('self help')">Self Help</a>
+                        <a href="javascript:void(0);" onclick="navigateToGenreAdmin('young adult')">Young Adult</a>
+                    </div>
+                </div>
+                <a class="active" href="javascript:void(0);" onclick="navigateToAllGroups()">Groups</a>
+                <div class="dropdown">
+                    <button class="dropDownButton">More</button>
+                    <div class="dropdown-categories">
+                        <a href="javascript:void(0);" onclick="navigateToAdminOwnUserProfile()">Profile</a>
+                        <a href="javascript:void(0);" onclick="navigateToStatisticsAdmin()">Statistics</a>
+                        <a href="javascript:void(0);" onclick="navigateToRss()">RSS</a>
+                        <a href="javascript:void(0);" onclick="logout()">Log Out</a>
+                    </div>
+                </div>
+
+            </div>
+            <div id="search-bar">
+                <input type="text" id="search-input" placeholder="Search...">
+            </div>
+        </nav>
+    </div>
+    <div id="content-div">
+
+        <div id="feed-div">
+            <div class="chart-div">
+                <p class="chart-name">Most Rated Books</p>
+                <canvas id="mostRatedBooks" class="chart"></canvas>
+                <div class="buttons-div">
+                    <button class="export-button" id="most-rated-doc">Export to DocBook</button>
+                    <button class="export-button" id="most-rated-csv">Export to CSV</button>
+                </div>
+            </div>
+            <div class="chart-div">
+                <p class="chart-name">Highest Rated Books</p>
+                <canvas id="highestRatedBooks" class="chart"></canvas>
+                <div class="buttons-div">
+                    <button class="export-button" id="highest-rated-doc">Export to DocBook</button>
+                    <button class="export-button" id="highest-rated-csv">Export to CSV</button>
+                </div>
+            </div>
+            <div class="chart-div">
+                <p class="chart-name">User who gave the most reviews</p>
+                <canvas id="usersMostReviews" class="chart"></canvas>
+                <div class="buttons-div">
+                    <button class="export-button" id="most-user-reviews-doc">Export to DocBook</button>
+                    <button class="export-button" id="most-user-reviews-csv">Export to CSV</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<footer id="main-footer">
+    <p>&copy; Proiect realizat de Savin Miruna si Tudurache Teodora, 2023, Tehnologii Web</p>
+</footer>
+</div>
+<script>
+    const firstChart = document.getElementById('mostRatedBooks').getContext('2d');
+    const secondChart = document.getElementById('highestRatedBooks').getContext('2d');
+    const thirdChart = document.getElementById('usersMostReviews').getContext('2d');
+
+    const dataForMostRatedBooks = {
+        labels: [<%- mostRatedBooks.map(book => `'${book.title}'`).join(',') %>],
+        datasets: [{
+            label: 'Likes',
+            data: [<%- mostRatedBooks.map(book => book.numberofratings).join(',') %>],
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+        }]
+    };
+
+    const dataForHighestRatedBooks = {
+        labels: [<%- highestRatedBooks.map(book => `'${book.title}'`).join(',') %>],
+        datasets: [{
+            label: 'Likes',
+            data: [<%- highestRatedBooks.map(book => book.rating).join(',') %>],
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+        }]
+    };
+    const dataForUsersMostReviews = {
+        labels: [<%- usersMostReviews.map(user => `'${user.username}'`).join(',') %>],
+        datasets: [{
+            label: 'Likes',
+            data: [<%- usersMostReviews.map(user => user.reviewsCount).join(',') %>],
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+        }]
+    };
+
+
+
+    const options = {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    };
+
+    new Chart(firstChart, {
+        type: 'bar',
+        data: dataForMostRatedBooks,
+        options: options
+    });
+    new Chart(secondChart, {
+        type: 'bar',
+        data: dataForHighestRatedBooks,
+        options: options
+    });
+    new Chart(thirdChart, {
+        type: 'bar',
+        data: dataForUsersMostReviews,
+        options: options
+    });
+</script>
+<script src="navigationLinks.js"></script>
+<script>
+    navigateToSearch();
+</script>
+<script src="bundle.js" type="module"></script>
+<script>
+    navigateToSearchAdmin();
+</script>
+</body>
+</html>

@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale1.0">
-    <title>Romance</title>
+    <title><%= genre %></title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <link rel="stylesheet" href="genres.css">
     <link rel="stylesheet" href="navigation.css">
+    <link rel="stylesheet" href="clasament.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,8 +28,8 @@
                 </a>
                 <div id="dropdown-menu">
                     <div class="menu-buttons">
-                        <a class="active" href="javascript:void(0);" onclick="navigateToPage('homepage')">Home</a>
-                        <a class="active" href="javascript:void(0);" onclick="navigateToPage('mybooks')">My Books</a>
+                        <a class="active"  href="javascript:void(0);" onclick="navigateToPage('homepage')">Home</a>
+                        <a class="active"  href="javascript:void(0);" onclick="navigateToMyBooks()">My Books</a>
                         <div class="hoverable">
 
                             <a class="active" href="#">Categories</a>
@@ -36,21 +37,22 @@
                                 <a href="javascript:void(0);" onclick="navigateToGenre('romance')">Romance</a>
                                 <a href="javascript:void(0);" onclick="navigateToGenre('biography')">Biography</a>
                                 <a href="javascript:void(0);" onclick="navigateToGenre('crime')">Crime</a>
-                                <a href="javascript:void(0);" onclick="navigateToGenre('fiction')">Fiction</a>
-                                <a href="javascript:void(0);" onclick="navigateToGenre('historical fiction')">Historical
-                                    Fiction</a>
+                                <a  href="javascript:void(0);"onclick="navigateToGenre('fiction')">Fiction</a>
+                                <a  href="javascript:void(0);" onclick="navigateToGenre('historical fiction')">Historical Fiction</a>
                                 <a href="javascript:void(0);" onclick="navigateToGenre('self help')">Self Help</a>
                                 <a href="javascript:void(0);" onclick="navigateToGenre('young adult')">Young Adult</a>
                             </div>
                         </div>
-                        <a class="active" href="javascript:void(0);" onclick="navigateToGroup('mygroups')">My Groups</a>
+                        <a class="active" href="javascript:void(0);" onclick="navigateToMyGroups()">My Groups</a>
                         <div class="hoverable">
 
                             <a class="active" href="#">More</a>
                             <div class="hamburger-double-dropdown">
-                                <a href="javascript:void(0);" onclick="navigateToPage('userpage')">Profile</a>
+                                <a href="javascript:void(0);" onclick="navigateToUserProfile()">Profile</a>
                                 <a href="javascript:void(0);" onclick="navigateToPage('about')">About</a>
                                 <a href="javascript:void(0);" onclick="navigateToPage('help')">Help</a>
+                                <a href="javascript:void(0);" onclick="navigateToRss()">RSS</a>
+                                <a href="javascript:void(0);" onclick="navigateToStatistics()">Statistics</a>
                                 <a href="javascript:void(0);" onclick="logout()">Log Out</a>
                             </div>
                         </div>
@@ -62,17 +64,16 @@
             <div class="buttons">
                 <a class="logo" href="javascript:void(0);" onclick="navigateToPage('homepage')"><img src="boo.png"
                                                                                                      alt="Ghost reading a book"></a>
-                <a class="active" href="javascript:void(0);" onclick="navigateToPage('homepage')">Home</a>
-                <a class="active" href="javascript:void(0);" onclick="navigateToPage('mybooks')">My Books</a>
+                <a class="active"  href="javascript:void(0);" onclick="navigateToPage('homepage')">Home</a>
+                <a class="active"  href="javascript:void(0);" onclick="navigateToMyBooks()">My Books</a>
                 <div class="dropdown">
                     <button class="dropDownButton">Categories</button>
                     <div class="dropdown-categories">
                         <a href="javascript:void(0);" onclick="navigateToGenre('romance')">Romance</a>
                         <a href="javascript:void(0);" onclick="navigateToGenre('biography')">Biography</a>
                         <a href="javascript:void(0);" onclick="navigateToGenre('crime')">Crime</a>
-                        <a href="javascript:void(0);" onclick="navigateToGenre('fiction')">Fiction</a>
-                        <a href="javascript:void(0);" onclick="navigateToGenre('historical fiction')">Historical
-                            Fiction</a>
+                        <a  href="javascript:void(0);"onclick="navigateToGenre('fiction')">Fiction</a>
+                        <a  href="javascript:void(0);" onclick="navigateToGenre('historical fiction')">Historical Fiction</a>
                         <a href="javascript:void(0);" onclick="navigateToGenre('self help')">Self Help</a>
                         <a href="javascript:void(0);" onclick="navigateToGenre('young adult')">Young Adult</a>
                     </div>
@@ -81,20 +82,22 @@
                 <div class="dropdown">
                     <button class="dropDownButton">More</button>
                     <div class="dropdown-categories">
-                        <a href="javascript:void(0);" onclick="navigateToPage('userpage')">Profile</a>
+                        <a href="javascript:void(0);" onclick="navigateToRecommendations()">Recommendations</a>
+                        <a href="javascript:void(0);" onclick="navigateToUserProfile()">Profile</a>
                         <a href="javascript:void(0);" onclick="navigateToPage('about')">About</a>
                         <a href="javascript:void(0);" onclick="navigateToPage('help')">Help</a>
+                        <a href="javascript:void(0);" onclick="navigateToRss()">RSS</a>
+                        <a href="javascript:void(0);" onclick="navigateToStatistics()">Statistics</a>
                         <a href="javascript:void(0);" onclick="logout()">Log Out</a>
                     </div>
                 </div>
 
             </div>
-            <div id="search-bar">
-                <input type="text" placeholder="Search...">
-            </div>
+            <form id="search-bar">
+                <input type="text" id = "search-input" placeholder="Search...">
+            </form>
         </nav>
     </div>
-
     <div id="content-div">
         <div class="row">
             <div id="clasament-div">
@@ -103,12 +106,15 @@
                 <nav class="linkuri-clasament">
                     <ol>
                         <% topBooks.forEach(function(topBook) { %>
-                            <li>
-                                <a href="javascript:void(0);" onclick="navigateToBook('<%= topBook.title %>')"
-                                   class="book-name">
-                                    <%=topBook.title %>
+                        <li>
+                            <div class="book">
+                                <p class="related-book-id" style="display: none "><%= topBook.id %></p>
+                                <a class="navigate-to-book"
+                                   class="book-name" style = "cursor: pointer">
+                                    <%= topBook.title %>
                                 </a>
-                            </li>
+                            </div>
+                        </li>
                         <% }) %>
                     </ol>
                     <!-- <h3>
@@ -125,12 +131,12 @@
                             </div>
 
                             <div class="post-text">
-                                <div class="book-author-and-title">
-                                    <p class="book-title"><a href="javascript:void(0);"
-                                                             onclick="navigateToBook('<%= book.title %>')"
-                                                             class="book-title-link"><%= book.title %></a></p>
+                                <div class="book-author-and-title, book">
+                                    <p class="related-book-id" style="display: none "><%= book.id %></p>
+                                    <p class="book-title" ><a class="navigate-to-book"
+                                                             class="book-title-link" style = "cursor: pointer"><%= book.title %></a></p>
                                     <p class="book-author"><a href="javascript:void(0);"
-                                                              onclick="navigateToAuthor('<%=book.author%>')"
+                                                              onclick="navigateToAuthor('<%= book.author %>')"
                                                               class="book-author-link">by <%= book.author %></a>
                                     </p>
                                 </div>
@@ -169,5 +175,8 @@
 
 <script src="genres.js"></script>
 <script src="navigationLinks.js"></script>
+<script>
+    navigateToSearch();
+</script>
 </body>
 </html>

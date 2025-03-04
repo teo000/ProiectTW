@@ -7,7 +7,8 @@ var concat = require('concat-stream')
 const jwt = require('jsonwebtoken');
 const {getUserFromCookie} = require("../../helpers/TokenAuthenticator");
 
-function getStringJson(text) {
+const reviewRepository = require("../repositories/ReviewRepository");
+function getStringJson(text){
     var json = {}, text = text.split("&");
     for (let i in text) {
         let box = text[i].split("=");
@@ -89,6 +90,7 @@ const createUser = async (req, res) => {
                 console.log(error);
                 res.writeHead(500, {'Content-Type': 'application/json'});
                 res.end(JSON.stringify({error: 'Internal Server Error'}));
+                res.end(JSON.stringify({error: 'Internal Server Error'}));
             }
         });
     } catch (error) {
@@ -97,6 +99,18 @@ const createUser = async (req, res) => {
         res.end(JSON.stringify({error: 'Internal Server Error'}));
     }
 };
+const deleteUserByUsername= async(req,res,username) =>{
+    try{
+        const user = await userRepository.deleteUserByUsername(username);
+        res.writeHead(200, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify(user));
+    }
+    catch (error){
+        console.log(error);
+        res.writeHead(500, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify({error: 'Internal Server Error'}));
+    }
+}
 
 const deleteUser = async (req, res) => {
     try {
@@ -110,10 +124,25 @@ const deleteUser = async (req, res) => {
         res.end(JSON.stringify({error: 'Internal Server Error'}));
     }
 }
+const changeResetPasswordCode = async (req, res) => {
+    try {
+        const user = getUserFromCookie(req, res);
+        const code = Math.floor(Math.random()*(9999999999-1000000000));
+        await userRepository.addResetPasswordCode(user.ID,code);
+        res.writeHead(200, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify({resetCode: code}));
+    } catch (error) {
+        console.log(error);
+        res.writeHead(500, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify({error: 'Internal Server Error'}));
+    }
+}
 
 module.exports = {
     getAllUsers,
     getUser,
     createUser,
-    deleteUser
+    deleteUser,
+    deleteUserByUsername,
+    changeResetPasswordCode
 };

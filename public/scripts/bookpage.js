@@ -61,6 +61,7 @@ stars.forEach(star =>{
     star.addEventListener('click', ()=>{
         const rating = star.value;
         sendRating(rating);
+
     })
 })
 
@@ -83,7 +84,11 @@ function sendRating(rating){
     })
         .then(response =>{
             if(response.ok){
-                Swal.fire('Book added to shelf successfully!', '', 'success');
+                Swal.fire('Book added to shelf successfully!', '', 'success').then((result) => {
+                    if (result.isConfirmed) {
+                        location.reload();
+                    }
+                });
             }
             else{
                 response.json().then(data => {
@@ -145,7 +150,11 @@ function addToShelf(shelfName){
         .then(response =>{
             if(response.ok){
                 console.log('ok');
-                Swal.fire('Book added to shelf successfully!', '', 'success');
+                Swal.fire('Book added to shelf successfully!', '', 'success').then((result) => {
+                    if (result.isConfirmed) {
+                        location.reload();
+                    }
+                });
             }
             else{
                 response.json().then(data => {
@@ -206,7 +215,11 @@ function deleteFromShelf(shelf){
     })
         .then(response =>{
             if(response.ok){
-                Swal.fire('Book removed from shelf!', 'boo', 'success');
+                Swal.fire('Book removed from shelf!', '', 'success').then((result) => {
+                    if (result.isConfirmed) {
+                        location.reload();
+                    }
+                });
             }
             else{
                 response.json().then(data => {
@@ -235,15 +248,16 @@ document.addEventListener('DOMContentLoaded', function() {
         isCurrentlyReading = true;
     if(wantButton.classList.contains('active'))
         isWantToRead = true;
-        isWantToRead = true;
-
+    console.log("read:" + isRead + "want to read" + isWantToRead + "currently " + isCurrentlyReading)
     var ratingElement = document.getElementById('user-rating');
     var userRating = parseFloat(ratingElement.textContent);
     loadStars(userRating);
+
 });
 
 function loadStars(rating){
     const inputs = Array.from(document.querySelectorAll('#adjustable-rating input'));
+    console.log(rating);
     const reversedInputs = inputs.reverse();
     reversedInputs.forEach((input,index) =>{
         const starInput = reversedInputs[index];
@@ -273,7 +287,11 @@ addButton.addEventListener('click', ()=>{
         .then(response =>{
             if(response.ok){
                 console.log('ok');
-                Swal.fire('Book review successfully added', '', 'success');
+                Swal.fire('Book review successfully added', '', 'success').then((result) => {
+                    if (result.isConfirmed) {
+                        location.reload();
+                    }
+                });
             }
             else{
                 response.json().then(data => {

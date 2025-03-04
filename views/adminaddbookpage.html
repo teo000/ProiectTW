@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" href="../public/css/adminaddbookpage.css">
+    <link rel="stylesheet" href="../public/css/navigation.css">
+
+    <title>Boo!</title>
+</head>
+<body>
+<div id="wrapper-div">
+    <div id="navigation-div">
+        <nav>
+            <div id="toggle-menu">
+
+                <a href="#" class="toggle-button">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </a>
+                <div id="dropdown-menu">
+                    <div class="menu-buttons">
+                        <a class="active"  href="javascript:void(0);" onclick="navigateToAdminPage('homepage')">Posts</a>
+                        <a class="active"  href="javascript:void(0);" onclick="navigateToAdminPage('users')">Users</a>
+                        <a class="active"  href="javascript:void(0);" onclick="navigateToAdminPage('adminaddbookpage')">Add book</a>
+
+                        <div class="hoverable">
+
+                            <a class="active" href="#">Categories</a>
+                            <div class="hamburger-double-dropdown">
+                                <a href="javascript:void(0);" onclick="navigateToGenreAdmin('romance')">Romance</a>
+                                <a href="javascript:void(0);" onclick="navigateToGenreAdmin('biography')">Biography</a>
+                                <a href="javascript:void(0);" onclick="navigateToGenreAdmin('crime')">Crime</a>
+                                <a  href="javascript:void(0);"onclick="navigateToGenreAdmin('fiction')">Fiction</a>
+                                <a  href="javascript:void(0);" onclick="navigateToGenreAdmin('historical fiction')">Historical Fiction</a>
+                                <a href="javascript:void(0);" onclick="navigateToGenreAdmin('self help')">Self Help</a>
+                                <a href="javascript:void(0);" onclick="navigateToGenreAdmin('young adult')">Young Adult</a>
+                            </div>
+                        </div>
+                        <a class="active" href="javascript:void(0);" onclick="navigateToAllGroups()">Groups</a>
+                        <div class="hoverable">
+
+                            <a class="active" href="#">More</a>
+                            <div class="hamburger-double-dropdown">
+                                <a href="javascript:void(0);" onclick="navigateToAdminOwnUserProfile()">Profile</a>
+                                <a href="javascript:void(0);" onclick="navigateToStatisticsAdmin()">Statistics</a>
+                                <a href="javascript:void(0);" onclick="navigateToRss()">RSS</a>
+                                <a href="javascript:void(0);" onclick="logout()">Log Out</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="buttons">
+                <a class="logo" href="javascript:void(0);" onclick="navigateToAdminPage('homepage')"><img src="boo.png"
+                                                                                                          alt="Ghost reading a book"></a>
+                <a class="active"  href="javascript:void(0);" onclick="navigateToAdminPage('homepage')">Posts</a>
+                <a class="active"  href="javascript:void(0);" onclick="navigateToAdminPage('users')">Users</a>
+                <a class="active"  href="javascript:void(0);" onclick="navigateToAdminPage('adminaddbookpage')">Add book</a>
+
+                <div class="dropdown">
+                    <button class="dropDownButton">Categories</button>
+                    <div class="dropdown-categories">
+                        <a href="javascript:void(0);" onclick="navigateToGenreAdmin('romance')">Romance</a>
+                        <a href="javascript:void(0);" onclick="navigateToGenreAdmin('biography')">Biography</a>
+                        <a href="javascript:void(0);" onclick="navigateToGenreAdmin('crime')">Crime</a>
+                        <a  href="javascript:void(0);" onclick="navigateToGenreAdmin('fiction')">Fiction</a>
+                        <a  href="javascript:void(0);" onclick="navigateToGenreAdmin('historical fiction')">Historical Fiction</a>
+                        <a href="javascript:void(0);" onclick="navigateToGenreAdmin('self help')">Self Help</a>
+                        <a href="javascript:void(0);" onclick="navigateToGenreAdmin('young adult')">Young Adult</a>
+                    </div>
+                </div>
+                <a class="active" href="javascript:void(0);" onclick="navigateToAllGroups()">Groups</a>
+                <div class="dropdown">
+                    <button class="dropDownButton">More</button>
+                    <div class="dropdown-categories">
+                        <a href="javascript:void(0);" onclick="navigateToAdminOwnUserProfile()">Profile</a>
+                        <a href="javascript:void(0);" onclick="navigateToStatisticsAdmin()">Statistics</a>
+                        <a href="javascript:void(0);" onclick="navigateToRss()">RSS</a>
+                        <a href="javascript:void(0);" onclick="logout()">Log Out</a>
+                    </div>
+                </div>
+
+            </div>
+            <div id="search-bar">
+                <input type="text" id="search-input" placeholder="Search...">
+            </div>
+        </nav>
+    </div>
+
+    <div id="content-wrapper">
+        <div id="content">
+            <h1>Add book</h1>
+            <hr>
+            <form id="addBookForm">
+                <div class="input-class">
+                    <label>
+                    <input type="text" id = "title" placeholder="Title">
+                    </label>
+                </div>
+                <div class="input-class">
+                    <label>
+                        <input type="text" id = "author" placeholder="Author">
+                    </label>
+                </div>
+<!--                genres-->
+
+                <div class="input-class">
+                    <label>
+                        <textarea id="description" placeholder="Description"></textarea>
+                    </label>
+                </div>
+                <div class="input-class">
+                    <label>
+                        <input type="text" id = "edition" placeholder="Edition">
+                    </label>
+                </div>
+                <div class="input-class">
+                    <label>
+                        <input type="text" id = "publisher" placeholder="Publisher">
+                    </label>
+                </div>
+                <div class="input-class">
+                    <label>
+                        <input type="number" id = "year" placeholder="Year">
+                    </label>
+                </div>
+                <div class="input-class">
+                    <label>
+                        <input type="text" id = "genres" placeholder="Genre 1, Genre 2, ...">
+                    </label>
+                </div>
+                <div class="input-class">
+                    <label>
+                        <input type="text" id = "coverimg" placeholder="Cover image">
+                    </label>
+                </div>
+                <button type = "submit" id="addBook"> Submit </button>
+            </form>
+        </div>
+    </div>
+
+    <footer id = "main-footer">
+        <p>&copy; Proiect realizat de Savin Miruna si Tudurache Teodora, 2023, Tehnologii Web</p>
+    </footer>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src ="navigationLinks.js"></script>
+<script src ="adminaddbookpage.js"></script>
+</body>
+</html>

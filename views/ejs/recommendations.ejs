@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale1.0">
+    <title>Romance</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" href="genres.css">
+    <link rel="stylesheet" href="navigation.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
+    <style>
+        #no-books-found{
+            color:white;
+            margin-top: 20px;
+            display: flex;
+            align-self: center;
+            font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+<div id="wrapper-div">
+    <div id="navigation-div">
+        <nav>
+            <div id="toggle-menu">
+
+                <a href="#" class="toggle-button">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </a>
+                <div id="dropdown-menu">
+                    <div class="menu-buttons">
+                        <a class="active"  href="javascript:void(0);" onclick="navigateToPage('homepage')">Home</a>
+                        <a class="active"  href="javascript:void(0);" onclick="navigateToMyBooks()">My Books</a>
+                        <div class="hoverable">
+
+                            <a class="active" href="#">Categories</a>
+                            <div class="hamburger-double-dropdown">
+                                <a href="javascript:void(0);" onclick="navigateToGenre('romance')">Romance</a>
+                                <a href="javascript:void(0);" onclick="navigateToGenre('biography')">Biography</a>
+                                <a href="javascript:void(0);" onclick="navigateToGenre('crime')">Crime</a>
+                                <a  href="javascript:void(0);"onclick="navigateToGenre('fiction')">Fiction</a>
+                                <a  href="javascript:void(0);" onclick="navigateToGenre('historical fiction')">Historical Fiction</a>
+                                <a href="javascript:void(0);" onclick="navigateToGenre('self help')">Self Help</a>
+                                <a href="javascript:void(0);" onclick="navigateToGenre('young adult')">Young Adult</a>
+                            </div>
+                        </div>
+                        <a class="active" href="javascript:void(0);" onclick="navigateToMyGroups()">My Groups</a>
+                        <div class="hoverable">
+
+                            <a class="active" href="#">More</a>
+                            <div class="hamburger-double-dropdown">
+                                <a href="javascript:void(0);" onclick="navigateToUserProfile()">Profile</a>
+                                <a href="javascript:void(0);" onclick="navigateToPage('about')">About</a>
+                                <a href="javascript:void(0);" onclick="navigateToPage('help')">Help</a>
+                                <a href="javascript:void(0);" onclick="navigateToRss()">RSS</a>
+                                <a href="javascript:void(0);" onclick="navigateToStatistics()">Statistics</a>
+                                <a href="javascript:void(0);" onclick="logout()">Log Out</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="buttons">
+                <a class="logo" href="javascript:void(0);" onclick="navigateToPage('homepage')"><img src="boo.png"
+                                                                                                     alt="Ghost reading a book"></a>
+                <a class="active"  href="javascript:void(0);" onclick="navigateToPage('homepage')">Home</a>
+                <a class="active"  href="javascript:void(0);" onclick="navigateToMyBooks()">My Books</a>
+                <div class="dropdown">
+                    <button class="dropDownButton">Categories</button>
+                    <div class="dropdown-categories">
+                        <a href="javascript:void(0);" onclick="navigateToGenre('romance')">Romance</a>
+                        <a href="javascript:void(0);" onclick="navigateToGenre('biography')">Biography</a>
+                        <a href="javascript:void(0);" onclick="navigateToGenre('crime')">Crime</a>
+                        <a  href="javascript:void(0);"onclick="navigateToGenre('fiction')">Fiction</a>
+                        <a  href="javascript:void(0);" onclick="navigateToGenre('historical fiction')">Historical Fiction</a>
+                        <a href="javascript:void(0);" onclick="navigateToGenre('self help')">Self Help</a>
+                        <a href="javascript:void(0);" onclick="navigateToGenre('young adult')">Young Adult</a>
+                    </div>
+                </div>
+                <a class="active" href="javascript:void(0);" onclick="navigateToMyGroups()">My Groups</a>
+                <div class="dropdown">
+                    <button class="dropDownButton">More</button>
+                    <div class="dropdown-categories">
+                        <a href="javascript:void(0);" onclick="navigateToRecommendations()">Recommendations</a>
+                        <a href="javascript:void(0);" onclick="navigateToUserProfile()">Profile</a>
+                        <a href="javascript:void(0);" onclick="navigateToPage('about')">About</a>
+                        <a href="javascript:void(0);" onclick="navigateToPage('help')">Help</a>
+                        <a href="javascript:void(0);" onclick="navigateToRss()">RSS</a>
+                        <a href="javascript:void(0);" onclick="navigateToStatistics()">Statistics</a>
+                        <a href="javascript:void(0);" onclick="logout()">Log Out</a>
+                    </div>
+                </div>
+
+            </div>
+            <form id="search-bar">
+                <input type="text" id = "search-input" placeholder="Search...">
+            </form>
+        </nav>
+    </div>
+    <div id="content-div">
+        <div class="row">
+            <div id="feed-div" style = "margin-left: 20vw">
+                <div id=template>
+                    <% if (books.length === 0) { %>
+                        <p id  ="no-books-found">We can't make you any book recommendations yet :(</p>
+                    <% } else { %>
+                        <% books.forEach(function(book) { %>
+                            <div class="book-container">
+                                <div class="book-photo">
+                                    <img src="<%= book.coverimg %>" alt="book cover">
+                                </div>
+
+                                <div class="post-text">
+                                    <div class="book-author-and-title, book">
+                                        <p class="related-book-id" style="display: none "><%= book.id %></p>
+                                        <p class="book-title" ><a class="navigate-to-book"
+                                                                  class="book-title-link" style = "cursor: pointer"><%= book.title %></a></p>
+                                        <p class="book-author"><a href="javascript:void(0);"
+                                                                  onclick="navigateToAuthor('<%= book.author %>')"
+                                                                  class="book-author-link">by <%= book.author %></a>
+                                        </p>
+                                    </div>
+                                    <div class="star-rating">
+                                        <div class="preset-rating">
+                                            <div class="empty-stars"></div>
+                                            <div class="full-stars" style="width: <%= book.avgrating * 20 %>%"></div>
+                                        </div>
+                                        <p>
+                                            <%= book.rating %>
+                                        </p>
+                                    </div>
+
+                                    <div>
+                                        <p class="book-description"><%= book.description %></p>
+                                        <button onclick="readMore(this)" class="more-button">Read More</button>
+                                    </div>
+                                </div>
+                            </div>
+                        <% }); %>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <footer id="main-footer">
+        <p>&copy; Proiect realizat de Savin Miruna si Tudurache Teodora, 2023, Tehnologii Web</p>
+    </footer>
+</div>
+
+<script src="genres.js"></script>
+<script src="navigationLinks.js"></script>
+<script>
+    navigateToSearch();
+</script>
+</body>
+</html>
